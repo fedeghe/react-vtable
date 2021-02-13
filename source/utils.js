@@ -1,10 +1,11 @@
 let id = 0
+let strid = 0
 const generators = {
     int: () => {
         return parseInt(Math.random() * 1000, 10)
     },
     str: () => {
-        return 'a random string'
+        return `a random string ${++strid}`
     },
     date: () => {
         return `${new Date()}`

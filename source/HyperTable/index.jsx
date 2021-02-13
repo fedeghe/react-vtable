@@ -21,7 +21,15 @@ const HyperTable = ({
         {caption && <caption style={{'captionSide': caption.side || 'top', 'textAlign': caption.align || 'center'}}>{caption.text}</caption>}
             <thead className="TableHeader">
                 <tr>{
-                    columns.map((col, k) => (<th key={`h${k}`} className="TableHeaderCell">{col.key}</th>))
+                    columns.map((col, k) => (
+                        <th key={`h${k}`}
+                            className="TableHeaderCell"
+                        >{
+                            'headerComponent' in col
+                            ? col.headerComponent(col.key)
+                            : col.key
+                        }</th>
+                    ))
                 }</tr>
             </thead>
             
@@ -55,7 +63,8 @@ const HyperTable = ({
                                 }}
                             >{
                                 'component' in col
-                                ? col.component(row)
+                                // ? col.component(row, col.key)
+                                ? col.component(row, col.key)
                                 : row[col.key] || 'none'
                             }</td>
                         ))
@@ -65,7 +74,18 @@ const HyperTable = ({
 
             {footers && <tfoot className="TableFooter">
                 <tr>{
-                    footers.map((footer, k) => (<th key={`h${k}`} className="TableFooterCell">{footer.key}</th>))
+                    footers.map((footer, k) => (
+                        <th key={`h${k}`}
+                            className="TableFooterCell"
+                            onClick={e => {
+                                footer.onClick && footer.onClick.call(e, e, footer)
+                            }}
+                        >{
+                            'component' in footer
+                            ? footer.component(footer)
+                            : footer.key
+                        }</th>
+                    ))
                 }</tr>
             </tfoot>}
         </table>

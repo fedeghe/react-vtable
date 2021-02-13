@@ -15,7 +15,9 @@ const props = {
     },{
         key: 'entityid',
     },{
-        key: 'name'
+        key: 'name',
+        headerComponent: (key) => <span>{key}(comp.)</span>,
+        component: (col, key) => <span>{col[key]} (comp.)</span>
     },{
         key: 'date'
     },{
@@ -27,7 +29,12 @@ const props = {
     footers: [{
         key: 'id',
     },{
-        key: 'entityid'
+        key: 'entityid',
+        onClick: (o, col) => {
+            console.log('click footer colum: ', o)
+            console.log('col: ', col)
+        },
+        component: ({key}) => <span>{key} (comp.)</span>
     },{
         key: 'name'
     },{
@@ -35,18 +42,18 @@ const props = {
     },{
         key: 'actions'
     }],
-    rowClick: (e, row) => {
-        console.log('row click', row)
-    },
+    // rowClick: (e, row) => {
+    //     console.log('row click', row)
+    // },
     // rowEnter: (e, row) => {
     //     console.log('row entered', row)
     // },
     // rowLeave: (e, row) => {
     //     console.log('row leave', row)
     // },
-    cellClick: (e, col, row) => {
-        console.log('cell click', col, row)
-    },
+    // cellClick: (e, col, row) => {
+    //     console.log('cell click', col, row)
+    // },
     // cellEnter: (e, col, row) => {
     //     console.log('cell enter', col, row)
     // },
@@ -64,7 +71,7 @@ const props = {
         text: 'This is the caption',
     },
     height: 500,
-    width: 800
+    width: 1200
 }
 
 export default () => {
