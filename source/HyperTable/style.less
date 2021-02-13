@@ -1,0 +1,22 @@
+.Table {
+    border-collapse: collapse;
+    th {
+        text-align: left;
+    }
+}
+thead, tfoot, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+tr {
+    min-height:2em;
+}
+tbody {
+    display: block;
+    overflow-y: auto;
+    table-layout: fixed;
+
+    // prevent safari scroll
+    overflow-x: hidden; 
+}
