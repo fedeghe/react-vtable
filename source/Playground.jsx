@@ -50,7 +50,7 @@ const props = {
         width: '80px'
 
     }],
-    crossHighlight: 'TableCrossHighlight',
+    // crossHighlight: 'TableCrossHighlight',
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',
     // cellHightlight: 'TableCellHighlight',
@@ -74,14 +74,15 @@ const props = {
     height: 400,
     width: 1200,
 
-    // columnClick: (e, col, row) => {
-    //     console.log('column click', col, row)
+        
+    // cellClick: (e, col, row) => {
+    //     console.log('cell click', col, row)
     // },
-    // columnEnter: (e, col) => {
-    //     console.log('column entered', col)
+    // cellEnter: (e, col, row) => {
+    //     console.log('cell enter', col, row)
     // },
-    // columnLeave: (e, col) => {
-    //     console.log('column leave', col)
+    // cellLeave: (e, col, row) => {
+    //     console.log('cell leave', col, row)
     // },
     //----------------------------------------
     // rowClick: (e, row) => {
@@ -94,15 +95,17 @@ const props = {
     //     console.log('row leave', row)
     // },
     //----------------------------------------
-    // cellClick: (e, col, row) => {
-    //     console.log('cell click', col, row)
+    // columnClick: (e, col, row) => {
+    //     console.log('column click', col, row)
     // },
-    // cellEnter: (e, col, row) => {
-    //     console.log('cell enter', col, row)
+    // columnEnter: (e, col) => {
+    //     console.log('column entered', col)
     // },
-    // cellLeave: (e, col, row) => {
-    //     console.log('cell leave', col, row)
+    // columnLeave: (e, col) => {
+    //     console.log('column leave', col)
     // },
+
+
 }
 
 export default () => {
