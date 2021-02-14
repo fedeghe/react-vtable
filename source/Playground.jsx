@@ -11,7 +11,12 @@ const props = {
             console.log('click id colum: ', o)
             console.log('col: ', col)
             console.log('row: ', row)
-        }
+        },
+        sorting: {
+            sort: versus => (rowa, rowb) =>
+                rowa.id > rowb.id ? -versus : versus
+            ,
+        } 
     },{
         key: 'entityid',
         footerLabel: '--entityid--'
@@ -69,7 +74,7 @@ const props = {
     caption: {
         text: 'This is the caption',
     },
-    height: 500,
+    height: 400,
     width: 1200
 }
 

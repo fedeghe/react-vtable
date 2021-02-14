@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useReducer} from 'react'
 
 import './style.less'
 
@@ -18,6 +18,18 @@ const HyperTable = ({
     cellEnter = () => {},
     cellLeave = () => {},
 }) => {
+    const reducer = (oldState, action) =>{
+        const { payload, type } = action
+        switch (type) {
+          case 'sortBy':
+            const r = [...oldState].sort(payload.sort)
+            return r
+          default:
+            return oldState
+        }
+      }
+    const [state, dispatch] = useReducer(reducer, data)
+
     return <div className="TableWrapper">
         <table style={{width: width}} className="Table" border="0" cellSpacing="0" >
             {
@@ -26,22 +38,43 @@ const HyperTable = ({
                 className="TableCaption"
             >{caption.text}</caption>
             }
-            <thead className="TableHeader">
+            <thead className="TableHeader ">
                 <tr>{
                     columns.map((col, k) => (
                         <th key={`h${k}`}
-                            className="TableHeaderCell"
+                            className="TableHeaderCell tableheadercell"
                         >{
                             'headerComponent' in col
                             ? col.headerComponent(col, 'key')
                             : col.headerLabel || col.key
+                        }{
+                            col.sorting && (
+                                <div className="tableheadercellfilter">
+                                    <div  onClick={() => 
+                                        dispatch({
+                                            type: 'sortBy',
+                                            payload: {
+                                                sort: col.sorting.sort(1),
+                                            }
+                                        })
+                                    }>▲</div>
+                                    <div onClick={() => 
+                                        dispatch({
+                                            type: 'sortBy',
+                                            payload: {
+                                                sort: col.sorting.sort(-1),
+                                            }
+                                        })
+                                    }>▼</div>
+                                </div>
+                            )
                         }</th>
                     ))
                 }</tr>
             </thead>
             
             <tbody className="TableBody" style={{maxHeight: height}}>
-                {data.map((row, i) => (
+                {state.map((row, i) => (
                     <tr key={`r${i}`}
                         className="TableRow"
                         style={{verticalAlign: rowVerticalalign || 'top'}}
@@ -100,6 +133,7 @@ const HyperTable = ({
                 </tfoot>
             }
         </table>
+        <pre>{JSON.stringify(state, null, 2)}</pre>
     </div>
         
 }
