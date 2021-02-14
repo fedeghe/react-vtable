@@ -142,7 +142,6 @@ const HyperTable = ({
                                     }}
                                 >{
                                         'component' in col
-                                            // ? col.component(row, col.key)
                                             ? col.component(row, col.key)
                                             : row[col.key] || 'none'
                                     }</td>
