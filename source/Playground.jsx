@@ -19,7 +19,12 @@ const props = {
         } 
     },{
         key: 'entityid',
-        footerLabel: '--entityid--'
+        footerLabel: '--entityid--',
+        sorting: {
+            sort: versus => (rowa, rowb) =>
+                parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
+            ,
+        } 
     },{
         key: 'name',
         headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
