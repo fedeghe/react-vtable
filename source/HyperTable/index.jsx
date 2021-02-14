@@ -23,11 +23,11 @@ const HyperTable = ({
         const { payload, type } = action
         switch (type) {
             case 'sortBy':
-                const r = [...oldState].sort(payload.sort);
-                return r;
+                return [...oldState].sort(payload.sort);
             case 'filter': 
-                const t = [...data].filter(row => row[payload.field].includes(payload.value));
-                return t;
+                return [...data].filter(
+                    row => `${row[payload.field]}`.includes(`${payload.value}`)
+                );
             default:
                 return oldState
         }

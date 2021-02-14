@@ -21,12 +21,15 @@ const props = {
     },{
         key: 'entityid',
         footerLabel: '--entityid--',
+        filter: (col, filter) => {
+            return <input type="text" onChange={e => filter(e.target.value)}/>
+        },
         sorting: {
             sort: versus => (rowa, rowb) =>
                 parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
             ,
         },
-        width:'10%'
+    
     },{
         key: 'name',
         filter: (col, filter) => {
