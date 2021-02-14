@@ -49,7 +49,9 @@ const props = {
         width: '80px'
 
     }],
-    crossHighlight: 'TableCellHighlight',
+    // crossHighlight: 'TableCellHighlight',
+    // rowHighlight: 'TableCellHighlight',
+    // columnHighlight: 'TableCellHighlight2',
     
     rowVerticalAlign: 'top',
     data: generateRowData([

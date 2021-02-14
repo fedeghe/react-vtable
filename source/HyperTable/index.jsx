@@ -12,6 +12,8 @@ const HyperTable = ({
     height, width,
     rowVerticalAlign,
     crossHighlight,
+    columnHighlight,
+    rowHighlight,
     columnClick = () => { },
     columnEnter = () => { },
     columnLeave = () => { },
@@ -93,7 +95,7 @@ const HyperTable = ({
             <tbody className="TableBody" style={{ maxHeight: height }}>
                 {rows.map((row, i) => (
                     <tr key={`r${i}`}
-                        className={`TableRow ${activeRow === row._ID ? crossHighlight : ''}`}
+                        className={`TableRow ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
                         style={{ verticalAlign: rowVerticalAlign || 'top' }}
                         onClick={e => {
                             rowClick.call(e, e, row)
@@ -107,7 +109,7 @@ const HyperTable = ({
                     >{
                             columns.map((col, j) => (
                                 <td key={`r${i}c${j}`}
-                                    className={`TableCell ${activeCol === col.key ? crossHighlight : ''}`}
+                                    className={`TableCell ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''}`}
                                     style={col.width && { width: col.width }}
                                     onClick={e => {
                                         col.onClick && col.onClick.call(e, e, col, row);
