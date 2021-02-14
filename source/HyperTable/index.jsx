@@ -1,5 +1,7 @@
 import React, { useState, useReducer } from 'react'
 
+import reducerFactory from './reducer'
+
 import './style.less'
 
 const HyperTable = ({
@@ -8,7 +10,8 @@ const HyperTable = ({
     captionTop,
     captionBottom,
     height, width,
-    rowVerticalalign,
+    rowVerticalAlign,
+    crossHighlight,
     columnClick = () => { },
     columnEnter = () => { },
     columnLeave = () => { },
@@ -19,20 +22,9 @@ const HyperTable = ({
     cellEnter = () => { },
     cellLeave = () => { },
 }) => {
-    const reducer = (oldState, action) => {
-        const { payload, type } = action
-        switch (type) {
-            case 'sortBy':
-                return [...oldState].sort(payload.sort);
-            case 'filter': 
-                return [...data].filter(
-                    row => `${row[payload.field]}`.includes(`${payload.value}`)
-                );
-            default:
-                return oldState
-        }
-    }
-    const [state, dispatch] = useReducer(reducer, data)
+    const { reducer, init } = reducerFactory()
+    const [state, dispatch] = useReducer(reducer, init(data))
+    const {rows} = state
 
     return <div className="TableWrapper">
         <table style={{ width: width }} className="Table" border="0" cellSpacing="0" >
@@ -52,7 +44,7 @@ const HyperTable = ({
                 <tr>{
                     columns.map((col, k) => (
                         <th key={`h${k}`}
-                            className="TableHeaderCell tableheadercell"
+                            className={`TableHeaderCell tableheadercell`}
                             style={col.width && { width: col.width }}
                         >
                             <div className="tableheaderwrapper">
@@ -99,10 +91,10 @@ const HyperTable = ({
             </thead>
 
             <tbody className="TableBody" style={{ maxHeight: height }}>
-                {state.map((row, i) => (
+                {rows.map((row, i) => (
                     <tr key={`r${i}`}
-                        className="TableRow"
-                        style={{ verticalAlign: rowVerticalalign || 'top' }}
+                        className={`TableRow ${crossHighlight && 'crossHL'}`}
+                        style={{ verticalAlign: rowVerticalAlign || 'top' }}
                         onClick={e => {
                             rowClick.call(e, e, row)
                         }}
@@ -115,20 +107,20 @@ const HyperTable = ({
                     >{
                             columns.map((col, j) => (
                                 <td key={`r${i}c${j}`}
-                                    className="TableCell"
+                                    className={`TableCell ${crossHighlight && 'crossHL'}`}
                                     style={col.width && { width: col.width }}
                                     onClick={e => {
-                                        col.onClick && col.onClick.call(e, e, col, row)
-                                        cellClick.call(e, e, col, row)
-                                        columnClick.call(e, e, col, row)
+                                        col.onClick && col.onClick.call(e, e, col, row);
+                                        cellClick.call(e, e, col, row);
+                                        columnClick.call(e, e, col, row);
                                     }}
                                     onMouseEnter={e => {
-                                        cellEnter.call(e, e, row)
-                                        columnEnter.call(e, e, col)
+                                        cellEnter.call(e, e, row);
+                                        columnEnter.call(e, e, col);
                                     }}
                                     onMouseLeave={e => {
-                                        cellLeave.call(e, e, row)
-                                        columnLeave.call(e, e, col)
+                                        cellLeave.call(e, e, row);
+                                        columnLeave.call(e, e, col);
                                     }}
                                 >{
                                         'component' in col

@@ -49,7 +49,8 @@ const props = {
         width: '80px'
 
     }],
-    rowVerticalalign: 'top',
+    crossHighlight: true,
+    rowVerticalAlign: 'top',
     data: generateRowData([
         {key: 'id', type: 'id'},
         {key: 'entityid', type: 'int'},
