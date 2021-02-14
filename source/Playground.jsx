@@ -16,7 +16,8 @@ const props = {
             sort: versus => (rowa, rowb) =>
                 rowa.id > rowb.id ? -versus : versus
             ,
-        } 
+        },
+        width:'5%'
     },{
         key: 'entityid',
         footerLabel: '--entityid--',
@@ -24,9 +25,13 @@ const props = {
             sort: versus => (rowa, rowb) =>
                 parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
             ,
-        } 
+        },
+        width:'10%'
     },{
         key: 'name',
+        filter: (col, filter) => {
+            return <input type="text" onChange={e => filter(e.target.value)}/>
+        },
         headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
         component: (col, key) => <span>{col[key]} (comp.)</span>,
         footerComponent: (col, key) => <span>{col[key]} (comp.)</span>
@@ -37,8 +42,27 @@ const props = {
         headerLabel: 'my actions',
         component: o => <button onClick={() => {
             console.log(o)
-        }}>what</button>
+        }}>what</button>,
+        width: '80px'
+
     }],
+    rowVerticalalign: 'top',
+    data: generateRowData([
+        {key: 'id', type: 'id'},
+        {key: 'entityid', type: 'int'},
+        {key: 'name', type: 'str'},
+        {key: 'date', type: 'date'},
+    ], 50),
+    captionTop: {
+        text: 'This is top caption',
+        className: 'tableCaptionUp'
+    },
+    captionBottom: {
+        text: 'This is bottom caption',
+        className: 'tableCaptionDown'
+    },
+    height: 400,
+    width: 1200,
 
     // columnClick: (e, col, row) => {
     //     console.log('column click', col, row)
@@ -49,7 +73,7 @@ const props = {
     // columnLeave: (e, col) => {
     //     console.log('column leave', col)
     // },
-
+    //----------------------------------------
     // rowClick: (e, row) => {
     //     console.log('row click', row)
     // },
@@ -59,7 +83,7 @@ const props = {
     // rowLeave: (e, row) => {
     //     console.log('row leave', row)
     // },
-    
+    //----------------------------------------
     // cellClick: (e, col, row) => {
     //     console.log('cell click', col, row)
     // },
@@ -69,18 +93,6 @@ const props = {
     // cellLeave: (e, col, row) => {
     //     console.log('cell leave', col, row)
     // },
-    rowVerticalalign: 'top',
-    data: generateRowData([
-        {key: 'id', type: 'id'},
-        {key: 'entityid', type: 'int'},
-        {key: 'name', type: 'str'},
-        {key: 'date', type: 'date'},
-    ], 50),
-    caption: {
-        text: 'This is the caption',
-    },
-    height: 400,
-    width: 1200
 }
 
 export default () => {

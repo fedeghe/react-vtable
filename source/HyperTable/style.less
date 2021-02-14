@@ -17,19 +17,19 @@
         table-layout: fixed;
         overflow-x: hidden; // prevent safari scroll
     }
-    .tableheadercell {
-        position: relative
+
+    .tableheaderwrapper {
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
     .tableheadercellfilter {
-        position: absolute;
+
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        right:0;
-        bottom:0;
-        top:0;
         font-size: 0.5em;
     }
 }
