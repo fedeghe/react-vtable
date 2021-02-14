@@ -14,6 +14,7 @@ const HyperTable = ({
     crossHighlight,
     columnHighlight,
     rowHighlight,
+    cellHightlight,
     columnClick = () => { },
     columnEnter = () => { },
     columnLeave = () => { },
@@ -109,7 +110,8 @@ const HyperTable = ({
                     >{
                             columns.map((col, j) => (
                                 <td key={`r${i}c${j}`}
-                                    className={`TableCell ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''}`}
+                                    align={col.align || 'left'}
+                                    className={`TableCell ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''} ${(cellHightlight && activeRow === row._ID && activeCol === col.key) ? cellHightlight : ''}`}
                                     style={col.width && { width: col.width }}
                                     onClick={e => {
                                         col.onClick && col.onClick.call(e, e, col, row);

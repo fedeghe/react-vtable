@@ -12,6 +12,7 @@ const props = {
             console.log('col: ', col)
             console.log('row: ', row)
         },
+        align:'center',
         sorting: {
             sort: versus => (rowa, rowb) =>
                 rowa.id > rowb.id ? -versus : versus
@@ -49,11 +50,13 @@ const props = {
         width: '80px'
 
     }],
-    // crossHighlight: 'TableCellHighlight',
-    // rowHighlight: 'TableCellHighlight',
-    // columnHighlight: 'TableCellHighlight2',
+    crossHighlight: 'TableCrossHighlight',
+    // rowHighlight: 'TableRowHighlight',
+    // columnHighlight: 'TableColumnHighlight',
+    // cellHightlight: 'TableCellHighlight',
     
     rowVerticalAlign: 'top',
+
     data: generateRowData([
         {key: 'id', type: 'id'},
         {key: 'entityid', type: 'int'},
