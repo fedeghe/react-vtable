@@ -8,7 +8,6 @@ const HyperTable = ({
     caption,
     height, width,
     rowVerticalalign,
-    footers,
     rowClick = () => {},
     rowEnter = () => {},
     rowLeave = () => {},
@@ -17,8 +16,13 @@ const HyperTable = ({
     cellLeave = () => {},
 }) => {
     return <div className="TableWrapper">
-        <table style={{width: width}} className="Table" border="0" cellSpacing="0">
-        {caption && <caption style={{'captionSide': caption.side || 'top', 'textAlign': caption.align || 'center'}}>{caption.text}</caption>}
+        <table style={{width: width}} className="Table" border="0" cellSpacing="0" >
+            {
+            caption && <caption
+                style={{'captionSide': caption.side || 'top', 'textAlign': caption.align || 'center'}}
+                className="TableCaption"
+            >{caption.text}</caption>
+            }
             <thead className="TableHeader">
                 <tr>{
                     columns.map((col, k) => (
@@ -26,14 +30,14 @@ const HyperTable = ({
                             className="TableHeaderCell"
                         >{
                             'headerComponent' in col
-                            ? col.headerComponent(col.key)
-                            : col.key
+                            ? col.headerComponent(col, 'key')
+                            : col.headerLabel || col.key
                         }</th>
                     ))
                 }</tr>
             </thead>
             
-            <tbody style={{maxHeight: height}}>
+            <tbody className="TableBody" style={{maxHeight: height}}>
                 {data.map((row, i) => (
                     <tr key={`r${i}`}
                         className="TableRow"
@@ -72,22 +76,23 @@ const HyperTable = ({
                 ))}
             </tbody>
 
-            {footers && <tfoot className="TableFooter">
+
+
+            {columns.some(column => 'footerComponent' in column || 'footerLabel' in column) &&
+                <tfoot className="TableFooter">
                 <tr>{
-                    footers.map((footer, k) => (
+                    columns.map((col, k) => (
                         <th key={`h${k}`}
                             className="TableFooterCell"
-                            onClick={e => {
-                                footer.onClick && footer.onClick.call(e, e, footer)
-                            }}
                         >{
-                            'component' in footer
-                            ? footer.component(footer)
-                            : footer.key
+                            'footerComponent' in col
+                            ? col.footerComponent(col, 'key')
+                            : col.footerLabel
                         }</th>
                     ))
                 }</tr>
-            </tfoot>}
+                </tfoot>
+            }
         </table>
     </div>
         

@@ -1,22 +1,36 @@
-
+@darkblue: rgb(56, 109, 111);
+@lightblue: cadetblue;
 .TableWrapper {
-    border-radius: 10px;
-    font-family:verdana
+    font-family:verdana;
 }
 .Table {
-    border: 1px solid violet;
+    border: 10px solid @darkblue;
     border-collapse: collapse;
 }
 
+.TableCaption {
+    color:white;
+    background-color: @darkblue;
+    // line-height:3em;
+    font-size:1.5em;
+    font-weight:bold;
+    border-radius:0px;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    padding-top:10px
+}
 .TableHeader {
     height:40px;
-    border-bottom: 1px solid black;
-    background-color:cadetblue;
+    border-bottom: 3px solid @darkblue;
+    background-color:@lightblue;
     color:white;
+}
+.TableBody {
+    // border: 5px solid black;
 }
 .TableFooter {
     height:40px;
-    border-top: 1px solid black;
+    border-top: 3px solid @darkblue;
     background-color: #ddd;
     color:cadetblue;
 
@@ -24,22 +38,22 @@
 .TableHeaderCell {
     padding:10px;
     border-collapse: collapse;
-    border-right:1px dotted black;
+    border-right:1px dotted @darkblue;
     text-transform: capitalize;
 }
 .TableFooterCell {
     padding:10px;
-    color:green;
+    color: @darkblue;
     border-collapse: collapse;
-    border-right:1px dotted black;
+    border-right: 1px dotted @lightblue;
     vertical-align: top
 }
 .TableRow {
     height:80px;
-    border-bottom:1px dotted goldenrod;
+    border-bottom:1px dotted @lightblue;
 }
 .TableCell {
     padding:10px;
     border-collapse: collapse;
-    border-right:1px solid gray
+    border-right:1px dotted @lightblue;
 }

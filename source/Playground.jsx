@@ -14,34 +14,22 @@ const props = {
         }
     },{
         key: 'entityid',
+        footerLabel: '--entityid--'
     },{
         key: 'name',
-        headerComponent: (key) => <span>{key}(comp.)</span>,
-        component: (col, key) => <span>{col[key]} (comp.)</span>
+        headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
+        component: (col, key) => <span>{col[key]} (comp.)</span>,
+        footerComponent: (col, key) => <span>{col[key]} (comp.)</span>
     },{
         key: 'date'
     },{
         key: 'actions',
+        headerLabel: 'my actions',
         component: o => <button onClick={() => {
             console.log(o)
         }}>what</button>
     }],
-    footers: [{
-        key: 'id',
-    },{
-        key: 'entityid',
-        onClick: (o, col) => {
-            console.log('click footer colum: ', o)
-            console.log('col: ', col)
-        },
-        component: ({key}) => <span>{key} (comp.)</span>
-    },{
-        key: 'name'
-    },{
-        key: 'date'
-    },{
-        key: 'actions'
-    }],
+
     // rowClick: (e, row) => {
     //     console.log('row click', row)
     // },
@@ -51,6 +39,7 @@ const props = {
     // rowLeave: (e, row) => {
     //     console.log('row leave', row)
     // },
+    
     // cellClick: (e, col, row) => {
     //     console.log('cell click', col, row)
     // },
