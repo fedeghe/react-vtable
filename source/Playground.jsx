@@ -30,6 +30,16 @@ const props = {
         }}>what</button>
     }],
 
+    // columnClick: (e, col, row) => {
+    //     console.log('column click', col, row)
+    // },
+    // columnEnter: (e, col) => {
+    //     console.log('column entered', col)
+    // },
+    // columnLeave: (e, col) => {
+    //     console.log('column leave', col)
+    // },
+
     // rowClick: (e, row) => {
     //     console.log('row click', row)
     // },

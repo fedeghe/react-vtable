@@ -8,6 +8,9 @@ const HyperTable = ({
     caption,
     height, width,
     rowVerticalalign,
+    columnClick = () => {},
+    columnEnter = () => {},
+    columnLeave = () => {},
     rowClick = () => {},
     rowEnter = () => {},
     rowLeave = () => {},
@@ -58,12 +61,15 @@ const HyperTable = ({
                                 onClick={e => {
                                     col.onClick && col.onClick.call(e, e, col, row)
                                     cellClick.call(e, e, col, row)
+                                    columnClick.call(e, e, col, row)
                                 }}
                                 onMouseEnter={e => {
                                     cellEnter.call(e, e, row)
+                                    columnEnter.call(e, e, col)
                                 }}
                                 onMouseLeave={e => {
                                     cellLeave.call(e, e, row)
+                                    columnLeave.call(e, e, col)
                                 }}
                             >{
                                 'component' in col
