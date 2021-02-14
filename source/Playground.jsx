@@ -80,7 +80,7 @@ const props = {
         {key: 'entityid', type: 'int'},
         {key: 'name', type: 'str'},
         {key: 'date', type: 'date'},
-        {key: 'id2', type: 'id'},
+        // {key: 'id2', type: 'id'},
         // {key: 'entityid2', type: 'int'},
         // {key: 'name2', type: 'str'},
         // {key: 'date2', type: 'date'},
