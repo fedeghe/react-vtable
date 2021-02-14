@@ -47,7 +47,7 @@ const HyperTable = ({
                 <tr>{
                     columns.map((col, k) => (
                         <th key={`h${k}`}
-                            className={`TableHeaderCell tableheadercell`}
+                            className={`TableHeaderCell tablecell`}
                             style={col.width && { width: col.width }}
                         >
                             <div className="tableheaderwrapper">
@@ -93,7 +93,8 @@ const HyperTable = ({
                 }</tr>
             </thead>
 
-            <tbody className="TableBody" style={{ maxHeight: height }}>
+            <tbody className="TableBody tablebody" style={{ maxHeight: height }}>
+                
                 {rows.map((row, i) => (
                     <tr key={`r${i}`}
                         className={`TableRow ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
@@ -111,7 +112,7 @@ const HyperTable = ({
                             columns.map((col, j) => (
                                 <td key={`r${i}c${j}`}
                                     align={col.align || 'left'}
-                                    className={`TableCell ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''} ${(cellHightlight && activeRow === row._ID && activeCol === col.key) ? cellHightlight : ''}`}
+                                    className={`tablecell TableCell ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''} ${(cellHightlight && activeRow === row._ID && activeCol === col.key) ? cellHightlight : ''}`}
                                     style={col.width && { width: col.width }}
                                     onClick={e => {
                                         col.onClick && col.onClick.call(e, e, col, row);
@@ -144,10 +145,11 @@ const HyperTable = ({
                                         'component' in col
                                             ? col.component(row, col.key)
                                             : row[col.key] || 'none'
-                                    }</td>
+                                }</td>
                             ))
                         }</tr>
                 ))}
+                
             </tbody>
 
 

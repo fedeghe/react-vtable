@@ -49,7 +49,25 @@ const props = {
         }}>what</button>,
         width: '80px'
 
-    }],
+    // },{
+    //     key: 'id2',
+    //     width:'50%'
+    // },{
+    //     key: 'date2'
+    // },{
+    //     key: 'entityid2'
+    // },{
+    //     key: 'name2'
+    // },{
+    //     key: 'id3'
+    // },{
+    //     key: 'date3'
+    // },{
+    //     key: 'entityid3'
+    // },{
+    //     key: 'name3'
+    }
+    ],
     // crossHighlight: 'TableCrossHighlight',
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',
@@ -62,6 +80,14 @@ const props = {
         {key: 'entityid', type: 'int'},
         {key: 'name', type: 'str'},
         {key: 'date', type: 'date'},
+        {key: 'id2', type: 'id'},
+        // {key: 'entityid2', type: 'int'},
+        // {key: 'name2', type: 'str'},
+        // {key: 'date2', type: 'date'},
+        // {key: 'id3', type: 'id'},
+        // {key: 'entityid3', type: 'int'},
+        // {key: 'name3', type: 'str'},
+        // {key: 'date3', type: 'date'},
     ], 50),
     captionTop: {
         text: 'This is top caption',

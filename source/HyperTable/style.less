@@ -1,5 +1,8 @@
 .Table {
     border-collapse: collapse;
+    // display: block;
+    overflow-x: hidden;
+    // white-space: nowrap;
     th {
         text-align: left;
     }
@@ -17,7 +20,12 @@
         table-layout: fixed;
         overflow-x: hidden; // prevent safari scroll
     }
-
+    .tablebody{
+        overflow-y:scroll
+    }
+    .tablecell{
+        min-width: 30px
+    }
     .tableheaderwrapper {
         display:flex;
         flex-direction: row;
