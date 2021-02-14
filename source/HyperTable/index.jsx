@@ -24,7 +24,7 @@ const HyperTable = ({
 }) => {
     const { reducer, init } = reducerFactory()
     const [state, dispatch] = useReducer(reducer, init(data))
-    const {rows} = state
+    const {rows, row: activeRow, col: activeCol} = state
 
     return <div className="TableWrapper">
         <table style={{ width: width }} className="Table" border="0" cellSpacing="0" >
@@ -52,7 +52,8 @@ const HyperTable = ({
                                     'headerComponent' in col
                                         ? col.headerComponent(col, 'key')
                                         : col.headerLabel || col.key
-                                }</div>{
+                                }</div>
+                                <div className="tableheaderoptions">{
                                     col.filter && col.filter(col, value => dispatch({
                                         type: 'filter',
                                         payload: {
@@ -82,9 +83,8 @@ const HyperTable = ({
                                             }>▼</div>
                                         </div>
                                     )
-                                }
+                                }</div>
                             </div>
-                            
                         </th>
                     ))
                 }</tr>
@@ -93,7 +93,7 @@ const HyperTable = ({
             <tbody className="TableBody" style={{ maxHeight: height }}>
                 {rows.map((row, i) => (
                     <tr key={`r${i}`}
-                        className={`TableRow ${crossHighlight && 'crossHL'}`}
+                        className={`TableRow ${activeRow === row._ID ? crossHighlight : ''}`}
                         style={{ verticalAlign: rowVerticalAlign || 'top' }}
                         onClick={e => {
                             rowClick.call(e, e, row)
@@ -107,7 +107,7 @@ const HyperTable = ({
                     >{
                             columns.map((col, j) => (
                                 <td key={`r${i}c${j}`}
-                                    className={`TableCell ${crossHighlight && 'crossHL'}`}
+                                    className={`TableCell ${activeCol === col.key ? crossHighlight : ''}`}
                                     style={col.width && { width: col.width }}
                                     onClick={e => {
                                         col.onClick && col.onClick.call(e, e, col, row);
@@ -115,10 +115,24 @@ const HyperTable = ({
                                         columnClick.call(e, e, col, row);
                                     }}
                                     onMouseEnter={e => {
+                                        dispatch({
+                                            type: 'cellHover',
+                                            payload: {
+                                                row,
+                                                col
+                                            }
+                                        });
                                         cellEnter.call(e, e, row);
                                         columnEnter.call(e, e, col);
                                     }}
                                     onMouseLeave={e => {
+                                        dispatch({
+                                            type: 'cellOut',
+                                            payload: {
+                                                row,
+                                                col
+                                            }
+                                        });
                                         cellLeave.call(e, e, row);
                                         columnLeave.call(e, e, col);
                                     }}

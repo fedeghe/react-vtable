@@ -1,4 +1,16 @@
 
+let count = 0;
+const prefix= 'HYT_';
+const uniqueID = {
+    
+    toString: () => {
+        count += 1;
+        return prefix + count;
+    }
+}
+
+
+
 let originalData = null
 
 const reducer = (oldState, action) => {
@@ -7,7 +19,7 @@ const reducer = (oldState, action) => {
         case 'sortBy':
             return  {
                 ...oldState,
-                rows: oldState.rows.sort(payload.sort)
+                rows: oldState.rows.sort(payload.sort),
             }
         case 'filter': 
             const newFilters = {
@@ -32,16 +44,31 @@ const reducer = (oldState, action) => {
                     return acc
                 }, [])]
             }
+        case 'cellHover': 
+            return  {
+                ...oldState,
+                col: payload.col.key,
+                row: payload.row._ID
+            }
+        case 'cellOut': 
+            return  {
+                ...oldState,
+                col: null,
+                row: null,
+            }
         default:
             return oldState
     }
 }
 
 const init = data => {
-    originalData = data
+    originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     return {
         rows: originalData,
-        filters:{}
+        filters: {},
+        sorting: {},
+        row: null,
+        col: null
     }
 }
 

@@ -23,6 +23,10 @@
         flex-direction: row;
         justify-content: space-between;
     }
+    .tableheaderoptions {
+        display:flex;
+        flex-direction: row
+    }
     .tableheadercellfilter {
         display: flex;
         flex-direction: column;
@@ -32,20 +36,4 @@
         font-size: 0.5em;
     }
     
-    tr.crossHL:hover {
-        background-color: #eee;
-    }
-    td.crossHL{
-        position: relative;
-    }
-    td.crossHL:hover::after{
-        content: "";
-        position: absolute;
-        background-color: #eee;
-        left: 0;
-        top: -5000px;
-        height: 10000px;
-        width: 100%;
-        z-index: -1;
-    }
 }

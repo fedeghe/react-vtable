@@ -49,7 +49,8 @@ const props = {
         width: '80px'
 
     }],
-    crossHighlight: true,
+    crossHighlight: 'TableCellHighlight',
+    
     rowVerticalAlign: 'top',
     data: generateRowData([
         {key: 'id', type: 'id'},
