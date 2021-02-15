@@ -27,8 +27,10 @@ const HyperTable = ({
 }) => {
     const { reducer, init } = reducerFactory()
     const [state, dispatch] = useReducer(reducer, init(data))
-    const {rows, activeRow, activeCol} = state
-
+    const {rows, activeRow, activeCol, sorting, sorting : {
+        field: sortingField,
+        versus: sortingVersus
+    } = {}} = state
     return <div className="TableWrapper">
         <table style={{ width: width }} className="Table" border="0" cellSpacing="0" >
             {captionTop && (
@@ -68,19 +70,23 @@ const HyperTable = ({
                                 {
                                     col.sorting && (
                                         <div className="tableheadercellfilter">
-                                            <div onClick={() =>
+                                            <div className={(sortingField === col.key && sortingVersus === 1) ? 'sortActive' : 'sortInactive'} onClick={() =>
                                                 dispatch({
                                                     type: 'sortBy',
                                                     payload: {
                                                         sort: col.sorting.sort(1),
+                                                        field: col.key,
+                                                        versus: 1
                                                     }
                                                 })
                                             }>▲</div>
-                                            <div onClick={() =>
+                                            <div className={(sortingField === col.key && sortingVersus === -1) ? 'sortActive' : 'sortInactive'} onClick={() =>
                                                 dispatch({
                                                     type: 'sortBy',
                                                     payload: {
                                                         sort: col.sorting.sort(-1),
+                                                        field: col.key,
+                                                        versus: -1
                                                     }
                                                 })
                                             }>▼</div>

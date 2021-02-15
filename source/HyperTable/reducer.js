@@ -20,6 +20,10 @@ const reducer = (oldState, action) => {
             return  {
                 ...oldState,
                 rows: oldState.rows.sort(payload.sort),
+                sorting: {
+                    field: payload.field,
+                    versus: payload.versus
+                },
             }
         case 'filter': 
             const newFilters = {
@@ -66,7 +70,10 @@ const init = data => {
     return {
         rows: originalData,
         filters: {},
-        sorting: {},
+        sorting: {
+            field: null,
+            versus: 0
+        },
         activeRow: null,
         activeCcol: null
     }
