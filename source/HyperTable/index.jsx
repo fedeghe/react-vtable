@@ -27,7 +27,7 @@ const HyperTable = ({
 }) => {
     const { reducer, init } = reducerFactory()
     const [state, dispatch] = useReducer(reducer, init(data))
-    const {rows, row: activeRow, col: activeCol} = state
+    const {rows, activeRow, activeCol} = state
 
     return <div className="TableWrapper">
         <table style={{ width: width }} className="Table" border="0" cellSpacing="0" >

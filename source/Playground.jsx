@@ -68,7 +68,7 @@ const props = {
     //     key: 'name3'
     }
     ],
-    // crossHighlight: 'TableCrossHighlight',
+    crossHighlight: 'TableCrossHighlight',
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',
     // cellHightlight: 'TableCellHighlight',

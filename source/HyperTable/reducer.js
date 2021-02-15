@@ -47,14 +47,14 @@ const reducer = (oldState, action) => {
         case 'cellHover': 
             return  {
                 ...oldState,
-                col: payload.col.key,
-                row: payload.row._ID
+                activeCol: payload.col.key,
+                activeRow: payload.row._ID
             }
         case 'cellOut': 
             return  {
                 ...oldState,
-                col: null,
-                row: null,
+                activeCol: null,
+                activeRow: null,
             }
         default:
             return oldState
@@ -67,8 +67,8 @@ const init = data => {
         rows: originalData,
         filters: {},
         sorting: {},
-        row: null,
-        col: null
+        activeRow: null,
+        activeCcol: null
     }
 }
 
