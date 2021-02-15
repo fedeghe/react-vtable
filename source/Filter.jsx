@@ -6,7 +6,10 @@ export default ({filter}) => {
     return visible
         ? <div>
             <input type="text" onChange={e => filter(e.target.value)}/>
-            <span className="pointer" onClick={() => setVisible((false))}>x</span>
+            <span className="pointer" onClick={() => {
+                filter('')
+                setVisible(false)
+            }}>x</span>
         </div>
         : <span className="pointer" onClick={() => setVisible(true)}>F</span>
 }
