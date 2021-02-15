@@ -22,8 +22,8 @@ const props = {
     },{
         key: 'entityid',
         footerLabel: '--entityid--',
-        filter: (col, filter) => {
-            return <input type="text" onChange={e => filter(e.target.value)}/>
+        filter: (filter) => {
+            return <input className type="text" onChange={e => filter(e.target.value)}/>
         },
         sorting: {
             sort: versus => (rowa, rowb) =>
@@ -33,7 +33,7 @@ const props = {
     
     },{
         key: 'name',
-        filter: (col, filter) => {
+        filter: (filter) => {
             return <input type="text" onChange={e => filter(e.target.value)}/>
         },
         headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
@@ -43,7 +43,7 @@ const props = {
         key: 'date'
     },{
         key: 'actions',
-        headerLabel: 'my actions',
+        headerLabel: 'actions',
         component: o => <button onClick={() => {
             console.log(o)
         }}>what</button>,
@@ -68,6 +68,7 @@ const props = {
     //     key: 'name3'
     }
     ],
+    noFilterData: 'No data',
     crossHighlight: 'TableCrossHighlight',
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',

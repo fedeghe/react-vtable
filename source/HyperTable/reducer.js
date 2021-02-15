@@ -13,6 +13,8 @@ const uniqueID = {
 
 let originalData = null
 
+
+
 const reducer = (oldState, action) => {
     const { payload, type } = action
     switch (type) {
@@ -23,6 +25,25 @@ const reducer = (oldState, action) => {
                 sorting: {
                     field: payload.field,
                     versus: payload.versus
+                },
+            }
+        case 'unsortBy':
+            return  {
+                ...oldState,
+                rows: [...originalData.reduce((acc, row) => {
+                    let canStay = true
+                    const {filters} = oldState
+                    for (let f in filters) {
+                        if (!(`${row[f]}`.includes(`${filters[f]}`))) {
+                            canStay = false
+                        }
+                    }
+                    if (canStay) acc.push(row)
+                    return acc
+                }, [])],
+                sorting: {
+                    field: null,
+                    versus: null
                 },
             }
         case 'filter': 

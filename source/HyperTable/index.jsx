@@ -15,6 +15,7 @@ const HyperTable = ({
     columnHighlight,
     rowHighlight,
     cellHightlight,
+    noFilterData,
     columnClick = () => { },
     columnEnter = () => { },
     columnLeave = () => { },
@@ -59,7 +60,7 @@ const HyperTable = ({
                                         : col.headerLabel || col.key
                                 }</div>
                                 <div className="tableheaderoptions">{
-                                    col.filter && col.filter(col, value => dispatch({
+                                    col.filter && col.filter(value => dispatch({
                                         type: 'filter',
                                         payload: {
                                             field: col.key,
@@ -80,6 +81,11 @@ const HyperTable = ({
                                                     }
                                                 })
                                             }>▲</div>
+                                            <div className={(sortingField === null) ? 'sortActive' : 'sortInactive'} onClick={() =>
+                                                dispatch({
+                                                    type: 'unsortBy',
+                                                })
+                                            }>&bull;</div>
                                             <div className={(sortingField === col.key && sortingVersus === -1) ? 'sortActive' : 'sortInactive'} onClick={() =>
                                                 dispatch({
                                                     type: 'sortBy',
@@ -101,7 +107,7 @@ const HyperTable = ({
 
             <tbody className="TableBody tablebody" style={{ maxHeight: height }}>
                 
-                {rows.map((row, i) => (
+                {rows.length ? rows.map((row, i) => (
                     <tr key={`r${i}`}
                         className={`TableRow ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
                         style={{ verticalAlign: rowVerticalAlign || 'top' }}
@@ -154,7 +160,10 @@ const HyperTable = ({
                                 }</td>
                             ))
                         }</tr>
-                ))}
+                )) : <tr
+                    className='TableRow'
+                    style={{ verticalAlign: 'middle', textAlign:'center' }}
+                ><td className='tablecell TableCell' span={columns.length}>{noFilterData}</td></tr>}
                 
             </tbody>
 
