@@ -70,7 +70,7 @@ const HyperTable = ({
                                 }
                                 {
                                     col.sorting && (
-                                        <div className="tableheadercellfilter">
+                                        <div className="tableheadercellsort">
                                             <div className={(sortingField === col.key && sortingVersus === 1) ? 'sortActive' : 'sortInactive'} onClick={() =>
                                                 dispatch({
                                                     type: 'sortBy',

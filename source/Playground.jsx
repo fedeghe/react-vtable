@@ -1,6 +1,7 @@
 import React from 'react'
 
 import HyperTable from './HyperTable'
+import Filter from './Filter'
 import {generateRowData} from './utils'
 
 import './user.less'
@@ -22,9 +23,7 @@ const props = {
     },{
         key: 'entityid',
         footerLabel: '--entityid--',
-        filter: (filter) => {
-            return <input className type="text" onChange={e => filter(e.target.value)}/>
-        },
+        filter: filter => <Filter filter={filter}/>,
         sorting: {
             sort: versus => (rowa, rowb) =>
                 parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
@@ -33,12 +32,15 @@ const props = {
     
     },{
         key: 'name',
-        filter: (filter) => {
-            return <input type="text" onChange={e => filter(e.target.value)}/>
-        },
+        filter: filter => <Filter filter={filter}/>,
         headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
         component: (col, key) => <span>{col[key]} (comp.)</span>,
-        footerComponent: (col, key) => <span>{col[key]} (comp.)</span>
+        footerComponent: (col, key) => <span>{col[key]} (comp.)</span>,
+        // sorting: {
+        //     sort: versus => (rowa, rowb) =>
+        //         rowa.name > rowb.name ? -versus : versus
+        //     ,
+        // },
     },{
         key: 'date'
     },{
