@@ -28,7 +28,7 @@ const HyperTable = ({
 }) => {
     const { reducer, init } = reducerFactory()
     const [state, dispatch] = useReducer(reducer, init(data))
-    const {rows, activeRow, activeCol, sorting, sorting : {
+    const {total, rows, activeRow, activeCol, sorting : {
         field: sortingField,
         versus: sortingVersus
     } = {}} = state
@@ -44,15 +44,15 @@ const HyperTable = ({
         <table ref={table} style={{ width: width }} className="Table" border="0" cellSpacing="0" >
             {captionTop && (
                 <caption
-                    style={{ 'captionSide': 'top', 'textAlign': captionTop.align || 'center' }}
+                    style={{ 'captionSide': 'top'}}
                     className={`TableCaption ${captionTop.className}`}
-                >{'component' in captionTop ? captionTop.component() : captionTop.text}</caption>
+                >{'component' in captionTop ? captionTop.component({count: rows.length, total}) : captionTop.text.replace(/__COUNT__/, rows.length).replace(/__TOTAL__/, total)}</caption>
             )}
             {captionBottom && (
                 <caption
-                    style={{ 'captionSide': 'bottom', 'textAlign': captionBottom.align || 'center' }}
+                    style={{ 'captionSide': 'bottom' }}
                     className={`TableCaption ${captionBottom.className}`}
-                >{'component' in captionBottom ? captionBottom.component() : captionBottom.text}</caption>
+                >{'component' in captionBottom ? captionBottom.component({count: rows.length, total}) : captionBottom.text.replace(/__COUNT__/, rows.length).replace(/__TOTAL__/, total)}</caption>
             )}
             <thead className="TableHeader ">
                 <tr>{

@@ -1,19 +1,13 @@
-
 let count = 0;
 const prefix= 'HYT_';
 const uniqueID = {
-    
     toString: () => {
         count += 1;
         return prefix + count;
     }
 }
 
-
-
 let originalData = null
-
-
 
 const reducer = (oldState, action) => {
     const { payload, type } = action
@@ -57,6 +51,7 @@ const reducer = (oldState, action) => {
             }
             // apply all
             return {
+                ...oldState,
                 filters: newFilters,
                 rows: [...originalData.reduce((acc, row) => {
                     let canStay = true
@@ -90,6 +85,7 @@ const init = data => {
     originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     return {
         rows: originalData,
+        total: originalData.length,
         filters: {},
         sorting: {
             field: null,

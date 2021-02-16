@@ -94,8 +94,8 @@ export default {
         className: 'tableCaptionUp'
     },
     captionBottom: {
-        text: 'This is bottom caption',
-        className: 'tableCaptionDown'
+        text: 'Shown __COUNT__ out of __TOTAL__ rows',
+        className: 'tableCaptionDown',
     },
     height: 400,
     width: 1200,
