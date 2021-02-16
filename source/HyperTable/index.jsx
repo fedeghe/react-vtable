@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect, useRef} from 'react'
 
 import reducerFactory from './reducer'
 
@@ -32,9 +32,14 @@ const HyperTable = ({
         field: sortingField,
         versus: sortingVersus
     } = {}} = state
+    const table = useRef(null);
+    useEffect(() => {
+        // console.log(table)
+        table.current.style.display = 'table';
+    }, [])
 
     return <div className="TableWrapper">
-        <table style={{ width: width }} className="Table" border="0" cellSpacing="0" >
+        <table ref={table} style={{ width: width }} className="Table" border="0" cellSpacing="0" >
             {captionTop && (
                 <caption
                     style={{ 'captionSide': 'top', 'textAlign': captionTop.align || 'center' }}
