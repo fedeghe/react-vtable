@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react'
+import React, { useReducer } from 'react'
 
 import reducerFactory from './reducer'
 
@@ -32,6 +32,7 @@ const HyperTable = ({
         field: sortingField,
         versus: sortingVersus
     } = {}} = state
+
     return <div className="TableWrapper">
         <table style={{ width: width }} className="Table" border="0" cellSpacing="0" >
             {captionTop && (
@@ -105,8 +106,7 @@ const HyperTable = ({
                 }</tr>
             </thead>
 
-            <tbody className="TableBody tablebody" style={{ maxHeight: height }}>
-                
+            <tbody className="TableBody tablebody" style={{ maxHeight: height }}>  
                 {rows.length ? rows.map((row, i) => (
                     <tr key={`r${i}`}
                         className={`TableRow ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
