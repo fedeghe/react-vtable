@@ -34,8 +34,10 @@ const HyperTable = ({
     } = {}} = state
     const table = useRef(null);
     useEffect(() => {
-        // console.log(table)
         table.current.style.display = 'table';
+        return () => {
+            table.current.style.display = 'none'
+        }
     }, [])
 
     return <div className="TableWrapper">
