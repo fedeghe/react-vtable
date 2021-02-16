@@ -11,5 +11,5 @@ export default ({filter}) => {
                 setVisible(false)
             }}>x</span>
         </div>
-        : <span className="pointer" onClick={() => setVisible(true)}>F</span>
+        : <span className="pointer" onClick={() => setVisible(true)}>Y</span>
 }
