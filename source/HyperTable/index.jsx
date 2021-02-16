@@ -28,7 +28,7 @@ const HyperTable = ({
 }) => {
     const { reducer, init } = reducerFactory()
     const [state, dispatch] = useReducer(reducer, init(data))
-    const {total, rows, activeRow, activeCol, sorting : {
+    const {total, rows, activeRow, activeCol, filters, sorting : {
         field: sortingField,
         versus: sortingVersus
     } = {}} = state
@@ -46,13 +46,31 @@ const HyperTable = ({
                 <caption
                     style={{ 'captionSide': 'top'}}
                     className={`TableCaption ${captionTop.className}`}
-                >{'component' in captionTop ? captionTop.component({count: rows.length, total}) : captionTop.text.replace(/__COUNT__/, rows.length).replace(/__TOTAL__/, total)}</caption>
+                >{
+                    'component' in captionTop
+                    ? captionTop.component({
+                        count: rows.length,
+                        total, filters,sorting
+                    })
+                    : captionTop.text
+                        .replace(/__COUNT__/, rows.length)
+                        .replace(/__TOTAL__/, total)
+                }</caption>
             )}
             {captionBottom && (
                 <caption
                     style={{ 'captionSide': 'bottom' }}
                     className={`TableCaption ${captionBottom.className}`}
-                >{'component' in captionBottom ? captionBottom.component({count: rows.length, total}) : captionBottom.text.replace(/__COUNT__/, rows.length).replace(/__TOTAL__/, total)}</caption>
+                >{
+                    'component' in captionBottom
+                    ? captionBottom.component({
+                        count: rows.length,
+                        total, filters, sorting
+                    })
+                    : captionBottom.text
+                        .replace(/__COUNT__/, rows.length)
+                        .replace(/__TOTAL__/, total)
+                }</caption>
             )}
             <thead className="TableHeader ">
                 <tr>{
