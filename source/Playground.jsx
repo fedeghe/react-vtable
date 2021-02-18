@@ -11,11 +11,5 @@ export default () => {
         <div className="Wrapper">
             <HyperTable {...configSmall} />
         </div>
-        {/*
-        <hr/>
-        <div className="Wrapper">
-            <HyperTable {...configBig} />
-        </div>
-        */}
     </div>
 }

@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect, useRef} from 'react'
 
 import reducerFactory from './reducer'
+import { replaceall } from './utils'
 
 import './style.less'
 
@@ -33,6 +34,9 @@ const HyperTable = ({
         versus: sortingVersus
     } = {}} = state
     const table = useRef(null);
+
+    
+
     useEffect(() => {
         table.current.style.display = 'table';
         return () => {
@@ -52,9 +56,7 @@ const HyperTable = ({
                         count: rows.length,
                         total, filters,sorting
                     })
-                    : captionTop.text
-                        .replace(/__COUNT__/, rows.length)
-                        .replace(/__TOTAL__/, total)
+                    : replaceall(captionTop.text, {COUNT: rows.length, TOTAL: total})
                 }</caption>
             )}
             {captionBottom && (
@@ -67,9 +69,7 @@ const HyperTable = ({
                         count: rows.length,
                         total, filters, sorting
                     })
-                    : captionBottom.text
-                        .replace(/__COUNT__/, rows.length)
-                        .replace(/__TOTAL__/, total)
+                    : replaceall(captionBottom.text, {COUNT: rows.length, TOTAL: total})
                 }</caption>
             )}
             <thead className="TableHeader ">

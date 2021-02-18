@@ -19,10 +19,6 @@ const getType = (type, args=[]) => {
     return type in generators ? generators[type](...args) : 'no type'
 }
 
-
-
-
-
 export const generateRowData = (fields, num) => 
     Array.from({length: num}).map(() => 
         fields.reduce((acc, field) => {
