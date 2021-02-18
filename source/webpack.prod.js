@@ -7,7 +7,7 @@ module.exports = {
       index: path.resolve(__dirname, './hyperTable/index.jsx'),
   },
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
     libraryTarget: "commonjs-module"
   },
@@ -23,6 +23,16 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
+      },
+      {
+        test: /\.less$/i,
+        use: [{
+            loader: 'style-loader'
+          }, {
+            loader: 'css-loader' 
+          }, {
+            loader: 'less-loader'
+          }]
       },
     ],
   },
