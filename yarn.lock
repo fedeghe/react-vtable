@@ -8009,6 +8009,10 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
+"web-page-monitor@https://github.com/fedeghe/web-page-monitor.git":
+  version "0.0.1"
+  resolved "https://github.com/fedeghe/web-page-monitor.git#fac523b80d8e9942c0261f90c1f9c3234867dc33"
+
 webidl-conversions@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-5.0.0.tgz#ae59c8a00b121543a2acc65c0434f57b0fc11aff"
