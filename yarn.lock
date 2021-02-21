@@ -6280,11 +6280,6 @@ path-to-regexp@0.1.7:
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
 
-perf-monitor@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/perf-monitor/-/perf-monitor-0.4.1.tgz#b0af8707872fe59d214d7f8a927775cf0a8daa26"
-  integrity sha1-sK+HB4cv5Z0hTX+Kknd1zwqNqiY=
-
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
