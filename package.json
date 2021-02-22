@@ -50,6 +50,6 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-window": "^1.8.6",
-    "web-page-monitor": "^0.0.1"
+    "web-page-monitor": "^0.0.3"
   }
 }
