@@ -50,7 +50,7 @@ export default {
 
     },{
         key: 'id2',
-        width:'50%'
+        width:'10%'
     },{
         key: 'date2'
     },{
