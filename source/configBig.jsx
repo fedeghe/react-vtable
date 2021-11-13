@@ -50,7 +50,8 @@ export default {
 
     },{
         key: 'id2',
-        width:'10%'
+        width:'10%',
+        filter: filter => <Filter filter={filter}/>,
     },{
         key: 'date2'
     },{
@@ -97,8 +98,8 @@ export default {
         text: 'This is the bottom caption',
         className: 'tableCaptionDown'
     },
-    height: 400,
-    width: 1200,
+    height: '80vh',
+    width: '100%',
     lineHeight: 200,
 
         

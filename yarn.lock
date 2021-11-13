@@ -7999,10 +7999,10 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-web-page-monitor@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/web-page-monitor/-/web-page-monitor-0.0.3.tgz#72a8e209623de2ddfb52d0cf7e97a24a59ddf670"
-  integrity sha512-dUZ79fDlDfGqg3Ay1GEk9rWaENYaMcXe4IZUxnOqyWAsOG9xGXW693+WLpfxDSMYcxDBGxsSsKtd0Sutzbs9+A==
+web-page-monitor@^0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/web-page-monitor/-/web-page-monitor-0.0.16.tgz#9654ab3feda23a56766301cc3b0f71cf37934539"
+  integrity sha512-ZFBbeAMnR4EO2Ro3urBDzw2BMnvSQqBMWH/94CUYz0onTOTKxS0lzgDUgww2ptFRRC6TWo6aea0Be9YHMPD6mw==
 
 webidl-conversions@^5.0.0:
   version "5.0.0"

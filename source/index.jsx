@@ -20,7 +20,7 @@ if(location.host.match(/^localhost/)) {
                 'onmousemove',
             ]
         })
-        .render();
+        .render({collapsible: true});
 }
 
 
