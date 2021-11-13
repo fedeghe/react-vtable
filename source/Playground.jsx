@@ -9,7 +9,7 @@ import './user.less'
 export default () => {
     return <div>
         <div className="Wrapper">
-            <HyperTable {...configSmall} />
+            <HyperTable {...configBig} />
         </div>
     </div>
 }

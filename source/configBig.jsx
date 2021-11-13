@@ -90,11 +90,11 @@ export default {
         {key: 'date3', type: 'date'},
     ], 50),
     captionTop: {
-        text: 'This is top caption',
+        text: 'This is the top caption',
         className: 'tableCaptionUp'
     },
     captionBottom: {
-        text: 'This is bottom caption',
+        text: 'This is the bottom caption',
         className: 'tableCaptionDown'
     },
     height: 400,
