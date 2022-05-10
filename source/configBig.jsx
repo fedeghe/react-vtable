@@ -26,7 +26,7 @@ export default {
                 parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
             ,
         },
-    
+        width: '300px'
     },{
         key: 'name',
         filter: filter => <Filter filter={filter}/>,
@@ -37,9 +37,11 @@ export default {
         //     sort: versus => (rowa, rowb) =>
         //         rowa.name > rowb.name ? -versus : versus
         //     ,
-        // },
+        // },,
+        width: '300px'
     },{
-        key: 'date'
+        key: 'date',
+        width: '300px'
     },{
         key: 'actions',
         headerLabel: 'actions',
@@ -98,8 +100,8 @@ export default {
         text: 'This is the bottom caption',
         className: 'tableCaptionDown'
     },
-    height: '80vh',
-    width: '100%',
+    height: '50vh',
+    width: '50%',
     lineHeight: 200,
 
         
