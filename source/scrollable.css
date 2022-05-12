@@ -1,0 +1,45 @@
+body {
+    font-size: 2em;
+}
+
+.outer {
+    overflow-y: scroll;
+    width: 800px;
+    height: 500px;
+}
+
+.inner {
+    width: 1000px;
+    height: 500px;
+    background-color: #fede76;
+    position: relative;
+}
+
+.head {
+    height: 50px;
+    background-color: green;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.content {
+    position: absolute;
+    top: 50px;
+    height: 450px;
+    overflow-x: auto;
+}
+
+.innerContent {
+    /* overflow: visible; */
+    height: 900px;
+    width: 1000px;
+}
+
+.tbl {
+    width: 100%
+}
+
+th {
+    text-align: left;
+}

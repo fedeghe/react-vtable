@@ -26,7 +26,7 @@ export default {
                 parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
             ,
         },
-        width: '300px'
+    
     },{
         key: 'name',
         filter: filter => <Filter filter={filter}/>,
@@ -37,11 +37,9 @@ export default {
         //     sort: versus => (rowa, rowb) =>
         //         rowa.name > rowb.name ? -versus : versus
         //     ,
-        // },,
-        width: '300px'
+        // },
     },{
-        key: 'date',
-        width: '300px'
+        key: 'date'
     },{
         key: 'actions',
         headerLabel: 'actions',
@@ -101,8 +99,8 @@ export default {
         className: 'tableCaptionDown'
     },
     height: '50vh',
-    width: '50%',
-    lineHeight: 200,
+    width: '100%',
+    lineHeight: 100,
 
         
     // cellClick: (e, col, row) => {
