@@ -1,16 +1,22 @@
 body {
     font-size: 2em;
+    font-family: verdana
 }
 
 .outer {
     overflow-y: scroll;
     width: 800px;
-    height: 500px;
+    height: 550px;
+}
+
+caption {
+    height: 50px;
+    background-color: gray;
 }
 
 .inner {
     width: 1000px;
-    height: 500px;
+    height: 550px;
     background-color: #fede76;
     position: relative;
 }
@@ -25,7 +31,7 @@ body {
 
 .content {
     position: absolute;
-    top: 50px;
+    top: 100px;
     height: 450px;
     overflow-x: auto;
 }

@@ -1,0 +1,86 @@
+:root {
+    --width: 800px;
+    --height: 400px;
+    --header-height: 60px;
+}
+
+* {
+    padding: 5px;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.preTable {
+    background-color: cornflowerblue;
+    height: var(--preTableHeight);
+}
+
+.postTable {
+    background-color: cornflowerblue;
+    height: var(--postTableHeight);
+}
+
+.wrapper {
+    border: 1px solid gray;
+    max-width: var(--width);
+}
+
+div.tableContainer {
+    max-width: var(--width);
+    max-height: var(--height);
+    overflow: scroll;
+    position: relative;
+    padding: 0;
+}
+
+th>div {
+    padding: 0
+}
+
+.cellWrp {
+    max-width: 200px;
+    max-height: 100px;
+    overflow: scroll
+}
+
+table {
+    position: relative;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    padding: 0.25em;
+    vertical-align: top;
+}
+
+thead {
+    height: var(--header-height);
+}
+
+thead th {
+    position: -webkit-sticky;
+    /* for Safari */
+    position: sticky;
+    top: 0;
+    background: #eee;
+    text-align: left;
+}
+
+thead th:first-child {
+    left: 0;
+    z-index: 1;
+}
+
+tbody th {
+    position: -webkit-sticky;
+    /* for Safari */
+    position: sticky;
+    left: 0;
+    background: #FFF;
+    border-right: 1px solid #CCC;
+    text-align: left;
+    vertical-align: top;
+}
