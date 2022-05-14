@@ -70,6 +70,7 @@ export default {
     ],
     noFilterData: 'No data',
     crossHighlight: 'TableCrossHighlight',
+
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',
     // cellHightlight: 'TableCellHighlight',
@@ -91,7 +92,7 @@ export default {
         {key: 'date3', type: 'date'},
     ], 50),
     captionTop: {
-        text: 'This is the top caption',
+        text: 'This is the top caption __COUNT__ / __TOTAL__',
         className: 'tableCaptionUp'
     },
     captionBottom: {

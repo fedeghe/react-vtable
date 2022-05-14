@@ -10,16 +10,12 @@ const HyperTable = ({
     data,
     captionTop,
     captionBottom,
-
     height, width,
-
     rowVerticalAlign,
-
     crossHighlight,
     columnHighlight,
     rowHighlight,
     cellHightlight,
-    
     noFilterData,
     columnClick = () => { },
     columnEnter = () => { },
@@ -58,7 +54,7 @@ const HyperTable = ({
                     'component' in captionTop
                     ? captionTop.component({
                         count: rows.length,
-                        total, filters, sorting
+                        total, filters,sorting
                     })
                     : replaceall(captionTop.text, {COUNT: rows.length, TOTAL: total})
                 }</caption>
