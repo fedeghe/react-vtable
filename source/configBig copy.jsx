@@ -3,8 +3,6 @@ import Filter from './Filter'
 import {generateRowData} from './utils'
 
 export default {
-    leftMost: ({row, i}) => `Row ${i}`, 
-    rightMost: ({row, i}) => `Row ${i}`, 
     columns: [{
         key: 'id',
         onClick: (o, col, row) => {
@@ -101,8 +99,8 @@ export default {
         text: 'This is the bottom caption',
         className: 'tableCaptionDown'
     },
-    height: '600px',
-    width: '800px',
+    height: '50vh',
+    width: '100%',
     lineHeight: 100,
 
         

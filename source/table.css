@@ -1,7 +1,8 @@
 :root {
     --width: 700px;
-    --height: 80vh;
+    --height: 500px;
     --header-height: 40px;
+    --footer-height: 40px;
     --preTableHeight: 40px;
     --postTableHeight: 25px;
 }
@@ -59,9 +60,12 @@ th {
     vertical-align: top;
 }
 
-thead,
-tfoot {
+thead {
     height: var(--header-height);
+}
+
+tfoot {
+    height: var(--footer-height);
 }
 
 thead th,
@@ -112,4 +116,12 @@ tbody th:last-child {
     background: #FFF;
     text-align: left;
     vertical-align: top;
+}
+
+th {
+    background-color: #eee !important;
+}
+
+th.th {
+    text-align: center
 }
