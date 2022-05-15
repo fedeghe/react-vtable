@@ -92,5 +92,18 @@ export default createUseStyles(() => ({
         position: 'sticky',
         right: 0,
         backgroundColor: 'white'
+    },
+    TableCrossHighlight: {
+        backgroundColor: '#f5f5f5'
+    },
+    TableRowHighlight: {
+        backgroundColor: '#ddd'
+    },
+    TableColumnHighlight: {
+        backgroundColor: '#dd6'
+    },
+    TableCellHighlight: {
+        backgroundColor: '#f66'
     }
+    
 }))

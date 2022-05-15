@@ -3,10 +3,11 @@ import Filter from './Filter'
 import {generateRowData} from './utils'
 
 export default {
-    leftMost: ({row, i}) => `Row ${i}`, 
-    rightMost: ({row, i}) => `Row ${i}`, 
+    leftMost: ({row, i}) => `left ${i+1}`, 
+    rightMost: ({row, i}) => `right ${i+1}`, 
     columns: [{
         key: 'id',
+        label: 'id',
         onClick: (o, col, row) => {
             console.log('click id colum: ', o)
             console.log('col: ', col)
@@ -21,6 +22,7 @@ export default {
         width:'5%'
     },{
         key: 'entityid',
+        label: 'entity id',
         footerLabel: '--entityid--',
         filter: filter => <Filter filter={filter}/>,
         sorting: {
@@ -31,6 +33,7 @@ export default {
     
     },{
         key: 'name',
+        label: 'name',
         filter: filter => <Filter filter={filter}/>,
         headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
         component: (col, key) => <span>{col[key]} (comp.)</span>,
@@ -41,9 +44,11 @@ export default {
         //     ,
         // },
     },{
-        key: 'date'
+        key: 'date',
+        label: 'date',
     },{
         key: 'actions',
+        label: 'actions',
         headerLabel: 'actions',
         component: o => <button onClick={() => {
             console.log(o)
@@ -52,22 +57,30 @@ export default {
 
     },{
         key: 'id2',
+        label: 'id2',
         width:'10%',
         filter: filter => <Filter filter={filter}/>,
     },{
-        key: 'date2'
+        key: 'date2',
+        label: 'date2',
     },{
-        key: 'entityid2'
+        key: 'entityid2',
+        label: 'entityid2'
     },{
-        key: 'name2'
+        key: 'name2',
+        label: 'name2',
     },{
-        key: 'id3'
+        key: 'id3',
+        label: 'id3',
     },{
-        key: 'date3'
+        key: 'date3',
+        label: 'date3',
     },{
-        key: 'entityid3'
+        key: 'entityid3',
+        label: 'entityid3',
     },{
-        key: 'name3'
+        key: 'name3',
+        label: 'name3',
     }
     ],
     noFilterData: 'No data',
@@ -75,7 +88,7 @@ export default {
 
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',
-    // cellHightlight: 'TableCellHighlight',
+    cellHightlight: 'TableCellHighlight',
     
     rowVerticalAlign: 'top',
 
@@ -106,33 +119,14 @@ export default {
     lineHeight: 100,
 
         
-    // cellClick: (e, col, row) => {
-    //     console.log('cell click', col, row)
-    // },
-    // cellEnter: (e, col, row) => {
-    //     console.log('cell enter', col, row)
-    // },
-    // cellLeave: (e, col, row) => {
-    //     console.log('cell leave', col, row)
-    // },
-    //----------------------------------------
-    // rowClick: (e, row) => {
-    //     console.log('row click', row)
-    // },
-    // rowEnter: (e, row) => {
-    //     console.log('row entered', row)
-    // },
-    // rowLeave: (e, row) => {
-    //     console.log('row leave', row)
-    // },
-    //----------------------------------------
-    // columnClick: (e, col, row) => {
-    //     console.log('column click', col, row)
-    // },
-    // columnEnter: (e, col) => {
-    //     console.log('column entered', col)
-    // },
-    // columnLeave: (e, col) => {
-    //     console.log('column leave', col)
-    // },
+    cellClick: (e, row, col) => {
+        console.log('cell click', col, row)
+        e.stopPropagation()
+    },
+    cellEnter: (e, row, col) => {
+        console.log('cell enter', col, row)
+    },
+    cellLeave: (e, row, col) => {
+        console.log('cell leave', col, row)
+    },
 }
