@@ -2,28 +2,33 @@ import React from 'react'
 import Filter from './Filter'
 import {generateRowData} from './utils'
 
+const PostFooter = () => {
+    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit'}}>Component post footer</div>
+}
+const PreHeader = () => {
+    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit'}}>Component pre header</div>
+}
+
+
 export default {
     leftMost: ({row, i}) => `left ${i+1}`, 
     rightMost: ({row, i}) => `right ${i+1}`, 
     columns: [{
         key: 'id',
         label: 'id',
-        onClick: (o, col, row) => {
-            console.log('click id colum: ', o)
-            console.log('col: ', col)
-            console.log('row: ', row)
-        },
+        footerLabel: 'id foot',
+        headerLabel: 'id head',
+
+        wrap: d => <div style={{width:'200px'}}>{d}</div>, 
         align:'center',
         sorting: {
             sort: versus => (rowa, rowb) =>
                 rowa.id > rowb.id ? -versus : versus
             ,
         },
-        width:'5%'
     },{
         key: 'entityid',
         label: 'entity id',
-        footerLabel: '--entityid--',
         filter: filter => <Filter filter={filter}/>,
         sorting: {
             sort: versus => (rowa, rowb) =>
@@ -38,6 +43,7 @@ export default {
         headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
         component: (col, key) => <span>{col[key]} (comp.)</span>,
         footerComponent: (col, key) => <span>{col[key]} (comp.)</span>,
+        wrap: d => <div style={{width:'200px'}}>{d}</div>, 
         // sorting: {
         //     sort: versus => (rowa, rowb) =>
         //         rowa.name > rowb.name ? -versus : versus
@@ -45,11 +51,11 @@ export default {
         // },
     },{
         key: 'date',
+        wrap: d => <div style={{width:'300px'}}>{d}</div>, 
         label: 'date',
     },{
         key: 'actions',
         label: 'actions',
-        headerLabel: 'actions',
         component: o => <button onClick={() => {
             console.log(o)
         }}>what</button>,
@@ -83,9 +89,18 @@ export default {
         label: 'name3',
     }
     ],
-    noFilterData: 'No data',
-    crossHighlight: 'TableCrossHighlight',
+    preHeaderHeight: '25px',
+    postFooterHeight: '25px',
+    headerHeight: '80px',
+    footerHeight: '40px',
 
+    PreHeader,
+    // postFooter: 'Post-footer here',
+    PostFooter,
+    noFilterData: 'No data',
+
+
+    crossHighlight: 'TableCrossHighlight',
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',
     cellHightlight: 'TableCellHighlight',

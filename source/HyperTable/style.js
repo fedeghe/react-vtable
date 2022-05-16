@@ -1,21 +1,16 @@
 import { createUseStyles } from "react-jss";
 
 export default createUseStyles(() => ({
-    PreTable: ({preTableHeight}) => ({
-        height: preTableHeight
-    }),
-    PostTable : ({postTableHeight}) => ({
-        height: postTableHeight
-    }),
-    Wrapper : ({width}) => ({
-        maxWidth: width,
+
+    Wrapper : ({width, height}) => ({
+        height,
         width,
         backgroundColor: 'white'
     }),
-    TableContainer: ({ height, width, postTableHeight, preTableHeight}) =>({
+    TableContainer: ({ height, width, postFooterHeight, preHeaderHeight}) =>({
         maxWidth: width,
         width: width,
-        maxHeight: `calc(${height} - ${postTableHeight} - ${preTableHeight})`,
+        height: `calc(${height} - ${postFooterHeight} - ${preHeaderHeight})`,
         overflow: 'scroll',
         position: 'relative',
         padding: 0
@@ -29,8 +24,8 @@ export default createUseStyles(() => ({
     Thead: ({headerHeight}) => ({
         height: headerHeight
     }),
-    Tfoot: ({headerHeight}) => ({
-        height: headerHeight
+    Tfoot: ({footerHeight}) => ({
+        height: footerHeight
     }),
     TorigTL: {
         left:0,
@@ -60,7 +55,7 @@ export default createUseStyles(() => ({
         position: '-webkit-sticky',
         position: 'sticky',
         textAlign: 'left',
-        verticalAlign: 'middle',
+        verticalAlign: 'top',
         top: 0,
         '&:firstChild': {
             left: 0,
@@ -80,6 +75,16 @@ export default createUseStyles(() => ({
         },
         backgroundColor: 'white'
     },
+    PostFooter: ({postFooterHeight}) =>({
+        maxHeight: postFooterHeight,
+        height: postFooterHeight,
+        overflow: 'hidden'
+    }),
+    PreHeader: ({preHeaderHeight}) =>({
+        maxHeight: preHeaderHeight,
+        height: preHeaderHeight,
+        overflow: 'hidden'
+    }),
 
     TbodyThLeftMost: {
         position: '-webkit-sticky',
