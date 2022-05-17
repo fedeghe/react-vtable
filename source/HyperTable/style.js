@@ -7,10 +7,10 @@ export default createUseStyles(() => ({
         width,
         backgroundColor: 'white'
     }),
-    TableContainer: ({ height, width, postFooterHeight, preHeaderHeight}) =>({
-        maxWidth: width,
-        width: width,
-        height: `calc(${height} - ${postFooterHeight} - ${preHeaderHeight})`,
+    TableContainer: ({ height, width, postFooterHeight, preHeaderHeight}) => ({
+        maxWidth: `${width}px`,
+        width: `${width}px`,
+        height: `${height - postFooterHeight - preHeaderHeight}px`,
         overflow: 'scroll',
         position: 'relative',
         padding: 0
@@ -19,13 +19,19 @@ export default createUseStyles(() => ({
         position: 'relative',
         borderCollapse: 'collapse'
     },
-    Td: {verticalAlign: 'top'},
+    Td: {
+        verticalAlign: 'top',
+    },
+    Cell: {
+        height: ({rowHeight}) => `${rowHeight}px`,
+        overflow:'scroll'
+    },
     Th: {verticalAlign: 'top'},
     Thead: ({headerHeight}) => ({
-        height: headerHeight
+        height: `${headerHeight}px`
     }),
     Tfoot: ({footerHeight}) => ({
-        height: footerHeight
+        height: `${footerHeight}px`
     }),
     TorigTL: {
         left:0,
@@ -76,16 +82,17 @@ export default createUseStyles(() => ({
         backgroundColor: 'white'
     },
     PostFooter: ({postFooterHeight}) =>({
-        maxHeight: postFooterHeight,
-        height: postFooterHeight,
+        maxHeight: `${postFooterHeight}px`,
+        height: `${postFooterHeight}px`,
         overflow: 'hidden'
     }),
     PreHeader: ({preHeaderHeight}) =>({
-        maxHeight: preHeaderHeight,
-        height: preHeaderHeight,
+        maxHeight: `${preHeaderHeight}px`,
+        height: `${preHeaderHeight}px`,
         overflow: 'hidden'
     }),
 
+    
     TbodyThLeftMost: {
         position: '-webkit-sticky',
         position: 'sticky',

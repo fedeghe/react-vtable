@@ -76,12 +76,58 @@ const reducer = (oldState, action) => {
                 activeCol: null,
                 activeRow: null,
             }
+        case 'scroll': 
+            const scrollTop = payload
+            const {
+                gap,
+                dataHeight,
+                rowHeight,
+                contentHeight, 
+                carpetHeight
+            } = oldState.virtual
+            if (scrollTop < (gap * rowHeight)) {
+                return {
+                    ...oldState,
+                    virtual: {
+                        ...oldState.virtual,
+                        headerFillerHeight: 0,
+                        footerFillerHeight: carpetHeight - contentHeight,
+                        from: 0
+                    }    
+                }
+            }
+            const from = Math.max(Math.floor(scrollTop / rowHeight) - gap, 0),
+                headerFillerHeight = from * rowHeight,
+                footerFillerHeight = carpetHeight - headerFillerHeight - dataHeight;
+            return {
+                ...oldState,
+                virtual: {
+                    ...oldState.virtual,
+                    headerFillerHeight,
+                    footerFillerHeight,
+                    from
+                }    
+            }
         default:
             return oldState
     }
 }
 
-const init = data => {
+const init = ({
+    data,
+    width, height,
+    preHeaderHeight, postFooterHeight,
+    headerHeight, footerHeight,
+    rowHeight
+}) => {
+    const gap = 10
+    const contentHeight = height - preHeaderHeight - headerHeight - footerHeight - postFooterHeight;
+    const carpetHeight = data.length * rowHeight
+    const renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap
+    const dataHeight = renderedElements * rowHeight
+
+    const headerFillerHeight = 0
+    const footerFillerHeight = carpetHeight - contentHeight
     originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     return {
         rows: originalData,
@@ -92,7 +138,20 @@ const init = data => {
             versus: 0
         },
         activeRow: null,
-        activeCcol: null
+        activeCcol: null,
+
+        virtual: {
+            gap,
+            dataHeight,
+            rowHeight,
+            contentHeight, 
+            headerFillerHeight,
+            footerFillerHeight,
+            scrollTop: 0,
+            from: 0,
+            renderedElements,
+            carpetHeight
+        }
     }
 }
 

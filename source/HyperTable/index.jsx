@@ -1,9 +1,25 @@
-import React, { useReducer, useEffect, useRef } from 'react'
+import React, { useReducer, useEffect, useRef, useCallback } from 'react'
 
 import reducerFactory from './reducer'
 import { replaceall } from './utils'
 
 import useStyles from './style.js'
+
+
+const debounce = (func, wait) => {
+    let timeout
+    let enabled = true
+    return (...params) => {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        if (!enabled) return
+        func(...params)
+        enabled = false
+        setTimeout(() => enabled = true, wait)
+      }, wait)
+    }
+  }
+
 
 const HyperTable = ({
     columns,
@@ -18,6 +34,8 @@ const HyperTable = ({
 
     rowVerticalAlign,
 
+    rowHeight,
+
     crossHighlight,
     columnHighlight,
     rowHighlight,
@@ -27,10 +45,10 @@ const HyperTable = ({
 
     PreHeader,
     PostFooter,
-    preHeaderHeight = '20px',
-    postFooterHeight = '20px',
-    headerHeight = '40px',
-    footerHeight = '40px',
+    preHeaderHeight = 20,
+    postFooterHeight = 20,
+    headerHeight = 40,
+    footerHeight = 40,
     
     cellClick = () => { },
     cellEnter = () => { },
@@ -39,31 +57,64 @@ const HyperTable = ({
 
 
     const { reducer, init } = reducerFactory()
-    const [state, dispatch] = useReducer(reducer, init(data))
-    const {total, rows, activeRow, activeCol, filters, sorting : {
-        field: sortingField,
-        versus: sortingVersus
-    } = {}} = state
+    const [state, dispatch] = useReducer(reducer, init({
+        data,
+        height, width,
+        preHeaderHeight,
+        postFooterHeight,
+        headerHeight,
+        footerHeight,
+        rowHeight
+    }))
+    const {
+        total,
+        rows,
+        activeRow, activeCol,
+        filters, sorting : {
+            field: sortingField,
+            versus: sortingVersus
 
+        } = {},
+        virtual: {
+            scrollTop,
+            headerFillerHeight,
+            footerFillerHeight,
+            from, renderedElements
+        }
+    } = state
+    
     const classes = useStyles({
         width, height,
         preHeaderHeight,
         postFooterHeight,
         headerHeight,
-        footerHeight
+        footerHeight,
+        rowHeight
     })
     const table = useRef(null);
+    const virtualColspan = columns.length + !!leftMost + !!rightMost
+    // const onScroll = useCallback(debounce(e =>e.nativeEvent.target.scrollTop !== scrollTop && dispatch({
+    //     type:'scroll',
+    //     payload: e.nativeEvent.target.scrollTop
+    // }), 10), [])
 
-    useEffect(() => {
-        table.current.style.display = 'table';
-        return () => {
-            table.current.style.display = 'none'
-        }
-    }, [])
-    console.log({activeCol, activeRow})
+    const onScroll = useCallback(e => dispatch({
+        type:'scroll',
+        payload: e.nativeEvent.target.scrollTop
+    }), [])
+
+    // useEffect(() => {
+    //     table.current.style.display = 'table';
+    //     return () => {
+    //         table.current.style.display = 'none'
+    //     }
+    // }, [])
     return <div className={classes.Wrapper}>
         {PreHeader && <div className={classes.PreHeader}>{typeof PreHeader === 'function' ? <PreHeader/> : PreHeader}</div>}
-        <div className={classes.TableContainer}>
+        <div
+            className={classes.TableContainer}
+            onScroll={onScroll}
+        >
             <table ref={table} className={classes.Table}>
                 <thead className={classes.Thead}>
                     <tr>
@@ -90,12 +141,18 @@ const HyperTable = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {rows.map((row, i) => (
+                    <tr>
+                        <td colSpan={virtualColspan} style={{
+                            height:`${headerFillerHeight}px`,
+                            display: headerFillerHeight > 0 ? 'table-row' : 'none'
+                        }}></td>
+                    </tr>
+                    {rows.slice(from, from + renderedElements).map((row, i) => (
                         <tr
-                            className={`${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
-                            key={`row${i}`}
+                            className={`${activeRow === row._ID ? (crossHighlight || rowHighlight || "") : ''}`}
+                            key={row._ID}
                         >
-                            {leftMost && <th className={`${classes.TbodyThLeftMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>{leftMost({row, i})}</th>}
+                            {leftMost && <th className={`${classes.TbodyThLeftMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>{leftMost({row, i: i + from})}</th>}
                             {columns.map((col, j) => {
                                 let cnt = row[col.key] || 'nothing'
                                 if (col.wrap && typeof col.wrap === 'function') {
@@ -103,7 +160,7 @@ const HyperTable = ({
                                 }
                                 return (
                                     <td
-                                        key={`cell_${i}_${j}`}
+                                        key={`cell_${row._ID}_${j}`}
                                         onClick={e => {
                                             cellClick.call(e, e, row, col)
                                         }}
@@ -130,13 +187,21 @@ const HyperTable = ({
                                             });
                                         }}
                                         className={`${classes.Td} ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''} ${(cellHightlight && activeRow === row._ID && activeCol === col.key) ? cellHightlight : ''}`}>
-                                        {cnt}
+                                        <div className={classes.Cell}>
+                                            {cnt}
+                                        </div>
                                     </td>
                                 )
                             })}
-                            {rightMost && <th className={`${classes.TbodyThRightMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>{rightMost({row, i})}</th>}
+                            {rightMost && <th className={`${classes.TbodyThRightMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>{rightMost({row, i: i + from})}</th>}
                         </tr>
                     ))}
+                    <tr>
+                        <td colSpan={virtualColspan} style={{
+                            height:`${footerFillerHeight}px`,
+                            display: footerFillerHeight > 0 ? 'table-row' : 'none'
+                        }}></td>
+                    </tr>
                 </tbody>
                 <tfoot>
                     <tr>

@@ -89,10 +89,14 @@ export default {
         label: 'name3',
     }
     ],
-    preHeaderHeight: '25px',
-    postFooterHeight: '25px',
-    headerHeight: '80px',
-    footerHeight: '40px',
+    preHeaderHeight: 25,
+    postFooterHeight: 25,
+    headerHeight: 40,
+    footerHeight: 40,
+
+    height: 600,
+    width: 800,
+    rowHeight: 80,
 
     PreHeader,
     // postFooter: 'Post-footer here',
@@ -100,10 +104,11 @@ export default {
     noFilterData: 'No data',
 
 
-    crossHighlight: 'TableCrossHighlight',
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',
-    cellHightlight: 'TableCellHighlight',
+    
+    // crossHighlight: 'TableCrossHighlight',
+    // cellHightlight: 'TableCellHighlight',
     
     rowVerticalAlign: 'top',
 
@@ -120,7 +125,8 @@ export default {
         {key: 'entityid3', type: 'int'},
         {key: 'name3', type: 'str'},
         {key: 'date3', type: 'date'},
-    ], 50),
+    
+    ], 1000),
     captionTop: {
         text: 'This is the top caption __COUNT__ / __TOTAL__',
         className: 'tableCaptionUp'
@@ -129,19 +135,17 @@ export default {
         text: 'This is the bottom caption',
         className: 'tableCaptionDown'
     },
-    height: '600px',
-    width: '800px',
-    lineHeight: 100,
+    
 
         
-    cellClick: (e, row, col) => {
-        console.log('cell click', col, row)
-        e.stopPropagation()
-    },
-    cellEnter: (e, row, col) => {
-        console.log('cell enter', col, row)
-    },
-    cellLeave: (e, row, col) => {
-        console.log('cell leave', col, row)
-    },
+    // cellClick: (e, row, col) => {
+    //     console.log('cell click', col, row)
+    //     e.stopPropagation()
+    // },
+    // cellEnter: (e, row, col) => {
+    //     console.log('cell enter', col, row)
+    // },
+    // cellLeave: (e, row, col) => {
+    //     console.log('cell leave', col, row)
+    // },
 }
