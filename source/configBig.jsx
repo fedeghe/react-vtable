@@ -126,7 +126,7 @@ export default {
         {key: 'name3', type: 'str'},
         {key: 'date3', type: 'date'},
     
-    ], 1000),
+    ], 2e4),
     captionTop: {
         text: 'This is the top caption __COUNT__ / __TOTAL__',
         className: 'tableCaptionUp'

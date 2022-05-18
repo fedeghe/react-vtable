@@ -83,7 +83,8 @@ const reducer = (oldState, action) => {
                 dataHeight,
                 rowHeight,
                 contentHeight, 
-                carpetHeight
+                carpetHeight,
+                moreSpaceThanContent
             } = oldState.virtual
             if (scrollTop < (gap * rowHeight)) {
                 return {
@@ -91,14 +92,14 @@ const reducer = (oldState, action) => {
                     virtual: {
                         ...oldState.virtual,
                         headerFillerHeight: 0,
-                        footerFillerHeight: carpetHeight - contentHeight,
+                        footerFillerHeight: carpetHeight - dataHeight,
                         from: 0
                     }    
                 }
             }
             const from = Math.max(Math.floor(scrollTop / rowHeight) - gap, 0),
                 headerFillerHeight = from * rowHeight,
-                footerFillerHeight = carpetHeight - headerFillerHeight - dataHeight;
+                footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - headerFillerHeight - dataHeight;
             return {
                 ...oldState,
                 virtual: {
@@ -125,9 +126,11 @@ const init = ({
     const carpetHeight = data.length * rowHeight
     const renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap
     const dataHeight = renderedElements * rowHeight
-
+    
     const headerFillerHeight = 0
-    const footerFillerHeight = carpetHeight - contentHeight
+    const moreSpaceThanContent= carpetHeight < contentHeight
+    const footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - dataHeight
+
     originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     return {
         rows: originalData,
@@ -142,6 +145,7 @@ const init = ({
 
         virtual: {
             gap,
+            moreSpaceThanContent,
             dataHeight,
             rowHeight,
             contentHeight, 
