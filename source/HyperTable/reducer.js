@@ -78,6 +78,7 @@ const reducer = (oldState, action) => {
             }
         case 'scroll': 
             const scrollTop = payload
+
             const {
                 gap,
                 dataHeight,
@@ -91,19 +92,24 @@ const reducer = (oldState, action) => {
                     ...oldState,
                     virtual: {
                         ...oldState.virtual,
+                        scrollTop,
                         headerFillerHeight: 0,
                         footerFillerHeight: carpetHeight - dataHeight,
                         from: 0
                     }    
                 }
             }
-            const from = Math.max(Math.floor(scrollTop / rowHeight) - gap, 0),
+            
+            const from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
                 headerFillerHeight = from * rowHeight,
-                footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - headerFillerHeight - dataHeight;
+                footerFillerHeight = moreSpaceThanContent
+                    ? contentHeight - carpetHeight
+                    : carpetHeight - headerFillerHeight - dataHeight;
             return {
                 ...oldState,
                 virtual: {
                     ...oldState.virtual,
+                    scrollTop,
                     headerFillerHeight,
                     footerFillerHeight,
                     from
@@ -116,11 +122,12 @@ const reducer = (oldState, action) => {
 
 const init = ({
     data,
-    width, height,
+    height,
     preHeaderHeight, postFooterHeight,
     headerHeight, footerHeight,
     rowHeight
 }) => {
+    
     const gap = 10
     const contentHeight = height - preHeaderHeight - headerHeight - footerHeight - postFooterHeight;
     const carpetHeight = data.length * rowHeight

@@ -79,7 +79,7 @@ const HyperTable = ({
             scrollTop,
             headerFillerHeight,
             footerFillerHeight,
-            from, renderedElements
+            from, renderedElements,
         }
     } = state
     
@@ -93,22 +93,19 @@ const HyperTable = ({
     })
     const table = useRef(null);
     const virtualColspan = columns.length + !!leftMost + !!rightMost
-    // const onScroll = useCallback(debounce(e =>e.nativeEvent.target.scrollTop !== scrollTop && dispatch({
-    //     type:'scroll',
-    //     payload: e.nativeEvent.target.scrollTop
-    // }), 10), [])
+    
 
-    const onScroll = useCallback(e => dispatch({
-        type:'scroll',
-        payload: e.nativeEvent.target.scrollTop
-    }), [])
+    const onScroll = useCallback(debounce(e => {
+        e.preventDefault()
+        e.stopPropagation()
+        dispatch({
+            type:'scroll',
+            payload: e.nativeEvent.target.scrollTop
+        })
+    }, 20), [])
+    
 
-    // useEffect(() => {
-    //     table.current.style.display = 'table';
-    //     return () => {
-    //         table.current.style.display = 'none'
-    //     }
-    // }, [])
+    
     return <div className={classes.Wrapper}>
         {PreHeader && <div className={classes.PreHeader}>{typeof PreHeader === 'function' ? <PreHeader/> : PreHeader}</div>}
         <div
@@ -144,7 +141,7 @@ const HyperTable = ({
                     <tr>
                         <td colSpan={virtualColspan} style={{
                             height:`${headerFillerHeight}px`,
-                            display: headerFillerHeight > 0 ? 'table-row' : 'none'
+                            display: headerFillerHeight > 0 ? 'table-cell' : 'none'
                         }}></td>
                     </tr>
                     {rows.slice(from, from + renderedElements).map((row, i) => (
@@ -199,7 +196,7 @@ const HyperTable = ({
                     <tr>
                         <td colSpan={virtualColspan} style={{
                             height:`${footerFillerHeight}px`,
-                            display: footerFillerHeight > 0 ? 'table-row' : 'none'
+                            display: footerFillerHeight > 0 ? 'table-cell' : 'none'
                         }}></td>
                     </tr>
                 </tbody>

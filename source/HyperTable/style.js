@@ -5,13 +5,15 @@ export default createUseStyles(() => ({
     Wrapper : ({width, height}) => ({
         height,
         width,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        overflow: 'hidden'
     }),
     TableContainer: ({ height, width, postFooterHeight, preHeaderHeight}) => ({
         maxWidth: `${width}px`,
         width: `${width}px`,
         height: `${height - postFooterHeight - preHeaderHeight}px`,
         overflow: 'scroll',
+        scrollBehavior: 'smooth',
         position: 'relative',
         padding: 0
     }),
