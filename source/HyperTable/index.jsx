@@ -135,11 +135,8 @@ const HyperTable = ({
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colSpan={virtualColspan} style={{
-                            height:`${headerFillerHeight}px`,
-                            display: headerFillerHeight > 0 ? 'table-cell' : 'none'
-                        }}></td>
+                    <tr style={{display: headerFillerHeight > 0 ? 'table-row' : 'none'}}>
+                        <td colSpan={virtualColspan} style={{height:`${headerFillerHeight}px`}}></td>
                     </tr>
                     {rows.slice(from, from + renderedElements).map((row, i) => (
                         <tr
@@ -190,11 +187,8 @@ const HyperTable = ({
                             {rightMost && <th className={`${classes.TbodyThRightMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>{rightMost({row, i: i + from})}</th>}
                         </tr>
                     ))}
-                    <tr>
-                        <td colSpan={virtualColspan} style={{
-                            height:`${footerFillerHeight}px`,
-                            display: footerFillerHeight > 0 ? 'table-cell' : 'none'
-                        }}></td>
+                    <tr style={{display: footerFillerHeight > 0 ? 'table-row' : 'none'}}>
+                        <td colSpan={virtualColspan} style={{height:`${footerFillerHeight}px`}}></td>
                     </tr>
                 </tbody>
                 <tfoot>
