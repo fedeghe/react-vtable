@@ -24,15 +24,9 @@ const debounce = (func, wait) => {
 const HyperTable = ({
     columns,
     data,
-    captionTop,
-    captionBottom,
-
     height, width,
 
-    leftMost = false,
-    rightMost = false,
-
-    rowVerticalAlign,
+    
 
     rowHeight,
 
@@ -45,6 +39,9 @@ const HyperTable = ({
 
     PreHeader,
     PostFooter,
+    leftMost,
+    rightMost,
+
     preHeaderHeight = 20,
     postFooterHeight = 20,
     headerHeight = 40,

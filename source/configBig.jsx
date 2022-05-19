@@ -110,7 +110,6 @@ export default {
     // crossHighlight: 'TableCrossHighlight',
     // cellHightlight: 'TableCellHighlight',
     
-    rowVerticalAlign: 'top',
 
     data: generateRowData([
         {key: 'id', type: 'id'},
@@ -126,15 +125,7 @@ export default {
         {key: 'name3', type: 'str'},
         {key: 'date3', type: 'date'},
     
-    ], 2e4),
-    captionTop: {
-        text: 'This is the top caption __COUNT__ / __TOTAL__',
-        className: 'tableCaptionUp'
-    },
-    captionBottom: {
-        text: 'This is the bottom caption',
-        className: 'tableCaptionDown'
-    },
+    ], 2e3),
     
 
         
