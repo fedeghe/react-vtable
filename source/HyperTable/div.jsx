@@ -28,21 +28,20 @@ const HyperTable = ({
 
     
 
-    
-    
-    
+    rowHeight,
+
+    crossHighlight,
+    columnHighlight,
+    rowHighlight,
+    cellHightlight,
+
     noFilterData,
-    
+
     PreHeader,
     PostFooter,
     leftMost,
     rightMost,
-    
-    crossHighlight='',
-    columnHighlight='',
-    rowHighlight='',
-    cellHightlight='',
-    rowHeight = 50,
+
     preHeaderHeight = 20,
     postFooterHeight = 20,
     headerHeight = 40,
@@ -77,7 +76,7 @@ const HyperTable = ({
             scrollTop,
             headerFillerHeight,
             footerFillerHeight,
-            from, to
+            from, renderedElements,
         }
     } = state
     
@@ -102,10 +101,10 @@ const HyperTable = ({
         })
     }, 20), [])
     
-    // console.log(state.virtual)
+
     
     return <div className={classes.Wrapper}>
-        {PreHeader && <div className={classes.PreHeader}>{typeof PreHeader === 'function' ? <PreHeader {...{from, to, total}}/> : PreHeader}</div>}
+        {PreHeader && <div className={classes.PreHeader}>{typeof PreHeader === 'function' ? <PreHeader/> : PreHeader}</div>}
         <div
             className={classes.TableContainer}
             onScroll={onScroll}
@@ -115,7 +114,7 @@ const HyperTable = ({
                     <tr>
                         {leftMost && (
                             <th className={`${classes.TheadTh} ${classes.TorigTL}`}>
-                                {leftMost({isHeader:true, from, to})}
+                                <div style={{width:'70px'}}>&bull;</div>
                             </th>
                         )}
                         {columns.map((column, k) => {
@@ -126,12 +125,11 @@ const HyperTable = ({
 
                             return <th key={`head${k}`} className={`${classes.TheadTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
                                 {label}
-                                
                             </th>
                         })}
                         {rightMost && (
                             <th className={`${classes.TheadTh} ${classes.TorigTR}`}>
-                                {rightMost({isHeader:true, from, to})}
+                                <div style={{width:'70px'}}>&bull;</div>
                             </th>)
                         }
                     </tr>
@@ -140,16 +138,12 @@ const HyperTable = ({
                     <tr style={{display: headerFillerHeight > 0 ? 'table-row' : 'none'}}>
                         <td colSpan={virtualColspan} style={{height:`${headerFillerHeight}px`}}></td>
                     </tr>
-                    {rows.map((row, i) => (
+                    {rows.slice(from, from + renderedElements).map((row, i) => (
                         <tr
                             className={`${activeRow === row._ID ? (crossHighlight || rowHighlight || "") : ''}`}
                             key={row._ID}
                         >
-                            {leftMost &&
-                                <th className={`${classes.TbodyThLeftMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>
-                                    {leftMost({row, i: i + from, from, to})}
-                                </th>
-                            }
+                            {leftMost && <th className={`${classes.TbodyThLeftMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>{leftMost({row, i: i + from})}</th>}
                             {columns.map((col, j) => {
                                 let cnt = row[col.key] || 'nothing'
                                 if (col.wrap && typeof col.wrap === 'function') {
@@ -163,6 +157,7 @@ const HyperTable = ({
                                         }}
                                         onMouseEnter={e => {
                                             cellEnter.call(e, e, row, col)
+                                            
                                             dispatch({
                                                 type: 'cellHover',
                                                 payload: {
@@ -173,6 +168,7 @@ const HyperTable = ({
                                         }}
                                         onMouseLeave={e => {
                                             cellLeave.call(e, e, row, col);
+                                            
                                             dispatch({
                                                 type: 'cellOut',
                                                 payload: {
@@ -188,22 +184,18 @@ const HyperTable = ({
                                     </td>
                                 )
                             })}
-                            {rightMost &&
-                                <th className={`${classes.TbodyThRightMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>
-                                    {rightMost({row, i: i + from, from, to})}
-                                </th>
-                            }
+                            {rightMost && <th className={`${classes.TbodyThRightMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>{rightMost({row, i: i + from})}</th>}
                         </tr>
                     ))}
                     <tr style={{display: footerFillerHeight > 0 ? 'table-row' : 'none'}}>
                         <td colSpan={virtualColspan} style={{height:`${footerFillerHeight}px`}}></td>
                     </tr>
                 </tbody>
-                <tfoot className={classes.Tfoot}>
+                <tfoot>
                     <tr>
                         {leftMost && (
                             <th className={`${classes.TfootTh} ${classes.Th} ${classes.TorigBL}`}>
-                                {leftMost({isFooter:true, from, to})}
+                                <div style={{width:'70px'}}>&bull;</div>
                             </th>
                         )}
                         {columns.map((column, k) => {
@@ -217,14 +209,14 @@ const HyperTable = ({
                         })}
                         {rightMost && (
                             <th className={`${classes.TfootTh} ${classes.TorigBR}`}>
-                                {rightMost({isFooter:true, from, to})}
+                                <div style={{width:'70px'}}>&bull;</div>
                             </th>
                         )}
                     </tr>
                 </tfoot>
             </table>
         </div>
-        {PostFooter && <div className={classes.PostFooter}>{typeof PostFooter === 'function' ? <PostFooter {...{from, to, total}}/> : PostFooter}</div>}
+        {PostFooter && <div className={classes.PostFooter}>{typeof PostFooter === 'function' ? <PostFooter/> : PostFooter}</div>}
     </div>
 
 }

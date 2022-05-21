@@ -1,26 +1,38 @@
 import React from 'react'
-import Filter from './Filter'
+// import Filter from './Filter'
 import {generateRowData} from './utils'
 
-const PostFooter = () => {
-    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit'}}>Component post footer</div>
+const PostFooter = ({from, to}) => {
+    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit', textAlign: 'center'}}>Post footer component [{from}, {to}]</div>
 }
-const PreHeader = () => {
-    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit'}}>Component pre header</div>
+const PreHeader = ({total}) => {
+    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit', fontSize:'1.2em'}}>Pre header component ({total})</div>
+}
+
+const Filter = ({value, setValue}) => {
+    return <input type="text" value={value} onChange={e=> setValue(e.target.value)}/>
 }
 
 
 export default {
-    leftMost: ({row, i}) => `left ${i+1}`, 
-    rightMost: ({row, i}) => `right ${i+1}`, 
+    leftMost: ({row, i, isHeader, isFooter, from, to}) => {
+        if (isFooter) return <div style={{width:'70px'}}>LF {to}</div>
+        if (isHeader) return <div style={{width:'70px'}}>LH {from}</div>
+        return `left ${i}`
+    }, 
+    rightMost: ({row, i, isHeader, isFooter, from, to}) => {
+        if (isFooter) return <div style={{width:'70px'}}>RF {to}</div>
+        if (isHeader) return <div style={{width:'70px'}}>RH {from}</div>
+        return `right ${i}`
+    }, 
     columns: [{
         key: 'id',
         label: 'id',
         footerLabel: 'id foot',
-        headerLabel: 'id head',
+        headerLabel: (o) => o.label,
 
         wrap: d => <div style={{width:'200px'}}>{d}</div>, 
-        align:'center',
+        filter: Filter,
         sorting: {
             sort: versus => (rowa, rowb) =>
                 rowa.id > rowb.id ? -versus : versus
@@ -89,14 +101,14 @@ export default {
         label: 'name3',
     }
     ],
-    preHeaderHeight: 25,
+    preHeaderHeight: 45,
     postFooterHeight: 25,
-    headerHeight: 40,
-    footerHeight: 40,
+    headerHeight: 60,
+    footerHeight: 60,
 
     height: 600,
     width: 800,
-    rowHeight: 80,
+    rowHeight: 180,
 
     PreHeader,
     // postFooter: 'Post-footer here',
@@ -107,7 +119,7 @@ export default {
     // rowHighlight: 'TableRowHighlight',
     // columnHighlight: 'TableColumnHighlight',
     
-    // crossHighlight: 'TableCrossHighlight',
+    crossHighlight: 'TableCrossHighlight',
     // cellHightlight: 'TableCellHighlight',
     
 

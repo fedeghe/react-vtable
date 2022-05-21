@@ -7,6 +7,8 @@ const uniqueID = {
     }
 }
 
+const GAP = 10
+
 let originalData = null
 
 const reducer = (oldState, action) => {
@@ -78,16 +80,18 @@ const reducer = (oldState, action) => {
             }
         case 'scroll': 
             const scrollTop = payload
-
             const {
-                gap,
-                dataHeight,
-                rowHeight,
-                contentHeight, 
-                carpetHeight,
-                moreSpaceThanContent
-            } = oldState.virtual
-            if (scrollTop < (gap * rowHeight)) {
+                total,
+                virtual: {
+                    dataHeight,
+                    rowHeight,
+                    contentHeight, 
+                    carpetHeight,
+                    moreSpaceThanContent,
+                    renderedElements
+                }
+            } = oldState
+            if (scrollTop < (GAP * rowHeight)) {
                 return {
                     ...oldState,
                     virtual: {
@@ -95,24 +99,28 @@ const reducer = (oldState, action) => {
                         scrollTop,
                         headerFillerHeight: 0,
                         footerFillerHeight: carpetHeight - dataHeight,
-                        from: 0
+                        from: 0,
+                        to: renderedElements -1
                     }    
                 }
             }
             
-            const from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
+            const from = Math.max(Math.ceil(scrollTop / rowHeight) - GAP, 0),
                 headerFillerHeight = from * rowHeight,
                 footerFillerHeight = moreSpaceThanContent
                     ? contentHeight - carpetHeight
-                    : carpetHeight - headerFillerHeight - dataHeight;
+                    : carpetHeight - headerFillerHeight - dataHeight,
+                to = Math.min(from + renderedElements, total);
             return {
                 ...oldState,
+                rows: oldState.originalData.slice(from, to),
                 virtual: {
                     ...oldState.virtual,
                     scrollTop,
                     headerFillerHeight,
                     footerFillerHeight,
-                    from
+                    from,
+                    to: to -1,
                 }    
             }
         default:
@@ -128,10 +136,10 @@ const init = ({
     rowHeight
 }) => {
     
-    const gap = 10
+    
     const contentHeight = height - preHeaderHeight - headerHeight - footerHeight - postFooterHeight;
     const carpetHeight = data.length * rowHeight
-    const renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap
+    const renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * GAP
     const dataHeight = renderedElements * rowHeight
     
     const headerFillerHeight = 0
@@ -140,7 +148,8 @@ const init = ({
 
     originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     return {
-        rows: originalData,
+        originalData,
+        rows: originalData.slice(0, renderedElements),
         total: originalData.length,
         filters: {},
         sorting: {
@@ -151,7 +160,6 @@ const init = ({
         activeCcol: null,
 
         virtual: {
-            gap,
             moreSpaceThanContent,
             dataHeight,
             rowHeight,
@@ -160,8 +168,9 @@ const init = ({
             footerFillerHeight,
             scrollTop: 0,
             from: 0,
+            to: renderedElements -1,
             renderedElements,
-            carpetHeight
+            carpetHeight,
         }
     }
 }

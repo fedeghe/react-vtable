@@ -51,7 +51,7 @@ export default createUseStyles(() => ({
         left:0,
         bottom:0,
         zIndex:1000,
-        textAlign:'center !important'
+        textAlign:'center !important',
     },
     TorigBR: {
         right:0,
@@ -120,4 +120,6 @@ export default createUseStyles(() => ({
         backgroundColor: '#f66'
     }
     
-}))
+}
+
+))
