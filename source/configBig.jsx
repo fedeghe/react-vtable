@@ -2,11 +2,11 @@ import React from 'react'
 // import Filter from './Filter'
 import {generateRowData} from './utils'
 
-const PostFooter = ({from, to}) => {
-    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit', textAlign: 'center'}}>Post footer component [{from}, {to}]</div>
+const PostFooter = ({from, to, activeColIndex, activeRowIndex}) => {
+    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit', textAlign: 'center'}}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColIndex}]</div>
 }
-const PreHeader = ({total}) => {
-    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit', fontSize:'1.2em'}}>Pre header component ({total})</div>
+const PreHeader = ({total, activeCol, activeRow}) => {
+    return <div style={{color:'white', backgroundColor: 'royalBlue', height:'inherit', fontSize:'1.2em'}}>Pre header component ({total}) [{activeRow}, {activeCol}]</div>
 }
 
 const Filter = ({value, setValue}) => {

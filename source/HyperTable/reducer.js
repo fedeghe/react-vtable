@@ -70,13 +70,17 @@ const reducer = (oldState, action) => {
             return  {
                 ...oldState,
                 activeCol: payload.col.key,
-                activeRow: payload.row._ID
+                activeRow: payload.row._ID,
+                activeColIndex: payload.colIndex,
+                activeRowIndex: payload.rowIndex
             }
         case 'cellOut': 
             return  {
                 ...oldState,
                 activeCol: null,
                 activeRow: null,
+                activeColIndex: null,
+                activeRowIndex: null,
             }
         case 'scroll': 
             const scrollTop = payload
@@ -135,7 +139,7 @@ const init = ({
     headerHeight, footerHeight,
     rowHeight
 }) => {
-    
+
     
     const contentHeight = height - preHeaderHeight - headerHeight - footerHeight - postFooterHeight;
     const carpetHeight = data.length * rowHeight
@@ -157,7 +161,9 @@ const init = ({
             versus: 0
         },
         activeRow: null,
-        activeCcol: null,
+        activeCol: null,
+        activeRowIndex: null,
+        activeColIndex: null,
 
         virtual: {
             moreSpaceThanContent,

@@ -68,6 +68,7 @@ const HyperTable = ({
         total,
         rows,
         activeRow, activeCol,
+        activeRowIndex, activeColIndex,
         filters, sorting : {
             field: sortingField,
             versus: sortingVersus
@@ -105,7 +106,7 @@ const HyperTable = ({
     // console.log(state.virtual)
     
     return <div className={classes.Wrapper}>
-        {PreHeader && <div className={classes.PreHeader}>{typeof PreHeader === 'function' ? <PreHeader {...{from, to, total}}/> : PreHeader}</div>}
+        {PreHeader && <div className={classes.PreHeader}>{typeof PreHeader === 'function' ? <PreHeader {...{from, to, total, activeCol, activeRow, activeColIndex, activeRowIndex}}/> : PreHeader}</div>}
         <div
             className={classes.TableContainer}
             onScroll={onScroll}
@@ -159,27 +160,23 @@ const HyperTable = ({
                                     <td
                                         key={`cell_${row._ID}_${j}`}
                                         onClick={e => {
-                                            cellClick.call(e, e, row, col)
+                                            cellClick.call(e, e, {row, col})
                                         }}
                                         onMouseEnter={e => {
-                                            cellEnter.call(e, e, row, col)
+                                            cellEnter.call(e, e, {row, col,rowIndex: from + i, colIndex: j})
                                             dispatch({
                                                 type: 'cellHover',
                                                 payload: {
                                                     row,
-                                                    col
+                                                    col,
+                                                    rowIndex: from + i,
+                                                    colIndex: j
                                                 }
                                             });
                                         }}
                                         onMouseLeave={e => {
-                                            cellLeave.call(e, e, row, col);
-                                            dispatch({
-                                                type: 'cellOut',
-                                                payload: {
-                                                    row,
-                                                    col
-                                                }
-                                            });
+                                            cellLeave.call(e, e, {row, col,rowIndex: from + i, colIndex: j});
+                                            dispatch({type: 'cellOut'});
                                         }}
                                         className={`${classes.Td} ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''} ${(cellHightlight && activeRow === row._ID && activeCol === col.key) ? cellHightlight : ''}`}>
                                         <div className={classes.Cell}>
@@ -224,7 +221,7 @@ const HyperTable = ({
                 </tfoot>
             </table>
         </div>
-        {PostFooter && <div className={classes.PostFooter}>{typeof PostFooter === 'function' ? <PostFooter {...{from, to, total}}/> : PostFooter}</div>}
+        {PostFooter && <div className={classes.PostFooter}>{typeof PostFooter === 'function' ? <PostFooter {...{from, to, total, activeCol, activeRow, activeColIndex, activeRowIndex}}/> : PostFooter}</div>}
     </div>
 
 }
