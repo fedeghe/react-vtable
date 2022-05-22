@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useRef, useCallback } from 'react'
 
+import Filler from './components/Filler'
 import reducerFactory from './reducer'
 import { replaceall } from './utils'
 
@@ -138,10 +139,9 @@ const HyperTable = ({
                     </tr>
                 </thead>
                 <tbody>
-                    <tr style={{display: headerFillerHeight > 0 ? 'table-row' : 'none'}}>
-                        <td colSpan={virtualColspan} style={{height:`${headerFillerHeight}px`}}></td>
-                    </tr>
+                    <Filler {...{height: headerFillerHeight, virtualColspan}}/>
                     {rows.map((row, i) => (
+                        
                         <tr
                             className={`${activeRow === row._ID ? (crossHighlight || rowHighlight || "") : ''}`}
                             key={row._ID}
@@ -192,9 +192,7 @@ const HyperTable = ({
                             }
                         </tr>
                     ))}
-                    <tr style={{display: footerFillerHeight > 0 ? 'table-row' : 'none'}}>
-                        <td colSpan={virtualColspan} style={{height:`${footerFillerHeight}px`}}></td>
-                    </tr>
+                    <Filler {...{height: footerFillerHeight, virtualColspan}}/>
                 </tbody>
                 <tfoot className={classes.Tfoot}>
                     <tr>
