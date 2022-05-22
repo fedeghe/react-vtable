@@ -27,11 +27,6 @@ const HyperTable = ({
     data,
     height, width,
 
-    
-
-    
-    
-    
     noFilterData,
     
     PreHeader,
@@ -76,7 +71,6 @@ const HyperTable = ({
 
         } = {},
         virtual: {
-            scrollTop,
             headerFillerHeight,
             footerFillerHeight,
             from, to
@@ -141,7 +135,6 @@ const HyperTable = ({
                 <tbody>
                     <Filler {...{height: headerFillerHeight, virtualColspan}}/>
                     {rows.map((row, i) => (
-                        
                         <tr
                             className={`${activeRow === row._ID ? (crossHighlight || rowHighlight || "") : ''}`}
                             key={row._ID}
