@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect, useRef, useCallback } from 'react'
 
-import Filler from './components/Filler'
+import Filler from './Table/Filler'
 import reducerFactory from './reducer'
 import { replaceall } from './utils'
 
@@ -85,7 +85,7 @@ const HyperTable = ({
         footerHeight,
         rowHeight
     })
-    const table = useRef(null);
+    
     const virtualColspan = columns.length + !!leftMost + !!rightMost
     
 
@@ -106,7 +106,8 @@ const HyperTable = ({
             className={classes.TableContainer}
             onScroll={onScroll}
         >
-            <table ref={table} className={classes.Table}>
+            {rows.length ? (
+            <table className={classes.Table}>
                 <thead className={classes.Thead}>
                     <tr>
                         {leftMost && (
@@ -211,6 +212,7 @@ const HyperTable = ({
                     </tr>
                 </tfoot>
             </table>
+            ) : <div className={classes.NoData}>{noFilterData}</div>}
         </div>
         {PostFooter && <div className={classes.PostFooter}>{typeof PostFooter === 'function' ? <PostFooter {...{from, to, total, activeCol, activeRow, activeColIndex, activeRowIndex}}/> : PostFooter}</div>}
     </div>

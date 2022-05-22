@@ -95,6 +95,7 @@ const reducer = (oldState, action) => {
                     renderedElements
                 }
             } = oldState
+            if (moreSpaceThanContent) return oldState
             if (scrollTop < (GAP * rowHeight)) {
                 return {
                     ...oldState,

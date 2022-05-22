@@ -118,6 +118,12 @@ export default createUseStyles(() => ({
     },
     TableCellHighlight: {
         backgroundColor: '#f66'
+    },
+    NoData: {
+        display: 'flex',
+        height:'100%',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
     
 }
