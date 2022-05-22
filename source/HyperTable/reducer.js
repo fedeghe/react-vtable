@@ -136,6 +136,7 @@ const reducer = (oldState, action) => {
 const init = cnf => {
     const {
         data,
+        columns,
         height = 600,
         width = 800,
         PreHeader, PostFooter,
@@ -143,7 +144,14 @@ const init = cnf => {
         preHeaderHeight = 0, postFooterHeight = 0,
         // no sticky header & footer by default
         headerHeight = 0, footerHeight = 0,
+
+        rowHighlight = '',
+        columnHighlight = '',
+        crossHighlight = '',
+        cellHightlight = '',
+
         rowHeight = 50,
+        leftMost, rightMost,
         cellClick = () => {},
         cellEnter = () => {},
         cellLeave = () => {},
@@ -181,10 +189,15 @@ const init = cnf => {
         activeCol: null,
         activeRowIndex: null,
         activeColIndex: null,
+        rowHighlight,
+        columnHighlight,
+        crossHighlight,
+        cellHightlight,
         cellClick,
         cellEnter,
         cellLeave,
         virtual: {
+            colspan: columns.length + !!leftMost + !!rightMost,
             moreSpaceThanContent,
             dataHeight,
             rowHeight,

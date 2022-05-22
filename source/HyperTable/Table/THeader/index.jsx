@@ -17,7 +17,7 @@ export default () => {
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>
             <tr>
-                <LeftMost cls={`${classes.TheadTh}  ${classes.TorigTL}`} opts={{isHeader:true}}/>
+                <LeftMost cls={`${classes.TheadTh}  ${classes.TorigHeaderLeft}`} opts={{isHeader:true}}/>
                 {columns.map((column, k) => {
                     let label = column.key;
                     if ('headerLabel' in column) {
@@ -29,7 +29,7 @@ export default () => {
                         {/* filter */}
                     </th>
                 })}
-                <RightMost cls={`${classes.TheadTh}  ${classes.TorigTR}`} opts={{isHeader:true}}/>
+                <RightMost cls={`${classes.TheadTh}  ${classes.TorigHeaderRight}`} opts={{isHeader:true}}/>
             </tr>
         </thead>
     );

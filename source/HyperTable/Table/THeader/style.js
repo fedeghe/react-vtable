@@ -4,13 +4,13 @@ export default createUseStyles(() => ({
     Thead: ({headerHeight}) => ({
         height: `${headerHeight}px`
     }),    
-    TorigTL: {
+    TorigHeaderLeft: {
         left:0,
         top:0,
         zIndex:1000,
         textAlign:'center !important'
     },
-    TorigTR: {
+    TorigHeaderRight: {
         right:0,
         top:0,
         zIndex:1000,
@@ -20,24 +20,12 @@ export default createUseStyles(() => ({
         position: '-webkit-sticky',
         position: 'sticky',
         textAlign: 'left',
-        verticalAlign: 'top',
+        verticalAlign: 'middle',
         top: 0,
         '&:firstChild': {
             left: 0,
             zIndex: 1
         },
         backgroundColor: 'white'
-    },
-    TableCrossHighlight: {
-        backgroundColor: '#f5f5f5'
-    },
-    TableRowHighlight: {
-        backgroundColor: '#ddd'
-    },
-    TableColumnHighlight: {
-        backgroundColor: '#dd6'
-    },
-    TableCellHighlight: {
-        backgroundColor: '#f66'
     },
 }));

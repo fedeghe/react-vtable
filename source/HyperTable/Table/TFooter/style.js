@@ -4,13 +4,13 @@ export default createUseStyles(() => ({
     Tfoot: ({footerHeight}) => ({
         height: `${footerHeight}px`
     }),
-    TorigBL: {
+    TorigFooterLeft: {
         left:0,
         bottom:0,
         zIndex:1000,
         textAlign:'center !important',
     },
-    TorigBR: {
+    TorigFooterRight: {
         right:0,
         bottom:0,
         zIndex:1000,
@@ -27,21 +27,5 @@ export default createUseStyles(() => ({
             zIndex: 1
         },
         backgroundColor: 'white'
-    },
-
-
-
-   
-    TableCrossHighlight: {
-        backgroundColor: '#f5f5f5'
-    },
-    TableRowHighlight: {
-        backgroundColor: '#ddd'
-    },
-    TableColumnHighlight: {
-        backgroundColor: '#dd6'
-    },
-    TableCellHighlight: {
-        backgroundColor: '#f66'
     },
 }))

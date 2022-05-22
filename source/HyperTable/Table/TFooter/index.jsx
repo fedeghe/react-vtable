@@ -19,7 +19,7 @@ export default () => {
         Boolean(footerHeight) &&
         <tfoot className={classes.Tfoot}>
             <tr>
-                <LeftMost cls={`${classes.TfootTh}  ${classes.TorigBL}`} opts={{isFooter:true}}/>
+                <LeftMost cls={`${classes.TfootTh}  ${classes.TorigFooterLeft}`} opts={{isFooter:true}}/>
                 {columns.map((column, k) => {
                     let label = column.key;
                     if ('footerLabel' in column) {
@@ -29,7 +29,7 @@ export default () => {
                         {label}
                     </th>
                 })}
-                <RightMost cls={`${classes.TfootTh}  ${classes.TorigBR}`} opts={{isFooter:true}}/>
+                <RightMost cls={`${classes.TfootTh}  ${classes.TorigFooterRight}`} opts={{isFooter:true}}/>
             </tr>
         </tfoot>
     );
