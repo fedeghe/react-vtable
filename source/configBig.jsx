@@ -136,7 +136,7 @@ export default {
         {key: 'name3', type: 'str'},
         {key: 'date3', type: 'date'},
     
-    ], 2e3),
+    ], 200),
     
 
         

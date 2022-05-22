@@ -133,14 +133,19 @@ const reducer = (oldState, action) => {
     }
 }
 
-const init = ({
-    data,
-    height,
-    preHeaderHeight, postFooterHeight,
-    headerHeight, footerHeight,
-    rowHeight
-}) => {
+const init = cnf => {
 
+    const {
+        data,
+        height,
+        preHeaderHeight = 30,
+        postFooterHeight = 30,
+        headerHeight, footerHeight,
+        rowHeight = 50,
+        cellClick = () => {},
+        cellEnter = () => {},
+        cellLeave = () => {},
+    } = cnf
     
     const contentHeight = height - preHeaderHeight - headerHeight - footerHeight - postFooterHeight;
     const carpetHeight = data.length * rowHeight
@@ -153,6 +158,10 @@ const init = ({
 
     originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     return {
+        ...cnf,
+        preHeaderHeight,
+        postFooterHeight,
+        rowHeight,
         originalData,
         rows: originalData.slice(0, renderedElements),
         total: originalData.length,
@@ -165,7 +174,9 @@ const init = ({
         activeCol: null,
         activeRowIndex: null,
         activeColIndex: null,
-
+        cellClick,
+        cellEnter,
+        cellLeave,
         virtual: {
             moreSpaceThanContent,
             dataHeight,
