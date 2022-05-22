@@ -127,7 +127,7 @@ const HyperTable = ({
 
                             return <th key={`head${k}`} className={`${classes.TheadTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
                                 {label}
-                                
+                                {/* filter */}
                             </th>
                         })}
                         {rightMost && (
@@ -163,7 +163,7 @@ const HyperTable = ({
                                             cellClick.call(e, e, {row, col})
                                         }}
                                         onMouseEnter={e => {
-                                            cellEnter.call(e, e, {row, col,rowIndex: from + i, colIndex: j})
+                                            cellEnter.call(e, e, {row, col, rowIndex: from + i, colIndex: j})
                                             dispatch({
                                                 type: 'cellHover',
                                                 payload: {

@@ -41,7 +41,7 @@ export default {
     },{
         key: 'entityid',
         label: 'entity id',
-        filter: filter => <Filter filter={filter}/>,
+        // filter: filter => <Filter filter={filter}/>,
         sorting: {
             sort: versus => (rowa, rowb) =>
                 parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
@@ -51,7 +51,7 @@ export default {
     },{
         key: 'name',
         label: 'name',
-        filter: filter => <Filter filter={filter}/>,
+        // filter: filter => <Filter filter={filter}/>,
         headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
         component: (col, key) => <span>{col[key]} (comp.)</span>,
         footerComponent: (col, key) => <span>{col[key]} (comp.)</span>,
@@ -77,7 +77,7 @@ export default {
         key: 'id2',
         label: 'id2',
         width:'10%',
-        filter: filter => <Filter filter={filter}/>,
+        // filter: filter => <Filter filter={filter}/>,
     },{
         key: 'date2',
         label: 'date2',
@@ -111,7 +111,6 @@ export default {
     rowHeight: 180,
 
     PreHeader,
-    // postFooter: 'Post-footer here',
     PostFooter,
     noFilterData: 'No data',
 
@@ -141,14 +140,14 @@ export default {
     
 
         
-    // cellClick: (e, row, col) => {
-    //     console.log('cell click', col, row)
-    //     e.stopPropagation()
-    // },
-    // cellEnter: (e, row, col) => {
+    cellClick: (e, {row, col}) => {
+        console.log('cell click', col, row)
+        e.stopPropagation()
+    },
+    // cellEnter: (e, {row, col}) => {
     //     console.log('cell enter', col, row)
     // },
-    // cellLeave: (e, row, col) => {
+    // cellLeave: (e, {row, col}) => {
     //     console.log('cell leave', col, row)
     // },
 }
