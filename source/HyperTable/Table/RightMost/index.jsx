@@ -9,11 +9,11 @@ export default ({cls, opts}) => {
                 from, to, 
             }
         },
-    } = useContext(TableContext)
+    } = useContext(TableContext);
 
     return (
         Boolean(rightMost) && (
             <th className={cls}>{rightMost({from, to, ...opts})}</th>
         )
-    )
+    );
 }

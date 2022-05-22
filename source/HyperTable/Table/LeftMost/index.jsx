@@ -1,5 +1,5 @@
-import React, {useContext} from 'react'
-import TableContext from '../../Context'
+import React, {useContext} from 'react';
+import TableContext from '../../Context';
 
 export default ({cls, opts}) => {
     const {
@@ -9,11 +9,11 @@ export default ({cls, opts}) => {
                 from, to, 
             }
         },
-    } = useContext(TableContext)
+    } = useContext(TableContext);
 
     return (
         Boolean(leftMost) && (
             <th className={cls}>{leftMost({from, to, ...opts})}</th>
         )
-    )
-}
+    );
+};

@@ -28,10 +28,6 @@ export default createUseStyles(() => ({
         },
         backgroundColor: 'white'
     },
-
-
-
-   
     TableCrossHighlight: {
         backgroundColor: '#f5f5f5'
     },
@@ -44,4 +40,4 @@ export default createUseStyles(() => ({
     TableCellHighlight: {
         backgroundColor: '#f66'
     },
-}))
+}));

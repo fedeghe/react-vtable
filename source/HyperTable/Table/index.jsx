@@ -61,11 +61,12 @@ const Table = () => {
         }, 20), []);
     
     return (
-            <div
-                className={classes.TableContainer}
-                onScroll={onScroll}
-            >
-                {rows.length ? (
+        <div
+            className={classes.TableContainer}
+            onScroll={onScroll}
+        >{
+            rows.length
+            ? (
                 <table className={classes.Table}>
                     <Header/>
                     <tbody>
@@ -117,10 +118,11 @@ const Table = () => {
                     </tbody>
                     <Footer/>
                 </table>
-                ) : <NoData/>}
-            </div>
-    )
-
+            )
+            : <NoData/>
+        }
+        </div>
+    );
 }
 
 export default Table
