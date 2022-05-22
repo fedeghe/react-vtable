@@ -4,17 +4,16 @@ export default createUseStyles(() => ({
     Thead: ({headerHeight}) => ({
         height: `${headerHeight}px`
     }),    
-    TorigHeaderLeft: {
-        left:0,
+    TorigHeader: {
         top:0,
         zIndex:1000,
         textAlign:'center !important'
     },
+    TorigHeaderLeft: {
+        left:0,
+    },
     TorigHeaderRight: {
         right:0,
-        top:0,
-        zIndex:1000,
-        textAlign:'center !important'
     },
     TheadTh: {
         position: '-webkit-sticky',

@@ -31,7 +31,7 @@ export default () => {
                     className={`${activeRow === row._ID ? (crossHighlight || rowHighlight || "") : ''}`}
                     key={row._ID}
                 >
-                    <LeftMost cls={`${classes.TbodyThLeftMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`} opts={{ row, i: i + from, from, to }} />
+                    <LeftMost cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`} opts={{ row, i: i + from, from, to }} />
                     {columns.map((col, j) => {
                         let cnt = row[col.key] || 'nothing'
                         if (col.wrap && typeof col.wrap === 'function') {
@@ -40,9 +40,7 @@ export default () => {
                         return (
                             <td
                                 key={`cell_${row._ID}_${j}`}
-                                onClick={e => {
-                                    cellClick.call(e, e, { row, col })
-                                }}
+                                onClick={e => cellClick.call(e, e, { row, col })}
                                 onMouseEnter={e => {
                                     cellEnter.call(e, e, { row, col, rowIndex: from + i, colIndex: j })
                                     dispatch({
@@ -59,14 +57,19 @@ export default () => {
                                     cellLeave.call(e, e, { row, col, rowIndex: from + i, colIndex: j });
                                     dispatch({ type: 'cellOut' });
                                 }}
-                                className={`${classes.Td} ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''} ${(cellHightlight && activeRow === row._ID && activeCol === col.key) ? cellHightlight : ''}`}>
+                                className={[
+                                    classes.AlTop,
+                                    activeCol === col.key ? (crossHighlight || columnHighlight) : '',
+                                    (cellHightlight && activeRow === row._ID && activeCol === col.key) ? cellHightlight : ''
+                                ].join(' ')}
+                            >
                                 <div className={classes.Cell}>
                                     {cnt}
                                 </div>
                             </td>
                         )
                     })}
-                    <RightMost cls={`${classes.TbodyThRightMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`} opts={{ row, i: i + from }} />
+                    <RightMost cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`} opts={{ row, i: i + from }} />
                 </tr>
             ))}
             <Filler {...{ height: footerFillerHeight, colspan }} />

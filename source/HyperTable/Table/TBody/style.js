@@ -1,26 +1,20 @@
 import { createUseStyles } from "react-jss";
 
 export default createUseStyles(() => ({
-    Td: {
-        verticalAlign: 'top',
-    },
     Cell: {
         height: ({rowHeight}) => `${rowHeight}px`,
         overflow:'scroll'
     },
-    Th: {verticalAlign: 'top'},
-
-    
-    TbodyThLeftMost: {
+    AlTop: {verticalAlign: 'top'},
+    TbodyThMost: {
         position: '-webkit-sticky',
         position: 'sticky',
-        left: 0,
         backgroundColor: 'white'
     },
+    TbodyThLeftMost: {
+        left: 0,
+    },
     TbodyThRightMost: {
-        position: '-webkit-sticky',
-        position: 'sticky',
         right: 0,
-        backgroundColor: 'white'
     },
 }))
