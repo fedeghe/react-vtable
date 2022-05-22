@@ -14,25 +14,39 @@ export const replaceall = (tpl, obj, start, end, fb) => {
         tpl = tpl.replace(reg, function (str, $1) {
             switch (true) {
                 // 
-                case typeof obj === 'function' :
+                case typeof obj === 'function':
                     // avoid silly infiloops
                     tmp = obj($1);
-                    return (tmp !== start + $1 + end) ? obj($1)  : $1;
-                break;
+                    return (tmp !== start + $1 + end) ? obj($1) : $1;
+                    break;
 
                 // the label matches a obj literal element
                 // use it
-                case $1 in obj : return obj[$1]; break;
+                case $1 in obj: return obj[$1]; break;
 
                 // not a function and not found in literal
                 // use fallback if passed or get back the placeholder
                 // switching off before returning
                 default:
                     straight = false;
-                    return typeof fb !== 'undefined' ?  fb : start + $1 + end;    
-                break;
+                    return typeof fb !== 'undefined' ? fb : start + $1 + end;
+                    break;
             }
         });
     }
     return tpl;
+}
+
+export const debounce = (func, wait) => {
+    let timeout
+    let enabled = true
+    return (...params) => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            if (!enabled) return
+            func(...params)
+            enabled = false
+            setTimeout(() => enabled = true, wait)
+        }, wait)
+    }
 }

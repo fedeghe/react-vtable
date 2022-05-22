@@ -139,8 +139,9 @@ const init = cnf => {
         height = 600,
         width = 800,
         PreHeader, PostFooter,
-        preHeaderHeight = 0,
-        postFooterHeight = 0,
+        // no header & footer caption by default
+        preHeaderHeight = 0, postFooterHeight = 0,
+        // no sticky header & footer by default
         headerHeight = 0, footerHeight = 0,
         rowHeight = 50,
         cellClick = () => {},

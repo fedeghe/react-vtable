@@ -1,89 +1,64 @@
 import React, { useCallback, useContext } from 'react'
 
 import Filler from './Filler'
+import NoData from './NoData'
+import Header from './Header'
+import Footer from './Footer'
+import LeftMost from './LeftMost'
+import RightMost from './RightMost'
 import TableContext from './../Context'
 
-import { replaceall } from './../utils'
+import { debounce } from './../utils'
 
 import useStyles from './style.js'
 
 
-
-const debounce = (func, wait) => {
-    let timeout
-    let enabled = true
-    return (...params) => {
-      clearTimeout(timeout)
-      timeout = setTimeout(() => {
-        if (!enabled) return
-        func(...params)
-        enabled = false
-        setTimeout(() => enabled = true, wait)
-      }, wait)
-    }
-  }
-
-
 const Table = () => {
 
-    const {state, dispatch} = useContext(TableContext)
-    const {
-        total,
-        columns,
-        rows,
-        width, height,
-        activeRow, activeCol,
-        leftMost, rightMost,
-        activeRowIndex, activeColIndex,
-    
-        preHeaderHeight, postFooterHeight,
-        headerHeight, footerHeight,
+    const {state, dispatch} = useContext(TableContext),
+        {
+            columns,
+            rows,
+            width, height,
+            activeRow, activeCol,
+            leftMost, rightMost,
+        
+            preHeaderHeight, postFooterHeight,
+            headerHeight, footerHeight,
 
-        PreHeader, PostFooter,
+            PreHeader, PostFooter,
 
-        crossHighlight,
-        columnHighlight,
-        rowHighlight,
-        cellHightlight,
-        cellClick,
-        cellEnter,
-        cellLeave,
-        noFilterData,
-        filters, sorting : {
-            field: sortingField,
-            versus: sortingVersus
-
-        } = {},
-        virtual: {
-            headerFillerHeight,
-            footerFillerHeight,
-            rowHeight,
-            from, to
-        }
-    } = state
-    
-    const classes = useStyles({
-        width, height,
-        preHeaderHeight: PreHeader ? preHeaderHeight : 0,
-        postFooterHeight: PostFooter ? postFooterHeight : 0,
-        headerHeight,
-        footerHeight,
-        rowHeight
-    })
-    
-    const virtualColspan = columns.length + !!leftMost + !!rightMost
-    
-
-    const onScroll = useCallback(debounce(e => {
-        e.preventDefault()
-        e.stopPropagation()
-        dispatch({
-            type:'scroll',
-            payload: e.nativeEvent.target.scrollTop
-        })
-    }, 20), [])
-    
-    
+            crossHighlight,
+            columnHighlight,
+            rowHighlight,
+            cellHightlight,
+            cellClick,
+            cellEnter,
+            cellLeave,
+            virtual: {
+                headerFillerHeight,
+                footerFillerHeight,
+                rowHeight,
+                from, to
+            }
+        } = state,
+        classes = useStyles({
+            width, height,
+            preHeaderHeight: PreHeader ? preHeaderHeight : 0,
+            postFooterHeight: PostFooter ? postFooterHeight : 0,
+            headerHeight,
+            footerHeight,
+            rowHeight
+        }),
+        virtualColspan = columns.length + !!leftMost + !!rightMost,
+        onScroll = useCallback(debounce(e => {
+            e.preventDefault()
+            e.stopPropagation()
+            dispatch({
+                type:'scroll',
+                payload: e.nativeEvent.target.scrollTop
+            })
+        }, 20), []);
     
     return (
             <div
@@ -92,43 +67,15 @@ const Table = () => {
             >
                 {rows.length ? (
                 <table className={classes.Table}>
-                    {headerHeight && <thead className={classes.Thead}>
-                        <tr>
-                            {leftMost && (
-                                <th className={`${classes.TheadTh} ${classes.TorigTL}`}>
-                                    {leftMost({isHeader:true, from, to})}
-                                </th>
-                            )}
-                            {columns.map((column, k) => {
-                                let label = column.key;
-                                if ('headerLabel' in column) {
-                                    label = typeof column.headerLabel === 'function' ? column.headerLabel(column) : column.headerLabel
-                                }
-
-                                return <th key={`head${k}`} className={`${classes.TheadTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
-                                    {label}
-                                    {/* filter */}
-                                </th>
-                            })}
-                            {rightMost && (
-                                <th className={`${classes.TheadTh} ${classes.TorigTR}`}>
-                                    {rightMost({isHeader:true, from, to})}
-                                </th>)
-                            }
-                        </tr>
-                    </thead>}
+                    <Header/>
                     <tbody>
                         <Filler {...{height: headerFillerHeight, virtualColspan}}/>
                         {rows.map((row, i) => (
                             <tr
                                 className={`${activeRow === row._ID ? (crossHighlight || rowHighlight || "") : ''}`}
                                 key={row._ID}
-                            >
-                                {leftMost &&
-                                    <th className={`${classes.TbodyThLeftMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>
-                                        {leftMost({row, i: i + from, from, to})}
-                                    </th>
-                                }
+                            >   
+                                <LeftMost cls={`${classes.TbodyThLeftMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`} opts={{row, i: i +from, from, to}}/>
                                 {columns.map((col, j) => {
                                     let cnt = row[col.key] || 'nothing'
                                     if (col.wrap && typeof col.wrap === 'function') {
@@ -163,40 +110,14 @@ const Table = () => {
                                         </td>
                                     )
                                 })}
-                                {rightMost &&
-                                    <th className={`${classes.TbodyThRightMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}>
-                                        {rightMost({row, i: i + from, from, to})}
-                                    </th>
-                                }
+                                <RightMost cls={`${classes.TbodyThRightMost} ${classes.Th} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`} opts={{row, i: i + from}}/>
                             </tr>
                         ))}
                         <Filler {...{height: footerFillerHeight, virtualColspan}}/>
                     </tbody>
-                    {footerHeight && <tfoot className={classes.Tfoot}>
-                        <tr>
-                            {leftMost && (
-                                <th className={`${classes.TfootTh} ${classes.Th} ${classes.TorigBL}`}>
-                                    {leftMost({isFooter:true, from, to})}
-                                </th>
-                            )}
-                            {columns.map((column, k) => {
-                                let label = column.key;
-                                if ('footerLabel' in column) {
-                                    label = typeof column.footerLabel === 'function' ? column.footerLabel(column) : column.footerLabel
-                                }
-                                return <th key={`foot${k}`} className={`${classes.TfootTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
-                                    {label}
-                                </th>
-                            })}
-                            {rightMost && (
-                                <th className={`${classes.TfootTh} ${classes.TorigBR}`}>
-                                    {rightMost({isFooter:true, from, to})}
-                                </th>
-                            )}
-                        </tr>
-                    </tfoot>}
+                    <Footer/>
                 </table>
-                ) : <div className={classes.NoData}>{noFilterData}</div>}
+                ) : <NoData/>}
             </div>
     )
 
