@@ -134,20 +134,24 @@ const reducer = (oldState, action) => {
 }
 
 const init = cnf => {
-
     const {
         data,
-        height,
-        preHeaderHeight = 30,
-        postFooterHeight = 30,
-        headerHeight, footerHeight,
+        height = 600,
+        width = 800,
+        PreHeader, PostFooter,
+        preHeaderHeight = 0,
+        postFooterHeight = 0,
+        headerHeight = 0, footerHeight = 0,
         rowHeight = 50,
         cellClick = () => {},
         cellEnter = () => {},
         cellLeave = () => {},
     } = cnf
     
-    const contentHeight = height - preHeaderHeight - headerHeight - footerHeight - postFooterHeight;
+    const contentHeight = height
+        - (PreHeader ? preHeaderHeight : 0)
+        - headerHeight - footerHeight
+        - (PostFooter ? postFooterHeight : 0);
     const carpetHeight = data.length * rowHeight
     const renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * GAP
     const dataHeight = renderedElements * rowHeight
@@ -159,8 +163,10 @@ const init = cnf => {
     originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     return {
         ...cnf,
+        width, height,
         preHeaderHeight,
         postFooterHeight,
+        headerHeight, footerHeight,
         rowHeight,
         originalData,
         rows: originalData.slice(0, renderedElements),

@@ -35,8 +35,11 @@ const Table = () => {
         activeRow, activeCol,
         leftMost, rightMost,
         activeRowIndex, activeColIndex,
+    
         preHeaderHeight, postFooterHeight,
         headerHeight, footerHeight,
+
+        PreHeader, PostFooter,
 
         crossHighlight,
         columnHighlight,
@@ -61,8 +64,8 @@ const Table = () => {
     
     const classes = useStyles({
         width, height,
-        preHeaderHeight,
-        postFooterHeight,
+        preHeaderHeight: PreHeader ? preHeaderHeight : 0,
+        postFooterHeight: PostFooter ? postFooterHeight : 0,
         headerHeight,
         footerHeight,
         rowHeight
@@ -89,7 +92,7 @@ const Table = () => {
             >
                 {rows.length ? (
                 <table className={classes.Table}>
-                    <thead className={classes.Thead}>
+                    {headerHeight && <thead className={classes.Thead}>
                         <tr>
                             {leftMost && (
                                 <th className={`${classes.TheadTh} ${classes.TorigTL}`}>
@@ -113,7 +116,7 @@ const Table = () => {
                                 </th>)
                             }
                         </tr>
-                    </thead>
+                    </thead>}
                     <tbody>
                         <Filler {...{height: headerFillerHeight, virtualColspan}}/>
                         {rows.map((row, i) => (
@@ -169,7 +172,7 @@ const Table = () => {
                         ))}
                         <Filler {...{height: footerFillerHeight, virtualColspan}}/>
                     </tbody>
-                    <tfoot className={classes.Tfoot}>
+                    {footerHeight && <tfoot className={classes.Tfoot}>
                         <tr>
                             {leftMost && (
                                 <th className={`${classes.TfootTh} ${classes.Th} ${classes.TorigBL}`}>
@@ -191,7 +194,7 @@ const Table = () => {
                                 </th>
                             )}
                         </tr>
-                    </tfoot>
+                    </tfoot>}
                 </table>
                 ) : <div className={classes.NoData}>{noFilterData}</div>}
             </div>
