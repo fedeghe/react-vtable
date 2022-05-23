@@ -1,4 +1,4 @@
-import React, {useContext, useCallback} from 'react'
+import React, {useContext} from 'react'
 import TableContext from '../../Context'
 import RightMost from '../RightMost'
 import LeftMost from '../LeftMost'
@@ -12,32 +12,27 @@ export default () => {
                 columns,
                 activeCol,
                 crossHighlight,
-                columnHighlight,
-
-                onFooterHighlight
+                columnHighlight
             },
-            dispatch
         } = useContext(TableContext),
         classes = useStyles({footerHeight});
-
-    // const onMouseOver = useCallback()
 
     return (
         Boolean(footerHeight) &&
         <tfoot className={classes.Tfoot}>
             <Tr>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{isFooter:true}}/>
-                {columns.map((column, k) => {
+                {columns.map((column, j) => {
                     let content = column.key;
                     if ('footer' in column) {
-                        content = typeof column.footer === 'function' ? column.footer({column, index: k}) : column.footer
+                        content = typeof column.footer === 'function' ? column.footer({column, index: j}) : column.footer
                     }
                     return <Th
-                        key={`foot${k}`}
+                        key={`foot${j}`}
                         cls={`TableFooter ${classes.TfootTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}
                         content={content}
                         column={column}
-                        j={k}
+                        j={j}
                         isFooter
                     />
                 })}

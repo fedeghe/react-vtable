@@ -12,29 +12,26 @@ export default () => {
                 columns,
                 activeCol,
                 crossHighlight,
-                columnHighlight,
-
-                onHeaderHighlight
+                columnHighlight
             },
-            dispatch
         } = useContext(TableContext),
         classes = useStyles({headerHeight});
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>
             <Tr>
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{isHeader:true}}/>
-                {columns.map((column, k) => {
+                {columns.map((column, j) => {
                     let content = column.key;
                     if ('header' in column) {
-                        content = typeof column.header === 'function' ? column.header({column, index:k}) : column.header
+                        content = typeof column.header === 'function' ? column.header({column, index:j}) : column.header
                     }
 
                     return <Th
-                        key={`head${k}`}
+                        key={`head${j}`}
                         cls={`TableHeader ${classes.TheadTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}
                         content={content}
                         column={column}
-                        j={k}
+                        j={j}
                         isHeader
                     />
                 })}

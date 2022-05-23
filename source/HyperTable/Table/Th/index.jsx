@@ -1,6 +1,13 @@
 import React, { useCallback, useContext } from 'react'
 import TableContext from '../../Context'
 
+// TODO : 
+/*
+This still needs to be usabe in leftMost and rightMost
+small changes are needed
+*/
+
+
 export default ({column, i, j, cls, content, isHeader, isFooter}) => {
     const {
         state: {
