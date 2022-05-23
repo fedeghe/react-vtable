@@ -14,29 +14,29 @@ export default ({row, column, i, j, cls, content}) => {
     } = useContext(TableContext),
         classes = useStyles({ rowHeight });
 
-    const onMouseEnter= useCallback(e => {
-        cellEnter.call(e, e, { row, column, rowIndex: from + i, colIndex: j })
-        dispatch({
-            type: 'cellHover',
-            payload: {
-                row,
-                column,
-                rowIndex: from + i,
-                columnIndex: j
-            }
-        });
-    }, [])
-
-    const onMouseLeave = useCallback(e => {
-        cellLeave.call(e, e, { row, column, rowIndex: from + i, columnIndex: j });
-        dispatch({ type: 'cellOut' });
-    }, [])
+    const handlers = {
+        onMouseEnter: useCallback(e => {
+            cellEnter.call(e, e, { row, column, rowIndex: from + i, colIndex: j })
+            dispatch({
+                type: 'cellHover',
+                payload: {
+                    row,
+                    column,
+                    rowIndex: from + i,
+                    columnIndex: j
+                }
+            });
+        }, []),
+        onMouseLeave: useCallback(e => {
+            cellLeave.call(e, e, { row, column, rowIndex: from + i, columnIndex: j });
+            dispatch({ type: 'cellOut' });
+        }, []),
+        onClick: useCallback(e => cellClick.call(e, e, { row, column }), [])
+    }
 
     return (<td
         className={cls}
-        onClick={e => cellClick.call(e, e, { row, column })}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        {...handlers}
     >
         <div className={classes.Cell}>
             {content}
