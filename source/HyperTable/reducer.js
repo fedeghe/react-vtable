@@ -143,7 +143,7 @@ const init = cnf => {
         preHeaderHeight = 0, postFooterHeight = 0,
         // no sticky header & footer by default
         headerHeight = 0, footerHeight = 0,
-        gap = 10,
+        gap = 5,
 
         rowHighlight = '',
         columnHighlight = '',
