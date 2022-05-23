@@ -123,7 +123,7 @@ export default {
     crossHighlight: 'TableCrossHighlight',
     // cellHightlight: 'TableCellHighlight',
     
-    gap: 10,
+    gap: 5,
 
     data: generateRowData([
         {key: 'id', type: 'id'},
