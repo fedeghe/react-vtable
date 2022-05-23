@@ -67,10 +67,10 @@ const reducer = (oldState, action) => {
         case 'cellHover': 
             return  {
                 ...oldState,
-                activeCol: payload.col.key,
-                activeRow: payload.row._ID,
-                activeColIndex: payload.colIndex,
-                activeRowIndex: payload.rowIndex
+                activeCol: payload?.column?.key,
+                activeRow: payload?.row?._ID,
+                activeColIndex: payload?.columnIndex,
+                activeRowIndex: payload?.rowIndex
             }
         case 'cellOut': 
             return  {
@@ -150,6 +150,11 @@ const init = cnf => {
         crossHighlight = '',
         cellHightlight = '',
 
+        onHeaderHighlight = false,
+        onFooterHighlight = false,
+        onLeftMostHighlight = false,
+        onRightMostHighlight = false,
+
         rowHeight = 50,
         leftMost, rightMost,
         cellClick = () => {},
@@ -193,6 +198,12 @@ const init = cnf => {
         columnHighlight,
         crossHighlight,
         cellHightlight,
+
+        onHeaderHighlight,
+        onFooterHighlight,
+        onLeftMostHighlight,
+        onRightMostHighlight,
+        
         cellClick,
         cellEnter,
         cellLeave,

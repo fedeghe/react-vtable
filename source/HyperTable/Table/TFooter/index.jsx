@@ -1,7 +1,9 @@
-import React, {useContext} from 'react'
+import React, {useContext, useCallback} from 'react'
 import TableContext from '../../Context'
-import LeftMost from '../LeftMost'
 import RightMost from '../RightMost'
+import LeftMost from '../LeftMost'
+import Tr from '../Tr';
+import Th from '../Th';
 import useStyles from './style.js'
 export default () => {
     const {
@@ -10,27 +12,37 @@ export default () => {
                 columns,
                 activeCol,
                 crossHighlight,
-                columnHighlight
+                columnHighlight,
+
+                onFooterHighlight
             },
+            dispatch
         } = useContext(TableContext),
         classes = useStyles({footerHeight});
+
+    // const onMouseOver = useCallback()
 
     return (
         Boolean(footerHeight) &&
         <tfoot className={classes.Tfoot}>
-            <tr>
+            <Tr>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{isFooter:true}}/>
                 {columns.map((column, k) => {
-                    let label = column.key;
-                    if ('footerLabel' in column) {
-                        label = typeof column.footerLabel === 'function' ? column.footerLabel(column) : column.footerLabel
+                    let content = column.key;
+                    if ('footer' in column) {
+                        content = typeof column.footer === 'function' ? column.footer({column, index: k}) : column.footer
                     }
-                    return <th key={`foot${k}`} className={`TableFooter ${classes.TfootTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
-                        {label}
-                    </th>
+                    return <Th
+                        key={`foot${k}`}
+                        cls={`TableFooter ${classes.TfootTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}
+                        content={content}
+                        column={column}
+                        j={k}
+                        isFooter
+                    />
                 })}
                 <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{isFooter:true}}/>
-            </tr>
+            </Tr>
         </tfoot>
     );
 }

@@ -28,77 +28,38 @@ export default {
     columns: [{
         key: 'id',
         label: 'id',
-        footerLabel: 'id foot',
-        headerLabel: (o) => o.label,
-
-        wrap: d => <div style={{width:'200px'}}>{d}</div>, 
-        filter: Filter,
-        sorting: {
-            sort: versus => (rowa, rowb) =>
-                rowa.id > rowb.id ? -versus : versus
-            ,
-        },
+        header: ({column, index}) => column.key+ '_' + index,
+        footer: ({column, index}) => column.key+ '_' + index,
+        cell: ({row, column}) => <div style={{width:'300px'}}>{row[column.key]}</div>, 
     },{
         key: 'entityid',
         label: 'entity id',
-        // filter: filter => <Filter filter={filter}/>,
-        sorting: {
-            sort: versus => (rowa, rowb) =>
-                parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
-            ,
-        },
-    
     },{
         key: 'name',
         label: 'name',
-        // filter: filter => <Filter filter={filter}/>,
-        headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
-        component: (col, key) => <span>{col[key]} (comp.)</span>,
-        footerComponent: (col, key) => <span>{col[key]} (comp.)</span>,
-        wrap: d => <div style={{width:'200px'}}>{d}</div>, 
-        // sorting: {
-        //     sort: versus => (rowa, rowb) =>
-        //         rowa.name > rowb.name ? -versus : versus
-        //     ,
-        // },
+        cell: ({row, column}) => <div style={{width:'200px'}}>{row[column.key]}</div>, 
     },{
         key: 'date',
-        wrap: d => <div style={{width:'300px'}}>{d}</div>, 
-        label: 'date',
+        cell: ({row, column}) => <div style={{width:'100px'}}>{row[column.key]}</div>, 
     },{
         key: 'actions',
-        label: 'actions',
-        component: o => <button onClick={() => {
-            console.log(o)
-        }}>what</button>,
         width: '80px'
-
     },{
         key: 'id2',
-        label: 'id2',
-        width:'10%',
-        // filter: filter => <Filter filter={filter}/>,
     },{
         key: 'date2',
-        label: 'date2',
     },{
         key: 'entityid2',
-        label: 'entityid2'
     },{
         key: 'name2',
-        label: 'name2',
     },{
         key: 'id3',
-        label: 'id3',
     },{
         key: 'date3',
-        label: 'date3',
     },{
         key: 'entityid3',
-        label: 'entityid3',
     },{
         key: 'name3',
-        label: 'name3',
     }
     ],
     
@@ -123,6 +84,11 @@ export default {
     crossHighlight: 'TableCrossHighlight',
     // cellHightlight: 'TableCellHighlight',
     
+    onHeaderHighlight: false,
+    onFooterHighlight: false,
+    onLeftMostHighlight: false,
+    onRightMostHighlight: false,
+
     gap: 5,
 
     data: generateRowData([
@@ -143,14 +109,14 @@ export default {
     
 
         
-    cellClick: (e, {row, col}) => {
-        console.log('cell click', col, row)
+    cellClick: (e, {row, column}) => {
+        console.log('cell click', column, row)
         e.stopPropagation()
     },
-    // cellEnter: (e, {row, col}) => {
+    // cellEnter: (e, {row, column}) => {
     //     console.log('cell enter', col, row)
     // },
-    // cellLeave: (e, {row, col}) => {
+    // cellLeave: (e, {row, column}) => {
     //     console.log('cell leave', col, row)
     // },
 }
