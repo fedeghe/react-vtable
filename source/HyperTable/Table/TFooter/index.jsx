@@ -25,7 +25,7 @@ export default () => {
                     if ('footerLabel' in column) {
                         label = typeof column.footerLabel === 'function' ? column.footerLabel(column) : column.footerLabel
                     }
-                    return <th key={`foot${k}`} className={`${classes.TfootTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
+                    return <th key={`foot${k}`} className={`TableFooter ${classes.TfootTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
                         {label}
                     </th>
                 })}

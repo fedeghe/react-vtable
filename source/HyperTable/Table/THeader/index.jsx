@@ -24,7 +24,7 @@ export default () => {
                         label = typeof column.headerLabel === 'function' ? column.headerLabel(column) : column.headerLabel
                     }
 
-                    return <th key={`head${k}`} className={`${classes.TheadTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
+                    return <th key={`head${k}`} className={`TableHeader ${classes.TheadTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}>
                         {label}
                         {/* filter */}
                     </th>

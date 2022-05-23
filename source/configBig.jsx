@@ -101,8 +101,7 @@ export default {
         label: 'name3',
     }
     ],
-    preHeaderHeight: 45,
-    postFooterHeight: 25,
+    
     headerHeight: 60,
     footerHeight: 60,
 
@@ -110,8 +109,11 @@ export default {
     width: 800,
     rowHeight: 180,
 
+    preHeaderHeight: 45,
+    postFooterHeight: 25,
     PreHeader,
     PostFooter,
+
     noFilterData: 'No data',
 
 
@@ -121,6 +123,7 @@ export default {
     crossHighlight: 'TableCrossHighlight',
     // cellHightlight: 'TableCellHighlight',
     
+    gap: 10,
 
     data: generateRowData([
         {key: 'id', type: 'id'},

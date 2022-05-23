@@ -13,7 +13,7 @@ export default ({cls, opts}) => {
 
     return (
         Boolean(leftMost) && (
-            <th className={cls}>{leftMost({from, to, ...opts})}</th>
+            <th className={`TableLeftMost ${cls}`}>{leftMost({from, to, ...opts})}</th>
         )
     );
 };

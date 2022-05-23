@@ -7,8 +7,6 @@ const uniqueID = {
     }
 }
 
-const GAP = 10
-
 let originalData = null
 
 const reducer = (oldState, action) => {
@@ -92,11 +90,12 @@ const reducer = (oldState, action) => {
                     contentHeight, 
                     carpetHeight,
                     moreSpaceThanContent,
-                    renderedElements
+                    renderedElements,
+                    gap
                 }
             } = oldState
             if (moreSpaceThanContent) return oldState
-            if (scrollTop < (GAP * rowHeight)) {
+            if (scrollTop < (gap * rowHeight)) {
                 return {
                     ...oldState,
                     virtual: {
@@ -110,7 +109,7 @@ const reducer = (oldState, action) => {
                 }
             }
             
-            const from = Math.max(Math.ceil(scrollTop / rowHeight) - GAP, 0),
+            const from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
                 headerFillerHeight = from * rowHeight,
                 footerFillerHeight = moreSpaceThanContent
                     ? contentHeight - carpetHeight
@@ -139,11 +138,12 @@ const init = cnf => {
         columns,
         height = 600,
         width = 800,
-        PreHeader, PostFooter,
+        PreHeader = false, PostFooter = false,
         // no header & footer caption by default
         preHeaderHeight = 0, postFooterHeight = 0,
         // no sticky header & footer by default
         headerHeight = 0, footerHeight = 0,
+        gap = 10,
 
         rowHighlight = '',
         columnHighlight = '',
@@ -162,7 +162,7 @@ const init = cnf => {
         - headerHeight - footerHeight
         - (PostFooter ? postFooterHeight : 0);
     const carpetHeight = data.length * rowHeight
-    const renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * GAP
+    const renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap
     const dataHeight = renderedElements * rowHeight
     
     const headerFillerHeight = 0
@@ -173,8 +173,8 @@ const init = cnf => {
     return {
         ...cnf,
         width, height,
-        preHeaderHeight,
-        postFooterHeight,
+        PreHeader, PostFooter,
+        preHeaderHeight, postFooterHeight,
         headerHeight, footerHeight,
         rowHeight,
         originalData,
@@ -209,6 +209,7 @@ const init = cnf => {
             to: renderedElements -1,
             renderedElements,
             carpetHeight,
+            gap
         }
     }
 }

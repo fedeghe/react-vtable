@@ -13,7 +13,7 @@ export default ({cls, opts}) => {
 
     return (
         Boolean(rightMost) && (
-            <th className={cls}>{rightMost({from, to, ...opts})}</th>
+            <th className={`TableRightMost ${cls}`}>{rightMost({from, to, ...opts})}</th>
         )
     );
 }
