@@ -8,11 +8,30 @@ const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex }) => {
 const PreHeader = ({ total, activeColumn, activeRow }) => {
     return <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>Pre header component ({total}) [{activeRow}, {activeColumn}]</div>
 }
-
-const Filter = ({ value, setValue }) => {
+/*
+const FilterComponent = ({ value, setValue, visibility, setVisibility }) => {
     return <input type="text" value={value} onChange={e => setValue(e.target.value)} />
 }
+*/
+/*
+// ▲ &bull; ▼ 
+const SortComponent = ({sortAsc, sortDesc, unsort, direction}) => {
+    <>
+        <span onClick={e => {direction!=='asc' && sortAsc()}} >▲</span>
+        <span onClick={() => {direction && unsort()}}>&bull;</span>
+        <span onClick={e => {direction!=='desc' && sortDesc()}} >▼</span>
+    </>
+}
+*/   
 
+const basicFilter = ({userValue, row, columnKey}) => row[columnKey].includes(userValue)
+const basicSort = ({rowA, rowB, columnKey, direction}) => {
+    const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
+    return {
+        asc : v,
+        desc: -v
+    }[direction]
+}
 
 export default {
     leftMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
@@ -28,9 +47,17 @@ export default {
     columns: [{
         key: 'id',
         label: 'idz',
-        header: ({ column, columnIndex }) => column.label + '_' + columnIndex,
+        header: ({
+            column, columnIndex,
+            filter: {value, setValue, visibility, setVisibility} = {},
+            sort: {sortAsc, sortDesc, unsort, direction} = {}
+        }) => {
+            return (<><span>{column.label + '_' + columnIndex}</span></>)
+        },
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+        filter: basicFilter,
+        sort: basicSort,
     }, {
         key: 'entityid',
         label: 'entity id',

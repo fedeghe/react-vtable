@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react'
 import TableContext from '../../Context'
 
-export default ({ row, column, rowIndex, columnIndex, cls, content, pos }) => {
+const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos }) => {
     const {
         state: {
             onFooterHighlight,
@@ -30,11 +30,11 @@ export default ({ row, column, rowIndex, columnIndex, cls, content, pos }) => {
                     columnIndex
                 }
             }),
-            []
+            [column, columnIndex, dealWithEvent, dispatch, row, rowIndex]
         ),
         onMouseLeave: useCallback(
             () => dealWithEvent && dispatch({ type: 'cellOut' }),
-            []
+            [dealWithEvent, dispatch]
         )
     }
 
@@ -45,3 +45,4 @@ export default ({ row, column, rowIndex, columnIndex, cls, content, pos }) => {
         {content}
     </th>)
 }
+export default Th

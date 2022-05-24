@@ -7,7 +7,7 @@ import Tr from '../Tr'
 import Td from '../Td'
 import {isFunction} from './../../utils'
 import useStyles from './style.js'
-export default () => {
+const Tbody = () => {
     const {
         state: {
             rows, columns,
@@ -20,9 +20,7 @@ export default () => {
                 colspan,
                 from, to
             },
-            cellClick, cellEnter, cellLeave
         },
-        dispatch
     } = useContext(TableContext),
         classes = useStyles({ rowHeight });
 
@@ -69,3 +67,4 @@ export default () => {
         </tbody>
     );
 }
+export default Tbody

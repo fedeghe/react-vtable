@@ -1,3 +1,4 @@
+import {isFunction} from './utils'
 let count = 0;
 const prefix= 'HYT_';
 const uniqueID = {
@@ -12,58 +13,8 @@ let originalData = null
 const reducer = (oldState, action) => {
     const { payload, type } = action
     switch (type) {
-        case 'sortBy':
-            return  {
-                ...oldState,
-                rows: oldState.rows.sort(payload.sort),
-                sorting: {
-                    field: payload.field,
-                    versus: payload.versus
-                },
-            }
-        case 'unsortBy':
-            return  {
-                ...oldState,
-                rows: [...originalData.reduce((acc, row) => {
-                    let canStay = true
-                    const {filters} = oldState
-                    for (let f in filters) {
-                        if (!(`${row[f]}`.includes(`${filters[f]}`))) {
-                            canStay = false
-                        }
-                    }
-                    if (canStay) acc.push(row)
-                    return acc
-                }, [])],
-                sorting: {
-                    field: null,
-                    versus: null
-                },
-            }
-        case 'filter': 
-            const newFilters = {
-                ...oldState.filters,
-                [payload.field]: payload.value
-            }
-            if (payload.value.length === 0) {
-                newFilters[payload.filter] = null;
-                delete newFilters[payload.filter]
-            }
-            // apply all
-            return {
-                ...oldState,
-                filters: newFilters,
-                rows: [...originalData.reduce((acc, row) => {
-                    let canStay = true
-                    for (let f in newFilters) {
-                        if (!(`${row[f]}`.includes(`${newFilters[f]}`))) {
-                            canStay = false
-                        }
-                    }
-                    if (canStay) acc.push(row)
-                    return acc
-                }, [])]
-            }
+
+
         case 'cellHover': 
             return  {
                 ...oldState,
@@ -177,6 +128,16 @@ const init = cnf => {
     originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     return {
         ...cnf,
+        sorting:{
+            column: null,
+            direction: null
+        },
+        filters:columns.reduce((acc, column) => {
+            if (isFunction(column.filter)){
+                acc[column.key] = column.filter
+            }
+            return acc;
+        }, {}),
         width, height,
         PreHeader, PostFooter,
         preHeaderHeight, postFooterHeight,
@@ -185,11 +146,6 @@ const init = cnf => {
         originalData,
         rows: originalData.slice(0, renderedElements),
         total: originalData.length,
-        filters: {},
-        sorting: {
-            field: null,
-            versus: 0
-        },
         activeRow: null,
         activeColumn: null,
         activeRowIndex: null,

@@ -1,7 +1,7 @@
 import React, { useContext, useCallback } from 'react'
 import TableContext from '../../Context'
 import useStyles from './style.js'
-export default ({row, column, rowIndex, columnIndex, cls, content}) => {
+const Td = ({row, column, rowIndex, columnIndex, cls, content}) => {
     const {
         state: {
             rowHeight,
@@ -26,12 +26,12 @@ export default ({row, column, rowIndex, columnIndex, cls, content}) => {
                     columnIndex
                 }
             });
-        }, []),
+        }, [cellEnter, column, columnIndex, dispatch, from, row, rowIndex]),
         onMouseLeave: useCallback(e => {
             cellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
             dispatch({ type: 'cellOut' });
-        }, []),
-        onClick: useCallback(e => cellClick.call(e, e, { row, column }), [])
+        }, [cellLeave, column, columnIndex, dispatch, from, row, rowIndex]),
+        onClick: useCallback(e => cellClick.call(e, e, { row, column }), [cellClick, column, row])
     }
 
     return (<td
@@ -43,3 +43,5 @@ export default ({row, column, rowIndex, columnIndex, cls, content}) => {
         </div>
     </td>)
 }
+
+export default Td

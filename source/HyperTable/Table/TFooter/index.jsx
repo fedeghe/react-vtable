@@ -6,7 +6,7 @@ import Tr from '../Tr';
 import Th from '../Th';
 import {isFunction} from './../../utils'
 import useStyles from './style.js'
-export default () => {
+const TFooter = () => {
     const {
             state: {
                 footerHeight,
@@ -42,3 +42,4 @@ export default () => {
         </tfoot>
     );
 }
+export default TFooter

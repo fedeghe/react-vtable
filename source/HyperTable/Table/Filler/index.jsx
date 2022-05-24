@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Here does not make any sense to use Tr and Td
  */
-export default ({
+const Filler = ({
     height,
     colspan,
 }) => (
@@ -12,3 +12,4 @@ export default ({
     </tr>
 );
 
+export default Filler
