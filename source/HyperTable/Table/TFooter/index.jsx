@@ -33,7 +33,7 @@ export default () => {
                         content={content}
                         column={column}
                         j={j}
-                        isFooter
+                        pos="footer"
                     />
                 })}
                 <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{isFooter:true}}/>

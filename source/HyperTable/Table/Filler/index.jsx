@@ -1,5 +1,8 @@
 import React from 'react';
 
+/**
+ * Here does not make any sense to use Tr and Td
+ */
 export default ({
     height,
     colspan,

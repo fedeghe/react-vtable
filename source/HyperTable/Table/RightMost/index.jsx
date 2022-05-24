@@ -1,5 +1,6 @@
-import React, {useContext, useCallback} from 'react'
+import React, {useContext} from 'react'
 import TableContext from '../../Context'
+import Th from './../Th'
 
 export default ({cls, opts}) => {
     const {
@@ -8,33 +9,20 @@ export default ({cls, opts}) => {
             virtual:{
                 from, to, 
             },
-            onRightMostHighlight
         },
-        dispatch
     } = useContext(TableContext);
-    const onMouseEnter = useCallback(e => 
-        onRightMostHighlight && dispatch({
-            type: 'cellHover',
-            payload: {
-                row : opts.row,
-                column: null,
-                rowIndex: opts.i,
-                columnIndex: null
-            }
-        }), [])
-    const onMouseLeave = useCallback(e => 
-        onRightMostHighlight && dispatch({ type: 'cellOut' }),
-        []
-    )
+
     return (
         Boolean(rightMost) && (
-            <th
-                className={`TableRightMost ${cls}`}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-            >
-                {rightMost({from, to, ...opts})}
-            </th>
+            <Th
+                cls={`TableRightMost ${cls}`}
+                column={null}
+                row={opts.row}
+                i={opts.i}
+                j={null}
+                content={rightMost({from, to, ...opts})}
+                pos="rightMost"
+            />
         )
     );
 }

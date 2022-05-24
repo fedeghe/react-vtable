@@ -32,7 +32,7 @@ export default () => {
                         content={content}
                         column={column}
                         j={j}
-                        isHeader
+                        pos="header"
                     />
                 })}
                 <RightMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderRight}`} opts={{isHeader:true}}/>

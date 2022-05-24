@@ -1,52 +1,41 @@
 import React, { useCallback, useContext } from 'react'
 import TableContext from '../../Context'
 
-// TODO : 
-/*
-This still needs to be usabe in leftMost and rightMost
-small changes are needed
-*/
-
-
-export default ({column, i, j, cls, content, isHeader, isFooter}) => {
+export default ({column, row, i, j, cls, content, pos}) => {
     const {
         state: {
-            rowHeight,
-            virtual: {
-                from
-            },
-            cellClick, cellEnter, cellLeave,
             onFooterHighlight,
-            onHeaderHighlight
+            onHeaderHighlight,
+            onRightMostHighlight,
+            onLeftMostHighlight,
         },
         dispatch
     } = useContext(TableContext);
+    const dealWithEvent = {
+        header : onHeaderHighlight,
+        footer : onFooterHighlight,
+        rightMost : onRightMostHighlight,
+        leftMost: onLeftMostHighlight
+    }[pos]
 
     const onMouseEnter = useCallback(e => {
-        if (
-            (isFooter && onFooterHighlight)
-            || (isHeader && onHeaderHighlight)
-        ) dispatch({
+        dealWithEvent && dispatch({
             type: 'cellHover',
             payload: {
-                row: null,
+                row,
                 column,
-                rowIndex: null,
+                rowIndex: i,
                 columnIndex: j
             }
         })
     }, [])
 
     const onMouseLeave = useCallback(e => {
-        if (
-            (isFooter && onFooterHighlight)
-            || (isHeader && onHeaderHighlight)
-        ) dispatch({ type: 'cellOut' })
+        dealWithEvent && dispatch({ type: 'cellOut' })
     }, [])
 
-
     return ( <th
-        key={`foot${j}`} className={cls}
+        key={`foot${j||i}`} className={cls}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
     >

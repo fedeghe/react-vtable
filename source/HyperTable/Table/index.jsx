@@ -1,16 +1,11 @@
 import React, { useCallback, useContext } from 'react'
-
-
 import NoData from './NoData'
 import THeader from './THeader'
 import TBody from './TBody'
 import TFooter from './TFooter'
 import TableContext from './../Context'
-
 import { debounce } from './../utils'
-
 import useStyles from './style.js'
-
 
 const Table = () => {
 

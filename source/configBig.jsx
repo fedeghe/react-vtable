@@ -66,8 +66,8 @@ export default {
     headerHeight: 60,
     footerHeight: 60,
 
-    height: 600,
-    width: 800,
+    height: 1000,
+    width: 600,
     rowHeight: 180,
 
     preHeaderHeight: 45,
