@@ -10,7 +10,7 @@ export default () => {
             state: {
                 footerHeight,
                 columns,
-                activeCol,
+                activeColumn,
                 crossHighlight,
                 columnHighlight
             },
@@ -29,7 +29,7 @@ export default () => {
                     }
                     return <Th
                         key={`foot${columnIndex}`}
-                        cls={`TableFooter ${classes.TfootTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}
+                        cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlight || columnHighlight) : ''}`}
                         content={content}
                         column={column}
                         columnIndex={columnIndex}

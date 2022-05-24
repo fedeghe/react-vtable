@@ -67,17 +67,17 @@ const reducer = (oldState, action) => {
         case 'cellHover': 
             return  {
                 ...oldState,
-                activeCol: payload?.column?.key,
+                activeColumn: payload?.column?.key,
                 activeRow: payload?.row?._ID,
-                activeColIndex: payload?.columnIndex,
+                activeColumnIndex: payload?.columnIndex,
                 activeRowIndex: payload?.rowIndex
             }
         case 'cellOut': 
             return  {
                 ...oldState,
-                activeCol: null,
+                activeColumn: null,
                 activeRow: null,
-                activeColIndex: null,
+                activeColumnIndex: null,
                 activeRowIndex: null,
             }
         case 'scroll': 
@@ -191,9 +191,9 @@ const init = cnf => {
             versus: 0
         },
         activeRow: null,
-        activeCol: null,
+        activeColumn: null,
         activeRowIndex: null,
-        activeColIndex: null,
+        activeColumnIndex: null,
         rowHighlight,
         columnHighlight,
         crossHighlight,

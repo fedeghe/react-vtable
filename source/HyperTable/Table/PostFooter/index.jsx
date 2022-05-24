@@ -7,8 +7,8 @@ export default () => {
                 postFooterHeight,
                 PostFooter,
                 total,
-                activeCol, activeRow,
-                activeColIndex, activeRowIndex,
+                activeColumn, activeRow,
+                activeColumnIndex, activeRowIndex,
                 virtual:{
                     from, to, 
                 }
@@ -18,7 +18,7 @@ export default () => {
     return (
         PostFooter && <div className={classes.PostFooter}>{
             typeof PostFooter === 'function'
-            ? <PostFooter {...{from, to, total, activeCol, activeRow, activeColIndex, activeRowIndex}}/>
+            ? <PostFooter {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex}}/>
             : PostFooter
         }</div>
     );

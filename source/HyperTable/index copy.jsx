@@ -29,7 +29,7 @@ const HyperTable = ({
 }) => {
     const { reducer, init } = reducerFactory()
     const [state, dispatch] = useReducer(reducer, init(data))
-    const {total, rows, activeRow, activeCol, filters, sorting : {
+    const {total, rows, activeRow, activeColumn, filters, sorting : {
         field: sortingField,
         versus: sortingVersus
     } = {}} = state
@@ -149,7 +149,7 @@ const HyperTable = ({
                             columns.map((col, j) => (
                                 <td key={`r${i}c${j}`}
                                     align={col.align || 'left'}
-                                    className={`tablecell TableCell ${activeCol === col.key ? (crossHighlight || columnHighlight) : ''} ${(cellHightlight && activeRow === row._ID && activeCol === col.key) ? cellHightlight : ''}`}
+                                    className={`tablecell TableCell ${activeColumn === col.key ? (crossHighlight || columnHighlight) : ''} ${(cellHightlight && activeRow === row._ID && activeColumn === col.key) ? cellHightlight : ''}`}
                                     style={col.width && { width: col.width }}
                                     onClick={e => {
                                         col.onClick && col.onClick.call(e, e, col, row);

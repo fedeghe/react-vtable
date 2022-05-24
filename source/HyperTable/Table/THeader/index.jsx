@@ -10,7 +10,7 @@ export default () => {
             state: {
                 headerHeight,
                 columns,
-                activeCol,
+                activeColumn,
                 crossHighlight,
                 columnHighlight
             },
@@ -28,7 +28,7 @@ export default () => {
 
                     return <Th
                         key={`head${columnIndex}`}
-                        cls={`TableHeader ${classes.TheadTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}
+                        cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlight || columnHighlight) : ''}`}
                         content={content}
                         column={column}
                         columnIndex={columnIndex}

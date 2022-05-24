@@ -10,7 +10,7 @@ export default () => {
     const {
         state: {
             rows, columns,
-            activeRow, activeCol,
+            activeRow, activeColumn,
             crossHighlight, rowHighlight, columnHighlight, cellHightlight,
             rowHeight,
             virtual: {
@@ -52,8 +52,8 @@ export default () => {
                                 columnIndex={columnIndex}
                                 cls={[
                                     classes.AlTop,
-                                    activeCol === column.key ? (crossHighlight || columnHighlight) : '',
-                                    (cellHightlight && activeRow === row._ID && activeCol === column.key) ? cellHightlight : ''
+                                    activeColumn === column.key ? (crossHighlight || columnHighlight) : '',
+                                    (cellHightlight && activeRow === row._ID && activeColumn === column.key) ? cellHightlight : ''
                                 ].join(' ')}
                             />
                         )
