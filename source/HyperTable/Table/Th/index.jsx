@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react'
 import TableContext from '../../Context'
 
-export default ({column, row, i, j, cls, content, pos}) => {
+export default ({row, column, rowIndex, columnIndex, cls, content, pos}) => {
     const {
         state: {
             onFooterHighlight,
@@ -24,8 +24,8 @@ export default ({column, row, i, j, cls, content, pos}) => {
                 payload: {
                     row,
                     column,
-                    rowIndex: i,
-                    columnIndex: j
+                    rowIndex,
+                    columnIndex
                 }
             })
         }, []),
@@ -35,7 +35,7 @@ export default ({column, row, i, j, cls, content, pos}) => {
     }
 
     return ( <th
-        key={`foot${j||i}`} className={cls}
+        key={`foot${rowIndex||columnIndex}`} className={cls}
         {...handlers}
     >
         {content}

@@ -18,8 +18,8 @@ export default ({cls, opts}) => {
                 cls={`TableLeftMost ${cls}`}
                 column={null}
                 row={opts.row}
-                i={opts.i}
-                j={null}
+                rowIndex={opts.rowIndex}
+                columnIndex={null}
                 content={leftMost({from, to, ...opts})}
                 pos="leftMost"
             />

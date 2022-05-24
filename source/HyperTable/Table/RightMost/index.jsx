@@ -18,8 +18,8 @@ export default ({cls, opts}) => {
                 cls={`TableRightMost ${cls}`}
                 column={null}
                 row={opts.row}
-                i={opts.i}
-                j={null}
+                rowIndex={opts.rowIndex}
+                columnIndex={null}
                 content={rightMost({from, to, ...opts})}
                 pos="rightMost"
             />

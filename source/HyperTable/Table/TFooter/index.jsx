@@ -22,17 +22,17 @@ export default () => {
         <tfoot className={classes.Tfoot}>
             <Tr>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{isFooter:true}}/>
-                {columns.map((column, j) => {
+                {columns.map((column, columnIndex) => {
                     let content = column.key;
                     if ('footer' in column) {
-                        content = typeof column.footer === 'function' ? column.footer({column, index: j}) : column.footer
+                        content = typeof column.footer === 'function' ? column.footer({column, columnIndex}) : column.footer
                     }
                     return <Th
-                        key={`foot${j}`}
+                        key={`foot${columnIndex}`}
                         cls={`TableFooter ${classes.TfootTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}
                         content={content}
                         column={column}
-                        j={j}
+                        columnIndex={columnIndex}
                         pos="footer"
                     />
                 })}

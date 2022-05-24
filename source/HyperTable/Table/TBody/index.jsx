@@ -28,25 +28,28 @@ export default () => {
     return (
         <tbody>
             <Filler {...{ height: headerFillerHeight, colspan }} />
-            {rows.map((row, i) => (
+            {rows.map((row, rowIndex) => (
                 <Tr
                     cls={`${activeRow === row._ID ? (crossHighlight || rowHighlight || "") : ''}`}
                     key={row._ID}
                 >
-                    <LeftMost cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`} opts={{ row, i: i + from, from, to }} />
-                    {columns.map((column, j) => {
+                    <LeftMost
+                        cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
+                        opts={{ row, rowIndex: rowIndex + from, from, to }}
+                    />
+                    {columns.map((column, columnIndex) => {
                         let content = row[column.key] || 'nothing'
                         if (column.cell && typeof column.cell === 'function') {
-                            content = column.cell({row, column, rowIndex: i, columnIndex: j})
+                            content = column.cell({row, column, rowIndex, columnIndex})
                         }
                         return (
                             <Td
-                                key={`cell_${row._ID}_${j}`}
+                                key={`cell_${row._ID}_${columnIndex}`}
                                 row={row}
                                 column={column}
                                 content={content}
-                                i={i}
-                                j={j}
+                                rowIndex={rowIndex}
+                                columnIndex={columnIndex}
                                 cls={[
                                     classes.AlTop,
                                     activeCol === column.key ? (crossHighlight || columnHighlight) : '',
@@ -55,7 +58,10 @@ export default () => {
                             />
                         )
                     })}
-                    <RightMost cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`} opts={{ row, i: i + from }} />
+                    <RightMost
+                        cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
+                        opts={{ row, rowIndex: rowIndex + from }}
+                    />
                 </Tr>
             ))}
             <Filler {...{ height: footerFillerHeight, colspan }} />

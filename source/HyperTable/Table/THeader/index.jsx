@@ -20,18 +20,18 @@ export default () => {
         <thead className={classes.Thead}>
             <Tr>
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{isHeader:true}}/>
-                {columns.map((column, j) => {
+                {columns.map((column, columnIndex) => {
                     let content = column.key;
                     if ('header' in column) {
-                        content = typeof column.header === 'function' ? column.header({column, index:j}) : column.header
+                        content = typeof column.header === 'function' ? column.header({column, columnIndex}) : column.header
                     }
 
                     return <Th
-                        key={`head${j}`}
+                        key={`head${columnIndex}`}
                         cls={`TableHeader ${classes.TheadTh} ${activeCol === column.key ? (crossHighlight || columnHighlight) : ''}`}
                         content={content}
                         column={column}
-                        j={j}
+                        columnIndex={columnIndex}
                         pos="header"
                     />
                 })}

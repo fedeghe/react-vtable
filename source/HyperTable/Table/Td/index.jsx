@@ -1,7 +1,7 @@
 import React, { useContext, useCallback } from 'react'
 import TableContext from '../../Context'
 import useStyles from './style.js'
-export default ({row, column, i, j, cls, content}) => {
+export default ({row, column, rowIndex, columnIndex, cls, content}) => {
     const {
         state: {
             rowHeight,
@@ -16,19 +16,19 @@ export default ({row, column, i, j, cls, content}) => {
 
     const handlers = {
         onMouseEnter: useCallback(e => {
-            cellEnter.call(e, e, { row, column, rowIndex: from + i, colIndex: j })
+            cellEnter.call(e, e, { row, column, rowIndex: from + rowIndex, colIndex: columnIndex })
             dispatch({
                 type: 'cellHover',
                 payload: {
                     row,
                     column,
-                    rowIndex: from + i,
-                    columnIndex: j
+                    rowIndex: from + rowIndex,
+                    columnIndex
                 }
             });
         }, []),
         onMouseLeave: useCallback(e => {
-            cellLeave.call(e, e, { row, column, rowIndex: from + i, columnIndex: j });
+            cellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
             dispatch({ type: 'cellOut' });
         }, []),
         onClick: useCallback(e => cellClick.call(e, e, { row, column }), [])
