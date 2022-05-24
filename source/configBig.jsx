@@ -43,23 +43,31 @@ export default {
         cell: ({ row, column }) => <div style={{ width: '100px' }}>{row[column.key]}</div>,
     }, {
         key: 'actions',
-        width: '80px'
+        cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
     },
     { key: 'id2', },
-    { key: 'date2', },
+    {
+        key: 'date2',
+        cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+    },
     { key: 'entityid2', },
     { key: 'name2', },
     { key: 'id3', },
-    { key: 'date3', },
-    { key: 'entityid3', },
+    {
+        key: 'date3',
+        cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+    },
+    {
+        key: 'entityid3',
+    },
     { key: 'name3', }
     ],
 
     headerHeight: 60,
     footerHeight: 60,
 
-    height: 600,
-    width: 1000,
+    height: 900,
+    width: 1400,
     rowHeight: 180,
 
     preHeaderHeight: 45,
@@ -81,13 +89,14 @@ export default {
     onLeftMostHighlight: false,
     onRightMostHighlight: false,
 
-    gap: 5,
+    virtuals: 5,
 
     data: generateRowData([
         { key: 'id', type: 'id' },
         { key: 'entityid', type: 'int' },
         { key: 'name', type: 'str' },
         { key: 'date', type: 'date' },
+        { key: 'actions', type: 'str' },
         { key: 'id2', type: 'id' },
         { key: 'entityid2', type: 'int' },
         { key: 'name2', type: 'str' },

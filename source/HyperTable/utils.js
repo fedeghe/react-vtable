@@ -37,6 +37,8 @@ export const replaceall = (tpl, obj, start, end, fb) => {
     return tpl;
 }
 
+export const isFunction = f => typeof f === 'function'
+
 export const debounce = (func, wait) => {
     let timeout
     let enabled = true

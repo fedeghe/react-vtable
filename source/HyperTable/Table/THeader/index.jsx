@@ -4,6 +4,7 @@ import RightMost from '../RightMost';
 import LeftMost from '../LeftMost';
 import Tr from '../Tr';
 import Th from '../Th';
+import {isFunction} from './../../utils'
 import useStyles from './style.js';
 export default () => {
     const {
@@ -23,7 +24,7 @@ export default () => {
                 {columns.map((column, columnIndex) => {
                     let content = column.key;
                     if ('header' in column) {
-                        content = typeof column.header === 'function' ? column.header({column, columnIndex}) : column.header
+                        content = isFunction(column.header) ? column.header({column, columnIndex}) : column.header
                     }
 
                     return <Th

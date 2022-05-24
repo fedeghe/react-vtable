@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import TableContext from '../../Context'
 import useStyles from './style.js'
+import {isFunction} from './../../utils'
 export default () => {
     const {
             state: {
@@ -18,7 +19,7 @@ export default () => {
     
     return (
         PreHeader && <div className={classes.PreHeader}>{
-            typeof PreHeader === 'function'
+            isFunction(PreHeader)
             ? <PreHeader {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex}}/>
             : PreHeader
         }</div>

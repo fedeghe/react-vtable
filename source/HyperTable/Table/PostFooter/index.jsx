@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import TableContext from '../../Context'
 import useStyles from './style.js'
+import {isFunction} from './../../utils'
 export default () => {
     const {
             state: {
@@ -17,7 +18,7 @@ export default () => {
         classes = useStyles({postFooterHeight});
     return (
         PostFooter && <div className={classes.PostFooter}>{
-            typeof PostFooter === 'function'
+            isFunction(PostFooter)
             ? <PostFooter {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex}}/>
             : PostFooter
         }</div>

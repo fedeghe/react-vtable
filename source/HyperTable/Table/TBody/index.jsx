@@ -5,6 +5,7 @@ import LeftMost from '../LeftMost'
 import RightMost from '../RightMost'
 import Tr from '../Tr'
 import Td from '../Td'
+import {isFunction} from './../../utils'
 import useStyles from './style.js'
 export default () => {
     const {
@@ -39,7 +40,7 @@ export default () => {
                     />
                     {columns.map((column, columnIndex) => {
                         let content = row[column.key] || 'nothing'
-                        if (column.cell && typeof column.cell === 'function') {
+                        if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex})
                         }
                         return (

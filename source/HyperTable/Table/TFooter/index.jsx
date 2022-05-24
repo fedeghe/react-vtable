@@ -4,6 +4,7 @@ import RightMost from '../RightMost'
 import LeftMost from '../LeftMost'
 import Tr from '../Tr';
 import Th from '../Th';
+import {isFunction} from './../../utils'
 import useStyles from './style.js'
 export default () => {
     const {
@@ -25,7 +26,7 @@ export default () => {
                 {columns.map((column, columnIndex) => {
                     let content = column.key;
                     if ('footer' in column) {
-                        content = typeof column.footer === 'function' ? column.footer({column, columnIndex}) : column.footer
+                        content = isFunction(column.footer) ? column.footer({column, columnIndex}) : column.footer
                     }
                     return <Th
                         key={`foot${columnIndex}`}
