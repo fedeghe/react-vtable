@@ -17,27 +17,26 @@ export default ({column, row, i, j, cls, content, pos}) => {
         rightMost : onRightMostHighlight,
         leftMost: onLeftMostHighlight
     }[pos]
-
-    const onMouseEnter = useCallback(e => {
-        dealWithEvent && dispatch({
-            type: 'cellHover',
-            payload: {
-                row,
-                column,
-                rowIndex: i,
-                columnIndex: j
-            }
-        })
-    }, [])
-
-    const onMouseLeave = useCallback(e => {
-        dealWithEvent && dispatch({ type: 'cellOut' })
-    }, [])
+    const handlers = {
+        onMouseEnter:  useCallback(e => {
+            dealWithEvent && dispatch({
+                type: 'cellHover',
+                payload: {
+                    row,
+                    column,
+                    rowIndex: i,
+                    columnIndex: j
+                }
+            })
+        }, []),
+        onMouseLeave: useCallback(e => {
+            dealWithEvent && dispatch({ type: 'cellOut' })
+        }, [])
+    }
 
     return ( <th
         key={`foot${j||i}`} className={cls}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        {...handlers}
     >
         {content}
     </th>)
