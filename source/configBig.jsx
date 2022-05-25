@@ -1,5 +1,6 @@
 import React from 'react'
-import Filter from './cmp/Filter'
+import Filter from './sample/Filter'
+import Sorter from './sample/Sorter'
 import { generateRowData } from './utils'
 
 const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex }) => (
@@ -53,7 +54,8 @@ export default {
             sort, //: {sortAsc, sortDesc, unsort, direction} = {}
         }) => (<>
             <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{column, columnIndex, filter, sort}}/>
+            <Filter {...{column, columnIndex, filter}}/>
+            <Sorter {...{column, columnIndex, sort}}/>
         </>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
@@ -117,10 +119,10 @@ export default {
     onLeftMostHighlight: false,
     onRightMostHighlight: false,
 
-    virtuals: 5,
+    gap: 2,
 
     data: generateRowData([
-        { key: 'id', type: 'id' },
+        { key: 'id', type: 'int' },
         { key: 'entityid', type: 'int' },
         { key: 'name', type: 'str' },
         { key: 'date', type: 'date' },
@@ -134,7 +136,7 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 5000),
+    ], 200),
 
 
 

@@ -13,32 +13,55 @@ const Theader =  () => {
                 columns,
                 activeColumn,
                 crossHighlight,
-                columnHighlight
+                columnHighlight,
+                filters,
+                sorting:{column: sortingColumn, direction: sortingDirection}
             },
+            dispatch
         } = useContext(TableContext),
         classes = useStyles({headerHeight});
 
     const getColumnContent = useCallback(({column, columnIndex}) => {
         let content = column.key;
         if ('header' in column) {
+            const sort = isFunction(column.sort) ? {
+                sortAsc: () => dispatch({
+                    type:'sort',
+                    payload: {
+                        column: column.key,
+                        direction: 'asc',
+                        sorter: column.sort
+                    }
+                }),
+                sortDesc: () => dispatch({
+                    type:'sort',
+                    payload: {
+                        column: column.key,
+                        direction: 'desc',
+                        sorter: column.sort
+                    }
+                }),
+                unsort: () => dispatch({type:'unsort'}),
+                direction: sortingDirection
+            } : null
+            const filter = isFunction(column.filter) ? {
+                value: null,
+                setValue: () => {/* */},
+                visibility: false,
+                setVisibility: () => {/* */}
+            } : null
+
             content = isFunction(column.header)
                 ? column.header({
                     column,
                     columnIndex,
-
-
-
-                    sort: {},
-                    filter:{}
-
-
-
-                    
+                    sort,
+                    filter
                 })
                 : column.header
         }
         return content
-    }, [])
+    }, [sortingDirection])
 
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>

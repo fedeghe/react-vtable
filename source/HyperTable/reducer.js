@@ -8,13 +8,40 @@ const uniqueID = {
     }
 }
 
-let originalData = null
+
+let mutatingData = null
 
 const reducer = (oldState, action) => {
     const { payload, type } = action
     switch (type) {
 
-
+        case 'sort': {
+            const sorted = [...oldState.mutatingData].sort((a, b) => payload.sorter({
+                rowA: a, rowB: b,
+                columnKey: payload.column,
+                direction: payload.direction
+            }))
+            return {
+                ...oldState,
+                mutatingData: sorted,
+                rows: [...sorted].slice(oldState.from, oldState.to),
+                sorting: {
+                    column: payload.colum,
+                    direction: payload.direction
+                }
+            }
+        }
+        case 'unsort': {
+            return {
+                ...oldState,
+                mutatingData: [...oldState.originalData],
+                rows: [...oldState.originalData].slice(oldState.from, oldState.to),
+                sorting: {
+                    column: null,
+                    direction: null
+                }
+            }
+        }
         case 'cellHover': 
             return  {
                 ...oldState,
@@ -35,6 +62,7 @@ const reducer = (oldState, action) => {
             const scrollTop = payload
             const {
                 total,
+                rows,
                 virtual: {
                     dataHeight,
                     rowHeight,
@@ -68,7 +96,7 @@ const reducer = (oldState, action) => {
                 to = Math.min(from + renderedElements, total);
             return {
                 ...oldState,
-                rows: oldState.originalData.slice(from, to),
+                rows: oldState.mutatingData.slice(from, to),
                 virtual: {
                     ...oldState.virtual,
                     scrollTop,
@@ -126,7 +154,8 @@ const init = cnf => {
     const moreSpaceThanContent= carpetHeight < contentHeight
     const footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - dataHeight
 
-    originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
+    const originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
+    mutatingData = [...originalData]
     return {
         ...cnf,
         sorting:{
@@ -149,7 +178,8 @@ const init = cnf => {
         headerHeight, footerHeight,
         rowHeight,
         originalData,
-        rows: originalData.slice(0, renderedElements),
+        mutatingData,
+        rows: [...mutatingData].slice(0, renderedElements),
         total: originalData.length,
         activeRow: null,
         activeColumn: null,
