@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useMemo } from 'react'
 
 import TableContext from './Context'
 import reducerFactory from './reducer'
@@ -10,7 +10,8 @@ import useStyles from './style.js'
 
 const HyperTable = cnf => {
     const { reducer, init } = reducerFactory(),
-        [ state, dispatch ] = useReducer(reducer, init(cnf)),
+        initialState = useMemo(() => init(cnf), [cnf, init]),
+        [ state, dispatch ] = useReducer(reducer, initialState),
         {
             width, height,
             preHeaderHeight,

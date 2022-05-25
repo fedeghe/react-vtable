@@ -75,7 +75,21 @@ export default {
         key: 'actions',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
     },
-    { key: 'id2', },
+    {
+        key: 'id2',
+        header: ({
+            column, columnIndex,
+            sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        }) => (<>
+            <span>{column.key + '_' + columnIndex}</span>
+            <Sorter {...{column, columnIndex, sort}}/>
+        </>),
+        footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        cell: ({ row, column }) => <div style={{ width: '100px' }}>{row[column.key]}</div>,
+        filter: basicFilter,
+        sort: basicSort,
+
+    },
     {
         key: 'date2',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
@@ -123,11 +137,11 @@ export default {
 
     data: generateRowData([
         { key: 'id', type: 'int' },
-        { key: 'entityid', type: 'int' },
+        { key: 'entityid', type: 'id' },
         { key: 'name', type: 'str' },
         { key: 'date', type: 'date' },
         { key: 'actions', type: 'str' },
-        { key: 'id2', type: 'id' },
+        { key: 'id2', type: 'int' },
         { key: 'entityid2', type: 'int' },
         { key: 'name2', type: 'str' },
         { key: 'date2', type: 'date' },
@@ -136,7 +150,7 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 500),
+    ], 300),
 
 
 

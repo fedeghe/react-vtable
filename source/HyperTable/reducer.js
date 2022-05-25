@@ -74,7 +74,7 @@ const reducer = (oldState, action) => {
                 }
             } = oldState
             if (moreSpaceThanContent) return oldState
-            if (scrollTop < (gap * rowHeight)) {
+            if (scrollTop < rowHeight) {
                 return {
                     ...oldState,
                     virtual: {
@@ -156,6 +156,7 @@ const init = cnf => {
 
     const originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
     mutatingData = [...originalData]
+    console.log('init', +new Date, mutatingData)
     return {
         ...cnf,
         sorting:{

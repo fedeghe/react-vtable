@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Filter =  ({filter}) => {
-    console.log('Filter render')
+    
     const {value, setValue, visibility, setVisibility} = filter;
 
     return visibility
