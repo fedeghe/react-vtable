@@ -1,48 +1,48 @@
-import React, { useCallback, useContext } from 'react'
-import TableContext from '../../Context'
+import React, { useCallback, useContext } from 'react';
+import TableContext from '../../Context';
 
 const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos }) => {
     const {
-        state: {
-            onFooterHighlight,
-            onHeaderHighlight,
-            onRightMostHighlight,
-            onLeftMostHighlight,
-        },
-        dispatch
-    } = useContext(TableContext);
+            state: {
+                onFooterHighlight,
+                onHeaderHighlight,
+                onRightMostHighlight,
+                onLeftMostHighlight,
+            },
+            dispatch
+        } = useContext(TableContext),
 
-    const dealWithEvent = {
-        header: onHeaderHighlight,
-        footer: onFooterHighlight,
-        rightMost: onRightMostHighlight,
-        leftMost: onLeftMostHighlight
-    }[pos]
+        dealWithEvent = {
+            header: onHeaderHighlight,
+            footer: onFooterHighlight,
+            rightMost: onRightMostHighlight,
+            leftMost: onLeftMostHighlight
+        }[pos],
 
-    const handlers = {
-        onMouseEnter: useCallback(
-            () => dealWithEvent && dispatch({
-                type: 'cellHover',
-                payload: {
-                    row,
-                    column,
-                    rowIndex,
-                    columnIndex
-                }
-            }),
-            [column, columnIndex, dealWithEvent, dispatch, row, rowIndex]
-        ),
-        onMouseLeave: useCallback(
-            () => dealWithEvent && dispatch({ type: 'cellOut' }),
-            [dealWithEvent, dispatch]
-        )
-    }
+        handlers = {
+            onMouseEnter: useCallback(
+                () => dealWithEvent && dispatch({
+                    type: 'cellHover',
+                    payload: {
+                        row,
+                        column,
+                        rowIndex,
+                        columnIndex
+                    }
+                }),
+                [column, columnIndex, dealWithEvent, dispatch, row, rowIndex]
+            ),
+            onMouseLeave: useCallback(
+                () => dealWithEvent && dispatch({ type: 'cellOut' }),
+                [dealWithEvent, dispatch]
+            )
+        };
 
-    return (<th
+    return <th
         key={`foot${rowIndex || columnIndex}`} className={cls}
         {...handlers}
     >
         {content}
-    </th>)
-}
-export default Th
+    </th>;
+};
+export default Th;

@@ -26,15 +26,15 @@ export default createUseStyles(() => ({
 
     
     TbodyThLeftMost: {
-        position: '-webkit-sticky',
+        // position: '-webkit-sticky',
         position: 'sticky',
         left: 0,
         backgroundColor: 'white'
     },
     TbodyThRightMost: {
-        position: '-webkit-sticky',
+        // position: '-webkit-sticky',
         position: 'sticky',
         right: 0,
         backgroundColor: 'white'
     },
-}))
+}));

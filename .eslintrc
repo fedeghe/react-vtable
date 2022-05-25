@@ -3,7 +3,9 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "react/prop-types": 0,
-        "import/no-unresolved": 0
+        "import/no-unresolved": 0,
+        "semi": "error",
+        "one-var": "error"
     },
     "plugins": [
         "react-hooks",
@@ -24,5 +26,8 @@
     "env": {
         "browser": true,
         "node": true
+    },
+    "globals": {
+        "WebPageMonitor": true
     }
 }

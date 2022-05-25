@@ -1,224 +1,211 @@
-import {isFunction} from './utils'
+import {isFunction} from './utils';
 let count = 0;
-const prefix= 'HYT_';
-const uniqueID = {
-    toString: () => {
-        count += 1;
-        return prefix + count;
-    }
-}
-
-
-let mutatingData = null
-
-const reducer = (oldState, action) => {
-    const { payload, type } = action
-    switch (type) {
-
-        case 'sort': {
-            const sorted = [...oldState.mutatingData].sort((a, b) => payload.sorter({
-                rowA: a, rowB: b,
-                columnKey: payload.column,
-                direction: payload.direction
-            }))
-            return {
-                ...oldState,
-                mutatingData: sorted,
-                rows: [...sorted].slice(oldState.from, oldState.to),
-                sorting: {
-                    column: payload.colum,
-                    direction: payload.direction
-                }
-            }
+const prefix= 'HYT_',
+    uniqueID = {
+        toString: () => {
+            count += 1;
+            return prefix + count;
         }
-        case 'unsort': {
-            return {
-                ...oldState,
-                mutatingData: [...oldState.originalData],
-                rows: [...oldState.originalData].slice(oldState.from, oldState.to),
-                sorting: {
-                    column: null,
-                    direction: null
-                }
-            }
-        }
-        case 'cellHover': 
-            return  {
-                ...oldState,
-                activeColumn: payload?.column?.key,
-                activeRow: payload?.row?._ID,
-                activeColumnIndex: payload?.columnIndex,
-                activeRowIndex: payload?.rowIndex
-            }
-        case 'cellOut': 
-            return  {
-                ...oldState,
-                activeColumn: null,
-                activeRow: null,
-                activeColumnIndex: null,
-                activeRowIndex: null,
-            }
-        case 'scroll': {
-            const scrollTop = payload
-            const {
+    },
+
+    reducer = (oldState, action) => {
+        const { payload, type } = action,
+            {
                 total,
-                rows,
+                originalData, mutatingData,
+                virtual,
                 virtual: {
-                    dataHeight,
-                    rowHeight,
-                    contentHeight, 
-                    carpetHeight,
+                    from, to,
+                    dataHeight, rowHeight, contentHeight, carpetHeight,
                     moreSpaceThanContent,
                     renderedElements,
                     gap
                 }
-            } = oldState
-            if (moreSpaceThanContent) return oldState
-            if (scrollTop < rowHeight) {
-                return {
-                    ...oldState,
-                    virtual: {
-                        ...oldState.virtual,
-                        scrollTop,
-                        headerFillerHeight: 0,
-                        footerFillerHeight: carpetHeight - dataHeight,
-                        from: 0,
-                        to: renderedElements -1
-                    }    
+            } = oldState,
+            actions = {
+                sort: () => {
+                    const sorted = [...mutatingData].sort((a, b) => payload.sorter({
+                        rowA: a, rowB: b,
+                        columnKey: payload.column,
+                        direction: payload.direction
+                    }));
+                    return {
+                        mutatingData: sorted,
+                        rows: [...sorted].slice(from, to),
+                        sorting: {
+                            column: payload.colum,
+                            direction: payload.direction
+                        }
+                    };
+                },
+                unsort: () => ({
+                    mutatingData: [...originalData],
+                    rows: [...originalData].slice(from, to),
+                    sorting: {
+                        column: null,
+                        direction: null
+                    }
+                }),
+                cellHover: () => ({
+                    activeColumn: payload?.column?.key,
+                    activeRow: payload?.row?._ID,
+                    activeColumnIndex: payload?.columnIndex,
+                    activeRowIndex: payload?.rowIndex
+                }),
+                cellOut: () => ({
+                    activeColumn: null,
+                    activeRow: null,
+                    activeColumnIndex: null,
+                    activeRowIndex: null,
+                }),
+                scroll: () => {
+                    if (moreSpaceThanContent) return oldState;
+                    // 99% sure it is not needed
+                    // if (payload < rowHeight) {
+                    //     return {
+                    //         ...oldState,
+                    //         virtual: {
+                    //             ...oldState.virtual,
+                    //             scrollTop: payload,
+                    //             headerFillerHeight: 0,
+                    //             footerFillerHeight: carpetHeight - dataHeight,
+                    //             from: 0,
+                    //             to: renderedElements -1
+                    //         }    
+                    //     }
+                    // }
+                    const scrollTop = payload,
+                        from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
+                            headerFillerHeight = from * rowHeight,
+                            footerFillerHeight = moreSpaceThanContent
+                                ? contentHeight - carpetHeight
+                                : carpetHeight - headerFillerHeight - dataHeight,
+                            to = Math.min(from + renderedElements, total);
+                    return {
+                        rows: mutatingData.slice(from, to),
+                        virtual: {
+                            ...virtual,
+                            scrollTop,
+                            headerFillerHeight,
+                            footerFillerHeight,
+                            from,
+                            to: to -1,
+                        }    
+                    };
                 }
-            }
-            
-            const from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
-                headerFillerHeight = from * rowHeight,
-                footerFillerHeight = moreSpaceThanContent
-                    ? contentHeight - carpetHeight
-                    : carpetHeight - headerFillerHeight - dataHeight,
-                to = Math.min(from + renderedElements, total);
+            };
+        if (type in actions) 
             return {
                 ...oldState,
-                rows: oldState.mutatingData.slice(from, to),
-                virtual: {
-                    ...oldState.virtual,
-                    scrollTop,
-                    headerFillerHeight,
-                    footerFillerHeight,
-                    from,
-                    to: to -1,
-                }    
-            }
-        }
-        default:
-            return oldState
-    }
-}
+                ...actions[type]()
+            };
+        return oldState;
+    },
+    init = cnf => {
+        const {
+            data,
+            columns,
+            height = 600,
+            width = 800,
+            PreHeader = false, PostFooter = false,
+            // no header & footer caption by default
+            preHeaderHeight = 0, postFooterHeight = 0,
+            // no sticky header & footer by default
+            headerHeight = 0, footerHeight = 0,
+            gap = 10,
 
-const init = cnf => {
-    const {
-        data,
-        columns,
-        height = 600,
-        width = 800,
-        PreHeader = false, PostFooter = false,
-        // no header & footer caption by default
-        preHeaderHeight = 0, postFooterHeight = 0,
-        // no sticky header & footer by default
-        headerHeight = 0, footerHeight = 0,
-        gap = 10,
+            rowHighlight = '',
+            columnHighlight = '',
+            crossHighlight = '',
+            cellHightlight = '',
 
-        rowHighlight = '',
-        columnHighlight = '',
-        crossHighlight = '',
-        cellHightlight = '',
+            onHeaderHighlight = false,
+            onFooterHighlight = false,
+            onLeftMostHighlight = false,
+            onRightMostHighlight = false,
 
-        onHeaderHighlight = false,
-        onFooterHighlight = false,
-        onLeftMostHighlight = false,
-        onRightMostHighlight = false,
+            rowHeight = 50,
+            leftMost, rightMost,
+            cellClick = null,
+            cellEnter = null,
+            cellLeave = null,
+            } = cnf,
+            contentHeight = height
+                - (PreHeader ? preHeaderHeight : 0)
+                - headerHeight - footerHeight
+                - (PostFooter ? postFooterHeight : 0),
+            carpetHeight = data.length * rowHeight,
+            renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
+            dataHeight = renderedElements * rowHeight,
 
-        rowHeight = 50,
-        leftMost, rightMost,
-        cellClick = null,
-        cellEnter = null,
-        cellLeave = null,
-    } = cnf
-    
-    const contentHeight = height
-        - (PreHeader ? preHeaderHeight : 0)
-        - headerHeight - footerHeight
-        - (PostFooter ? postFooterHeight : 0);
-    const carpetHeight = data.length * rowHeight
-    const renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap
-    const dataHeight = renderedElements * rowHeight
-    
-    const headerFillerHeight = 0
-    const moreSpaceThanContent= carpetHeight < contentHeight
-    const footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - dataHeight
+            headerFillerHeight = 0,
+            moreSpaceThanContent= carpetHeight < contentHeight,
+            footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - dataHeight,
 
-    const originalData = data.map(row => ({_ID: `${uniqueID}`, ...row}))
-    mutatingData = [...originalData]
-    console.log('init', +new Date, mutatingData)
-    return {
-        ...cnf,
-        sorting:{
-            column: null,
-            direction: null
-        },
-        filters:columns.reduce((acc, column) => {
-            if (isFunction(column.filter)){
-                acc[column.key] = {
-                    filter: column.filter,
-                    value: '',
-                    visibility: false
+            originalData = data.map(row => ({_ID: `${uniqueID}`, ...row})),
+            mutatingData = [...originalData];
+
+        return {
+            ...cnf,
+            sorting:{
+                column: null,
+                direction: null
+            },
+            filters:columns.reduce((acc, column) => {
+                if (isFunction(column.filter)){
+                    acc[column.key] = {
+                        filter: column.filter,
+                        value: '',
+                        visibility: false
+                    };
                 }
-            }
-            return acc;
-        }, {}),
-        width, height,
-        PreHeader, PostFooter,
-        preHeaderHeight, postFooterHeight,
-        headerHeight, footerHeight,
-        rowHeight,
-        originalData,
-        mutatingData,
-        rows: [...mutatingData].slice(0, renderedElements),
-        total: originalData.length,
-        activeRow: null,
-        activeColumn: null,
-        activeRowIndex: null,
-        activeColumnIndex: null,
-        rowHighlight,
-        columnHighlight,
-        crossHighlight,
-        cellHightlight,
-
-        onHeaderHighlight,
-        onFooterHighlight,
-        onLeftMostHighlight,
-        onRightMostHighlight,
-        
-        cellClick,
-        cellEnter,
-        cellLeave,
-        virtual: {
-            colspan: columns.length + !!leftMost + !!rightMost,
-            moreSpaceThanContent,
-            dataHeight,
+                return acc;
+            }, {}),
+            width, height,
+            PreHeader, PostFooter,
+            preHeaderHeight, postFooterHeight,
+            headerHeight, footerHeight,
             rowHeight,
-            contentHeight, 
-            headerFillerHeight,
-            footerFillerHeight,
-            scrollTop: 0,
-            from: 0,
-            to: renderedElements -1,
-            renderedElements,
-            carpetHeight,
-            gap
-        }
-    }
-}
+            originalData,
+            mutatingData,
+            rows: [...mutatingData].slice(0, renderedElements),
+            total: originalData.length,
+            activeRow: null,
+            activeColumn: null,
+            activeRowIndex: null,
+            activeColumnIndex: null,
+            rowHighlight,
+            columnHighlight,
+            crossHighlight,
+            cellHightlight,
 
+            onHeaderHighlight,
+            onFooterHighlight,
+            onLeftMostHighlight,
+            onRightMostHighlight,
+            
+            cellClick,
+            cellEnter,
+            cellLeave,
+            virtual: {
+                colspan: columns.length + !!leftMost + !!rightMost,
+                moreSpaceThanContent,
+                dataHeight,
+                rowHeight,
+                contentHeight, 
+                headerFillerHeight,
+                footerFillerHeight,
+                scrollTop: 0,
+                from: 0,
+                to: renderedElements -1,
+                renderedElements,
+                carpetHeight,
+                gap
+            }
+        };
+    };
 
 export default () => ({
     reducer,
     init
-})
+});

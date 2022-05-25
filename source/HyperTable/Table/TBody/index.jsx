@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-import TableContext from '../../Context'
-import Filler from '../Filler'
-import LeftMost from '../LeftMost'
-import RightMost from '../RightMost'
-import Tr from '../Tr'
-import Td from '../Td'
-import {isFunction} from './../../utils'
-import useStyles from './style.js'
+import React, { useContext } from 'react';
+import TableContext from '../../Context';
+import Filler from '../Filler';
+import LeftMost from '../LeftMost';
+import RightMost from '../RightMost';
+import Tr from '../Tr';
+import Td from '../Td';
+import {isFunction} from './../../utils';
+import useStyles from './style.js';
 const Tbody = () => {
     const {
         state: {
@@ -37,9 +37,9 @@ const Tbody = () => {
                         opts={{ row, rowIndex: rowIndex + from, from, to }}
                     />
                     {columns.map((column, columnIndex) => {
-                        let content = row[column.key] || 'nothing'
+                        let content = row[column.key] || 'nothing';
                         if (column.cell && isFunction(column.cell)) {
-                            content = column.cell({row, column, rowIndex, columnIndex})
+                            content = column.cell({row, column, rowIndex, columnIndex});
                         }
                         return (
                             <Td
@@ -55,7 +55,7 @@ const Tbody = () => {
                                     (cellHightlight && activeRow === row._ID && activeColumn === column.key) ? cellHightlight : ''
                                 ].join(' ')}
                             />
-                        )
+                        );
                     })}
                     <RightMost
                         cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
@@ -66,5 +66,5 @@ const Tbody = () => {
             <Filler {...{ height: footerFillerHeight, colspan }} />
         </tbody>
     );
-}
-export default Tbody
+};
+export default Tbody;

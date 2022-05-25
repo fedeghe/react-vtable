@@ -6,4 +6,4 @@ export default createUseStyles(() => ({
         height: `${preHeaderHeight}px`,
         overflow: 'hidden'
     })
-}))
+}));

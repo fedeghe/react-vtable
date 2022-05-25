@@ -1,11 +1,11 @@
-import React, {useContext} from 'react'
-import TableContext from '../../Context'
-import RightMost from '../RightMost'
-import LeftMost from '../LeftMost'
+import React, {useContext} from 'react';
+import TableContext from '../../Context';
+import RightMost from '../RightMost';
+import LeftMost from '../LeftMost';
 import Tr from '../Tr';
 import Th from '../Th';
-import {isFunction} from './../../utils'
-import useStyles from './style.js'
+import {isFunction} from './../../utils';
+import useStyles from './style.js';
 const TFooter = () => {
     const {
             state: {
@@ -26,7 +26,7 @@ const TFooter = () => {
                 {columns.map((column, columnIndex) => {
                     let content = column.key;
                     if ('footer' in column) {
-                        content = isFunction(column.footer) ? column.footer({column, columnIndex}) : column.footer
+                        content = isFunction(column.footer) ? column.footer({column, columnIndex}) : column.footer;
                     }
                     return <Th
                         key={`foot${columnIndex}`}
@@ -35,11 +35,11 @@ const TFooter = () => {
                         column={column}
                         columnIndex={columnIndex}
                         pos="footer"
-                    />
+                    />;
                 })}
                 <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{isFooter:true}}/>
             </Tr>
         </tfoot>
     );
-}
-export default TFooter
+};
+export default TFooter;

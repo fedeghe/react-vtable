@@ -7,7 +7,7 @@ export default createUseStyles(() => ({
     },
     AlTop: {verticalAlign: 'top'},
     TbodyThMost: {
-        position: '-webkit-sticky',
+        // position: '-webkit-sticky',
         position: 'sticky',
         backgroundColor: 'white'
     },
@@ -17,4 +17,4 @@ export default createUseStyles(() => ({
     TbodyThRightMost: {
         right: 0,
     },
-}))
+}));

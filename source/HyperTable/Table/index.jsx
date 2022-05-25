@@ -1,11 +1,11 @@
-import React, { useCallback, useContext } from 'react'
-import NoData from './NoData'
-import THeader from './THeader'
-import TBody from './TBody'
-import TFooter from './TFooter'
-import TableContext from './../Context'
-import { debounce } from './../utils'
-import useStyles from './style.js'
+import React, { useCallback, useContext } from 'react';
+import NoData from './NoData';
+import THeader from './THeader';
+import TBody from './TBody';
+import TFooter from './TFooter';
+import TableContext from './../Context';
+import { debounce } from './../utils';
+import useStyles from './style.js';
 
 const Table = () => {
 
@@ -30,12 +30,12 @@ const Table = () => {
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         onScroll = useCallback(debounce(e => {
-            e.preventDefault()
-            e.stopPropagation()
+            e.preventDefault();
+            e.stopPropagation();
             dispatch({
                 type:'scroll',
                 payload: e.nativeEvent.target.scrollTop
-            })
+            });
         }, 20), []);
     
     return (
@@ -55,6 +55,6 @@ const Table = () => {
         }
         </div>
     );
-}
+};
 
-export default Table
+export default Table;

@@ -1,49 +1,38 @@
-import React from 'react'
-import Filter from './sample/Filter'
-import Sorter from './sample/Sorter'
-import { generateRowData } from './utils'
+import React from 'react';
+import Filter from './sample/Filter';
+import Sorter from './sample/Sorter';
+import { generateRowData } from './utils';
 
 const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex }) => (
-    <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}]</div>
-)
-const PreHeader = ({ total, activeColumn, activeRow }) => (
-    <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>Pre header component ({total}) [{activeRow}, {activeColumn}]</div>
-)
-/*
-const FilterComponent = ({ value, setValue, visibility, setVisibility }) => {
-    return <input type="text" value={value} onChange={e => setValue(e.target.value)} />
-}
-*/
-/*
-// ▲ &bull; ▼ 
-const SortComponent = ({sortAsc, sortDesc, unsort, direction}) => {
-    <>
-        <span onClick={e => {direction!=='asc' && sortAsc()}} >▲</span>
-        <span onClick={() => {direction && unsort()}}>&bull;</span>
-        <span onClick={e => {direction!=='desc' && sortDesc()}} >▼</span>
-    </>
-}
-*/   
-
-const basicFilter = ({userValue, row, columnKey}) => row[columnKey].includes(userValue)
-const basicSort = ({rowA, rowB, columnKey, direction}) => {
-    const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
-    return {
-        asc : v,
-        desc: -v
-    }[direction]
-}
+        <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}]</div>
+    ),
+    
+    PreHeader = ({ total, activeColumn, activeRow }) => (
+        <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>Pre header component ({total}) [{activeRow}, {activeColumn}]</div>
+    ),
+    
+    basicFilter = ({userValue, row, columnKey}) => row[columnKey].includes(userValue),
+    
+    basicSort = ({rowA, rowB, columnKey, direction}) => {
+        const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
+        return {
+            asc : v,
+            desc: -v
+        }[direction];
+    };
 
 export default {
+    // eslint-disable-next-line no-unused-vars
     leftMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-        if (isFooter) return <div style={{ width: '70px' }}>LF {to}</div>
-        if (isHeader) return <div style={{ width: '70px' }}>LH {from}</div>
-        return `left ${rowIndex}`
+        if (isFooter) return <div style={{ width: '70px' }}>LF {to}</div>;
+        if (isHeader) return <div style={{ width: '70px' }}>LH {from}</div>;
+        return `left ${rowIndex}`;
     },
+    // eslint-disable-next-line no-unused-vars
     rightMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-        if (isFooter) return <div style={{ width: '70px' }}>RF {to}</div>
-        if (isHeader) return <div style={{ width: '70px' }}>RH {from}</div>
-        return `right ${rowIndex}`
+        if (isFooter) return <div style={{ width: '70px' }}>RF {to}</div>;
+        if (isHeader) return <div style={{ width: '70px' }}>RH {from}</div>;
+        return `right ${rowIndex}`;
     },
     columns: [{
         key: 'id',
@@ -133,7 +122,7 @@ export default {
     onLeftMostHighlight: false,
     onRightMostHighlight: false,
 
-    gap: 10,
+    gap: 5,
 
     data: generateRowData([
         { key: 'id', type: 'int' },
@@ -150,13 +139,13 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 300),
+    ], 3000),
 
 
 
     cellClick: (e, { row, column }) => {
-        console.log('cell click', column, row)
-        e.stopPropagation()
+        console.log('cell click', column, row);
+        e.stopPropagation();
     },
     // cellEnter: (e, {row, column}) => {
     //     console.log('cell enter', col, row)
@@ -164,4 +153,4 @@ export default {
     // cellLeave: (e, {row, column}) => {
     //     console.log('cell leave', col, row)
     // },
-}
+};

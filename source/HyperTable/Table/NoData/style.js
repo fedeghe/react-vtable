@@ -7,4 +7,4 @@ export default createUseStyles(() => ({
         justifyContent: 'center',
         alignItems: 'center'
     }
-}))
+}));

@@ -1,7 +1,7 @@
-import React, {useContext} from 'react'
-import TableContext from '../../Context'
-import useStyles from './style.js'
-import {isFunction} from './../../utils'
+import React, {useContext} from 'react';
+import TableContext from '../../Context';
+import useStyles from './style.js';
+import {isFunction} from './../../utils';
 const PostFooter = () => {
     const {
             state: {
@@ -23,5 +23,5 @@ const PostFooter = () => {
             : PostFooter
         }</div>
     );
-}
-export default PostFooter
+};
+export default PostFooter;

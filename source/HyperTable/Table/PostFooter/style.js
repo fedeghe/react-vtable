@@ -6,4 +6,4 @@ export default createUseStyles(() => ({
         height: `${postFooterHeight}px`,
         overflow: 'hidden'
     }),
-}))
+}));

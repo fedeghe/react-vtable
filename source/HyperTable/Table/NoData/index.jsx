@@ -6,4 +6,4 @@ const NoData = () => {
         {state: {noFilterData}} = useContext(TableContext);
     return (<div className={classes.NoData}>{noFilterData}</div>);
 };
-export default NoData
+export default NoData;

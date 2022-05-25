@@ -16,7 +16,7 @@ export default createUseStyles(() => ({
         right:0,
     },
     TfootTh: {
-        position: '-webkit-sticky',
+        // position: '-webkit-sticky',
         position: 'sticky',
         textAlign: 'left',
         verticalAlign: 'middle',
@@ -27,4 +27,4 @@ export default createUseStyles(() => ({
         },
         backgroundColor: 'white'
     },
-}))
+}));

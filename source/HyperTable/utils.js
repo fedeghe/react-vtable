@@ -2,53 +2,48 @@ export const replaceall = (tpl, obj, start, end, fb) => {
     start || (start = '__');
     end || (end = '__');
 
-    var reg = new RegExp(start + '([A-z0-9-_]*)' + end, 'g'),
-        straight = true,
-        str, tmp;
+    const reg = new RegExp(start + '([A-z0-9-_]*)' + end, 'g');
+    let straight = true;
 
     while (straight) {
 
         if (!(tpl.match(reg))) {
             return tpl;
         }
-        tpl = tpl.replace(reg, function (str, $1) {
-            switch (true) {
-                // 
-                case typeof obj === 'function':
-                    // avoid silly infiloops
-                    tmp = obj($1);
-                    return (tmp !== start + $1 + end) ? obj($1) : $1;
-                    break;
+        // eslint-disable-next-line no-loop-func
+        tpl = tpl.replace(reg,  (str, $1) => {
+            if (typeof obj === 'function') {
+                // avoid silly infiloops
+                const tmp = obj($1);
+                return (tmp !== start + $1 + end) ? obj($1) : $1;
 
-                // the label matches a obj literal element
-                // use it
-                case $1 in obj: return obj[$1]; break;
-
-                // not a function and not found in literal
-                // use fallback if passed or get back the placeholder
-                // switching off before returning
-                default:
-                    straight = false;
-                    return typeof fb !== 'undefined' ? fb : start + $1 + end;
-                    break;
+            // the label matches a obj literal element
+            // use it
+            } else if ($1 in obj) {
+                return obj[$1];
             }
+            // not a function and not found in literal
+            // use fallback if passed or get back the placeholder
+            // switching off before returning
+            straight = false;
+            return typeof fb !== 'undefined' ? fb : start + $1 + end;
         });
     }
     return tpl;
-}
+};
 
-export const isFunction = f => typeof f === 'function'
+export const isFunction = f => typeof f === 'function';
 
 export const debounce = (func, wait) => {
-    let timeout
-    let enabled = true
+    let timeout,
+        enabled = true;
     return (...params) => {
-        clearTimeout(timeout)
+        clearTimeout(timeout);
         timeout = setTimeout(() => {
-            if (!enabled) return
-            func(...params)
-            enabled = false
-            setTimeout(() => enabled = true, wait)
-        }, wait)
-    }
-}
+            if (!enabled) return;
+            func(...params);
+            enabled = false;
+            setTimeout(() => enabled = true, wait);
+        }, wait);
+    };
+};

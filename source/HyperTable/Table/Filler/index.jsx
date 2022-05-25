@@ -12,4 +12,4 @@ const Filler = ({
     </tr>
 );
 
-export default Filler
+export default Filler;

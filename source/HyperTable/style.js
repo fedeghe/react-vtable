@@ -7,4 +7,4 @@ export default createUseStyles(() => ({
         backgroundColor: 'white',
         overflow: 'hidden'
     }),
-}))
+}));

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Filter =  ({filter}) => {
     
@@ -8,10 +8,10 @@ const Filter =  ({filter}) => {
         ? <div>
             <input type="text" onChange={e => setValue(e.target.value)} value={value}/>
             <span className="pointer" onClick={() => {
-                setValue('')
-                setVisibility(false)
+                setValue('');
+                setVisibility(false);
             }}>x</span>
         </div>
-        : <span className="pointer" onClick={() => setVisibility(true)}>Y</span>
-}
-export default Filter
+        : <span className="pointer" onClick={() => setVisibility(true)}>Y</span>;
+};
+export default Filter;

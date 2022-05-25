@@ -1,7 +1,7 @@
-import React, {useContext} from 'react'
-import TableContext from '../../Context'
-import useStyles from './style.js'
-import {isFunction} from './../../utils'
+import React, {useContext} from 'react';
+import TableContext from '../../Context';
+import useStyles from './style.js';
+import {isFunction} from './../../utils';
 const PreHeader = () => {
     const {
             state: {
@@ -24,6 +24,6 @@ const PreHeader = () => {
             : PreHeader
         }</div>
     );
-}
+};
 
-export default PreHeader
+export default PreHeader;
