@@ -119,7 +119,7 @@ export default {
     onLeftMostHighlight: false,
     onRightMostHighlight: false,
 
-    gap: 2,
+    gap: 10,
 
     data: generateRowData([
         { key: 'id', type: 'int' },
@@ -136,7 +136,7 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 200),
+    ], 500),
 
 
 
