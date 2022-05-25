@@ -1,15 +1,14 @@
 import React from 'react'
 import HyperTable from './HyperTable'
 
-import configSmall from './configSmall'
+
 import configBig from './configBig'
 
 import './user.less'
 
-export default () => {
-    return <div>
-        <div className="Wrapper">
-            <HyperTable {...configBig} />
-        </div>
+const Pg = () => (
+    <div className="Wrapper">
+        <HyperTable {...configBig} />
     </div>
-}
+)
+export default Pg

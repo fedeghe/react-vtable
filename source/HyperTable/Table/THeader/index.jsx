@@ -25,6 +25,14 @@ const Theader =  () => {
                 ? column.header({
                     column,
                     columnIndex,
+
+
+
+                    sort: {},
+                    filter:{}
+
+
+
                     
                 })
                 : column.header

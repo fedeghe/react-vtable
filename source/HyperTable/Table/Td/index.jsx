@@ -16,7 +16,7 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content}) => {
 
     const handlers = {
         onMouseEnter: useCallback(e => {
-            cellEnter.call(e, e, { row, column, rowIndex: from + rowIndex, colIndex: columnIndex })
+            cellEnter && cellEnter.call(e, e, { row, column, rowIndex: from + rowIndex, colIndex: columnIndex })
             dispatch({
                 type: 'cellHover',
                 payload: {
@@ -28,10 +28,10 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content}) => {
             });
         }, [cellEnter, column, columnIndex, dispatch, from, row, rowIndex]),
         onMouseLeave: useCallback(e => {
-            cellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
+            cellLeave && cellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
             dispatch({ type: 'cellOut' });
         }, [cellLeave, column, columnIndex, dispatch, from, row, rowIndex]),
-        onClick: useCallback(e => cellClick.call(e, e, { row, column }), [cellClick, column, row])
+        onClick: useCallback(e => cellClick && cellClick.call(e, e, { row, column }), [cellClick, column, row])
     }
 
     return (<td

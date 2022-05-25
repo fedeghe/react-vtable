@@ -31,7 +31,7 @@ const reducer = (oldState, action) => {
                 activeColumnIndex: null,
                 activeRowIndex: null,
             }
-        case 'scroll': 
+        case 'scroll': {
             const scrollTop = payload
             const {
                 total,
@@ -78,6 +78,7 @@ const reducer = (oldState, action) => {
                     to: to -1,
                 }    
             }
+        }
         default:
             return oldState
     }
@@ -108,9 +109,9 @@ const init = cnf => {
 
         rowHeight = 50,
         leftMost, rightMost,
-        cellClick = () => {},
-        cellEnter = () => {},
-        cellLeave = () => {},
+        cellClick = null,
+        cellEnter = null,
+        cellLeave = null,
     } = cnf
     
     const contentHeight = height
@@ -134,7 +135,11 @@ const init = cnf => {
         },
         filters:columns.reduce((acc, column) => {
             if (isFunction(column.filter)){
-                acc[column.key] = column.filter
+                acc[column.key] = {
+                    filter: column.filter,
+                    value: '',
+                    visibility: false
+                }
             }
             return acc;
         }, {}),

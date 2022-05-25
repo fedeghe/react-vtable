@@ -1,13 +1,13 @@
 import React from 'react'
-// import Filter from './Filter'
+import Filter from './cmp/Filter'
 import { generateRowData } from './utils'
 
-const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex }) => {
-    return <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}]</div>
-}
-const PreHeader = ({ total, activeColumn, activeRow }) => {
-    return <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>Pre header component ({total}) [{activeRow}, {activeColumn}]</div>
-}
+const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex }) => (
+    <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}]</div>
+)
+const PreHeader = ({ total, activeColumn, activeRow }) => (
+    <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>Pre header component ({total}) [{activeRow}, {activeColumn}]</div>
+)
 /*
 const FilterComponent = ({ value, setValue, visibility, setVisibility }) => {
     return <input type="text" value={value} onChange={e => setValue(e.target.value)} />
@@ -49,11 +49,12 @@ export default {
         label: 'idz',
         header: ({
             column, columnIndex,
-            filter: {value, setValue, visibility, setVisibility} = {},
-            sort: {sortAsc, sortDesc, unsort, direction} = {}
-        }) => {
-            return (<><span>{column.label + '_' + columnIndex}</span></>)
-        },
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        }) => (<>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{column, columnIndex, filter, sort}}/>
+        </>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
         filter: basicFilter,

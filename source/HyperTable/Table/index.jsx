@@ -28,6 +28,7 @@ const Table = () => {
             footerHeight,
             rowHeight
         }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         onScroll = useCallback(debounce(e => {
             e.preventDefault()
             e.stopPropagation()
