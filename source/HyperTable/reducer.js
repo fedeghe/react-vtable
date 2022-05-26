@@ -15,7 +15,7 @@ const prefix= 'HYT_',
                 filters,
                 originalData, mutatingData,
                 virtual,
-                rows,
+                // rows,
                 sorting: {
                     column: sortingColumn,
                     direction: sortingDirection,
@@ -71,6 +71,11 @@ const prefix= 'HYT_',
                             );
                         return {
                             filters: newFilters,
+                            filtered: newMutatingData.length,
+                            virtual: {
+                                ...virtual,
+                                carpetHeight: newMutatingData.length * rowHeight
+                            },
                             mutatingData: newMutatingData,
                             rows: [...newMutatingData].slice(from, to),
                         };
@@ -225,6 +230,7 @@ const prefix= 'HYT_',
             originalData,
             mutatingData,
             rows: [...mutatingData].slice(0, renderedElements),
+            filtered: originalData.length,
             total: originalData.length,
             activeRow: null,
             activeColumn: null,

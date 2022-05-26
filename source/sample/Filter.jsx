@@ -6,12 +6,12 @@ const Filter =  ({filter}) => {
 
     return visibility
         ? <div>
-            <input type="text" onChange={e => setValue(e.target.value)} value={value}/>
-            <span className="pointer" onClick={() => {
+            <input type="text" onChange={e => setValue(e.target.value)} value={value} autoFocus/>
+            <span  style={{cursor: 'pointer'}} onClick={() => {
                 setValue('');
                 setVisibility(false);
             }}>x</span>
         </div>
-        : <span className="pointer" onClick={() => setVisibility(true)}>Y</span>;
+        : <span style={{cursor: 'pointer'}} onClick={() => setVisibility(true)}>Y</span>;
 };
 export default Filter;

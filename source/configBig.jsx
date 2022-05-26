@@ -3,8 +3,8 @@ import Filter from './sample/Filter';
 import Sorter from './sample/Sorter';
 import { generateRowData } from './utils';
 
-const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex }) => (
-        <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}]</div>
+const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex, filtered, total }) => (
+        <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}] filtered {filtered} out of {total}</div>
     ),
     
     PreHeader = ({ total, activeColumn, activeRow }) => (

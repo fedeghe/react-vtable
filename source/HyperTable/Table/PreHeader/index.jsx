@@ -10,6 +10,7 @@ const PreHeader = () => {
                 total,
                 activeColumn, activeRow,
                 activeColumnIndex, activeRowIndex,
+                filtered,
                 virtual:{
                     from, to, 
                 }
@@ -20,7 +21,7 @@ const PreHeader = () => {
     return (
         PreHeader && <div className={classes.PreHeader}>{
             isFunction(PreHeader)
-            ? <PreHeader {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex}}/>
+            ? <PreHeader {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex, filtered}}/>
             : PreHeader
         }</div>
     );

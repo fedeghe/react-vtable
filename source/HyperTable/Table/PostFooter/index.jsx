@@ -10,6 +10,7 @@ const PostFooter = () => {
                 total,
                 activeColumn, activeRow,
                 activeColumnIndex, activeRowIndex,
+                filtered,
                 virtual:{
                     from, to, 
                 }
@@ -19,7 +20,7 @@ const PostFooter = () => {
     return (
         PostFooter && <div className={classes.PostFooter}>{
             isFunction(PostFooter)
-            ? <PostFooter {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex}}/>
+            ? <PostFooter {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex, filtered}}/>
             : PostFooter
         }</div>
     );
