@@ -54,6 +54,7 @@ export default {
         </>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+        width:'300px',
         filter: basicFilter,
         sort: basicSort,
     }, {
@@ -63,12 +64,15 @@ export default {
         key: 'name',
         label: 'name',
         cell: ({ row, column }) => <div style={{ width: '200px' }}>{row[column.key]}</div>,
+        width:'200px'
     }, {
         key: 'date',
         cell: ({ row, column }) => <div style={{ width: '100px' }}>{row[column.key]}</div>,
+        width:'100px'
     }, {
         key: 'actions',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+        width:'300px'
     },
     {
         key: 'id2',
@@ -84,11 +88,13 @@ export default {
         cell: ({ row, column }) => <div style={{ width: '150px' }}>{row[column.key]}</div>,
         filter: basicFilter,
         sort: basicSort,
+        width:'150px'
 
     },
     {
         key: 'date2',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+        width:'300px'
     },
     { key: 'entityid2', },
     { key: 'name2', },
@@ -96,6 +102,7 @@ export default {
     {
         key: 'date3',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+        width:'300px'
     },
     {
         key: 'entityid3',

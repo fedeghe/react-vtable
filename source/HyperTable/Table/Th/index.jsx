@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import TableContext from '../../Context';
 
-const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos }) => {
+const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) => {
     const {
             state: {
                 onFooterHighlight,
@@ -39,6 +39,7 @@ const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos }) => {
         };
 
     return <th
+        style={style}
         key={`foot${rowIndex || columnIndex}`} className={cls}
         {...handlers}
     >

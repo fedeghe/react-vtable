@@ -100,6 +100,7 @@ const Theader =  () => {
                     
                     const content = getColumnContent({column, columnIndex});
                     return <Th
+                        style={{width: column.width || 'auto'}}
                         key={`head${columnIndex}`}
                         cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlight || columnHighlight) : ''}`}
                         content={content}
