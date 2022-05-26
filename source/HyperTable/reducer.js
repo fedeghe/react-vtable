@@ -155,19 +155,7 @@ const prefix= 'HYT_',
                 }),
                 scroll: () => {
                     if (moreSpaceThanContent) return oldState;
-                    // 99% sure it is not needed
-                    // if (payload < rowHeight) {
-                    //     return {
-                    //         virtual: {
-                    //             ...oldState.virtual,
-                    //             scrollTop: payload,
-                    //             headerFillerHeight: 0,
-                    //             footerFillerHeight: carpetHeight - dataHeight,
-                    //             from: 0,
-                    //             to: renderedElements -1
-                    //         }    
-                    //     }
-                    // }
+
                     const scrollTop = payload,
                         _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
                             _headerFillerHeight = _from * rowHeight,
