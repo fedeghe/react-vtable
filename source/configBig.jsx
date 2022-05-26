@@ -103,7 +103,7 @@ export default {
     { key: 'name3', }
     ],
 
-    headerHeight: 60,
+    headerHeight: 80,
     footerHeight: 60,
 
     height: 900,

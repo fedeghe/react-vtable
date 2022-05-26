@@ -135,21 +135,21 @@ const prefix= 'HYT_',
                     //     }
                     // }
                     const scrollTop = payload,
-                        from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
-                            headerFillerHeight = from * rowHeight,
-                            footerFillerHeight = moreSpaceThanContent
+                        _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
+                            _headerFillerHeight = _from * rowHeight,
+                            _footerFillerHeight = moreSpaceThanContent
                                 ? contentHeight - carpetHeight
-                                : carpetHeight - headerFillerHeight - dataHeight,
-                            to = Math.min(from + renderedElements, total);
+                                : carpetHeight - _headerFillerHeight - dataHeight,
+                            _to = Math.min(_from + renderedElements, total);
                     return {
-                        rows: mutatingData.slice(from, to),
+                        rows: mutatingData.slice(_from, _to),
                         virtual: {
                             ...virtual,
                             scrollTop,
-                            headerFillerHeight,
-                            footerFillerHeight,
-                            from,
-                            to: to -1,
+                            headerFillerHeight: _headerFillerHeight,
+                            footerFillerHeight: _footerFillerHeight,
+                            from: _from,
+                            to: _to -1,
                         }    
                     };
                 }
