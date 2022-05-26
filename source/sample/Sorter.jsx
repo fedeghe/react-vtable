@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Sorter =  ({sort}) => {
+const Sorter =  ({sort, isSorting}) => {
     const {sortAsc, sortDesc, unsort, direction} = sort;
-    return <>
-        <span style={{cursor:'pointer'}} onClick={() => sortAsc()}>▲</span>
-        <span style={{cursor:'pointer'}} onClick={() => direction && unsort()}>&bull;</span>
-        <span style={{cursor:'pointer'}} onClick={() => sortDesc()}>▼</span>
-    </>;
+    return <div style={{display:'inline-block', marginLeft:'5px'}}>
+        <span style={{cursor:'pointer', color: isSorting && direction === 'asc' ? 'green' : 'black' }} onClick={() => sortAsc()}>▲</span>
+        <span style={{cursor:'pointer' }} onClick={() => direction && unsort()}>&bull;</span>
+        <span style={{cursor:'pointer', color: isSorting && direction === 'desc' ? 'green' : 'black' }} onClick={() => sortDesc()}>▼</span>
+    </div>;
 };
 export default Sorter;
 //▲ &bull; ▼ 

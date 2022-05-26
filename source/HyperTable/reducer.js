@@ -33,7 +33,7 @@ const prefix= 'HYT_',
                         mutatingData: sorted,
                         rows: [...sorted].slice(from, to),
                         sorting: {
-                            column: payload.colum,
+                            column: payload.column,
                             direction: payload.direction
                         }
                     };

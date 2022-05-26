@@ -41,10 +41,11 @@ export default {
             column, columnIndex,
             filter, //: {value, setValue, visibility, setVisibility} = {},
             sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            isSorting
         }) => (<>
             <span>{column.label + '_' + columnIndex}</span>
             <Filter {...{column, columnIndex, filter}}/>
-            <Sorter {...{column, columnIndex, sort}}/>
+            <Sorter {...{column, columnIndex, sort, isSorting}}/>
         </>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
@@ -69,12 +70,13 @@ export default {
         header: ({
             column, columnIndex,
             sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            isSorting
         }) => (<>
             <span>{column.key + '_' + columnIndex}</span>
-            <Sorter {...{column, columnIndex, sort}}/>
+            <Sorter {...{column, columnIndex, sort, isSorting}}/>
         </>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        cell: ({ row, column }) => <div style={{ width: '100px' }}>{row[column.key]}</div>,
+        cell: ({ row, column }) => <div style={{ width: '150px' }}>{row[column.key]}</div>,
         filter: basicFilter,
         sort: basicSort,
 

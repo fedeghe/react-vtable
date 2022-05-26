@@ -22,16 +22,19 @@ const Theader =  () => {
             dispatch
         } = useContext(TableContext),
 
+        
+
         classes = useStyles({headerHeight}),
 
         getColumnContent = useCallback(({column, columnIndex}) => {
             let content = column.key;
             if ('header' in column) {
-
+                
                 content = isFunction(column.header)
                     ? column.header({
                         column,
                         columnIndex,
+                        isSorting: column.key === sortingColumn,
                         sort : isFunction(column.sort) ? {
                             sortAsc: () => dispatch({
                                 type:'sort',
@@ -62,8 +65,8 @@ const Theader =  () => {
                     : column.header;
             }
             return content;
-        }, [dispatch, sortingDirection]);
-
+        }, [dispatch, sortingDirection, sortingColumn]);
+        
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>
             <Tr>
