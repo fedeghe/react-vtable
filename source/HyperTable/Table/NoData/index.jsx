@@ -1,9 +1,8 @@
 import React, {useContext} from 'react';
 import TableContext from '../../Context';
-import useStyles from './style.js';
+
 const NoData = () => {
-    const classes = useStyles(),
-        {state: {noFilterData}} = useContext(TableContext);
-    return (<div className={classes.NoData}>{noFilterData}</div>);
+    const {state: {noFilterData}} = useContext(TableContext);
+    return (<tbody><tr><td>{noFilterData}</td></tr></tbody>);
 };
 export default NoData;

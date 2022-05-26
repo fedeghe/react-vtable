@@ -9,7 +9,7 @@ import useStyles from './style.js';
 
 const Table = () => {
 
-    const {state, dispatch} = useContext(TableContext),
+    const { state, dispatch } = useContext(TableContext),
         {
             rows,
             width, height,
@@ -33,26 +33,21 @@ const Table = () => {
             e.preventDefault();
             e.stopPropagation();
             dispatch({
-                type:'scroll',
+                type: 'scroll',
                 payload: e.nativeEvent.target.scrollTop
             });
         }, 20), []);
-    
+
     return (
         <div
             className={classes.TableContainer}
             onScroll={onScroll}
-        >{
-            rows.length
-            ? (
-                <table className={classes.Table}>
-                    <THeader/>
-                    <TBody/>
-                    <TFooter/>
-                </table>
-            )
-            : <NoData/>
-        }
+        >
+            <table className={classes.Table}>
+                <THeader />
+                {rows.length ? <TBody /> : <NoData />}
+                <TFooter />
+            </table>
         </div>
     );
 };
