@@ -26,6 +26,8 @@ const prefix= 'HYT_',
                     dataHeight, rowHeight, contentHeight, carpetHeight,
                     moreSpaceThanContent,
                     renderedElements,
+                    headerFillerHeight,
+                    footerFillerHeight,
                     gap
                 }
             } = oldState,
@@ -68,13 +70,40 @@ const prefix= 'HYT_',
                                     columnKey: filterK
                                 })),
                                 sorted
-                            );
+                            ),
+                            _carpetHeight = newMutatingData.length * rowHeight,
+                            _moreSpaceThanContent= _carpetHeight < contentHeight;
+                        let _to = to,
+                            _from = from,
+                            _headerFillerHeight = headerFillerHeight,
+                            _footerFillerHeight = footerFillerHeight;
+
+
+                        if (to >= newMutatingData.length) {
+                            _to = newMutatingData.length - 1;
+                            _from = _to - renderedElements;
+                            _headerFillerHeight = _from * rowHeight;
+                            _footerFillerHeight = _moreSpaceThanContent
+                                ? contentHeight - _carpetHeight
+                                : _carpetHeight - _headerFillerHeight - dataHeight;
+                        }
+                        
                         return {
                             filters: newFilters,
                             filtered: newMutatingData.length,
                             virtual: {
                                 ...virtual,
-                                carpetHeight: newMutatingData.length * rowHeight
+                                /**
+                                 * need to compute 
+                                 * - from, to (might be way less, if to > newMutatingData.length)
+                                 * - headerFillerHeight
+                                 * - footerFillerHeight
+                                 */
+
+                                footerFillerHeight: _footerFillerHeight,
+                                headerFillerHeight: _headerFillerHeight,
+                                moreSpaceThanContent: _moreSpaceThanContent,
+                                carpetHeight: _carpetHeight
                             },
                             mutatingData: newMutatingData,
                             rows: [...newMutatingData].slice(from, to),

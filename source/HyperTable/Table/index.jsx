@@ -1,5 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 import NoData from './NoData';
+
 import THeader from './THeader';
 import TBody from './TBody';
 import TFooter from './TFooter';
@@ -16,6 +17,7 @@ const Table = () => {
             preHeaderHeight, postFooterHeight,
             headerHeight, footerHeight,
             PreHeader, PostFooter,
+            filters,
             virtual: {
                 rowHeight
             }
@@ -45,7 +47,7 @@ const Table = () => {
         >
             <table className={classes.Table}>
                 <THeader />
-                {rows.length ? <TBody /> : <NoData />}
+                {rows.length ? <TBody /> :  <NoData />}
                 <TFooter />
             </table>
         </div>

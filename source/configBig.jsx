@@ -1,7 +1,7 @@
 import React from 'react';
 import Filter from './sample/Filter';
 import Sorter from './sample/Sorter';
-import { generateRowData } from './utils';
+import generateRowData from './utils';
 
 const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex, filtered, total }) => (
         <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}] filtered {filtered} out of {total}</div>
@@ -47,11 +47,11 @@ export default {
             filter, //: {value, setValue, visibility, setVisibility} = {},
             sort, //: {sortAsc, sortDesc, unsort, direction} = {}
             isSorting
-        }) => (<>
+        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
             <span>{column.label + '_' + columnIndex}</span>
             <Filter {...{column, columnIndex, filter}}/>
             <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        </>),
+        </div>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         cell: ({ row, column }) => row[column.key],
         width:300,
@@ -65,7 +65,19 @@ export default {
         key: 'name',
         label: 'name',
         cell: ({ row, column }) => <div style={{ width: '200px' }}>{row[column.key]}</div>,
-        width:200
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            isSorting
+        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{column, columnIndex, filter}}/>
+            <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        </div>),
+        filter: basicFilter,
+        sort: basicSort,
+        width:300
     }, {
         key: 'date',
         cell: ({ row, column }) => <div style={{ width: '100px' }}>{row[column.key]}</div>,
@@ -81,10 +93,10 @@ export default {
             column, columnIndex,
             sort, //: {sortAsc, sortDesc, unsort, direction} = {}
             isSorting
-        }) => (<>
+        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
             <span>{column.key + '_' + columnIndex}</span>
             <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        </>),
+        </div>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         cell: ({ row, column }) => <div style={{ width: '150px' }}>{row[column.key]}</div>,
         filter: basicFilter,
@@ -123,7 +135,7 @@ export default {
     PreHeader,
     PostFooter,
 
-    noFilterData: 'No data',
+    noFilterData: ({total}) => <span>No results out of {total}</span>,
 
     // defaultColumnWidth = 100 // default value
 
@@ -156,7 +168,7 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 3000),
+    ], 300),
 
 
 
