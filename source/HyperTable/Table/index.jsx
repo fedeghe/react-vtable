@@ -17,8 +17,7 @@ const Table = () => {
             headerHeight, footerHeight,
             PreHeader, PostFooter,
             virtual: {
-                rowHeight,
-                colspan
+                rowHeight
             }
         } = state,
         classes = useStyles({
@@ -46,7 +45,7 @@ const Table = () => {
         >
             <table className={classes.Table}>
                 <THeader />
-                {rows.length ? <TBody /> : <NoData colspan={colspan} />}
+                {rows.length ? <TBody /> : <NoData />}
                 <TFooter />
             </table>
         </div>

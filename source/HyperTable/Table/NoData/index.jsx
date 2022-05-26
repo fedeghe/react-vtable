@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import TableContext from '../../Context';
 
-const NoData = ({colspan}) => {
-    const {state: {noFilterData}} = useContext(TableContext);
+const NoData = () => {
+    const {state: {noFilterData, virtual: {colspan}}} = useContext(TableContext);
     return <tbody>
         <tr>
             <td colSpan={colspan} style={{width:'100%', textAlign:'center'}}>
