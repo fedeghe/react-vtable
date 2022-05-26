@@ -5,7 +5,8 @@
         "react/prop-types": 0,
         "import/no-unresolved": 0,
         "semi": "error",
-        "one-var": "error"
+        "one-var": "error",
+        "no-multiple-empty-lines": ["error", { "max": 2 }]
     },
     "plugins": [
         "react-hooks",

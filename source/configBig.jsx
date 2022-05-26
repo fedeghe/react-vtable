@@ -179,8 +179,6 @@ export default {
 
     ], 300),
 
-
-
     cellClick: (e, { row, column }) => {
         console.log('cell click', column, row);
         e.stopPropagation();

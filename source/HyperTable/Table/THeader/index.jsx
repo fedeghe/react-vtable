@@ -22,7 +22,6 @@ const Theader =  () => {
             dispatch
         } = useContext(TableContext),
 
-        
 
         classes = useStyles({headerHeight}),
 
@@ -80,7 +79,6 @@ const Theader =  () => {
                                         visibility
                                     }
                                 })
-                            
                         };
                     }
                     content = column.header(headerProps);

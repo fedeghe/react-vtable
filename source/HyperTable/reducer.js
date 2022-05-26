@@ -33,88 +33,74 @@ const prefix= 'HYT_',
             } = oldState,
             actions = {
                 filter : () => {
-                    const {column, value, visibility} = payload;
                     
-                    let newFilters = null;
+                    let newFilters = null,
+                        _to = to,
+                        _from = from,
+                        _headerFillerHeight = headerFillerHeight,
+                        _footerFillerHeight = footerFillerHeight;
+
                     if ('value' in payload) {       
                         newFilters = {
                             ...filters,
-                            [column]: {
-                                ...filters[column],
-                                value
+                            [payload.column]: {
+                                ...filters[payload.column],
+                                value: payload.value
                             }
                         };
                     } else if ('visibility' in payload) {
                         newFilters = {
                             ...filters,
-                            [column]: {
-                                ...filters[column],
-                                visibility
+                            [payload.column]: {
+                                ...filters[payload.column],
+                                visibility: payload.visibility
                             }
                         };
                     }
                     
+                    // sort again based on original data
+                    const sorted = sorter ? [...originalData].sort((a, b) => sorter({
+                            rowA: a, rowB: b,
+                            columnKey: sortingColumn,
+                            direction: sortingDirection
+                        })): [...originalData],
+
+                        // then apply filters
+                        newMutatingData = newFilters
+                            ? Object.keys(newFilters).reduce(
+                                (acc, filterK) => acc.filter(row => newFilters[filterK].filter({
+                                    userValue: newFilters[filterK].value,
+                                    row,
+                                    columnKey: filterK
+                                })),
+                                sorted
+                            )
+                            : mutatingData,
+                        _carpetHeight = newMutatingData.length * rowHeight,
+                        _moreSpaceThanContent= _carpetHeight < contentHeight;
+
+                    if (to > newMutatingData.length) {
+                        _to = newMutatingData.length;
+                        _from = _to - renderedElements;
+                    }
+                    _headerFillerHeight = _from * rowHeight;
+                    _footerFillerHeight = _moreSpaceThanContent
+                        ? contentHeight - _carpetHeight
+                        : _carpetHeight - _headerFillerHeight - dataHeight;
                     
-                        // sort again based on original data
-                        // eslint-disable-next-line one-var
-                        const sorted = sorter ? [...originalData].sort((a, b) => sorter({
-                                rowA: a, rowB: b,
-                                columnKey: sortingColumn,
-                                direction: sortingDirection
-                            })): [...originalData],
-
-                            // then apply filters
-                            newMutatingData = filters
-                                ? Object.keys(newFilters).reduce(
-                                    (acc, filterK) => acc.filter(row => newFilters[filterK].filter({
-                                        userValue: newFilters[filterK].value,
-                                        row,
-                                        columnKey: filterK
-                                    })),
-                                    sorted
-                                )
-                                : mutatingData,
-                            _carpetHeight = newMutatingData.length * rowHeight,
-                            _moreSpaceThanContent= _carpetHeight < contentHeight;
-                        // eslint-disable-next-line one-var
-                        let _to = to,
-                            _from = from,
-                            _headerFillerHeight = headerFillerHeight,
-                            _footerFillerHeight = footerFillerHeight;
-
-
-                        if (to > newMutatingData.length) {
-                            _to = newMutatingData.length;
-                            _from = _to - renderedElements;
-                            
-                        }
-                        _headerFillerHeight = _from * rowHeight;
-                        _footerFillerHeight = _moreSpaceThanContent
-                            ? contentHeight - _carpetHeight
-                            : _carpetHeight - _headerFillerHeight - dataHeight;
-                        
-                        return {
-                            filters: newFilters,
-                            filtered: newMutatingData.length,
-                            virtual: {
-                                ...virtual,
-                                /**
-                                 * need to compute 
-                                 * - from, to (might be way less, if to > newMutatingData.length)
-                                 * - headerFillerHeight
-                                 * - footerFillerHeight
-                                 */
-
-                                footerFillerHeight: _footerFillerHeight,
-                                headerFillerHeight: _headerFillerHeight,
-                                moreSpaceThanContent: _moreSpaceThanContent,
-                                carpetHeight: _carpetHeight
-                            },
-                            mutatingData: newMutatingData,
-                            rows: [...newMutatingData].slice(from, to),
-                        };
-                    // }
-                    // return oldState;
+                    return {
+                        filters: newFilters,
+                        filtered: newMutatingData.length,
+                        virtual: {
+                            ...virtual,
+                            footerFillerHeight: _footerFillerHeight,
+                            headerFillerHeight: _headerFillerHeight,
+                            moreSpaceThanContent: _moreSpaceThanContent,
+                            carpetHeight: _carpetHeight
+                        },
+                        mutatingData: newMutatingData,
+                        rows: [...newMutatingData].slice(from, to),
+                    };
                 },
                 sort: () => {
                     const sorted = [...mutatingData].sort((a, b) => payload.sorter({
