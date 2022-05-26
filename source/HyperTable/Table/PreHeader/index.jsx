@@ -13,6 +13,7 @@ const PreHeader = () => {
                 filtered,
                 virtual:{
                     from, to, 
+                    scrollTop
                 }
             },
         } = useContext(TableContext),
@@ -21,7 +22,7 @@ const PreHeader = () => {
     return (
         PreHeader && <div className={classes.PreHeader}>{
             isFunction(PreHeader)
-            ? <PreHeader {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex, filtered}}/>
+            ? <PreHeader {...{from, to, total, activeColumn, activeRow, activeColumnIndex, activeRowIndex, filtered, scrollTop}}/>
             : PreHeader
         }</div>
     );

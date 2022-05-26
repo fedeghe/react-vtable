@@ -1,4 +1,4 @@
-export const replaceall = (tpl, obj, start, end, fb) => {
+const replaceall = (tpl, obj, start, end, fb) => {
     start || (start = '__');
     end || (end = '__');
 
@@ -30,11 +30,9 @@ export const replaceall = (tpl, obj, start, end, fb) => {
         });
     }
     return tpl;
-};
-
-export const isFunction = f => typeof f === 'function';
-
-export const debounce = (func, wait) => {
+},
+isFunction = f => typeof f === 'function',
+debounce = (func, wait) => {
     let timeout,
         enabled = true;
     return (...params) => {
@@ -46,4 +44,10 @@ export const debounce = (func, wait) => {
             setTimeout(() => enabled = true, wait);
         }, wait);
     };
+};
+
+export {
+    replaceall,
+    isFunction,
+    debounce
 };

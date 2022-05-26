@@ -7,8 +7,10 @@ const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex, filtered, tot
         <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}] filtered {filtered} out of {total}</div>
     ),
     
-    PreHeader = ({ total, activeColumn, activeRow }) => (
-        <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>Pre header component ({total}) [{activeRow}, {activeColumn}]</div>
+    PreHeader = ({ total, activeColumn, activeRow, scrollTop }) => (
+        <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>
+            Pre header component ({total}) [{activeRow}, {activeColumn}] scrollTop: [{scrollTop}]
+        </div>
     ),
     
     basicFilter = ({userValue, row, columnKey}) => {
@@ -29,14 +31,14 @@ const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex, filtered, tot
 export default {
     // eslint-disable-next-line no-unused-vars
     leftMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-        if (isFooter) return <div style={{ width: '70px' }}>LF {to}</div>;
-        if (isHeader) return <div style={{ width: '70px' }}>LH {from}</div>;
+        if (isFooter) return <div style={{ width: '100px' }}>LF {to}</div>;
+        if (isHeader) return <div style={{ width: '100px' }}>LH {from}</div>;
         return `left ${rowIndex}`;
     },
     // eslint-disable-next-line no-unused-vars
     rightMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-        if (isFooter) return <div style={{ width: '70px' }}>RF {to}</div>;
-        if (isHeader) return <div style={{ width: '70px' }}>RH {from}</div>;
+        if (isFooter) return <div style={{ width: '100px' }}>RF {to}</div>;
+        if (isHeader) return <div style={{ width: '100px' }}>RH {from}</div>;
         return `right ${rowIndex}`;
     },
     columns: [{
@@ -109,9 +111,15 @@ export default {
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
         width:300
     },
-    { key: 'entityid2', },
-    { key: 'name2', },
-    { key: 'id3', },
+    { 
+        key: 'entityid2',
+    },
+    { 
+        key: 'name2',
+    },
+    { 
+        key: 'id3',
+    },
     {
         key: 'date3',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
@@ -120,8 +128,9 @@ export default {
     {
         key: 'entityid3',
     },
-    { key: 'name3', }
-    ],
+    { 
+        key: 'name3',
+    }],
 
     headerHeight: 80,
     footerHeight: 60,
@@ -144,7 +153,7 @@ export default {
     // columnHighlight: 'TableColumnHighlight',
 
     crossHighlight: 'TableCrossHighlight',
-    // cellHightlight: 'TableCellHighlight',
+    cellHightlight: 'TableCellHighlight',
 
     onHeaderHighlight: false,
     onFooterHighlight: false,

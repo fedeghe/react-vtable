@@ -17,9 +17,8 @@ const Table = () => {
             preHeaderHeight, postFooterHeight,
             headerHeight, footerHeight,
             PreHeader, PostFooter,
-            filters,
             virtual: {
-                rowHeight
+                rowHeight,
             }
         } = state,
         classes = useStyles({

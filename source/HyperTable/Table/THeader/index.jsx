@@ -4,7 +4,7 @@ import RightMost from '../RightMost';
 import LeftMost from '../LeftMost';
 import Tr from '../Tr';
 import Th from '../Th';
-import {isFunction} from './../../utils';
+import {isFunction, debounce} from './../../utils';
 import useStyles from './style.js';
 const Theader =  () => {
     const {
@@ -64,16 +64,15 @@ const Theader =  () => {
 
                         headerProps.filter = {
                             value: theFilter.value,
-                            setValue: value => dispatch({
+                            setValue: debounce(value => dispatch({
                                 type: 'filter',
                                 payload: {
                                     column: column.key,
                                     value
                                 }
-                            }),
+                            }), 200),
                             visibility: theFilter.visibility,
                             setVisibility: visibility => 
-                                
                                 dispatch({
                                     type: 'filter',
                                     payload: {
