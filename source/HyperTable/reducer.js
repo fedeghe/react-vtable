@@ -12,8 +12,15 @@ const prefix= 'HYT_',
         const { payload, type } = action,
             {
                 total,
+                filters,
                 originalData, mutatingData,
                 virtual,
+                rows,
+                sorting: {
+                    column: sortingColumn,
+                    direction: sortingDirection,
+                    sorter
+                },
                 virtual: {
                     from, to,
                     dataHeight, rowHeight, contentHeight, carpetHeight,
@@ -23,6 +30,53 @@ const prefix= 'HYT_',
                 }
             } = oldState,
             actions = {
+                filter : () => {
+                    const {column, value, visibility} = payload;
+                    
+                   let newFilters = null;
+                    if ('value' in payload) {       
+                        newFilters = {
+                            ...filters,
+                            [column]: {
+                                ...filters[column],
+                                value
+                            }
+                        };
+                    } else if ('visibility' in payload) {
+                        newFilters = {
+                            ...filters,
+                            [column]: {
+                                ...filters[column],
+                                visibility
+                            }
+                        };
+                    }
+                    
+                    if (newFilters) {
+                        // sort again based on original data
+                        const sorted = sorter ? [...originalData].sort((a, b) => sorter({
+                                rowA: a, rowB: b,
+                                columnKey: sortingColumn,
+                                direction: sortingDirection
+                            })): [...originalData],
+
+                            // then apply filters
+                            newMutatingData = Object.keys(newFilters).reduce(
+                                (acc, filterK) => acc.filter(row => newFilters[filterK].filter({
+                                    userValue: newFilters[filterK].value,
+                                    row,
+                                    columnKey: filterK
+                                })),
+                                sorted
+                            );
+                        return {
+                            filters: newFilters,
+                            mutatingData: newMutatingData,
+                            rows: [...newMutatingData].slice(from, to),
+                        };
+                    }
+                    return oldState;
+                },
                 sort: () => {
                     const sorted = [...mutatingData].sort((a, b) => payload.sorter({
                         rowA: a, rowB: b,
@@ -31,10 +85,12 @@ const prefix= 'HYT_',
                     }));
                     return {
                         mutatingData: sorted,
+                        // rows: [...sorted].slice(from, to),
                         rows: [...sorted].slice(from, to),
                         sorting: {
                             column: payload.column,
-                            direction: payload.direction
+                            direction: payload.direction,
+                            sorter: payload.sorter
                         }
                     };
                 },
@@ -63,7 +119,6 @@ const prefix= 'HYT_',
                     // 99% sure it is not needed
                     // if (payload < rowHeight) {
                     //     return {
-                    //         ...oldState,
                     //         virtual: {
                     //             ...oldState.virtual,
                     //             scrollTop: payload,
@@ -149,7 +204,8 @@ const prefix= 'HYT_',
             ...cnf,
             sorting:{
                 column: null,
-                direction: null
+                direction: null,
+                sorter: null,
             },
             filters:columns.reduce((acc, column) => {
                 if (isFunction(column.filter)){

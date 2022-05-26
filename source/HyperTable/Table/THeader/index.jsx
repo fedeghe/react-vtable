@@ -60,11 +60,28 @@ const Theader =  () => {
                         };
                     }
                     if (isFunction(column.filter)) {
+                        const theFilter = filters[column.key];
+
                         headerProps.filter = {
-                            value: null,
-                            setValue: () => {/* */},
-                            visibility: false,
-                            setVisibility: () => {/* */}
+                            value: theFilter.value,
+                            setValue: value => dispatch({
+                                type: 'filter',
+                                payload: {
+                                    column: column.key,
+                                    value
+                                }
+                            }),
+                            visibility: theFilter.visibility,
+                            setVisibility: visibility => 
+                                
+                                dispatch({
+                                    type: 'filter',
+                                    payload: {
+                                        column: column.key,
+                                        visibility
+                                    }
+                                })
+                            
                         };
                     }
                     content = column.header(headerProps);
@@ -73,7 +90,7 @@ const Theader =  () => {
                 }
             }
             return content;
-        }, [dispatch, sortingDirection, sortingColumn]);
+        }, [sortingDirection, sortingColumn, dispatch, filters]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>

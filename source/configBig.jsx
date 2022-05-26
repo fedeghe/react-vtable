@@ -11,7 +11,12 @@ const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex }) => (
         <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>Pre header component ({total}) [{activeRow}, {activeColumn}]</div>
     ),
     
-    basicFilter = ({userValue, row, columnKey}) => row[columnKey].includes(userValue),
+    basicFilter = ({userValue, row, columnKey}) => {
+        
+        // eslint-disable-next-line no-unused-vars
+        const t = 3;
+        return `${row[columnKey]}`.includes(userValue);
+    },
     
     basicSort = ({rowA, rowB, columnKey, direction}) => {
         const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
