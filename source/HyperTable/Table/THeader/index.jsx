@@ -30,12 +30,14 @@ const Theader =  () => {
             let content = column.key;
             if ('header' in column) {
                 
-                content = isFunction(column.header)
-                    ? column.header({
+                
+                if (isFunction(column.header)) {
+                    const headerProps = {
                         column,
                         columnIndex,
-                        isSorting: column.key === sortingColumn,
-                        sort : isFunction(column.sort) ? {
+                    };
+                    if (isFunction(column.sort)) {
+                        headerProps.sort = {
                             sortAsc: () => dispatch({
                                 type:'sort',
                                 payload: {
@@ -53,16 +55,22 @@ const Theader =  () => {
                                 }
                             }),
                             unsort: () => dispatch({type:'unsort'}),
-                            direction: sortingDirection
-                        } : null,
-                        filter: isFunction(column.filter) ? {
+                            direction: sortingDirection,
+                            isSorting: column.key === sortingColumn,
+                        };
+                    }
+                    if (isFunction(column.filter)) {
+                        headerProps.filter = {
                             value: null,
                             setValue: () => {/* */},
                             visibility: false,
                             setVisibility: () => {/* */}
-                        } : null
-                    })
-                    : column.header;
+                        };
+                    }
+                    content = column.header(headerProps);
+                } else {
+                    content  = column.header;
+                }
             }
             return content;
         }, [dispatch, sortingDirection, sortingColumn]);
