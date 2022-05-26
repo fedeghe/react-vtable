@@ -1,7 +1,7 @@
 import React, { useContext, useCallback } from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-const Td = ({row, column, rowIndex, columnIndex, cls, content}) => {
+const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
     const {
             state: {
                 rowHeight,
@@ -37,7 +37,7 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content}) => {
         className={cls}
         {...handlers}
     >
-        <div className={classes.Cell}>
+        <div className={classes.Cell} style={style}>
             {content}
         </div>
     </td>;

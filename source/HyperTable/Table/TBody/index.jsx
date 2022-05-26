@@ -43,6 +43,7 @@ const Tbody = () => {
                         }
                         return (
                             <Td
+                                style={{width: `${column.width}px`}}
                                 key={`cell_${row._ID}_${columnIndex}`}
                                 row={row}
                                 column={column}

@@ -174,6 +174,8 @@ const prefix= 'HYT_',
             headerHeight = 0, footerHeight = 0,
             gap = 10,
 
+            defaultColumnWidth = 150,
+
             rowHighlight = '',
             columnHighlight = '',
             crossHighlight = '',
@@ -207,6 +209,7 @@ const prefix= 'HYT_',
 
         return {
             ...cnf,
+            columns: columns.map(column => column.width ? column : {...column, width: defaultColumnWidth}),
             sorting:{
                 column: null,
                 direction: null,

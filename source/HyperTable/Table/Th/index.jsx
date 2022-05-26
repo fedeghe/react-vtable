@@ -39,11 +39,13 @@ const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) =>
         };
 
     return <th
-        style={style}
+        
         key={`foot${rowIndex || columnIndex}`} className={cls}
         {...handlers}
-    >
-        {content}
+    >   
+        <div style={style}>
+            {content}
+        </div>
     </th>;
 };
 export default Th;

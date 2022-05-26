@@ -53,26 +53,27 @@ export default {
             <Sorter {...{column, columnIndex, sort, isSorting}}/>
         </>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
-        width:'300px',
+        cell: ({ row, column }) => row[column.key],
+        width:300,
         filter: basicFilter,
         sort: basicSort,
     }, {
         key: 'entityid',
         label: 'entity id',
+
     }, {
         key: 'name',
         label: 'name',
         cell: ({ row, column }) => <div style={{ width: '200px' }}>{row[column.key]}</div>,
-        width:'200px'
+        width:200
     }, {
         key: 'date',
         cell: ({ row, column }) => <div style={{ width: '100px' }}>{row[column.key]}</div>,
-        width:'100px'
+        width:100
     }, {
         key: 'actions',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
-        width:'300px'
+        width:300
     },
     {
         key: 'id2',
@@ -88,13 +89,13 @@ export default {
         cell: ({ row, column }) => <div style={{ width: '150px' }}>{row[column.key]}</div>,
         filter: basicFilter,
         sort: basicSort,
-        width:'150px'
+        width:150
 
     },
     {
         key: 'date2',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
-        width:'300px'
+        width:300
     },
     { key: 'entityid2', },
     { key: 'name2', },
@@ -102,7 +103,7 @@ export default {
     {
         key: 'date3',
         cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
-        width:'300px'
+        width:300
     },
     {
         key: 'entityid3',
@@ -123,6 +124,8 @@ export default {
     PostFooter,
 
     noFilterData: 'No data',
+
+    // defaultColumnWidth = 100 // default value
 
 
     // rowHighlight: 'TableRowHighlight',
