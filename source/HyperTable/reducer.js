@@ -149,6 +149,7 @@ const prefix= 'HYT_',
                                 ? contentHeight - carpetHeight
                                 : carpetHeight - _headerFillerHeight - dataHeight,
                             _to = Math.min(_from + renderedElements, total);
+                            
                     return {
                         rows: mutatingData.slice(_from, _to),
                         virtual: {
