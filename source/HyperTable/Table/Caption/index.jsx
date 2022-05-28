@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
 import {isFunction} from './../../utils';
-const Caption = ({position}) => {
+const Caption = ({type}) => {
     const {
             state: {
                 postFooterHeight,
@@ -29,7 +29,7 @@ const Caption = ({position}) => {
                 Component : PostFooter,
                 cls:classes.PostFooter
             }
-        }[position];
+        }[type];
 
     return (
         What.Component && <div className={What.cls}>{
