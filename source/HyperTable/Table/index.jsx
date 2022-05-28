@@ -14,9 +14,24 @@ const Table = () => {
         {
             rows,
             width, height,
-            preHeaderHeight, postFooterHeight,
-            headerHeight, footerHeight,
-            HeaderCaption, FooterCaption,
+            header: {
+                height: headerHeight,
+                caption: {
+                    component: HeaderCaption,
+                    height: preHeaderHeight
+                } = {}
+            } = {},
+            footer: {
+                height: footerHeight,
+                caption: {
+                    component: FooterCaption,
+                    height: postFooterHeight
+                } = {}
+            } = {},
+            // postFooterHeight,
+            // footerHeight,
+            // FooterCaption,
+
             virtual: {
                 rowHeight,
             }

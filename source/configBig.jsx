@@ -132,18 +132,9 @@ export default {
         key: 'name3',
     }],
 
-    
-
     height: 900,
     width: 1400,
     rowHeight: 180,
-
-    headerHeight: 80,
-    footerHeight: 60,
-    preHeaderHeight: 45,
-    postFooterHeight: 25,
-    HeaderCaption,
-    FooterCaption,
 
     header: {
         height: 80,

@@ -9,7 +9,9 @@ import useStyles from './style.js';
 const TFooter = () => {
     const {
             state: {
-                footerHeight,
+                footer: {
+                    height: footerHeight,
+                },
                 columns,
                 activeColumn,
                 crossHighlightClass,

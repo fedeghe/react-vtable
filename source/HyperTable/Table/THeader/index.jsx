@@ -9,7 +9,9 @@ import useStyles from './style.js';
 const Theader =  () => {
     const {
             state: {
-                headerHeight,
+                header: {
+                    height: headerHeight
+                },
                 columns,
                 activeColumn,
                 crossHighlightClass,

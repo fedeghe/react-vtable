@@ -5,10 +5,23 @@ import {isFunction} from './../../utils';
 const Caption = ({type}) => {
     const {
             state: {
-                postFooterHeight,
-                FooterCaption,
-                preHeaderHeight,
-                HeaderCaption,
+                footer: {
+                    caption: {
+                        height: postFooterHeight,
+                        component: FooterCaption
+                    } = {}
+                },
+                header: {
+                    caption: {
+                        height: preHeaderHeight,
+                        component: HeaderCaption
+                    } = {}
+                },
+                // postFooterHeight,
+                // FooterCaption,
+                // preHeaderHeight,
+                // HeaderCaption,
+
                 total,
                 activeColumn, activeRow,
                 activeColumnIndex, activeRowIndex,

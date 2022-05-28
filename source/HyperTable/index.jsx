@@ -13,8 +13,8 @@ const HyperTable = cnf => {
         [ state, dispatch ] = useReducer(reducer, initialState),
         {
             width, height,
-            preHeaderHeight,
-            postFooterHeight,
+            header:{caption: {height : preHeaderHeight} = {}} = {},
+            footer:{caption: {height : postFooterHeight} = {}} = {},
         } = state,
         classes = useStyles({
             width, height,

@@ -175,18 +175,22 @@ const prefix= 'HYT_',
                 columns,
                 height = 600,
                 width = 800,
+                
+                header: {
+                    height : headerHeight = 0,
+                    caption: {
+                        component: HeaderCaption = null,
+                        height: headerCaptionHeight = 25
+                    } = {}
+                } = {},
 
-
-                HeaderCaption = false,
-                preHeaderHeight = 0,
-                headerHeight = 0, 
-
-            
-
-
-                FooterCaption = false,
-                postFooterHeight = 0,
-                footerHeight = 0,
+                footer: {
+                    height : footerHeight = 0,
+                    caption: {
+                        component: FooterCaption = null,
+                        height: footerCaptionHeight = 25
+                    } = {}
+                } = {},
 
                 gap = 10,
 
@@ -212,9 +216,9 @@ const prefix= 'HYT_',
                 } = {}
             } = cnf,
             contentHeight = height
-                - (HeaderCaption ? preHeaderHeight : 0)
+                - (HeaderCaption ? headerCaptionHeight : 0)
                 - headerHeight - footerHeight
-                - (FooterCaption ? postFooterHeight : 0),
+                - (FooterCaption ? footerCaptionHeight : 0),
             carpetHeight = data.length * rowHeight,
             renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
             dataHeight = renderedElements * rowHeight,
@@ -245,9 +249,26 @@ const prefix= 'HYT_',
                 return acc;
             }, {}),
             width, height,
-            HeaderCaption, FooterCaption,
-            preHeaderHeight, postFooterHeight,
-            headerHeight, footerHeight,
+
+            // HeaderCaption, FooterCaption,
+            // preHeaderHeight, postFooterHeight,
+            // headerHeight, footerHeight,
+            
+            header: {
+                height : headerHeight,
+                caption: {
+                    component: HeaderCaption,
+                    height: headerCaptionHeight
+                }
+            },
+            footer: {
+                height : footerHeight,
+                caption: {
+                    component: FooterCaption,
+                    height: footerCaptionHeight
+                }
+            },
+            
             rowHeight,
             originalData,
             mutatingData,
