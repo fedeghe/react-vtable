@@ -45,21 +45,22 @@ export default {
     columns: [{
         key: 'id',
         label: 'idz',
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-            isSorting
-        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{column, columnIndex, filter}}/>
-            <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        </div>),
-        footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        cell: ({ row, column }) => row[column.key],
         width:300,
-        filter: basicFilter,
-        sort: basicSort,
+        cell: ({ row, column }) => row[column.key],
+
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{column, columnIndex, filter}}/>
+        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        // </div>),
+        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        // filter: basicFilter,
+        // sort: basicSort,
     }, {
         key: 'entityid',
         label: 'entity id',
@@ -68,19 +69,19 @@ export default {
         key: 'name',
         label: 'name',
         cell: ({ row, column }) => row[column.key],
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-            isSorting
-        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{column, columnIndex, filter}}/>
-            <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        </div>),
-        filter: basicFilter,
-        sort: basicSort,
-        width:300
+        width:300,
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{column, columnIndex, filter}}/>
+        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        // </div>),
+        // filter: basicFilter,
+        // sort: basicSort,
     }, {
         key: 'date',
         cell: ({ row, column }) => row[column.key],
@@ -92,19 +93,19 @@ export default {
     },
     {
         key: 'id2',
-        header: ({
-            column, columnIndex,
-            sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-            isSorting
-        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-            <span>{column.key + '_' + columnIndex}</span>
-            <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        </div>),
-        footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        width:150,
         cell: ({ row, column }) => row[column.key],
-        filter: basicFilter,
-        sort: basicSort,
-        width:150
+        // header: ({
+        //     column, columnIndex,
+        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        //     <span>{column.key + '_' + columnIndex}</span>
+        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        // </div>),
+        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        // filter: basicFilter,
+        // sort: basicSort,
 
     },
     {
