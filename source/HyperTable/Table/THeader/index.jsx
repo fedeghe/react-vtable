@@ -12,8 +12,8 @@ const Theader =  () => {
                 headerHeight,
                 columns,
                 activeColumn,
-                crossHighlight,
-                columnHighlight,
+                crossHighlightClass,
+                columnHighlightClass,
                 // eslint-disable-next-line no-unused-vars
                 filters,
                 // eslint-disable-next-line no-unused-vars
@@ -99,7 +99,7 @@ const Theader =  () => {
                     return <Th
                         style={{width: `${column.width}px`}}
                         key={`head${columnIndex}`}
-                        cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlight || columnHighlight) : ''}`}
+                        cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         content={content}
                         column={column}
                         columnIndex={columnIndex}

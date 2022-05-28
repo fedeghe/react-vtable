@@ -8,7 +8,9 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
                 virtual: {
                     from
                 },
-                onCellClick, onCellEnter, onCellLeave, cellClass
+                events: {
+                    onCellClick, onCellEnter, onCellLeave
+                }, cellClass
             },
             dispatch
         } = useContext(TableContext),

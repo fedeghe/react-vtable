@@ -6,9 +6,9 @@ const Caption = ({type}) => {
     const {
             state: {
                 postFooterHeight,
-                PostFooter,
+                FooterCaption,
                 preHeaderHeight,
-                PreHeader,
+                HeaderCaption,
                 total,
                 activeColumn, activeRow,
                 activeColumnIndex, activeRowIndex,
@@ -21,13 +21,13 @@ const Caption = ({type}) => {
         } = useContext(TableContext),
         classes = useStyles({postFooterHeight, preHeaderHeight}),
         What = {
-            pre: {
-                Component : PreHeader,
-                cls: classes.PreHeader
+            header: {
+                Component : HeaderCaption,
+                cls: classes.HeaderCaption
             },
-            post: {
-                Component : PostFooter,
-                cls:classes.PostFooter
+            footer: {
+                Component : FooterCaption,
+                cls:classes.FooterCaption
             }
         }[type];
 

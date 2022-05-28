@@ -12,7 +12,9 @@ const Tbody = () => {
         state: {
             rows, columns,
             activeRow, activeColumn,
-            crossHighlight, rowHighlight, columnHighlight, cellHightlight,
+            userClasses: {
+                crossHighlightClass, rowHighlightClass, columnHighlightClass, cellHightlightClass,
+            },
             rowHeight,
             virtual: {
                 headerFillerHeight,
@@ -29,11 +31,11 @@ const Tbody = () => {
             <Filler {...{ height: headerFillerHeight, colspan }} />
             {rows.map((row, rowIndex) => (
                 <Tr
-                    cls={`${activeRow === row._ID ? (crossHighlight || rowHighlight || "") : ''}`}
+                    cls={`${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass || "") : ''}`}
                     key={row._ID}
                 >
                     <LeftMost
-                        cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
+                        cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass) : ''}`}
                         opts={{ row, rowIndex: rowIndex + from, from, to }}
                     />
                     {columns.map((column, columnIndex) => {
@@ -52,14 +54,14 @@ const Tbody = () => {
                                 columnIndex={columnIndex}
                                 cls={[
                                     classes.AlTop,
-                                    activeColumn === column.key ? (crossHighlight || columnHighlight) : '',
-                                    (cellHightlight && activeRow === row._ID && activeColumn === column.key) ? cellHightlight : ''
+                                    activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : '',
+                                    (cellHightlightClass && activeRow === row._ID && activeColumn === column.key) ? cellHightlightClass : ''
                                 ].join(' ')}
                             />
                         );
                     })}
                     <RightMost
-                        cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlight || rowHighlight) : ''}`}
+                        cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass) : ''}`}
                         opts={{ row, rowIndex: rowIndex + from }}
                     />
                 </Tr>

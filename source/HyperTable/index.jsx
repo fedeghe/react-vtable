@@ -24,9 +24,9 @@ const HyperTable = cnf => {
     
     return <div className={classes.Wrapper}>
         <TableContext.Provider value={{state, dispatch}}>
-            <Caption type="pre"/>
+            <Caption type="header"/>
             <Table/>
-            <Caption type="post"/>
+            <Caption type="footer"/>
         </TableContext.Provider>
     </div>;
 

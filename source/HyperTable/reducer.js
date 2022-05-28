@@ -171,40 +171,50 @@ const prefix= 'HYT_',
     },
     init = cnf => {
         const {
-            data,
-            columns,
-            height = 600,
-            width = 800,
-            PreHeader = false, PostFooter = false,
-            // no header & footer caption by default
-            preHeaderHeight = 0, postFooterHeight = 0,
-            // no sticky header & footer by default
-            headerHeight = 0, footerHeight = 0,
-            gap = 10,
+                data,
+                columns,
+                height = 600,
+                width = 800,
 
-            defaultColumnWidth = 150,
 
-            rowHighlight = '',
-            columnHighlight = '',
-            crossHighlight = '',
-            cellHightlight = '',
-            cellClass = '',
+                HeaderCaption = false,
+                preHeaderHeight = 0,
+                headerHeight = 0, 
 
-            onHeaderHighlight = false,
-            onFooterHighlight = false,
-            onLeftMostHighlight = false,
-            onRightMostHighlight = false,
+            
 
-            rowHeight = 50,
-            leftMost, rightMost,
-            onCellClick = null,
-            onCellEnter = null,
-            onCellLeave = null,
+
+                FooterCaption = false,
+                postFooterHeight = 0,
+                footerHeight = 0,
+
+                gap = 10,
+
+                defaultColumnWidth = 150,
+                userClasses: {
+                    rowHighlightClass = '',
+                    columnHighlightClass = '',
+                    crossHighlightClass = '',
+                    cellHightlightClass = '',
+                    cellClass = '',
+                } = {},
+                onHeaderHighlight = false,
+                onFooterHighlight = false,
+                onLeftMostHighlight = false,
+                onRightMostHighlight = false,
+
+                rowHeight = 50,
+                leftMost, rightMost,
+                events: {
+                    onCellClick = null,
+                    onCellEnter = null,
+                    onCellLeave = null,
+                } = {}
             } = cnf,
             contentHeight = height
-                - (PreHeader ? preHeaderHeight : 0)
+                - (HeaderCaption ? preHeaderHeight : 0)
                 - headerHeight - footerHeight
-                - (PostFooter ? postFooterHeight : 0),
+                - (FooterCaption ? postFooterHeight : 0),
             carpetHeight = data.length * rowHeight,
             renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
             dataHeight = renderedElements * rowHeight,
@@ -235,7 +245,7 @@ const prefix= 'HYT_',
                 return acc;
             }, {}),
             width, height,
-            PreHeader, PostFooter,
+            HeaderCaption, FooterCaption,
             preHeaderHeight, postFooterHeight,
             headerHeight, footerHeight,
             rowHeight,
@@ -248,20 +258,29 @@ const prefix= 'HYT_',
             activeColumn: null,
             activeRowIndex: null,
             activeColumnIndex: null,
-            rowHighlight,
-            columnHighlight,
-            crossHighlight,
-            cellHightlight,
-            cellClass,
+            // rowHighlightClass,
+            // columnHighlightClass,
+            // crossHighlightClass,
+            // cellHightlightClass,
+            // cellClass,
 
             onHeaderHighlight,
             onFooterHighlight,
             onLeftMostHighlight,
             onRightMostHighlight,
             
-            onCellClick,
-            onCellEnter,
-            onCellLeave,
+            events:{
+                onCellClick,
+                onCellEnter,
+                onCellLeave,
+            },
+            userClasses: {
+                rowHighlightClass,
+                columnHighlightClass,
+                crossHighlightClass,
+                cellHightlightClass,
+                cellClass,
+            },
             virtual: {
                 colspan: columns.length + !!leftMost + !!rightMost,
                 moreSpaceThanContent,

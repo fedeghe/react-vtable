@@ -3,11 +3,11 @@ import Filter from './sample/Filter';
 import Sorter from './sample/Sorter';
 import generateRowData from './utils';
 
-const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex, filtered, total }) => (
+const FooterCaption = ({ from, to, activeColumnIndex, activeRowIndex, filtered, total }) => (
         <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}] filtered {filtered} out of {total}</div>
     ),
     
-    PreHeader = ({ total, activeColumn, activeRow, scrollTop }) => (
+    HeaderCaption = ({ total, activeColumn, activeRow, scrollTop }) => (
         <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>
             Pre header component ({total}) [{activeRow}, {activeColumn}] scrollTop: [{scrollTop}]
         </div>
@@ -132,34 +132,51 @@ export default {
         key: 'name3',
     }],
 
-    headerHeight: 80,
-    // footerHeight: 60,
+    
 
     height: 900,
     width: 1400,
     rowHeight: 180,
 
+    headerHeight: 80,
+    footerHeight: 60,
     preHeaderHeight: 45,
     postFooterHeight: 25,
-    // PreHeader,
-    // PostFooter,
+    HeaderCaption,
+    FooterCaption,
+
+    header: {
+        height: 80,
+        caption: {
+            component: HeaderCaption,
+            height: 45
+        }
+    },
+    footer: {
+        height: 60,
+        caption: {
+            component: FooterCaption,
+            height: 25
+        }
+    },
 
     noFilterData: ({total}) => <span>No results out of {total}</span>,
 
     // defaultColumnWidth = 100 // default value
 
 
-    // rowHighlight: 'TableRowHighlight',
-    // columnHighlight: 'TableColumnHighlight',
+    // userClasses: {
+        // rowHighlightClass: 'TableRowHighlight',
+        // columnHighlightClass: 'TableColumnHighlight',
+        // crossHighlightClass: 'TableCrossHighlight',
+        // cellHightlightClass: 'TableCellHighlight',
+        // cellClass: 'TableCell',
+    // },
 
-    crossHighlight: 'TableCrossHighlight',
-    cellHightlight: 'TableCellHighlight',
-    cellClass: 'TableCell',
-
-    onHeaderHighlight: false,
-    onFooterHighlight: false,
-    onLeftMostHighlight: false,
-    onRightMostHighlight: false,
+    onHeaderHighlight: true,
+    onFooterHighlight: true,
+    onLeftMostHighlight: true,
+    onRightMostHighlight: true,
 
     gap: 5,
 
@@ -179,15 +196,16 @@ export default {
         { key: 'date3', type: 'date' },
 
     ], 300),
-
-    onCellClick: (e, { row, column }) => {
-        console.log('cell click', column, row);
-        e.stopPropagation();
-    },
-    // onCellEnter: (e, {row, column}) => {
-    //     console.log('cell enter', col, row)
-    // },
-    // onCellLeave: (e, {row, column}) => {
-    //     console.log('cell leave', col, row)
-    // },
+    events: {
+        onCellClick: (e, { row, column }) => {
+            console.log('cell click', column, row);
+            e.stopPropagation();
+        },
+        // onCellEnter: (e, {row, column}) => {
+        //     console.log('cell enter', col, row)
+        // },
+        // onCellLeave: (e, {row, column}) => {
+        //     console.log('cell leave', col, row)
+        // },
+    }
 };

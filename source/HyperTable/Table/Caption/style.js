@@ -1,12 +1,12 @@
 import { createUseStyles } from "react-jss";
 
 export default createUseStyles(() => ({
-    PostFooter: ({postFooterHeight}) =>({
+    FooterCaption: ({postFooterHeight}) =>({
         maxHeight: `${postFooterHeight}px`,
         height: `${postFooterHeight}px`,
         overflow: 'hidden'
     }),
-    PreHeader: ({preHeaderHeight}) =>({
+    HeaderCaption: ({preHeaderHeight}) =>({
         maxHeight: `${preHeaderHeight}px`,
         height: `${preHeaderHeight}px`,
         overflow: 'hidden'

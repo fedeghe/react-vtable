@@ -16,15 +16,15 @@ const Table = () => {
             width, height,
             preHeaderHeight, postFooterHeight,
             headerHeight, footerHeight,
-            PreHeader, PostFooter,
+            HeaderCaption, FooterCaption,
             virtual: {
                 rowHeight,
             }
         } = state,
         classes = useStyles({
             width, height,
-            preHeaderHeight: PreHeader ? preHeaderHeight : 0,
-            postFooterHeight: PostFooter ? postFooterHeight : 0,
+            preHeaderHeight: HeaderCaption ? preHeaderHeight : 0,
+            postFooterHeight: FooterCaption ? postFooterHeight : 0,
             headerHeight,
             footerHeight,
             rowHeight

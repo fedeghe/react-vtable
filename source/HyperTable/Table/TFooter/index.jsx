@@ -12,8 +12,8 @@ const TFooter = () => {
                 footerHeight,
                 columns,
                 activeColumn,
-                crossHighlight,
-                columnHighlight
+                crossHighlightClass,
+                columnHighlightClass
             },
         } = useContext(TableContext),
         classes = useStyles({footerHeight});
@@ -30,7 +30,7 @@ const TFooter = () => {
                     }
                     return <Th
                         key={`foot${columnIndex}`}
-                        cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlight || columnHighlight) : ''}`}
+                        cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         content={content}
                         column={column}
                         columnIndex={columnIndex}
