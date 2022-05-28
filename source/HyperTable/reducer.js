@@ -15,7 +15,7 @@ const prefix= 'HYT_',
                 filters,
                 originalData, mutatingData,
                 virtual,
-                // rows,
+                gap,
                 dimensions: {
                     rowHeight
                 },
@@ -30,8 +30,7 @@ const prefix= 'HYT_',
                     moreSpaceThanContent,
                     renderedElements,
                     headerFillerHeight,
-                    footerFillerHeight,
-                    gap
+                    footerFillerHeight
                 }
             } = oldState,
             actions = {
@@ -211,6 +210,7 @@ const prefix= 'HYT_',
                     onLeftMostHighlight = false,
                     onRightMostHighlight = false,
                 } = {},
+                noFilterData = () => 'no data',
                 
 
                 leftMost, rightMost,
@@ -237,6 +237,7 @@ const prefix= 'HYT_',
 
         return {
             ...cnf,
+            gap,
             columns: columns.map(column => column.width ? column : {...column, width: defaultColumnWidth}),
             sorting:{
                 column: null,
@@ -257,10 +258,6 @@ const prefix= 'HYT_',
                 width, height,
                 rowHeight,
             },
-
-            // HeaderCaption, FooterCaption,
-            // preHeaderHeight, postFooterHeight,
-            // headerHeight, footerHeight,
             
             header: {
                 height : headerHeight,
@@ -276,7 +273,7 @@ const prefix= 'HYT_',
                     height: footerCaptionHeight
                 }
             },
-            
+            noFilterData,
             originalData,
             mutatingData,
             rows: [...mutatingData].slice(0, renderedElements),
@@ -286,13 +283,6 @@ const prefix= 'HYT_',
             activeColumn: null,
             activeRowIndex: null,
             activeColumnIndex: null,
-            // rowHighlightClass,
-            // columnHighlightClass,
-            // crossHighlightClass,
-            // cellHightlightClass,
-            // cellClass,
-
-            
             
             events:{
                 onCellClick,
@@ -322,7 +312,6 @@ const prefix= 'HYT_',
                 to: renderedElements -1,
                 renderedElements,
                 carpetHeight,
-                gap
             }
         };
     };

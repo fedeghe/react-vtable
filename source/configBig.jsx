@@ -158,30 +158,36 @@ export default {
     height: 900,
     width: 1400,
     rowHeight: 180,
+    
+    // gap: 15,
 
-    header: {
-        // height: 80,
-        // caption: {
-        //     component: HeaderCaption,
-        //     height: 45
-        // }
-    },
-    footer: {
+    
+
+    // header: {
+    //     height: 80,
+    //     caption: {
+    //         component: HeaderCaption,
+    //         height: 45
+    //     }
+    // },
+    // footer: {
         // height: 60,
         // caption: {
         //     component: FooterCaption,
         //     height: 25
         // }
-    },
+    // },
+
+    // noFilterData: ({total}) => <span>No results out of {total}</span>,
+
     // leftMost,
     // rightMost,
 
-    noFilterData: ({total}) => <span>No results out of {total}</span>,
 
     // defaultColumnWidth = 100 // default value
 
 
-    highlight: {
+    // highlight: {
         // rowHighlightClass: 'TableRowHighlight',
         // columnHighlightClass: 'TableColumnHighlight',
         // crossHighlightClass: 'TableCrossHighlight',
@@ -191,24 +197,20 @@ export default {
         // onFooterHighlight: true,
         // onLeftMostHighlight: true,
         // onRightMostHighlight: true,
-    },
+    // },
 
-   
 
-    gap: 15,
 
-    
-
-    events: {
-        onCellClick: (e, { row, column }) => {
-            console.log('cell click', column, row);
-            e.stopPropagation();
-        },
-        // onCellEnter: (e, {row, column}) => {
-        //     console.log('cell enter', col, row)
-        // },
-        // onCellLeave: (e, {row, column}) => {
-        //     console.log('cell leave', col, row)
-        // },
-    }
+    // events: {
+    //     onCellClick: (e, { row, column }) => {
+    //         console.log('cell click', column, row);
+    //         e.stopPropagation();
+    //     },
+    //     onCellEnter: (e, {row, column}) => {
+    //         console.log('cell enter', col, row)
+    //     },
+    //     onCellLeave: (e, {row, column}) => {
+    //         console.log('cell leave', col, row)
+    //     },
+    // }
 };
