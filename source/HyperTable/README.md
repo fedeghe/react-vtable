@@ -51,12 +51,13 @@ Thanks to the Fillers, when scrolling (at least till we see some rendered elemen
 
 First question: when should we do something?  
 
-I would answer:  when `scrollTop > (gap + 1) * rowHeight`, but we need to not forget that the `<headerFiller>` plays a crucial role in our approach, thus seems better when:  
+Not forgetting about how the header `<Filler/>` when:  
 `scrollTop > headerFillerHeight + (gap + 1) * rowHeight`
 
 When it happens we can in order:
 - compute the index in `data` of the first element we will render as  
     `FROM = ceil(scrollTop / rowHeight)`
+- proceed only if the new `FROM` differs from the previous `FROM`
 - compute the index in `data` of the last element we will render as  
     `TO = FROM + renderedElements - 1`  
 - compute the new headerFillerHeight as  
@@ -67,3 +68,20 @@ When it happens we can in order:
 
 
 ![](./Table//readme/tableMid.png)
+
+
+### SORTING  
+Sorting does not affect the approach since the difference is only which elements we are showing: same FROM, TO slice but from a differently sorted array
+
+### FILTERING
+Filtering adds the problem that the `carpetHeight` changes as the filter varies the cardinality of our dataset.
+Given we need to re-compute all relevant variables there's an additional problem about the scrollbar. The solution depends on the UX we want to implement for the user. So let's get a look at the problem first.  
+
+Let's suppose our dataset contains 1k elements. The user scrolls down to the point where 1/4 of the dataset disappeared at the top, thus the scrollbar should also be at ~1/4 of its whole possible movement from the top. At that point `scrollTop` will be more or less `250 * rowHeight`, almost all of this space is in the header Filler, the rest in the header gap few rows (depending how big the gap was set). All good.  
+Now the user filter one row and the resulting dataset contains 300 items.  
+Would we want to:
+- the scroll should be resetted to 0?  or 
+- mantain the scrolling position proportion we had before filtering? thus ~75 elements already up and show to the user from ~76 to what fits in the table height.  
+My choice here is to make it configurable using a `filterResetScroll` set by default to false, thus if the user do not set it to true, we need to attempt to mantain the scrolling ratio (scrolled/scrollspan).  
+
+Clearly there is a small edge case that occurs when the filtered elements are so few to make the vistualization unuseful or also to give no elements at all.
