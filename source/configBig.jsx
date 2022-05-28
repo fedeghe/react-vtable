@@ -12,6 +12,18 @@ const FooterCaption = ({ from, to, activeColumnIndex, activeRowIndex, filtered, 
             Pre header component ({total}) [{activeRow}, {activeColumn}] scrollTop: [{scrollTop}]
         </div>
     ),
+
+    leftMost = ({ row, rowIndex, isHeader, isFooter, from, to }) => {
+        if (isFooter) return <div style={{ width: '100px' }}>LF {to}</div>;
+        if (isHeader) return <div style={{ width: '100px' }}>LH {from}</div>;
+        return `left ${rowIndex}`;
+    },
+
+    rightMost = ({ row, rowIndex, isHeader, isFooter, from, to }) => {
+        if (isFooter) return <div style={{ width: '100px' }}>RF {to}</div>;
+        if (isHeader) return <div style={{ width: '100px' }}>RH {from}</div>;
+        return `right ${rowIndex}`;
+    },
     
     basicFilter = ({userValue, row, columnKey}) => {
         
@@ -29,18 +41,7 @@ const FooterCaption = ({ from, to, activeColumnIndex, activeRowIndex, filtered, 
     };
 
 export default {
-    // eslint-disable-next-line no-unused-vars
-    // leftMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-    //     if (isFooter) return <div style={{ width: '100px' }}>LF {to}</div>;
-    //     if (isHeader) return <div style={{ width: '100px' }}>LH {from}</div>;
-    //     return `left ${rowIndex}`;
-    // },
-    // eslint-disable-next-line no-unused-vars
-    // rightMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-    //     if (isFooter) return <div style={{ width: '100px' }}>RF {to}</div>;
-    //     if (isHeader) return <div style={{ width: '100px' }}>RH {from}</div>;
-    //     return `right ${rowIndex}`;
-    // },
+    
     columns: [{
         key: 'id',
         label: 'idz',
@@ -138,18 +139,20 @@ export default {
 
     header: {
         height: 80,
-        caption: {
-            component: HeaderCaption,
-            height: 45
-        }
+        // caption: {
+        //     component: HeaderCaption,
+        //     height: 45
+        // }
     },
     footer: {
         height: 60,
-        caption: {
-            component: FooterCaption,
-            height: 25
-        }
+        // caption: {
+        //     component: FooterCaption,
+        //     height: 25
+        // }
     },
+    // leftMost,
+    // rightMost,
 
     noFilterData: ({total}) => <span>No results out of {total}</span>,
 
@@ -169,7 +172,7 @@ export default {
     onLeftMostHighlight: true,
     onRightMostHighlight: true,
 
-    gap: 5,
+    gap: 15,
 
     data: generateRowData([
         { key: 'id', type: 'int' },
