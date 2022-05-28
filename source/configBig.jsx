@@ -132,48 +132,6 @@ export default {
     { 
         key: 'name3',
     }],
-
-    height: 900,
-    width: 1400,
-    rowHeight: 180,
-
-    header: {
-        height: 80,
-        // caption: {
-        //     component: HeaderCaption,
-        //     height: 45
-        // }
-    },
-    footer: {
-        height: 60,
-        // caption: {
-        //     component: FooterCaption,
-        //     height: 25
-        // }
-    },
-    // leftMost,
-    // rightMost,
-
-    noFilterData: ({total}) => <span>No results out of {total}</span>,
-
-    // defaultColumnWidth = 100 // default value
-
-
-    // userClasses: {
-        // rowHighlightClass: 'TableRowHighlight',
-        // columnHighlightClass: 'TableColumnHighlight',
-        // crossHighlightClass: 'TableCrossHighlight',
-        // cellHightlightClass: 'TableCellHighlight',
-        // cellClass: 'TableCell',
-    // },
-
-    onHeaderHighlight: true,
-    onFooterHighlight: true,
-    onLeftMostHighlight: true,
-    onRightMostHighlight: true,
-
-    gap: 15,
-
     data: generateRowData([
         { key: 'id', type: 'int' },
         { key: 'entityid', type: 'id' },
@@ -190,6 +148,51 @@ export default {
         { key: 'date3', type: 'date' },
 
     ], 300),
+
+    height: 900,
+    width: 1400,
+    rowHeight: 180,
+
+    header: {
+        // height: 80,
+        // caption: {
+        //     component: HeaderCaption,
+        //     height: 45
+        // }
+    },
+    footer: {
+        // height: 60,
+        // caption: {
+        //     component: FooterCaption,
+        //     height: 25
+        // }
+    },
+    // leftMost,
+    // rightMost,
+
+    noFilterData: ({total}) => <span>No results out of {total}</span>,
+
+    // defaultColumnWidth = 100 // default value
+
+
+    highlight: {
+        // rowHighlightClass: 'TableRowHighlight',
+        // columnHighlightClass: 'TableColumnHighlight',
+        // crossHighlightClass: 'TableCrossHighlight',
+        // cellHightlightClass: 'TableCellHighlight',
+        // cellClass: 'TableCell',
+        // onHeaderHighlight: true,
+        // onFooterHighlight: true,
+        // onLeftMostHighlight: true,
+        // onRightMostHighlight: true,
+    },
+
+   
+
+    gap: 15,
+
+    
+
     events: {
         onCellClick: (e, { row, column }) => {
             console.log('cell click', column, row);

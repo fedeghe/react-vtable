@@ -4,10 +4,12 @@ import TableContext from '../../Context';
 const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) => {
     const {
             state: {
-                onFooterHighlight,
-                onHeaderHighlight,
-                onRightMostHighlight,
-                onLeftMostHighlight,
+                highlight: {
+                    onFooterHighlight,
+                    onHeaderHighlight,
+                    onRightMostHighlight,
+                    onLeftMostHighlight,
+                }
             },
             dispatch
         } = useContext(TableContext),

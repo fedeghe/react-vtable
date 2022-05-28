@@ -195,17 +195,18 @@ const prefix= 'HYT_',
                 gap = 10,
 
                 defaultColumnWidth = 150,
-                userClasses: {
+                highlight: {
                     rowHighlightClass = '',
                     columnHighlightClass = '',
                     crossHighlightClass = '',
                     cellHightlightClass = '',
                     cellClass = '',
+                    onHeaderHighlight = false,
+                    onFooterHighlight = false,
+                    onLeftMostHighlight = false,
+                    onRightMostHighlight = false,
                 } = {},
-                onHeaderHighlight = false,
-                onFooterHighlight = false,
-                onLeftMostHighlight = false,
-                onRightMostHighlight = false,
+                
 
                 rowHeight = 50,
                 leftMost, rightMost,
@@ -285,22 +286,23 @@ const prefix= 'HYT_',
             // cellHightlightClass,
             // cellClass,
 
-            onHeaderHighlight,
-            onFooterHighlight,
-            onLeftMostHighlight,
-            onRightMostHighlight,
+            
             
             events:{
                 onCellClick,
                 onCellEnter,
                 onCellLeave,
             },
-            userClasses: {
+            highlight: {
                 rowHighlightClass,
                 columnHighlightClass,
                 crossHighlightClass,
                 cellHightlightClass,
                 cellClass,
+                onHeaderHighlight,
+                onFooterHighlight,
+                onLeftMostHighlight,
+                onRightMostHighlight,
             },
             virtual: {
                 colspan: columns.length + !!leftMost + !!rightMost,
