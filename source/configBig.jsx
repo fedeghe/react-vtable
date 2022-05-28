@@ -148,7 +148,7 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 300),
+    ], 100),
 
     dimensions: {
         height: 900,
