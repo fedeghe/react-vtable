@@ -8,7 +8,7 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
                 virtual: {
                     from
                 },
-                cellClick, cellEnter, cellLeave
+                cellClick, cellEnter, cellLeave, cellClass
             },
             dispatch
         } = useContext(TableContext),
@@ -38,7 +38,9 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
         {...handlers}
     >
         <div className={classes.Cell} style={style}>
-            {content}
+            <div className={cellClass}>
+                {content}
+            </div>
         </div>
     </td>;
 };

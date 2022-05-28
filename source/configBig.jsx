@@ -30,17 +30,17 @@ const PostFooter = ({ from, to, activeColumnIndex, activeRowIndex, filtered, tot
 
 export default {
     // eslint-disable-next-line no-unused-vars
-    leftMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-        if (isFooter) return <div style={{ width: '100px' }}>LF {to}</div>;
-        if (isHeader) return <div style={{ width: '100px' }}>LH {from}</div>;
-        return `left ${rowIndex}`;
-    },
+    // leftMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
+    //     if (isFooter) return <div style={{ width: '100px' }}>LF {to}</div>;
+    //     if (isHeader) return <div style={{ width: '100px' }}>LH {from}</div>;
+    //     return `left ${rowIndex}`;
+    // },
     // eslint-disable-next-line no-unused-vars
-    rightMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-        if (isFooter) return <div style={{ width: '100px' }}>RF {to}</div>;
-        if (isHeader) return <div style={{ width: '100px' }}>RH {from}</div>;
-        return `right ${rowIndex}`;
-    },
+    // rightMost: ({ row, rowIndex, isHeader, isFooter, from, to }) => {
+    //     if (isFooter) return <div style={{ width: '100px' }}>RF {to}</div>;
+    //     if (isHeader) return <div style={{ width: '100px' }}>RH {from}</div>;
+    //     return `right ${rowIndex}`;
+    // },
     columns: [{
         key: 'id',
         label: 'idz',
@@ -66,7 +66,7 @@ export default {
     }, {
         key: 'name',
         label: 'name',
-        cell: ({ row, column }) => <div style={{ width: '200px' }}>{row[column.key]}</div>,
+        cell: ({ row, column }) => row[column.key],
         header: ({
             column, columnIndex,
             filter, //: {value, setValue, visibility, setVisibility} = {},
@@ -82,11 +82,11 @@ export default {
         width:300
     }, {
         key: 'date',
-        cell: ({ row, column }) => <div style={{ width: '100px' }}>{row[column.key]}</div>,
+        cell: ({ row, column }) => row[column.key],
         width:100
     }, {
         key: 'actions',
-        cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+        cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
         width:300
     },
     {
@@ -100,7 +100,7 @@ export default {
             <Sorter {...{column, columnIndex, sort, isSorting}}/>
         </div>),
         footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        cell: ({ row, column }) => <div style={{ width: '150px' }}>{row[column.key]}</div>,
+        cell: ({ row, column }) => row[column.key],
         filter: basicFilter,
         sort: basicSort,
         width:150
@@ -108,7 +108,7 @@ export default {
     },
     {
         key: 'date2',
-        cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+        cell: ({ row, column }) => row[column.key],
         width:300
     },
     { 
@@ -122,7 +122,7 @@ export default {
     },
     {
         key: 'date3',
-        cell: ({ row, column }) => <div style={{ width: '300px' }}>{row[column.key]}</div>,
+        cell: ({ row, column }) => row[column.key],
         width:300
     },
     {
@@ -133,7 +133,7 @@ export default {
     }],
 
     headerHeight: 80,
-    footerHeight: 60,
+    // footerHeight: 60,
 
     height: 900,
     width: 1400,
@@ -141,8 +141,8 @@ export default {
 
     preHeaderHeight: 45,
     postFooterHeight: 25,
-    PreHeader,
-    PostFooter,
+    // PreHeader,
+    // PostFooter,
 
     noFilterData: ({total}) => <span>No results out of {total}</span>,
 
@@ -154,6 +154,7 @@ export default {
 
     crossHighlight: 'TableCrossHighlight',
     cellHightlight: 'TableCellHighlight',
+    cellClass: 'TableCell',
 
     onHeaderHighlight: false,
     onFooterHighlight: false,
