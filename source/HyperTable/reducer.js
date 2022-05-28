@@ -16,6 +16,9 @@ const prefix= 'HYT_',
                 originalData, mutatingData,
                 virtual,
                 // rows,
+                dimensions: {
+                    rowHeight
+                },
                 sorting: {
                     column: sortingColumn,
                     direction: sortingDirection,
@@ -23,7 +26,7 @@ const prefix= 'HYT_',
                 },
                 virtual: {
                     from, to,
-                    dataHeight, rowHeight, contentHeight, carpetHeight,
+                    dataHeight, contentHeight, carpetHeight,
                     moreSpaceThanContent,
                     renderedElements,
                     headerFillerHeight,
@@ -173,9 +176,11 @@ const prefix= 'HYT_',
         const {
                 data,
                 columns,
-                height = 600,
-                width = 800,
-                
+                dimensions: {
+                    height = 600,
+                    width = 800,
+                    rowHeight = 50,
+                },
                 header: {
                     height : headerHeight = 0,
                     caption: {
@@ -208,7 +213,6 @@ const prefix= 'HYT_',
                 } = {},
                 
 
-                rowHeight = 50,
                 leftMost, rightMost,
                 events: {
                     onCellClick = null,
@@ -249,7 +253,10 @@ const prefix= 'HYT_',
                 }
                 return acc;
             }, {}),
-            width, height,
+            dimensions: {
+                width, height,
+                rowHeight,
+            },
 
             // HeaderCaption, FooterCaption,
             // preHeaderHeight, postFooterHeight,
@@ -270,7 +277,6 @@ const prefix= 'HYT_',
                 }
             },
             
-            rowHeight,
             originalData,
             mutatingData,
             rows: [...mutatingData].slice(0, renderedElements),
@@ -308,7 +314,6 @@ const prefix= 'HYT_',
                 colspan: columns.length + !!leftMost + !!rightMost,
                 moreSpaceThanContent,
                 dataHeight,
-                rowHeight,
                 contentHeight, 
                 headerFillerHeight,
                 footerFillerHeight,

@@ -12,7 +12,9 @@ const HyperTable = cnf => {
         initialState = useMemo(() => init(cnf), [cnf, init]),
         [ state, dispatch ] = useReducer(reducer, initialState),
         {
-            width, height,
+            dimensions: {
+                width, height
+            },
             header:{caption: {height : preHeaderHeight} = {}} = {},
             footer:{caption: {height : postFooterHeight} = {}} = {},
         } = state,

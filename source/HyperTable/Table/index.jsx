@@ -13,7 +13,10 @@ const Table = () => {
     const { state, dispatch } = useContext(TableContext),
         {
             rows,
-            width, height,
+            dimensions: {
+                width, height,
+                rowHeight
+            },
             header: {
                 height: headerHeight,
                 caption: {
@@ -28,13 +31,6 @@ const Table = () => {
                     height: postFooterHeight
                 } = {}
             } = {},
-            // postFooterHeight,
-            // footerHeight,
-            // FooterCaption,
-
-            virtual: {
-                rowHeight,
-            }
         } = state,
         classes = useStyles({
             width, height,

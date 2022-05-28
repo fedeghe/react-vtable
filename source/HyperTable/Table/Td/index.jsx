@@ -4,7 +4,9 @@ import useStyles from './style.js';
 const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
     const {
             state: {
-                rowHeight,
+                dimensions: {
+                    rowHeight
+                },
                 virtual: {
                     from
                 },

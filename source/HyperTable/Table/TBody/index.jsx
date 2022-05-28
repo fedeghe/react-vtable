@@ -15,7 +15,9 @@ const Tbody = () => {
             highlight: {
                 crossHighlightClass, rowHighlightClass, columnHighlightClass, cellHightlightClass,
             },
-            rowHeight,
+            dimensions: {
+                rowHeight
+            },
             virtual: {
                 headerFillerHeight,
                 footerFillerHeight,

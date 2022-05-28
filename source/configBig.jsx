@@ -149,6 +149,12 @@ export default {
 
     ], 300),
 
+    dimensions: {
+        height: 900,
+        width: 1400,
+        rowHeight: 180,    
+    },
+
     height: 900,
     width: 1400,
     rowHeight: 180,
