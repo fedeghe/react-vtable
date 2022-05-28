@@ -3,8 +3,7 @@ import React, { useReducer, useMemo } from 'react';
 import TableContext from './Context';
 import reducerFactory from './reducer';
 import Table from './Table';
-import PreHeader from './Table/PreHeader';
-import PostFooter from './Table/PostFooter';
+import Caption from './Table/Caption';
 
 import useStyles from './style.js';
 
@@ -25,9 +24,9 @@ const HyperTable = cnf => {
     
     return <div className={classes.Wrapper}>
         <TableContext.Provider value={{state, dispatch}}>
-            <PreHeader/>
+            <Caption position="pre"/>
             <Table/>
-            <PostFooter/>
+            <Caption position="post"/>
         </TableContext.Provider>
     </div>;
 
