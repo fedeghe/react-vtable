@@ -22,7 +22,7 @@ const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) =>
         handlers = {
             onMouseEnter: useCallback(
                 () => dealWithEvent && dispatch({
-                    type: 'cellHover',
+                    type: 'cellEnter',
                     payload: {
                         row,
                         column,
@@ -33,7 +33,7 @@ const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) =>
                 [column, columnIndex, dealWithEvent, dispatch, row, rowIndex]
             ),
             onMouseLeave: useCallback(
-                () => dealWithEvent && dispatch({ type: 'cellOut' }),
+                () => dealWithEvent && dispatch({ type: 'cellLeave' }),
                 [dealWithEvent, dispatch]
             )
         };

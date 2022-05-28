@@ -8,16 +8,16 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
                 virtual: {
                     from
                 },
-                cellClick, cellEnter, cellLeave, cellClass
+                onCellClick, onCellEnter, onCellLeave, cellClass
             },
             dispatch
         } = useContext(TableContext),
         classes = useStyles({ rowHeight }),
         handlers = {
             onMouseEnter: useCallback(e => {
-                cellEnter && cellEnter.call(e, e, { row, column, rowIndex: from + rowIndex, colIndex: columnIndex });
+                onCellEnter && onCellEnter.call(e, e, { row, column, rowIndex: from + rowIndex, colIndex: columnIndex });
                 dispatch({
-                    type: 'cellHover',
+                    type: 'cellEnter',
                     payload: {
                         row,
                         column,
@@ -25,12 +25,12 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
                         columnIndex
                     }
                 });
-            }, [cellEnter, column, columnIndex, dispatch, from, row, rowIndex]),
+            }, [onCellEnter, column, columnIndex, dispatch, from, row, rowIndex]),
             onMouseLeave: useCallback(e => {
-                cellLeave && cellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
-                dispatch({ type: 'cellOut' });
-            }, [cellLeave, column, columnIndex, dispatch, from, row, rowIndex]),
-            onClick: useCallback(e => cellClick && cellClick.call(e, e, { row, column }), [cellClick, column, row])
+                onCellLeave && onCellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
+                dispatch({ type: 'cellLeave' });
+            }, [onCellLeave, column, columnIndex, dispatch, from, row, rowIndex]),
+            onClick: useCallback(e => onCellClick && onCellClick.call(e, e, { row, column }), [onCellClick, column, row])
         };
 
     return <td

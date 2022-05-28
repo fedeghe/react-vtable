@@ -110,7 +110,6 @@ const prefix= 'HYT_',
                     }));
                     return {
                         mutatingData: sorted,
-                        // rows: [...sorted].slice(from, to),
                         rows: [...sorted].slice(from, to),
                         sorting: {
                             column: payload.column,
@@ -127,13 +126,13 @@ const prefix= 'HYT_',
                         direction: null
                     }
                 }),
-                cellHover: () => ({
+                cellEnter: () => ({
                     activeColumn: payload?.column?.key,
                     activeRow: payload?.row?._ID,
                     activeColumnIndex: payload?.columnIndex,
                     activeRowIndex: payload?.rowIndex
                 }),
-                cellOut: () => ({
+                cellLeave: () => ({
                     activeColumn: null,
                     activeRow: null,
                     activeColumnIndex: null,
@@ -198,9 +197,9 @@ const prefix= 'HYT_',
 
             rowHeight = 50,
             leftMost, rightMost,
-            cellClick = null,
-            cellEnter = null,
-            cellLeave = null,
+            onCellClick = null,
+            onCellEnter = null,
+            onCellLeave = null,
             } = cnf,
             contentHeight = height
                 - (PreHeader ? preHeaderHeight : 0)
@@ -260,9 +259,9 @@ const prefix= 'HYT_',
             onLeftMostHighlight,
             onRightMostHighlight,
             
-            cellClick,
-            cellEnter,
-            cellLeave,
+            onCellClick,
+            onCellEnter,
+            onCellLeave,
             virtual: {
                 colspan: columns.length + !!leftMost + !!rightMost,
                 moreSpaceThanContent,

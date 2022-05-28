@@ -180,14 +180,14 @@ export default {
 
     ], 300),
 
-    cellClick: (e, { row, column }) => {
+    onCellClick: (e, { row, column }) => {
         console.log('cell click', column, row);
         e.stopPropagation();
     },
-    // cellEnter: (e, {row, column}) => {
+    // onCellEnter: (e, {row, column}) => {
     //     console.log('cell enter', col, row)
     // },
-    // cellLeave: (e, {row, column}) => {
+    // onCellLeave: (e, {row, column}) => {
     //     console.log('cell leave', col, row)
     // },
 };
