@@ -93,7 +93,7 @@ const Theader =  () => {
                 }
             }
             return content;
-        }, [sortingDirection, sortingColumn, dispatch, filters]);
+        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>
