@@ -139,23 +139,24 @@ export default {
 
 
     // RightMost,
-    LeftMost,
+    // LeftMost,
 
 
     // defaultColumnWidth: 100 // default value
 
 
-    // highlight: {
+    highlight: {
         // rowHighlightClass: 'TableRowHighlight',
         // columnHighlightClass: 'TableColumnHighlight',
         // crossHighlightClass: 'TableCrossHighlight',
         // cellHightlightClass: 'TableCellHighlight',
+        // contentClass: 'TableContent',
         // cellClass: 'TableCell',
         // onHeaderHighlight: true,
         // onFooterHighlight: true,
         // onLeftMostHighlight: true,
         // onRightMostHighlight: true,
-    // },
+    },
 
 
     // events: {

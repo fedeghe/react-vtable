@@ -1,34 +1,46 @@
 body {
-    font-family:verdana;
-    background-color:#aaa;
+    font-family: verdana;
+    background-color: #aaa;
 }
 
 .TableCrossHighlight {
     background-color: rgb(239, 252, 254) !important;
 }
+
 .TableRowHighlight {
     background-color: #ddd !important;
 }
+
 .TableColumnHighlight {
     background-color: #dd6 !important;
 }
+
 .TableCellHighlight {
-    background-color:rgb(214, 247, 255) !important;
+    background-color: rgb(214, 247, 255) !important;
 }
+
 .TableHeader {
     background-color: whitesmoke !important
 }
+
 .TableFooter {
     background-color: whitesmoke !important
 }
-.TableLeftMost { 
+
+.TableLeftMost {
     background-color: whitesmoke !important
 }
+
 .TableRightMost {
     background-color: whitesmoke !important
 }
-.TableCell {
+
+.TableContent {
     padding: 5px;
-    text-align: center;
+    /* text-align: center; */
 }
 
+.TableCell {
+    border: 1px solid lightgray;
+    border-collapse: collapse;
+}
