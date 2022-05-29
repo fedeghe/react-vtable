@@ -2,43 +2,13 @@ import React from 'react';
 import Filter from './sample/Filter';
 import Sorter from './sample/Sorter';
 import generateRowData from './utils';
+import {basicFilter, basicSort} from './sample/utils';
+import HeaderCaption from './sample/HeaderCaption';
+import FooterCaption from './sample/FooterCaption';
+import LeftMost from './sample/LeftMost';
+import RightMost from './sample/RightMost';
 
-const FooterCaption = ({ from, to, activeColumnIndex, activeRowIndex, filtered, total }) => (
-        <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}] filtered {filtered} out of {total}</div>
-    ),
-    
-    HeaderCaption = ({ total, activeColumn, activeRow, scrollTop }) => (
-        <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em' }}>
-            Pre header component ({total}) [{activeRow}, {activeColumn}] scrollTop: [{scrollTop}]
-        </div>
-    ),
 
-    leftMost = ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-        if (isFooter) return <div style={{ width: '100px' }}>LF {to}</div>;
-        if (isHeader) return <div style={{ width: '100px' }}>LH {from}</div>;
-        return `left ${rowIndex}`;
-    },
-
-    rightMost = ({ row, rowIndex, isHeader, isFooter, from, to }) => {
-        if (isFooter) return <div style={{ width: '100px' }}>RF {to}</div>;
-        if (isHeader) return <div style={{ width: '100px' }}>RH {from}</div>;
-        return `right ${rowIndex}`;
-    },
-    
-    basicFilter = ({userValue, row, columnKey}) => {
-        
-        // eslint-disable-next-line no-unused-vars
-        const t = 3;
-        return `${row[columnKey]}`.includes(userValue);
-    },
-    
-    basicSort = ({rowA, rowB, columnKey, direction}) => {
-        const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
-        return {
-            asc : v,
-            desc: -v
-        }[direction];
-    };
 
 export default {
     
@@ -48,19 +18,19 @@ export default {
         width:300,
         cell: ({ row, column }) => row[column.key],
 
-        // header: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-        //     <span>{column.label + '_' + columnIndex}</span>
-        //     <Filter {...{column, columnIndex, filter}}/>
-        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        // </div>),
-        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        // filter: basicFilter,
-        // sort: basicSort,
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            isSorting
+        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{column, columnIndex, filter}}/>
+            <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        </div>),
+        footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        filter: basicFilter,
+        sort: basicSort,
     }, {
         key: 'entityid',
         label: 'entity id',
@@ -164,13 +134,13 @@ export default {
 
     
 
-    // header: {
-    //     height: 80,
-    //     caption: {
-    //         component: HeaderCaption,
-    //         height: 45
-    //     }
-    // },
+    header: {
+        height: 80,
+        caption: {
+            component: HeaderCaption,
+            height: 45
+        }
+    },
     // footer: {
         // height: 60,
         // caption: {
@@ -181,8 +151,8 @@ export default {
 
     // noFilterData: ({total}) => <span>No results out of {total}</span>,
 
-    // leftMost,
-    // rightMost,
+    // RightMost,
+    // LeftMost,
 
 
     // defaultColumnWidth = 100 // default value

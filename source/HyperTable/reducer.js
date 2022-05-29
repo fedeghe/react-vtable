@@ -213,7 +213,7 @@ const prefix= 'HYT_',
                 noFilterData = () => 'no data',
                 
 
-                leftMost, rightMost,
+                LeftMost, RightMost,
                 events: {
                     onCellClick = null,
                     onCellEnter = null,
@@ -301,7 +301,7 @@ const prefix= 'HYT_',
                 onRightMostHighlight,
             },
             virtual: {
-                colspan: columns.length + !!leftMost + !!rightMost,
+                colspan: columns.length + !!LeftMost + !!RightMost,
                 moreSpaceThanContent,
                 dataHeight,
                 contentHeight, 
