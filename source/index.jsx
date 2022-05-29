@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 // import { startFPSMonitor, startMemMonitor } from 'perf-monitor'
-import Playground from './Playground'
-import 'web-page-monitor'
+import Playground from './Playground';
+import 'web-page-monitor';
 
 if(location.host.match(/^localhost/)) {
     WebPageMonitor

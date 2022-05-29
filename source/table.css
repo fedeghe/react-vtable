@@ -1,12 +1,16 @@
 :root {
-    --width: 800px;
-    --height: 400px;
-    --header-height: 60px;
+    --width: 700px;
+    --height: 500px;
+    --header-height: 40px;
+    --footer-height: 40px;
+    --preTableHeight: 40px;
+    --postTableHeight: 25px;
 }
 
-* {
+
+/* * {
     padding: 5px;
-}
+} */
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -18,7 +22,7 @@ body {
 }
 
 .postTable {
-    background-color: cornflowerblue;
+    background-color: royalblue;
     height: var(--postTableHeight);
 }
 
@@ -29,7 +33,7 @@ body {
 
 div.tableContainer {
     max-width: var(--width);
-    max-height: var(--height);
+    max-height: calc(var(--height) - var(--postTableHeight) - var(--preTableHeight));
     overflow: scroll;
     position: relative;
     padding: 0;
@@ -60,27 +64,64 @@ thead {
     height: var(--header-height);
 }
 
-thead th {
+tfoot {
+    height: var(--footer-height);
+}
+
+thead th,
+tfoot th {
     position: -webkit-sticky;
     /* for Safari */
     position: sticky;
-    top: 0;
     background: #eee;
     text-align: left;
+    vertical-align: middle;
 }
 
-thead th:first-child {
+thead th {
+    top: 0;
+}
+
+tfoot th {
+    bottom: 0;
+}
+
+thead th:first-child,
+tfoot th:first-child {
     left: 0;
     z-index: 1;
 }
 
-tbody th {
+thead th:last-child,
+tfoot th:last-child {
+    right: 0;
+    z-index: 1;
+}
+
+tbody th:first-child {
     position: -webkit-sticky;
     /* for Safari */
     position: sticky;
     left: 0;
     background: #FFF;
-    border-right: 1px solid #CCC;
     text-align: left;
     vertical-align: top;
+}
+
+tbody th:last-child {
+    position: -webkit-sticky;
+    /* for Safari */
+    position: sticky;
+    right: 0;
+    background: #FFF;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background-color: #eee !important;
+}
+
+th.th {
+    text-align: center
 }

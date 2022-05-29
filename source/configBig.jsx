@@ -1,135 +1,185 @@
-import React from 'react'
-import Filter from './Filter'
-import {generateRowData} from './utils'
+import React from 'react';
+import Filter from './sample/Filter';
+import Sorter from './sample/Sorter';
+import generateRowData from './utils';
+import {basicFilter, basicSort} from './sample/utils';
+import HeaderCaption from './sample/HeaderCaption';
+import FooterCaption from './sample/FooterCaption';
+import LeftMost from './sample/LeftMost';
+import RightMost from './sample/RightMost';
+
+
 
 export default {
+    
     columns: [{
         key: 'id',
-        onClick: (o, col, row) => {
-            console.log('click id colum: ', o)
-            console.log('col: ', col)
-            console.log('row: ', row)
-        },
-        align:'center',
-        sorting: {
-            sort: versus => (rowa, rowb) =>
-                rowa.id > rowb.id ? -versus : versus
-            ,
-        },
-        width:'5%'
-    },{
+        label: 'idz',
+        width:300,
+        cell: ({ row, column }) => row[column.key],
+
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{column, columnIndex, filter}}/>
+        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        // </div>),
+        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        // filter: basicFilter,
+        // sort: basicSort,
+    }, {
         key: 'entityid',
-        footerLabel: '--entityid--',
-        filter: filter => <Filter filter={filter}/>,
-        sorting: {
-            sort: versus => (rowa, rowb) =>
-                parseInt(rowa.entityid, 10) > parseInt(rowb.entityid, 10) ? -versus : versus
-            ,
-        },
-    
-    },{
+        label: 'entity id',
+
+    }, {
         key: 'name',
-        filter: filter => <Filter filter={filter}/>,
-        headerComponent: (col, key) => <span>{col[key]}(comp.)</span>,
-        component: (col, key) => <span>{col[key]} (comp.)</span>,
-        footerComponent: (col, key) => <span>{col[key]} (comp.)</span>,
-        // sorting: {
-        //     sort: versus => (rowa, rowb) =>
-        //         rowa.name > rowb.name ? -versus : versus
-        //     ,
-        // },
-    },{
-        key: 'date'
-    },{
+        label: 'name',
+        cell: ({ row, column }) => row[column.key],
+        width:300,
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{column, columnIndex, filter}}/>
+        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        // </div>),
+        // filter: basicFilter,
+        // sort: basicSort,
+    }, {
+        key: 'date',
+        cell: ({ row, column }) => row[column.key],
+        width:100
+    }, {
         key: 'actions',
-        headerLabel: 'actions',
-        component: o => <button onClick={() => {
-            console.log(o)
-        }}>what</button>,
-        width: '80px'
-
-    },{
+        cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
+        width:300
+    },
+    {
         key: 'id2',
-        width:'10%',
-        filter: filter => <Filter filter={filter}/>,
-    },{
-        key: 'date2'
-    },{
-        key: 'entityid2'
-    },{
-        key: 'name2'
-    },{
-        key: 'id3'
-    },{
-        key: 'date3'
-    },{
-        key: 'entityid3'
-    },{
-        key: 'name3'
-    }
-    ],
-    noFilterData: 'No data',
-    crossHighlight: 'TableCrossHighlight',
-    // rowHighlight: 'TableRowHighlight',
-    // columnHighlight: 'TableColumnHighlight',
-    // cellHightlight: 'TableCellHighlight',
-    
-    rowVerticalAlign: 'top',
+        width:150,
+        cell: ({ row, column }) => row[column.key],
+        // header: ({
+        //     column, columnIndex,
+        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        //     <span>{column.key + '_' + columnIndex}</span>
+        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        // </div>),
+        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        // filter: basicFilter,
+        // sort: basicSort,
 
+    },
+    {
+        key: 'date2',
+        cell: ({ row, column }) => row[column.key],
+        width:300
+    },
+    { 
+        key: 'entityid2',
+    },
+    { 
+        key: 'name2',
+    },
+    { 
+        key: 'id3',
+    },
+    {
+        key: 'date3',
+        cell: ({ row, column }) => row[column.key],
+        width:300
+    },
+    {
+        key: 'entityid3',
+    },
+    { 
+        key: 'name3',
+    }],
     data: generateRowData([
-        {key: 'id', type: 'id'},
-        {key: 'entityid', type: 'int'},
-        {key: 'name', type: 'str'},
-        {key: 'date', type: 'date'},
-        {key: 'id2', type: 'id'},
-        {key: 'entityid2', type: 'int'},
-        {key: 'name2', type: 'str'},
-        {key: 'date2', type: 'date'},
-        {key: 'id3', type: 'id'},
-        {key: 'entityid3', type: 'int'},
-        {key: 'name3', type: 'str'},
-        {key: 'date3', type: 'date'},
-    ], 50),
-    captionTop: {
-        text: 'This is the top caption',
-        className: 'tableCaptionUp'
-    },
-    captionBottom: {
-        text: 'This is the bottom caption',
-        className: 'tableCaptionDown'
-    },
-    height: '50vh',
-    width: '100%',
-    lineHeight: 100,
+        { key: 'id', type: 'int' },
+        { key: 'entityid', type: 'id' },
+        { key: 'name', type: 'str' },
+        { key: 'date', type: 'date' },
+        { key: 'actions', type: 'str' },
+        { key: 'id2', type: 'int' },
+        { key: 'entityid2', type: 'int' },
+        { key: 'name2', type: 'str' },
+        { key: 'date2', type: 'date' },
+        { key: 'id3', type: 'id' },
+        { key: 'entityid3', type: 'int' },
+        { key: 'name3', type: 'str' },
+        { key: 'date3', type: 'date' },
 
-        
-    // cellClick: (e, col, row) => {
-    //     console.log('cell click', col, row)
+    ], 10000),
+
+    // dimensions: {
+    //     height: 900,
+    //     width: 1400,
+    //     rowHeight: 180,    
     // },
-    // cellEnter: (e, col, row) => {
-    //     console.log('cell enter', col, row)
+
+    
+    // gap: 15,
+
+    
+
+    // header: {
+    //     height: 80,
+    //     caption: {
+    //         component: HeaderCaption,
+    //         height: 45
+    //     }
     // },
-    // cellLeave: (e, col, row) => {
-    //     console.log('cell leave', col, row)
+
+    // footer: {
+        // height: 60,
+        // caption: {
+        //     component: FooterCaption,
+        //     height: 25
+        // }
     // },
-    //----------------------------------------
-    // rowClick: (e, row) => {
-    //     console.log('row click', row)
+
+    // noFilterData: ({total}) => <span>No results out of {total}</span>,
+
+    // RightMost,
+    // LeftMost,
+
+
+    // defaultColumnWidth = 100 // default value
+
+
+    // highlight: {
+        // rowHighlightClass: 'TableRowHighlight',
+        // columnHighlightClass: 'TableColumnHighlight',
+        // crossHighlightClass: 'TableCrossHighlight',
+        // cellHightlightClass: 'TableCellHighlight',
+        // cellClass: 'TableCell',
+        // onHeaderHighlight: true,
+        // onFooterHighlight: true,
+        // onLeftMostHighlight: true,
+        // onRightMostHighlight: true,
     // },
-    // rowEnter: (e, row) => {
-    //     console.log('row entered', row)
-    // },
-    // rowLeave: (e, row) => {
-    //     console.log('row leave', row)
-    // },
-    //----------------------------------------
-    // columnClick: (e, col, row) => {
-    //     console.log('column click', col, row)
-    // },
-    // columnEnter: (e, col) => {
-    //     console.log('column entered', col)
-    // },
-    // columnLeave: (e, col) => {
-    //     console.log('column leave', col)
-    // },
-}
+
+
+
+    // events: {
+    //     onCellClick: (e, { row, column }) => {
+    //         console.log('cell click', column, row);
+    //         e.stopPropagation();
+    //     },
+    //     onCellEnter: (e, {row, column}) => {
+    //         console.log('cell enter', col, row)
+    //     },
+    //     onCellLeave: (e, {row, column}) => {
+    //         console.log('cell leave', col, row)
+    //     },
+    // }
+};
