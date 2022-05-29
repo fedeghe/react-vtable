@@ -145,7 +145,7 @@ export default {
     // defaultColumnWidth: 100 // default value
 
 
-    highlight: {
+    // highlight: {
         // rowHighlightClass: 'TableRowHighlight',
         // columnHighlightClass: 'TableColumnHighlight',
         // crossHighlightClass: 'TableCrossHighlight',
@@ -156,7 +156,7 @@ export default {
         // onFooterHighlight: true,
         // onLeftMostHighlight: true,
         // onRightMostHighlight: true,
-    },
+    // },
 
 
     // events: {
