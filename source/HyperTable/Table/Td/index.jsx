@@ -42,9 +42,10 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
         {...handlers}
     >
         <div className={classes.Cell} style={style}>
-            <div className={cellClass}>
+            {cellClass ? <div className={cellClass}>
                 {content}
             </div>
+            : content}
         </div>
     </td>;
 };

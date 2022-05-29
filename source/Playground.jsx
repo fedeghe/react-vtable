@@ -1,11 +1,11 @@
 import React from 'react';
-import HyperTable from './HyperTable';
+import HyperTable from './../dist';
 
 
-// import config from './configBig'
-import config from './configSmall';
+import config from './configBig';
+// import config from './configSmall';
 
-import './user.less';
+import './user.css';
 
 const Pg = () => (
     <div className="Wrapper">

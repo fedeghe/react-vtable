@@ -26,7 +26,7 @@ module.exports = {
         use: ['babel-loader'],
       },
       {
-        test: /\.less$/i,
+        test: /\.css$/i,
         use: [{
             loader: 'style-loader'
           }, {
@@ -42,12 +42,11 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: path.resolve(__dirname, './dist'),
+    // contentBase: path.resolve(__dirname, './dist'),
     compress: true,
     port: 9000,
     hot:true,
     host: 'localhost',
   },
-  mode: 'development',
-  watch: true
+  mode: 'development'
 };

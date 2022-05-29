@@ -1,3 +1,4 @@
+import React from 'react';
 import generateRowData from './utils';
 
 export default {
@@ -5,7 +6,7 @@ export default {
         key: 'id',
         label: 'idz',
         width:300,
-        cell: ({ row, column }) => row[column.key],
+        cell: ({ row, column, rowIndex, columnIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+columnIndex}>{row[column.key]}</div>,
     }, {
         key: 'entityid',
         label: 'entity id',

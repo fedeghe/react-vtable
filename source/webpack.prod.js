@@ -4,19 +4,27 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
  
 module.exports = {
   entry: {
-      index: path.resolve(__dirname, './hyperTable/index.jsx'),
+      index: path.resolve(__dirname, './HyperTable/index.jsx'),
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
     libraryTarget: "commonjs-module"
   },
+
+//   output: {
+//     path: './dist',
+//     filename: 'libpack.js',
+//     library: 'libpack',
+//     libraryTarget:'umd'
+// },
   optimization: {
     minimizer: [new UglifyJsPlugin()],
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   ],
+
   module: {
     rules: [
       {
@@ -40,4 +48,7 @@ module.exports = {
     extensions: ['*', '.js', '.jsx'],
   },
   mode: 'production',
+  externals: {
+    react: "react"
+  }
 };

@@ -8,101 +8,87 @@ import FooterCaption from './sample/FooterCaption';
 import LeftMost from './sample/LeftMost';
 import RightMost from './sample/RightMost';
 
-
-
 export default {
     
     columns: [{
-        key: 'id',
-        label: 'idz',
-        width:300,
-        cell: ({ row, column }) => row[column.key],
+            key: 'id',
+            label: 'idz',
+            width:300,
+            cell: ({ row, column }) => row[column.key],
 
-        // header: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-        //     <span>{column.label + '_' + columnIndex}</span>
-        //     <Filter {...{column, columnIndex, filter}}/>
-        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        // </div>),
-        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        // filter: basicFilter,
-        // sort: basicSort,
-    }, {
-        key: 'entityid',
-        label: 'entity id',
+            // header: ({
+            //     column, columnIndex,
+            //     filter, //: {value, setValue, visibility, setVisibility} = {},
+            //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            //     isSorting
+            // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            //     <span>{column.label + '_' + columnIndex}</span>
+            //     <Filter {...{column, columnIndex, filter}}/>
+            //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            // </div>),
+            // // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+            // filter: basicFilter,
+            // sort: basicSort,
+        }, {
+            key: 'entityid',
+        }, {
+            key: 'name',
+            cell: ({ row, column }) => row[column.key],
+            width:300,
+            // header: ({
+            //     column, columnIndex,
+            //     filter, //: {value, setValue, visibility, setVisibility} = {},
+            //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            //     isSorting
+            // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            //     <span>{column.label + '_' + columnIndex}</span>
+            //     <Filter {...{column, columnIndex, filter}}/>
+            //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            // </div>),
+            // filter: basicFilter,
+            // sort: basicSort,
+        }, {
+            key: 'date',
+            cell: ({ row, column }) => row[column.key],
+            width:100
+        }, {
+            key: 'actions',
+            cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
+            width:300
+        },
+        {
+            key: 'id2',
+            width:150,
+            cell: ({ row, column }) => row[column.key],
+            // header: ({
+            //     column, columnIndex,
+            //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            //     isSorting
+            // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            //     <span>{column.key + '_' + columnIndex}</span>
+            //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            // </div>),
+            // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+            // filter: basicFilter,
+            // sort: basicSort,
 
-    }, {
-        key: 'name',
-        label: 'name',
-        cell: ({ row, column }) => row[column.key],
-        width:300,
-        // header: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-        //     <span>{column.label + '_' + columnIndex}</span>
-        //     <Filter {...{column, columnIndex, filter}}/>
-        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        // </div>),
-        // filter: basicFilter,
-        // sort: basicSort,
-    }, {
-        key: 'date',
-        cell: ({ row, column }) => row[column.key],
-        width:100
-    }, {
-        key: 'actions',
-        cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
-        width:300
-    },
-    {
-        key: 'id2',
-        width:150,
-        cell: ({ row, column }) => row[column.key],
-        // header: ({
-        //     column, columnIndex,
-        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-        //     <span>{column.key + '_' + columnIndex}</span>
-        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        // </div>),
-        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        // filter: basicFilter,
-        // sort: basicSort,
-
-    },
-    {
-        key: 'date2',
-        cell: ({ row, column }) => row[column.key],
-        width:300
-    },
-    { 
-        key: 'entityid2',
-    },
-    { 
-        key: 'name2',
-    },
-    { 
-        key: 'id3',
-    },
-    {
-        key: 'date3',
-        cell: ({ row, column }) => row[column.key],
-        width:300
-    },
-    {
-        key: 'entityid3',
-    },
-    { 
-        key: 'name3',
-    }],
+        },
+        {
+            key: 'date2',
+            cell: ({ row, column }) => row[column.key],
+            width:300
+        },
+        { key: 'entityid2',},
+        { key: 'name2',},
+        { key: 'id3',},
+        {
+            key: 'date3',
+            cell: ({ row, column }) => row[column.key],
+            width:300
+        },
+        { key: 'entityid3', },
+        {  key: 'name3', }
+    ],
     data: generateRowData([
         { key: 'id', type: 'int' },
         { key: 'entityid', type: 'id' },
@@ -118,7 +104,8 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 10000),
+    ], 500),
+
 
     // dimensions: {
     //     height: 900,
@@ -130,7 +117,6 @@ export default {
     // gap: 15,
 
     
-
     // header: {
     //     height: 80,
     //     caption: {
@@ -138,6 +124,7 @@ export default {
     //         height: 45
     //     }
     // },
+
 
     // footer: {
         // height: 60,
@@ -147,13 +134,15 @@ export default {
         // }
     // },
 
+
     // noFilterData: ({total}) => <span>No results out of {total}</span>,
+
 
     // RightMost,
     // LeftMost,
 
 
-    // defaultColumnWidth = 100 // default value
+    // defaultColumnWidth: 100 // default value
 
 
     // highlight: {
@@ -169,7 +158,6 @@ export default {
     // },
 
 
-
     // events: {
     //     onCellClick: (e, { row, column }) => {
     //         console.log('cell click', column, row);
@@ -183,8 +171,9 @@ export default {
     //     },
     // },
 
+
     // debounceTimes: {
-    //     filtering: 300,
-    //     scrolling: 20
+        // filtering: 300,
+        // scrolling: 20
     // }
 };

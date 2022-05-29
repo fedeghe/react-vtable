@@ -9,7 +9,7 @@ import {
 import "@testing-library/jest-dom/extend-expect";
 import { configure } from "@testing-library/dom";
 
-import HyperTable from "../source/HyperTable";
+import HyperTable from "../dist/index.js";
 import config from "./configs/basic";
 
 configure({
@@ -18,11 +18,10 @@ configure({
 
 describe("HyperTable - basic", () => {
     it("should render as expected", () => {
-        // console.log(config)
         const { container } = render(
             <HyperTable config={config} />
         );
+        // check all uie
         expect(container).toMatchSnapshot();
-
     });
 });
