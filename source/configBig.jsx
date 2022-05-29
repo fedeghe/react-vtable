@@ -13,7 +13,7 @@ export default {
     columns: [{
             key: 'id',
             label: 'idz',
-            width:300,
+            width:50,
             cell: ({ row, column }) => row[column.key],
 
             // header: ({
@@ -31,10 +31,11 @@ export default {
             // sort: basicSort,
         }, {
             key: 'entityid',
+            width:50,
         }, {
             key: 'name',
             cell: ({ row, column }) => row[column.key],
-            width:300,
+            width:200,
             // header: ({
             //     column, columnIndex,
             //     filter, //: {value, setValue, visibility, setVisibility} = {},
@@ -50,7 +51,7 @@ export default {
         }, {
             key: 'date',
             cell: ({ row, column }) => row[column.key],
-            width:100
+            width:120
         }, {
             key: 'actions',
             cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
@@ -84,7 +85,6 @@ export default {
         {
             key: 'date3',
             cell: ({ row, column }) => row[column.key],
-            width:300
         },
         { key: 'entityid3', },
         {  key: 'name3', }
