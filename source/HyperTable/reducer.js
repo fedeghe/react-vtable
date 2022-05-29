@@ -173,13 +173,13 @@ const prefix= 'HYT_',
     },
     init = cnf => {
         const {
-                data,
-                columns,
+                data = [],
+                columns = [],
                 dimensions: {
                     height = 600,
                     width = 800,
-                    rowHeight = 50,
-                },
+                    rowHeight = 80,
+                } = {},
                 header: {
                     height : headerHeight = 0,
                     caption: {

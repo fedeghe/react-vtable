@@ -18,19 +18,19 @@ export default {
         width:300,
         cell: ({ row, column }) => row[column.key],
 
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-            isSorting
-        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{column, columnIndex, filter}}/>
-            <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        </div>),
-        footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        filter: basicFilter,
-        sort: basicSort,
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{column, columnIndex, filter}}/>
+        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        // </div>),
+        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        // filter: basicFilter,
+        // sort: basicSort,
     }, {
         key: 'entityid',
         label: 'entity id',
@@ -118,29 +118,27 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 100),
+    ], 10000),
 
-    dimensions: {
-        height: 900,
-        width: 1400,
-        rowHeight: 180,    
-    },
+    // dimensions: {
+    //     height: 900,
+    //     width: 1400,
+    //     rowHeight: 180,    
+    // },
 
-    height: 900,
-    width: 1400,
-    rowHeight: 180,
     
     // gap: 15,
 
     
 
-    header: {
-        height: 80,
-        caption: {
-            component: HeaderCaption,
-            height: 45
-        }
-    },
+    // header: {
+    //     height: 80,
+    //     caption: {
+    //         component: HeaderCaption,
+    //         height: 45
+    //     }
+    // },
+
     // footer: {
         // height: 60,
         // caption: {
