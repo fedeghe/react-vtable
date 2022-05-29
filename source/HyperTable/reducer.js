@@ -218,6 +218,10 @@ const prefix= 'HYT_',
                     onCellClick = null,
                     onCellEnter = null,
                     onCellLeave = null,
+                } = {},
+                debounceTimes: {
+                    filtering = 50,
+                    scrolling = 100
                 } = {}
             } = cnf,
             contentHeight = height
@@ -312,7 +316,11 @@ const prefix= 'HYT_',
                 to: renderedElements -1,
                 renderedElements,
                 carpetHeight,
-            }
+            },
+            debounceTimes: {
+                filtering,
+                scrolling
+            } 
         };
     };
 

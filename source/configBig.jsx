@@ -181,5 +181,10 @@ export default {
     //     onCellLeave: (e, {row, column}) => {
     //         console.log('cell leave', col, row)
     //     },
+    // },
+
+    // debounceTimes: {
+    //     filtering: 300,
+    //     scrolling: 20
     // }
 };

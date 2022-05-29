@@ -26,7 +26,15 @@
     },
     "env": {
         "browser": true,
-        "node": true
+        "node": true,
+        "es2020": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+        }
     },
     "globals": {
         "WebPageMonitor": true

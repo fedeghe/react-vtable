@@ -31,14 +31,17 @@ const Table = () => {
                     height: postFooterHeight
                 } = {}
             } = {},
+            debounceTimes: {
+                scrolling: scrollingDebounceTime
+            } 
         } = state,
         classes = useStyles({
             width, height,
+            rowHeight,
             preHeaderHeight: HeaderCaption ? preHeaderHeight : 0,
             postFooterHeight: FooterCaption ? postFooterHeight : 0,
             headerHeight,
             footerHeight,
-            rowHeight
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         onScroll = useCallback(debounce(e => {
@@ -48,7 +51,7 @@ const Table = () => {
                 type: 'scroll',
                 payload: e.nativeEvent.target.scrollTop
             });
-        }, 20), []);
+        }, scrollingDebounceTime), []);
 
     return (
         <div
