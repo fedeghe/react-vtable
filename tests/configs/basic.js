@@ -1,22 +1,21 @@
+import React from 'react'
 import generateRowData from './../../source/utils';
 export default {
-    dimensions:{
-        width:800,
-        height: 400,
-        rowHeight:20
+    dimensions: {
+        height: 200,
+        width: 400,
+        rowHeight: 40
     },
     columns: [{
         key: 'id',
-        label: 'idz',
         width:300,
-        cell: ({ row, column }) => row[column.key],
+        cell: ({ row, column, rowIndex, columnIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+columnIndex}>{row[column.key]}</div>,
     }, {
         key: 'entityid',
-        label: 'entity id',
+        cell: ({ row, column, rowIndex, columnIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+columnIndex}>{row[column.key]}</div>,
     }, {
         key: 'name',
-        label: 'name',
-        cell: ({ row, column }) => row[column.key],
+        cell: ({ row, column, rowIndex, columnIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+columnIndex}>{row[column.key]}</div>,
         width:300,
 
     }],
@@ -24,5 +23,6 @@ export default {
         { key: 'id', type: 'int' },
         { key: 'entityid', type: 'id' },
         { key: 'name', type: 'str' }
-    ], 1000)
+    ], 1000),
+    gap: 5,
 };
