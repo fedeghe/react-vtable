@@ -52,7 +52,7 @@ const Table = () => {
                 payload: e.nativeEvent.target.scrollTop
             });
         }, scrollingDebounceTime), []);
-
+    console.log('rows: ', rows)
     return (
         <div
             className={classes.TableContainer}

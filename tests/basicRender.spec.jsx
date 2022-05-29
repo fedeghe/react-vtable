@@ -18,9 +18,11 @@ configure({
 
 describe("HyperTable - basic", () => {
     it("should render as expected", () => {
+        // console.log(config)
         const { container } = render(
             <HyperTable config={config} />
         );
         expect(container).toMatchSnapshot();
+
     });
 });

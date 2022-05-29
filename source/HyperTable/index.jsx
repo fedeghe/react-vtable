@@ -7,9 +7,9 @@ import Caption from './Table/Caption';
 
 import useStyles from './style.js';
 
-const HyperTable = cnf => {
+const HyperTable = ({config}) => {
     const { reducer, init } = reducerFactory(),
-        initialState = useMemo(() => init(cnf), [cnf, init]),
+        initialState = useMemo(() => init(config), [config, init]),
         [ state, dispatch ] = useReducer(reducer, initialState),
         {
             dimensions: {

@@ -7,7 +7,8 @@
         "start": "webpack serve --open --config source/webpack.dev.js",
         "build": "webpack --config source/webpack.prod.js",
         "test": "jest -u",
-        "testwatch": "jest -u --watchAll"
+        "testwatch": "jest -u --watchAll",
+        "cover": "jest --coverage"
     },
     "repository": {
         "type": "git",

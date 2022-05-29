@@ -38,5 +38,6 @@
     },
     "globals": {
         "WebPageMonitor": true
-    }
+    },
+    "ignorePatterns": ["tests/*"]
 }
