@@ -104,7 +104,7 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 500),
+    ], 5e4),
 
 
     // dimensions: {
@@ -139,7 +139,7 @@ export default {
 
 
     // RightMost,
-    // LeftMost,
+    LeftMost,
 
 
     // defaultColumnWidth: 100 // default value
@@ -174,6 +174,6 @@ export default {
 
     // debounceTimes: {
         // filtering: 300,
-        // scrolling: 20
+        // scrolling: 5
     // }
 };
