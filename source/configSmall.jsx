@@ -21,5 +21,5 @@ export default {
         { key: 'id', type: 'int' },
         { key: 'entityid', type: 'id' },
         { key: 'name', type: 'str' }
-    ], 1000, true)
+    ], 1000)
 };
