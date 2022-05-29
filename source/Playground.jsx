@@ -1,5 +1,5 @@
 import React from 'react';
-import HyperTable from './../dist';
+import HyperTable from './HyperTable';
 
 
 import config from './configBig';
