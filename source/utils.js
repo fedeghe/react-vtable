@@ -1,20 +1,20 @@
 let id = 0,
     strid = 0;
-const sameInt = 12345678,
+const sameInt = 666,
     sameDate = +new Date(2000,1,1,1,1,1),
     generators = {
-        int: (same, i) => same ? sameInt + i : parseInt(Math.random() * 1000, 10),
-        str: (same, i) => `a random string ${same ? i : ++strid}`,
-        date: (same, i) => `${same ? new Date(sameDate+i) : new Date()}`,
-        id: (same, i) => `${'ID' + same ? i : ++id}`
+        int: (same = false, i) => same ? (sameInt + i) : parseInt(Math.random() * 1000, 10),
+        str: (same = false, i) => `a random string ${same ? i : ++strid}`,
+        date: (same = false, i) => `${same ? new Date(sameDate+i) : new Date()}`,
+        id: (same = false, i) => `${'ID' + (same ? i : ++id)}`
     },
     getType = (type, args = []) => 
         type in generators ? generators[type](...args) : 'no type',
 
-    generateRowData = (fields, num, same) =>
-        Array.from({ length: num }).map(() =>
-            fields.reduce((acc, field, i) => {
-                acc[field.key] = getType(field.type, same, i);
+    generateRowData = (fields, num, same = false) =>
+        Array.from({ length: num }).map((_ , i) =>
+            fields.reduce((acc, field) => {
+                acc[field.key] = getType(field.type, [same, i]);
                 return acc;
             }, {})
         );

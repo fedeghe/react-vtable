@@ -13,7 +13,7 @@ export default {
     columns: [{
             key: 'id',
             label: 'idz',
-            width:50,
+            width: 150,
             cell: ({ row, column }) => row[column.key],
 
             // header: ({
@@ -104,7 +104,7 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 500),
+    ], 500, true),
 
 
     // dimensions: {
