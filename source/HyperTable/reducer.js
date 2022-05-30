@@ -205,6 +205,8 @@ const prefix= 'HYT_',
 
                 gap = 10,
 
+                loader = false,
+
                 defaultColumnWidth = 150,
                 highlight: {
                     rowHighlightClass = '',
@@ -325,7 +327,8 @@ const prefix= 'HYT_',
                 to: renderedElements -1,
                 renderedElements,
                 carpetHeight,
-                loading:false
+                loading:false,
+                loader,
             },
             debounceTimes: {
                 filtering,

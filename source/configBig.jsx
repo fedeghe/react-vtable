@@ -116,6 +116,8 @@ export default {
     
     // gap: 15,
 
+    // loader: <div className="Loading">loading</div>, 
+
     
     // header: {
     //     height: 80,

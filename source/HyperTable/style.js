@@ -8,12 +8,12 @@ export default createUseStyles(() => ({
         overflow: 'hidden',
         position:'relative'
     }),
-    Loading: ({width, height}) =>  ({
+    Loading: {
         position:'absolute',
         top: 0,
         left: 0,
-        width: `${width}px`,
-        height: `${height}px`,
+        width: `100%`,
+        height: `100%`,
         display:'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -23,5 +23,5 @@ export default createUseStyles(() => ({
         pointerEvents: 'none',
         zIndex:1000,
         textTransform:'uppercase'
-    })
+    }
 }));
