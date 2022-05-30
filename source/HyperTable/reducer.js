@@ -150,8 +150,10 @@ const prefix= 'HYT_',
                     if (moreSpaceThanContent) return oldState;
 
                     const scrollTop = payload,
-                        _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
-                            _headerFillerHeight = _from * rowHeight,
+                        _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0);
+                    if (_from === from) return oldState  
+                    // eslint-disable-next-line one-var
+                    const _headerFillerHeight = _from * rowHeight,
                             _footerFillerHeight = moreSpaceThanContent
                                 ? contentHeight - carpetHeight
                                 : carpetHeight - _headerFillerHeight - dataHeight,
@@ -183,8 +185,8 @@ const prefix= 'HYT_',
                 data = [],
                 columns = [],
                 dimensions: {
-                    height = 600,
-                    width = 800,
+                    height = 800,
+                    width = 1200,
                     rowHeight = 80,
                 } = {},
                 header: {
