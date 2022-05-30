@@ -28,7 +28,7 @@ const HyperTable = ({config}) => {
             postFooterHeight,
         });
     
-    return <div className={classes.Wrapper}>
+    return <div className={[classes.Wrapper, 'Wrapper'].join(' ')}>
         <TableContext.Provider value={{state, dispatch}}>
             {loading && loader}
             <Caption type="header"/>
