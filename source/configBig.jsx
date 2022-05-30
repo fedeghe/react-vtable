@@ -26,7 +26,7 @@ export default {
             //     <Filter {...{column, columnIndex, filter}}/>
             //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
             // </div>),
-            // // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+            // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
             // filter: basicFilter,
             // sort: basicSort,
         }, {
@@ -129,7 +129,7 @@ export default {
 
 
     // footer: {
-        // height: 60,
+    //     height: 60,
         // caption: {
         //     component: FooterCaption,
         //     height: 25
