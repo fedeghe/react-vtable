@@ -18,10 +18,13 @@ configure({
 
 describe("HyperTable - basic", () => {
     it("should render as expected", () => {
-        const { container } = render(
+        const { container, getByTestId } = render(
             <HyperTable config={config} />
         );
         // check all uie
+        for(var i = 0; i < 15; i++)
+            for(var j = 0; j < 3; j++)
+                expect(getByTestId(`uie-${i}-${j}`))
         expect(container).toMatchSnapshot();
     });
 });
