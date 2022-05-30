@@ -8,8 +8,8 @@ import config from './configBig';
 import './sample/user.css';
 
 const Pg = () => (
-    <div className="Wrapper">
+    
         <HyperTable config={config} />
-    </div>
+    
 );
 export default Pg;
