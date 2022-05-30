@@ -66,29 +66,28 @@ const prefix = 'HYT_',
                         };
                     }
 
-                    // sort again based on original data
-                    const sorted = sorter ? [...originalData].sort((a, b) => sorter({
-                        rowA: a, rowB: b,
-                        columnKey: sortingColumn,
-                        direction: sortingDirection
-                    })) : [...originalData],
+                    const newFilteredData = newFilters
+                        ? Object.keys(newFilters).reduce(
+                            (acc, filterK) => acc.filter(row => newFilters[filterK].filter({
+                                userValue: newFilters[filterK].value,
+                                row,
+                                columnKey: filterK
+                            })),
+                            originalData
+                        )
+                        : originalData,
+                        // sort again based on original data
+                        newData = sorter ? [...newFilteredData].sort((a, b) => sorter({
+                            rowA: a, rowB: b,
+                            columnKey: sortingColumn,
+                            direction: sortingDirection
+                        })) : [...newFilteredData],
 
-                        // then apply filters
-                        newFilteredData = newFilters
-                            ? Object.keys(newFilters).reduce(
-                                (acc, filterK) => acc.filter(row => newFilters[filterK].filter({
-                                    userValue: newFilters[filterK].value,
-                                    row,
-                                    columnKey: filterK
-                                })),
-                                sorted
-                            )
-                            : filteredData,
-                        _carpetHeight = newFilteredData.length * rowHeight,
+                        _carpetHeight = newData.length * rowHeight,
                         _moreSpaceThanContent = _carpetHeight < contentHeight;
 
-                    if (to > newFilteredData.length) {
-                        _to = newFilteredData.length;
+                    if (to > newData.length) {
+                        _to = newData.length;
                         _from = _to - renderedElements;
                     }
                     _headerFillerHeight = _from * rowHeight;
@@ -98,7 +97,7 @@ const prefix = 'HYT_',
 
                     return {
                         filters: newFilters,
-                        filtered: newFilteredData.length,
+                        filtered: newData.length,
                         virtual: {
                             ...virtual,
                             footerFillerHeight: _footerFillerHeight,
@@ -107,7 +106,7 @@ const prefix = 'HYT_',
                             carpetHeight: _carpetHeight
                         },
                         filteredData: newFilteredData,
-                        rows: [...newFilteredData].slice(from, to),
+                        rows: [...newData].slice(from, to),
                     };
                 },
                 sort: () => {
@@ -117,7 +116,7 @@ const prefix = 'HYT_',
                         direction: payload.direction
                     }));
                     return {
-                        filteredData: sorted,
+                        // filteredData: sorted,
                         rows: [...sorted].slice(from, to),
                         sorting: {
                             column: payload.column,
@@ -126,52 +125,13 @@ const prefix = 'HYT_',
                         }
                     };
                 },
-                unsort: () => {
-
-                    // then apply filters
-                    let _to = to,
-                        _from = from,
-                        _headerFillerHeight = headerFillerHeight,
-                        _footerFillerHeight = footerFillerHeight;
-                    const newFilteredData = filters
-                        ? Object.keys(filters).reduce(
-                            (acc, filterK) => acc.filter(row => filters[filterK].filter({
-                                userValue: filters[filterK].value,
-                                row,
-                                columnKey: filterK
-                            })),
-                            originalData
-                        )
-                        : originalData,
-                        _carpetHeight = newFilteredData.length * rowHeight,
-                        _moreSpaceThanContent = _carpetHeight < contentHeight;
-
-                    if (to > newFilteredData.length) {
-                        _to = newFilteredData.length;
-                        _from = _to - renderedElements;
+                unsort: () => ({
+                    rows: [...filteredData].slice(from, to),
+                    sorting: {
+                        column: null,
+                        direction: null
                     }
-                    _headerFillerHeight = _from * rowHeight;
-                    _footerFillerHeight = _moreSpaceThanContent
-                        ? contentHeight - _carpetHeight
-                        : _carpetHeight - _headerFillerHeight - dataHeight;
-
-                    return {
-                        virtual: {
-                            ...virtual,
-                            footerFillerHeight: _footerFillerHeight,
-                            headerFillerHeight: _headerFillerHeight,
-                            moreSpaceThanContent: _moreSpaceThanContent,
-                            carpetHeight: _carpetHeight
-                        },
-                        filteredData: newFilteredData,
-                        rows: [...newFilteredData].slice(from, to),
-                        sorting: {
-                            column: null,
-                            direction: null
-                        }
-                    };
-
-                },
+                }),
                 cellEnter: () => ({
                     activeColumn: payload?.column?.key,
                     activeRow: payload?.row?._ID,
