@@ -13,7 +13,7 @@ const prefix = 'HYT_',
             {
                 total,
                 filters,
-                originalData, mutatingData,
+                originalData, filteredData,
                 virtual,
                 gap,
                 dimensions: {
@@ -74,7 +74,7 @@ const prefix = 'HYT_',
                     })) : [...originalData],
 
                         // then apply filters
-                        newMutatingData = newFilters
+                        newFilteredData = newFilters
                             ? Object.keys(newFilters).reduce(
                                 (acc, filterK) => acc.filter(row => newFilters[filterK].filter({
                                     userValue: newFilters[filterK].value,
@@ -83,12 +83,12 @@ const prefix = 'HYT_',
                                 })),
                                 sorted
                             )
-                            : mutatingData,
-                        _carpetHeight = newMutatingData.length * rowHeight,
+                            : filteredData,
+                        _carpetHeight = newFilteredData.length * rowHeight,
                         _moreSpaceThanContent = _carpetHeight < contentHeight;
 
-                    if (to > newMutatingData.length) {
-                        _to = newMutatingData.length;
+                    if (to > newFilteredData.length) {
+                        _to = newFilteredData.length;
                         _from = _to - renderedElements;
                     }
                     _headerFillerHeight = _from * rowHeight;
@@ -98,7 +98,7 @@ const prefix = 'HYT_',
 
                     return {
                         filters: newFilters,
-                        filtered: newMutatingData.length,
+                        filtered: newFilteredData.length,
                         virtual: {
                             ...virtual,
                             footerFillerHeight: _footerFillerHeight,
@@ -106,18 +106,18 @@ const prefix = 'HYT_',
                             moreSpaceThanContent: _moreSpaceThanContent,
                             carpetHeight: _carpetHeight
                         },
-                        mutatingData: newMutatingData,
-                        rows: [...newMutatingData].slice(from, to),
+                        filteredData: newFilteredData,
+                        rows: [...newFilteredData].slice(from, to),
                     };
                 },
                 sort: () => {
-                    const sorted = [...mutatingData].sort((a, b) => payload.sorter({
+                    const sorted = [...filteredData].sort((a, b) => payload.sorter({
                         rowA: a, rowB: b,
                         columnKey: payload.column,
                         direction: payload.direction
                     }));
                     return {
-                        mutatingData: sorted,
+                        filteredData: sorted,
                         rows: [...sorted].slice(from, to),
                         sorting: {
                             column: payload.column,
@@ -133,7 +133,7 @@ const prefix = 'HYT_',
                         _from = from,
                         _headerFillerHeight = headerFillerHeight,
                         _footerFillerHeight = footerFillerHeight;
-                    const newMutatingData = filters
+                    const newFilteredData = filters
                         ? Object.keys(filters).reduce(
                             (acc, filterK) => acc.filter(row => filters[filterK].filter({
                                 userValue: filters[filterK].value,
@@ -143,11 +143,11 @@ const prefix = 'HYT_',
                             originalData
                         )
                         : originalData,
-                        _carpetHeight = newMutatingData.length * rowHeight,
+                        _carpetHeight = newFilteredData.length * rowHeight,
                         _moreSpaceThanContent = _carpetHeight < contentHeight;
 
-                    if (to > newMutatingData.length) {
-                        _to = newMutatingData.length;
+                    if (to > newFilteredData.length) {
+                        _to = newFilteredData.length;
                         _from = _to - renderedElements;
                     }
                     _headerFillerHeight = _from * rowHeight;
@@ -163,8 +163,8 @@ const prefix = 'HYT_',
                             moreSpaceThanContent: _moreSpaceThanContent,
                             carpetHeight: _carpetHeight
                         },
-                        mutatingData: newMutatingData,
-                        rows: [...newMutatingData].slice(from, to),
+                        filteredData: newFilteredData,
+                        rows: [...newFilteredData].slice(from, to),
                         sorting: {
                             column: null,
                             direction: null
@@ -198,7 +198,7 @@ const prefix = 'HYT_',
                         _to = Math.min(_from + renderedElements, total);
 
                     return {
-                        rows: mutatingData.slice(_from, _to),
+                        rows: filteredData.slice(_from, _to),
                         virtual: {
                             ...virtual,
                             loading: false,
@@ -306,7 +306,7 @@ const prefix = 'HYT_',
             footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - dataHeight,
 
             originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
-            mutatingData = [...originalData];
+            filteredData = [...originalData];
 
         return {
             ...cnf,
@@ -348,8 +348,8 @@ const prefix = 'HYT_',
             },
             noFilterData,
             originalData,
-            mutatingData,
-            rows: [...mutatingData].slice(0, renderedElements),
+            filteredData,
+            rows: [...filteredData].slice(0, renderedElements),
             filtered: originalData.length,
             total: originalData.length,
             activeRow: null,
