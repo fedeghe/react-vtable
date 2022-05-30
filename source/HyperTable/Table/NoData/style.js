@@ -2,9 +2,10 @@ import { createUseStyles } from "react-jss";
 
 export default createUseStyles(() => ({
     NoData: {
-        display: 'flex',
-        height:'100%',
-        justifyContent: 'center',
-        alignItems: 'center'
+        position: 'sticky',
+        left: 0,
+        width: ({ width}) => `${width}px`,
+        textAlign: 'center',
+        margin: '30px 0'
     }
 }));

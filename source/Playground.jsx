@@ -5,7 +5,7 @@ import HyperTable from './HyperTable';
 import config from './configBig';
 // import config from './configSmall';
 
-import './user.css';
+import './sample/user.css';
 
 const Pg = () => (
     <div className="Wrapper">
