@@ -13,9 +13,11 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
                 events: {
                     onCellClick, onCellEnter, onCellLeave
                 },
-                highlight: {
-                    contentClass,
-                    cellClass
+                cls: {
+                    elements: {
+                        contentClass,
+                        cellClass
+                    }
                 }
             },
             dispatch

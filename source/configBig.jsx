@@ -13,25 +13,25 @@ export default {
     columns: [{
             key: 'id',
             label: 'idz',
-            width: 150,
+            width: 300,
             cell: ({ row, column }) => row[column.key],
 
-            // header: ({
-            //     column, columnIndex,
-            //     filter, //: {value, setValue, visibility, setVisibility} = {},
-            //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-            //     isSorting
-            // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-            //     <span>{column.label + '_' + columnIndex}</span>
-            //     <Filter {...{column, columnIndex, filter}}/>
-            //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
-            // </div>),
-            // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-            // filter: basicFilter,
-            // sort: basicSort,
+            header: ({
+                column, columnIndex,
+                filter, //: {value, setValue, visibility, setVisibility} = {},
+                sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+                isSorting
+            }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+                <span>{column.label + '_' + columnIndex}</span>
+                <Filter {...{column, columnIndex, filter}}/>
+                <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            </div>),
+            footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+            filter: basicFilter,
+            sort: basicSort,
         }, {
             key: 'entityid',
-            width:50,
+            
         }, {
             key: 'name',
             cell: ({ row, column }) => row[column.key],
@@ -51,7 +51,6 @@ export default {
         }, {
             key: 'date',
             cell: ({ row, column }) => row[column.key],
-            width:120
         }, {
             key: 'actions',
             cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
@@ -89,6 +88,7 @@ export default {
         { key: 'entityid3', },
         {  key: 'name3', }
     ],
+
     data: generateRowData([
         { key: 'id', type: 'int' },
         { key: 'entityid', type: 'id' },
@@ -103,9 +103,7 @@ export default {
         { key: 'entityid3', type: 'int' },
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
-
-    ], 1e3),
-
+    ], 1e5),
 
     // dimensions: {
     //     height: 900,
@@ -113,11 +111,9 @@ export default {
     //     rowHeight: 180,    
     // },
 
-    
     // gap: 15,
 
-    // loader: <div className="Loading">loading</div>, 
-
+    loader: <div className="Loading">loading</div>, 
     
     // header: {
     //     height: 80,
@@ -127,56 +123,55 @@ export default {
     //     }
     // },
 
-
     // footer: {
     //     height: 60,
-        // caption: {
-        //     component: FooterCaption,
-        //     height: 25
-        // }
+    //     caption: {
+    //         component: FooterCaption,
+    //         height: 25
+    //     }
     // },
 
-
     // noFilterData: ({total}) => <span>No results out of {total}</span>,
-
 
     // RightMost,
     // LeftMost,
 
-
     // defaultColumnWidth: 100 // default value
 
-
-    // highlight: {
-        // rowHighlightClass: 'TableRowHighlight',
-        // columnHighlightClass: 'TableColumnHighlight',
-        // crossHighlightClass: 'TableCrossHighlight',
-        // cellHightlightClass: 'TableCellHighlight',
-        // contentClass: 'TableContent',
-        // cellClass: 'TableCell',
-        // onHeaderHighlight: true,
-        // onFooterHighlight: true,
-        // onLeftMostHighlight: true,
-        // onRightMostHighlight: true,
+    // cls: {
+    //     highlight: {
+    //         rowHighlightClass: 'TableRowHighlight',
+    //         columnHighlightClass: 'TableColumnHighlight',
+    //         crossHighlightClass: 'TableCrossHighlight',
+    //         cellHightlightClass: 'TableCellHighlight',
+    //     },
+    //     elements: {
+    //         contentClass: 'TableContent',
+    //         cellClass: 'TableCell',
+    //         wrapperClass: 'Wrapper',
+    //     }
     // },
-
 
     // events: {
-    //     onCellClick: (e, { row, column }) => {
-    //         console.log('cell click', column, row);
-    //         e.stopPropagation();
-    //     },
-    //     onCellEnter: (e, {row, column}) => {
-    //         console.log('cell enter', col, row)
-    //     },
-    //     onCellLeave: (e, {row, column}) => {
-    //         console.log('cell leave', col, row)
-    //     },
+        // onCellClick: (e, { row, column }) => {
+        //     console.log('cell click', column, row);
+        //     e.stopPropagation();
+        // },
+        // onCellEnter: (e, {row, column}) => {
+        //     console.log('cell enter', column, row);
+        // },
+        // onCellLeave: (e, {row, column}) => {
+        //     console.log('cell leave', column, row);
+        // },
+        // onHeaderHighlight: false,
+        // onFooterHighlight: false,
+        // onLeftMostHighlight: false,
+        // onRightMostHighlight: false,
     // },
 
 
-    // debounceTimes: {
+    debounceTimes: {
         // filtering: 300,
-        // scrolling: 5
-    // }
+        scrolling: 5
+    }
 };

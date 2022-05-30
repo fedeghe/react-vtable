@@ -14,9 +14,11 @@ const TFooter = () => {
                 },
                 columns,
                 activeColumn,
-                highlight: {
-                    crossHighlightClass,
-                    columnHighlightClass
+                cls: {
+                    highlight: {
+                        crossHighlightClass,
+                        columnHighlightClass
+                    }
                 }
             },
         } = useContext(TableContext),

@@ -17,6 +17,11 @@ const HyperTable = ({config}) => {
             },
             header:{caption: {height : preHeaderHeight} = {}} = {},
             footer:{caption: {height : postFooterHeight} = {}} = {},
+            cls : {
+                elements: {
+                    wrapperClass
+                }
+            },
             virtual: {
                 loading,
                 loader
@@ -28,7 +33,7 @@ const HyperTable = ({config}) => {
             postFooterHeight,
         });
     
-    return <div className={[classes.Wrapper, 'Wrapper'].join(' ')}>
+    return <div className={[classes.Wrapper, wrapperClass].join(' ')}>
         <TableContext.Provider value={{state, dispatch}}>
             {loading && loader}
             <Caption type="header"/>

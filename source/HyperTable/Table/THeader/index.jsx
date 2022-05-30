@@ -14,9 +14,11 @@ const Theader =  () => {
                 },
                 columns,
                 activeColumn,
-                highlight: {
-                    crossHighlightClass,
-                    columnHighlightClass,
+                cls: { 
+                    highlight: {
+                        crossHighlightClass,
+                        columnHighlightClass,
+                    },
                 },
                 // eslint-disable-next-line no-unused-vars
                 filters,
