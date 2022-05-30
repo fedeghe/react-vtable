@@ -17,6 +17,9 @@ const HyperTable = ({config}) => {
             },
             header:{caption: {height : preHeaderHeight} = {}} = {},
             footer:{caption: {height : postFooterHeight} = {}} = {},
+            virtual: {
+                loading
+            }
         } = state,
         classes = useStyles({
             width, height,
@@ -26,6 +29,7 @@ const HyperTable = ({config}) => {
     
     return <div className={classes.Wrapper}>
         <TableContext.Provider value={{state, dispatch}}>
+            {loading && <div className={classes.Loading}>loading</div>}
             <Caption type="header"/>
             <Table/>
             <Caption type="footer"/>

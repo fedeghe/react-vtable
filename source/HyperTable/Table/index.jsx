@@ -33,7 +33,11 @@ const Table = () => {
             } = {},
             debounceTimes: {
                 scrolling: scrollingDebounceTime
-            } 
+            },
+            virtual: {
+                scrollTop,
+                dataHeight
+            }
         } = state,
         classes = useStyles({
             width, height,
@@ -56,7 +60,11 @@ const Table = () => {
     return (
         <div
             className={classes.TableContainer}
-            onScroll={onScroll}
+            onScroll={e => {
+                if (Math.abs(e.nativeEvent.target.scrollTop - scrollTop) > dataHeight / 2)
+                    dispatch({type: 'loading'});
+                onScroll(e);
+            }}
         >
             <table className={classes.Table}>
                 <THeader />

@@ -34,6 +34,12 @@ const prefix= 'HYT_',
                 }
             } = oldState,
             actions = {
+                loading: () => ({
+                    virtual: {
+                        ...oldState.virtual,
+                        loading: true
+                    }
+                }),
                 filter : () => {
                     
                     let newFilters = null,
@@ -155,6 +161,7 @@ const prefix= 'HYT_',
                         rows: mutatingData.slice(_from, _to),
                         virtual: {
                             ...virtual,
+                            loading: false,
                             scrollTop,
                             headerFillerHeight: _headerFillerHeight,
                             footerFillerHeight: _footerFillerHeight,
@@ -318,6 +325,7 @@ const prefix= 'HYT_',
                 to: renderedElements -1,
                 renderedElements,
                 carpetHeight,
+                loading:false
             },
             debounceTimes: {
                 filtering,

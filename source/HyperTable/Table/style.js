@@ -36,5 +36,5 @@ export default createUseStyles(() => ({
         position: 'sticky',
         right: 0,
         backgroundColor: 'white'
-    },
+    }
 }));

@@ -104,7 +104,7 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
 
-    ], 5e4),
+    ], 1e3),
 
 
     // dimensions: {
