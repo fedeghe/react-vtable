@@ -34,7 +34,6 @@ const Theader =  () => {
             dispatch
         } = useContext(TableContext),
 
-
         classes = useStyles({headerHeight}),
 
         getColumnContent = useCallback(({column, columnIndex}) => {
@@ -68,7 +67,6 @@ const Theader =  () => {
                             unSort: () => dispatch({type:'unSort'}),
                             direction: sortingDirection,
                             isSorting: column.key === sortingColumn,
-                            isSorting
                         };
                     }
                     if (isFunction(column.filter)) {
