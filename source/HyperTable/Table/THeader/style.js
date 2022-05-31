@@ -16,7 +16,6 @@ export default createUseStyles(() => ({
         right:0,
     },
     TheadTh: {
-        // position: '-webkit-sticky',
         position: 'sticky',
         textAlign: 'left',
         verticalAlign: 'middle',
