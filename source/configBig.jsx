@@ -16,19 +16,19 @@ export default {
             width: 300,
             cell: ({ row, column }) => row[column.key],
 
-            header: ({
-                column, columnIndex,
-                filter, //: {value, setValue, visibility, setVisibility} = {},
-                sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-                isSorting
-            }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-                <span>{column.label + '_' + columnIndex}</span>
-                <Filter {...{column, columnIndex, filter}}/>
-                <Sorter {...{column, columnIndex, sort, isSorting}}/>
-            </div>),
-            footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-            filter: basicFilter,
-            sort: basicSort,
+            // header: ({
+            //     column, columnIndex,
+            //     filter, //: {value, setValue, visibility, setVisibility} = {},
+            //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            //     isSorting
+            // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            //     <span>{column.label + '_' + columnIndex}</span>
+            //     <Filter {...{column, columnIndex, filter}}/>
+            //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            // </div>),
+            // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+            // filter: basicFilter,
+            // sort: basicSort,
         }, {
             key: 'entityid',
             
@@ -36,18 +36,18 @@ export default {
             key: 'name',
             cell: ({ row, column }) => row[column.key],
             width:300,
-            header: ({
-                column, columnIndex,
-                filter, //: {value, setValue, visibility, setVisibility} = {},
-                sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-                isSorting
-            }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-                <span>{column.key + '_' + columnIndex}</span>
-                <Filter {...{column, columnIndex, filter}}/>
-                <Sorter {...{column, columnIndex, sort, isSorting}}/>
-            </div>),
-            filter: basicFilter,
-            sort: basicSort,
+            // header: ({
+            //     column, columnIndex,
+            //     filter, //: {value, setValue, visibility, setVisibility} = {},
+            //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+            //     isSorting
+            // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            //     <span>{column.key + '_' + columnIndex}</span>
+            //     <Filter {...{column, columnIndex, filter}}/>
+            //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            // </div>),
+            // filter: basicFilter,
+            // sort: basicSort,
         }, {
             key: 'date',
             cell: ({ row, column }) => row[column.key],
@@ -112,43 +112,43 @@ export default {
 
     // gap: 15,
 
-    loader: <div className="Loading">loading</div>, 
+    // loader: <div className="Loading">loading</div>, 
     
-    header: {
-        height: 80,
-        caption: {
-            component: HeaderCaption,
-            height: 45
-        }
-    },
+    // header: {
+    //     height: 80,
+    //     caption: {
+    //         component: HeaderCaption,
+    //         height: 45
+    //     }
+    // },
 
-    footer: {
-        height: 60,
-        caption: {
-            component: FooterCaption,
-            height: 25
-        }
-    },
+    // footer: {
+    //     height: 60,
+    //     caption: {
+    //         component: FooterCaption,
+    //         height: 25
+    //     }
+    // },
 
     // noFilterData: ({total}) => <span>No results out of {total}</span>,
 
     // RightMost,
-    // LeftMost,
+    LeftMost,
 
     // defaultColumnWidth: 100 // default value
 
     // cls: {
-    //     highlight: {
-    //         rowHighlightClass: 'TableRowHighlight',
-    //         columnHighlightClass: 'TableColumnHighlight',
-    //         crossHighlightClass: 'TableCrossHighlight',
-    //         cellHightlightClass: 'TableCellHighlight',
-    //     },
-    //     elements: {
-    //         contentClass: 'TableContent',
-    //         cellClass: 'TableCell',
-    //         wrapperClass: 'Wrapper',
-    //     }
+        // highlight: {
+        //     rowHighlightClass: 'TableRowHighlight',
+        //     columnHighlightClass: 'TableColumnHighlight',
+        //     crossHighlightClass: 'TableCrossHighlight',
+        //     cellHightlightClass: 'TableCellHighlight',
+        // },
+        // elements: {
+        //     contentClass: 'TableContent',
+        //     cellClass: 'TableCell',
+        //     wrapperClass: 'Wrapper',
+        // }
     // },
 
     // events: {
@@ -169,8 +169,8 @@ export default {
     // },
 
 
-    debounceTimes: {
+    // debounceTimes: {
         // filtering: 300,
-        scrolling: 5
-    }
+        // scrolling: 5
+    // }
 };
