@@ -121,7 +121,6 @@ const prefix = 'HYT_',
                     }
 
                     const _filteredData = __filter(_filters),
-                        // sort again based on original data
                         _currentData = __sort(_filteredData),
                         _filterNumbers = Object.values(_filters).filter(f => f.value).length,
                         _updatedVirtual = __getVirtual(_currentData);
