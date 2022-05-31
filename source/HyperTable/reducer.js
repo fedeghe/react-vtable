@@ -103,7 +103,8 @@ const prefix = 'HYT_',
                             footerFillerHeight: _footerFillerHeight,
                             headerFillerHeight: _headerFillerHeight,
                             moreSpaceThanContent: _moreSpaceThanContent,
-                            carpetHeight: _carpetHeight
+                            carpetHeight: _carpetHeight,
+                            loading:false
                         },
                         filteredData: newFilteredData,
                         rows: [...newData].slice(from, to),
@@ -116,7 +117,6 @@ const prefix = 'HYT_',
                         direction: payload.direction
                     }));
                     return {
-                        // filteredData: sorted,
                         rows: [...sorted].slice(from, to),
                         sorting: {
                             column: payload.column,
