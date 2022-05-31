@@ -6,7 +6,7 @@ export default createUseStyles(() => ({
     }),
     TorigFooter: {
         bottom:0,
-        zIndex:1000,
+        zIndex:100,
         textAlign:'center !important',
     },
     TorigFooterLeft: {
