@@ -38,14 +38,11 @@ const prefix = 'HYT_',
                     direction: sortingDirection,
                     sorter
                 },
-                isFiltered,
                 virtual: {
                     from, to,
                     dataHeight, contentHeight, carpetHeight,
                     moreSpaceThanContent,
                     renderedElements,
-                    headerFillerHeight,
-                    footerFillerHeight
                 },
             } = oldState,
             __sort = what => sorter ? [...what].sort((a, b) => sorter({
