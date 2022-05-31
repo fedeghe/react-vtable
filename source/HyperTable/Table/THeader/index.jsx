@@ -27,7 +27,8 @@ const Theader =  () => {
                 debounceTimes: {
                     
                     filtering : filteringDebounceTime,
-                } 
+                } ,
+                activeFiltersCount
             },
             dispatch
         } = useContext(TableContext),
@@ -63,7 +64,7 @@ const Theader =  () => {
                                     sorter: column.sort
                                 }
                             }),
-                            unsort: () => dispatch({type:'unsort'}),
+                            unSort: () => dispatch({type:'unSort'}),
                             direction: sortingDirection,
                             isSorting: column.key === sortingColumn,
                         };
@@ -89,7 +90,8 @@ const Theader =  () => {
                                         visibility
                                     }
                                 }),
-                            unfilter: debounce(() => dispatch({type: 'unfilter'}), filteringDebounceTime)
+                            unFilter: debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
+                            activeFiltersCount
                         };
                     }
                     content = column.header(headerProps);
@@ -98,7 +100,7 @@ const Theader =  () => {
                 }
             }
             return content;
-        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime]);
+        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>

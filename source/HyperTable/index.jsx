@@ -1,9 +1,11 @@
-import React, { useReducer, useMemo } from 'react';
+import React, { useReducer, useMemo, useCallback, useEffect } from 'react';
 
 import TableContext from './Context';
 import reducerFactory from './reducer';
 import Table from './Table';
 import Caption from './Table/Caption';
+
+import { debounce } from './utils';
 
 import useStyles from './style.js';
 
@@ -25,20 +27,35 @@ const HyperTable = ({config}) => {
             virtual: {
                 loading,
                 loader
-            }
+            },
+            debounceTimes: {
+                filtering : filteringDebounceTime,
+            },
+            activeFiltersCount,
         } = state,
         classes = useStyles({
             width, height,
             preHeaderHeight,
             postFooterHeight,
-        });
+        }),
+        unFilter = useCallback(
+            debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
+            [filteringDebounceTime]
+        ),
+        unSort = useCallback(
+            debounce(() => dispatch({type: 'unSort'}), filteringDebounceTime),
+            [filteringDebounceTime]
+        ),
+        p = {
+            unSort, unFilter, activeFiltersCount
+        };
     
     return <div className={[classes.Wrapper, wrapperClass].join(' ')}>
         <TableContext.Provider value={{state, dispatch}}>
             {loading && loader}
-            <Caption type="header"/>
+            <Caption type="header" {...p}/>
             <Table/>
-            <Caption type="footer"/>
+            <Caption type="footer" {...p}/>
         </TableContext.Provider>
     </div>;
 

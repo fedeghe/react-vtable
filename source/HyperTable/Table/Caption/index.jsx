@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
 import {isFunction} from './../../utils';
-const Caption = ({type}) => {
+const Caption = ({type, unFilter, unSort, activeFiltersCount}) => {
     const {
             state: {
                 footer: {
@@ -52,7 +52,9 @@ const Caption = ({type}) => {
                 activeColumn, activeColumnIndex,
                 activeRow, activeRowIndex,
                 filtered,
-                scrollTop
+                scrollTop,
+                unFilter, unSort,
+                activeFiltersCount
             }}/>
             : What.Component
         }</div>

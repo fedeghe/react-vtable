@@ -3,7 +3,7 @@ import useStyles from './style.js';
 
 const Filter =  ({filter}) => {
     const classes = useStyles(),
-        {value, setValue, visibility, setVisibility, unfilter} = filter;
+        {value, setValue, visibility, setVisibility, unFilter} = filter;
 
     return <div className={classes.Container}>{
         visibility
@@ -14,7 +14,7 @@ const Filter =  ({filter}) => {
                 setVisibility(false);
             }}>&times;</span>
             &nbsp;|&nbsp;
-            <span className={classes.Pointer} onClick={unfilter}>unfilter all</span>
+            <span className={classes.Pointer} onClick={unFilter}>unfilter all</span>
         </div>
         : <span className={classes.Pointer} onClick={() => setVisibility(true)}>Y</span>
     }</div>;

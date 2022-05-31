@@ -31,7 +31,7 @@ const prefix = 'HYT_',
                     renderedElements,
                     headerFillerHeight,
                     footerFillerHeight
-                }
+                },
             } = oldState,
             actions = {
                 loading: () => ({
@@ -101,6 +101,7 @@ const prefix = 'HYT_',
                     return {
                         filters: _filters,
                         filtered: newData.length,
+                        activeFiltersCount: Object.values(_filters).reduce((acc, f) => acc + f.value.length ? 1: 0, 0),
                         virtual: {
                             ...virtual,
                             footerFillerHeight: _footerFillerHeight,
@@ -126,7 +127,7 @@ const prefix = 'HYT_',
                     };
                 },
 
-                unfilter: () => {
+                unFilter: () => {
                     const newData = sorter ? [...originalData].sort((a, b) => sorter({
                         rowA: a, rowB: b,
                         columnKey: sortingColumn,
@@ -159,6 +160,7 @@ const prefix = 'HYT_',
                         filtered: newData.length,
                         filteredData: newData,
                         rows: [...newData].slice(_from, _to),
+                        activeFiltersCount: 0,
                         virtual: {
                             ...virtual,
                             footerFillerHeight: _footerFillerHeight,
@@ -171,7 +173,7 @@ const prefix = 'HYT_',
                     };
                 },
 
-                unsort: () => ({
+                unSort: () => ({
                     rows: [...filteredData].slice(from, to),
                     sorting: {
                         column: null,
@@ -334,6 +336,7 @@ const prefix = 'HYT_',
                 }
                 return acc;
             }, {}),
+            activeFiltersCount: 0,
             dimensions: {
                 width, height,
                 rowHeight,
