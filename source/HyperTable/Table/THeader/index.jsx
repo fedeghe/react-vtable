@@ -72,7 +72,7 @@ const Theader =  () => {
                         const theFilter = filters[column.key];
 
                         headerProps.filter = {
-                            value: theFilter.value,
+                            value: theFilter?.value,
                             setValue: debounce(value => dispatch({
                                 type: 'filter',
                                 payload: {
@@ -80,7 +80,7 @@ const Theader =  () => {
                                     value
                                 }
                             }), filteringDebounceTime),
-                            visibility: theFilter.visibility,
+                            visibility: theFilter?.visibility,
                             setVisibility: visibility => 
                                 dispatch({
                                     type: 'filter',
@@ -88,7 +88,8 @@ const Theader =  () => {
                                         column: column.key,
                                         visibility
                                     }
-                                })
+                                }),
+                            unfilter: debounce(() => dispatch({type: 'unfilter'}), filteringDebounceTime)
                         };
                     }
                     content = column.header(headerProps);

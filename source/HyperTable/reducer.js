@@ -104,10 +104,10 @@ const prefix = 'HYT_',
                             headerFillerHeight: _headerFillerHeight,
                             moreSpaceThanContent: _moreSpaceThanContent,
                             carpetHeight: _carpetHeight,
-                            loading:false
+                            loading: false
                         },
                         filteredData: newFilteredData,
-                        rows: [...newData].slice(from, to),
+                        rows: [...newData].slice(_from, _to),
                     };
                 },
 
@@ -119,19 +119,54 @@ const prefix = 'HYT_',
                     }));
                     return {
                         rows: [...sorted].slice(from, to),
-                        sorting: {
-                            column: payload.column,
-                            direction: payload.direction,
-                            sorter: payload.sorter
-                        }
+                        sorting: payload
                     };
                 },
-                
+
+                unfilter: () => {
+                    const newData = sorter ? [...originalData].sort((a, b) => sorter({
+                        rowA: a, rowB: b,
+                        columnKey: sortingColumn,
+                        direction: sortingDirection
+                    })) : [...originalData],
+                        _carpetHeight = newData.length * rowHeight,
+                        _moreSpaceThanContent = _carpetHeight < contentHeight;
+
+                    let _to = to,
+                        _from = from,
+                        _headerFillerHeight = headerFillerHeight,
+                        _footerFillerHeight = footerFillerHeight;
+                    if (to > newData.length) {
+                        _to = newData.length;
+                        _from = _to - renderedElements;
+                    }
+                    _headerFillerHeight = _from * rowHeight;
+                    _footerFillerHeight = _moreSpaceThanContent
+                        ? contentHeight - _carpetHeight
+                        : _carpetHeight - _headerFillerHeight - dataHeight;
+                    return {
+                        filters: {},
+                        filtered: newData.length,
+                        filteredData: newData,
+                        rows: [...newData].slice(_from, _to),
+                        virtual: {
+                            ...virtual,
+                            footerFillerHeight: _footerFillerHeight,
+                            headerFillerHeight: _headerFillerHeight,
+                            moreSpaceThanContent: _moreSpaceThanContent,
+                            carpetHeight: _carpetHeight,
+                            loading: false
+                        },
+
+                    };
+                },
+
                 unsort: () => ({
                     rows: [...filteredData].slice(from, to),
                     sorting: {
                         column: null,
-                        direction: null
+                        direction: null,
+                        sorter: null
                     }
                 }),
                 cellEnter: () => ({
@@ -223,13 +258,13 @@ const prefix = 'HYT_',
             //     onRightMostHighlight = false,
             // } = {},
             cls: {
-                highlight : {
+                highlight: {
                     rowHighlightClass = '',
                     columnHighlightClass = '',
                     crossHighlightClass = '',
                     cellHightlightClass = '',
                 } = {},
-                elements : {
+                elements: {
                     contentClass = '',
                     cellClass = '',
                     wrapperClass = '',
