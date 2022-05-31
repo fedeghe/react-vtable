@@ -13,7 +13,8 @@ const Filter =  ({filter}) => {
                 setValue('');
                 setVisibility(false);
             }}>&times;</span>
-            <span onClick={unfilter}>unfilter</span>
+            &nbsp;|&nbsp;
+            <span className={classes.Pointer} onClick={unfilter}>unfilter all</span>
         </div>
         : <span className={classes.Pointer} onClick={() => setVisibility(true)}>Y</span>
     }</div>;

@@ -69,7 +69,7 @@ const Theader =  () => {
                         };
                     }
                     if (isFunction(column.filter)) {
-                        const theFilter = filters[column.key];
+                        const theFilter = filters?.[column.key];
 
                         headerProps.filter = {
                             value: theFilter?.value,

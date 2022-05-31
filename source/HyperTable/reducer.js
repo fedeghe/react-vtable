@@ -42,7 +42,8 @@ const prefix = 'HYT_',
                 }),
                 filter: () => {
 
-                    let _filters = null,
+                    let _filters = {},
+                        some = false,
                         _to = to,
                         _from = from,
                         _headerFillerHeight = headerFillerHeight,
@@ -56,6 +57,7 @@ const prefix = 'HYT_',
                                 value: payload.value
                             }
                         };
+                        some = true;
                     } else if ('visibility' in payload) {
                         _filters = {
                             ...filters,
@@ -64,9 +66,10 @@ const prefix = 'HYT_',
                                 visibility: payload.visibility
                             }
                         };
+                        some = true;
                     }
 
-                    const newFilteredData = _filters
+                    const newFilteredData = some
                         ? Object.keys(_filters).reduce(
                             (acc, filterK) => acc.filter(row => _filters[filterK].filter({
                                 userValue: _filters[filterK].value,
@@ -145,7 +148,14 @@ const prefix = 'HYT_',
                         ? contentHeight - _carpetHeight
                         : _carpetHeight - _headerFillerHeight - dataHeight;
                     return {
-                        filters: {},
+                        filters: Object.keys(filters).reduce((acc, k) => {
+                            acc[k] = {
+                                filter: filters[k].filter,
+                                visibility: false,
+                                value: ''
+                            };
+                            return acc;
+                        }, {}),
                         filtered: newData.length,
                         filteredData: newData,
                         rows: [...newData].slice(_from, _to),
