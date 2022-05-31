@@ -1,3 +1,4 @@
+import React from 'react'
 import { isFunction } from './utils';
 let count = 0;
 const prefix = 'HYT_',
@@ -207,7 +208,20 @@ const prefix = 'HYT_',
 
             gap = 10,
 
-            loader = false,
+            loader = <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'white',
+                pointerEvents: 'none',
+                opacity: 0.7,
+                zIndex: 1000
+            }}>loading</div>,
 
             defaultColumnWidth = 150,
             // highlight: {
@@ -318,6 +332,8 @@ const prefix = 'HYT_',
             activeColumn: null,
             activeRowIndex: null,
             activeColumnIndex: null,
+
+            loader,
 
             events: {
                 onCellClick,
