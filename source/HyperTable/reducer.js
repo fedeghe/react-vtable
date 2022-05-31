@@ -42,14 +42,14 @@ const prefix = 'HYT_',
                 }),
                 filter: () => {
 
-                    let newFilters = null,
+                    let _filters = null,
                         _to = to,
                         _from = from,
                         _headerFillerHeight = headerFillerHeight,
                         _footerFillerHeight = footerFillerHeight;
 
                     if ('value' in payload) {
-                        newFilters = {
+                        _filters = {
                             ...filters,
                             [payload.column]: {
                                 ...filters[payload.column],
@@ -57,7 +57,7 @@ const prefix = 'HYT_',
                             }
                         };
                     } else if ('visibility' in payload) {
-                        newFilters = {
+                        _filters = {
                             ...filters,
                             [payload.column]: {
                                 ...filters[payload.column],
@@ -66,10 +66,10 @@ const prefix = 'HYT_',
                         };
                     }
 
-                    const newFilteredData = newFilters
-                        ? Object.keys(newFilters).reduce(
-                            (acc, filterK) => acc.filter(row => newFilters[filterK].filter({
-                                userValue: newFilters[filterK].value,
+                    const newFilteredData = _filters
+                        ? Object.keys(_filters).reduce(
+                            (acc, filterK) => acc.filter(row => _filters[filterK].filter({
+                                userValue: _filters[filterK].value,
                                 row,
                                 columnKey: filterK
                             })),
@@ -96,7 +96,7 @@ const prefix = 'HYT_',
                         : _carpetHeight - _headerFillerHeight - dataHeight;
 
                     return {
-                        filters: newFilters,
+                        filters: _filters,
                         filtered: newData.length,
                         virtual: {
                             ...virtual,
@@ -110,6 +110,7 @@ const prefix = 'HYT_',
                         rows: [...newData].slice(from, to),
                     };
                 },
+
                 sort: () => {
                     const sorted = [...filteredData].sort((a, b) => payload.sorter({
                         rowA: a, rowB: b,
@@ -125,6 +126,7 @@ const prefix = 'HYT_',
                         }
                     };
                 },
+                
                 unsort: () => ({
                     rows: [...filteredData].slice(from, to),
                     sorting: {
