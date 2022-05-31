@@ -6,7 +6,7 @@ export default createUseStyles(() => ({
     }),    
     TorigHeader: {
         top:0,
-        zIndex:100,
+        zIndex: 100,
         textAlign:'center !important'
     },
     TorigHeaderLeft: {
