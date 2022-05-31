@@ -31,7 +31,6 @@ const HyperTable = ({config}) => {
             debounceTimes: {
                 filtering : filteringDebounceTime,
             },
-            activeFiltersCount,
         } = state,
         classes = useStyles({
             width, height,
@@ -47,7 +46,7 @@ const HyperTable = ({config}) => {
             [filteringDebounceTime]
         ),
         p = {
-            unSort, unFilter, activeFiltersCount
+            unSort, unFilter
         };
     
     return <div className={[classes.Wrapper, wrapperClass].join(' ')}>

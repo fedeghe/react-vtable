@@ -122,6 +122,7 @@ const prefix = 'HYT_',
                         direction: payload.direction
                     }));
                     return {
+                        isSorting: true,
                         rows: [...sorted].slice(from, to),
                         sorting: payload
                     };
@@ -175,6 +176,7 @@ const prefix = 'HYT_',
 
                 unSort: () => ({
                     rows: [...filteredData].slice(from, to),
+                    isSorting: false,
                     sorting: {
                         column: null,
                         direction: null,
@@ -337,6 +339,7 @@ const prefix = 'HYT_',
                 return acc;
             }, {}),
             activeFiltersCount: 0,
+            isSorting: false,
             dimensions: {
                 width, height,
                 rowHeight,

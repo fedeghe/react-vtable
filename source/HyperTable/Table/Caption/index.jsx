@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
 import {isFunction} from './../../utils';
-const Caption = ({type, unFilter, unSort, activeFiltersCount}) => {
+const Caption = ({type, unFilter, unSort }) => {
     const {
             state: {
                 footer: {
@@ -29,7 +29,9 @@ const Caption = ({type, unFilter, unSort, activeFiltersCount}) => {
                 virtual:{
                     from, to, 
                     scrollTop
-                }
+                },
+                activeFiltersCount,
+                isSorting
             },
         } = useContext(TableContext),
         classes = useStyles({postFooterHeight, preHeaderHeight}),
@@ -54,7 +56,8 @@ const Caption = ({type, unFilter, unSort, activeFiltersCount}) => {
                 filtered,
                 scrollTop,
                 unFilter, unSort,
-                activeFiltersCount
+                activeFiltersCount,
+                isSorting
             }}/>
             : What.Component
         }</div>

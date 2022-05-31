@@ -28,7 +28,8 @@ const Theader =  () => {
                     
                     filtering : filteringDebounceTime,
                 } ,
-                activeFiltersCount
+                activeFiltersCount,
+                isSorting
             },
             dispatch
         } = useContext(TableContext),
@@ -67,6 +68,7 @@ const Theader =  () => {
                             unSort: () => dispatch({type:'unSort'}),
                             direction: sortingDirection,
                             isSorting: column.key === sortingColumn,
+                            isSorting
                         };
                     }
                     if (isFunction(column.filter)) {
@@ -100,7 +102,7 @@ const Theader =  () => {
                 }
             }
             return content;
-        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
+        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount, isSorting]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>
