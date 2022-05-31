@@ -50,6 +50,17 @@ body {
     border-collapse: collapse;
 }
 
+@keyframes panFontSize {
+    from {
+        font-size: 1em;
+        color: white;
+    }
+    to {
+        font-size: 1.5em;
+        color: black;
+    }
+}
+
 .Loading {
     position: absolute;
     top: 0;
@@ -65,4 +76,8 @@ body {
     pointer-events: none;
     z-index: 1000;
     text-transform: uppercase;
+    animation-name: panFontSize;
+    animation-duration: 0.3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
