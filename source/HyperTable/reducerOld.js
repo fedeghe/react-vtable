@@ -8,20 +8,6 @@ const prefix = 'HYT_',
         }
     },
 
-    __getFillerHeights = ({
-        _from, _moreSpaceThanContent, _carpetHeight,
-        _rowHeight, _contentHeight, _dataHeight
-    }) => {
-        const _headerFillerHeight = _from * _rowHeight,
-            _footerFillerHeight = _moreSpaceThanContent
-                ? _contentHeight - _carpetHeight
-                : _carpetHeight - _headerFillerHeight - _dataHeight;
-        return {
-            headerFillerHeight: _headerFillerHeight,
-            footerFillerHeight: _footerFillerHeight
-        };
-    },
-
     reducer = (oldState, action) => {
         const { payload, type } = action,
             {
@@ -38,7 +24,6 @@ const prefix = 'HYT_',
                     direction: sortingDirection,
                     sorter
                 },
-                isFiltered,
                 virtual: {
                     from, to,
                     dataHeight, contentHeight, carpetHeight,
@@ -70,28 +55,6 @@ const prefix = 'HYT_',
                 };
                 return acc;
             }, {}),
-            
-            __getVirtual = cdata => {
-                const cnd = to > cdata.length,
-                    _carpetHeight = cdata.length * rowHeight,
-                    _moreSpaceThanContent = _carpetHeight < contentHeight,
-                    _to = cnd ? cdata.length : to,
-                    _from = cnd ? _to - renderedElements : from,
-                    fillerHeights = __getFillerHeights({
-                        _from, _moreSpaceThanContent, _carpetHeight,
-                        _rowHeight: rowHeight,
-                        _contentHeight: contentHeight,
-                        _dataHeight: dataHeight
-                    });
-                
-                    return {
-                        carpetHeight: _carpetHeight,
-                        moreSpaceThanContent: _moreSpaceThanContent,
-                        from: _from,
-                        to: _to,
-                        ...fillerHeights
-                    };
-            },
             actions = {
                 loading: () => ({
                     virtual: {
@@ -100,7 +63,11 @@ const prefix = 'HYT_',
                     }
                 }),
                 filter: () => {
-                    let _filters = {};
+                    let _filters = {},
+                        _to = to,
+                        _from = from,
+                        _headerFillerHeight = headerFillerHeight,
+                        _footerFillerHeight = footerFillerHeight;
 
                     if ('value' in payload) {
                         _filters = {
@@ -123,8 +90,18 @@ const prefix = 'HYT_',
                     const _filteredData = __filter(_filters),
                         // sort again based on original data
                         _currentData = __sort(_filteredData),
-                        _filterNumbers = Object.values(_filters).filter(f => f.value).length,
-                        _updatedVirtual = __getVirtual(_currentData);
+                        _filterNumbers = Object.values(_filters).reduce((acc, f) => acc + f.value.length ? 1 : 0, 0),
+                        _carpetHeight = _currentData.length * rowHeight,
+                        _moreSpaceThanContent = _carpetHeight < contentHeight;
+
+                    if (to > _currentData.length) {
+                        _to = _currentData.length;
+                        _from = _to - renderedElements;
+                    }
+                    _headerFillerHeight = _from * rowHeight;
+                    _footerFillerHeight = _moreSpaceThanContent
+                        ? contentHeight - _carpetHeight
+                        : _carpetHeight - _headerFillerHeight - dataHeight;
 
                     return {
                         filters: _filters,
@@ -133,18 +110,35 @@ const prefix = 'HYT_',
                         isFiltered: _filterNumbers > 0,
                         virtual: {
                             ...virtual,
-                            ..._updatedVirtual,
+                            footerFillerHeight: _footerFillerHeight,
+                            headerFillerHeight: _headerFillerHeight,
+                            moreSpaceThanContent: _moreSpaceThanContent,
+                            carpetHeight: _carpetHeight,
                             loading: false
                         },
                         currentData: _currentData,
                         filteredData: _filteredData,
-                        rows: [..._currentData].slice(_updatedVirtual.from, _updatedVirtual.to),
+                        rows: [..._currentData].slice(_from, _to),
                     };
                 },
                 unFilter: () => {
                     const _currentData = __sort(originalData),
-                        _updatedVirtual = __getVirtual(_currentData);
+                        _carpetHeight = _currentData.length * rowHeight,
+                        _moreSpaceThanContent = _carpetHeight < contentHeight;
 
+                    let _to = to,
+                        _from = from,
+                        _headerFillerHeight = headerFillerHeight,
+                        _footerFillerHeight = footerFillerHeight;
+
+                    if (to > _currentData.length) {
+                        _to = _currentData.length;
+                        _from = _to - renderedElements;
+                    }
+                    _headerFillerHeight = _from * rowHeight;
+                    _footerFillerHeight = _moreSpaceThanContent
+                        ? contentHeight - _carpetHeight
+                        : _carpetHeight - _headerFillerHeight - dataHeight;
                     return {
                         filters: __cleanFilters(),
                         activeFiltersCount: 0,
@@ -152,10 +146,13 @@ const prefix = 'HYT_',
                         filtered: _currentData.length,
                         currentData: _currentData,
                         filteredData: [...originalData],
-                        rows: [..._currentData].slice(_updatedVirtual.from, _updatedVirtual.to),
+                        rows: [..._currentData].slice(_from, _to),
                         virtual: {
                             ...virtual,
-                            ..._updatedVirtual,
+                            footerFillerHeight: _footerFillerHeight,
+                            headerFillerHeight: _headerFillerHeight,
+                            moreSpaceThanContent: _moreSpaceThanContent,
+                            carpetHeight: _carpetHeight,
                             loading: false
                         },
 
@@ -206,15 +203,11 @@ const prefix = 'HYT_',
                     if (_from === from) return oldState;
 
                     // eslint-disable-next-line one-var
-                    const _to = Math.min(_from + renderedElements, total),
-                        _updatedFillerHeights = __getFillerHeights({
-                            _from,
-                            _moreSpaceThanContent: moreSpaceThanContent,
-                            _carpetHeight: carpetHeight,
-                            _rowHeight: rowHeight,
-                            _contentHeight: contentHeight,
-                            _dataHeight: dataHeight
-                        });
+                    const _headerFillerHeight = _from * rowHeight,
+                        _footerFillerHeight = moreSpaceThanContent
+                            ? contentHeight - carpetHeight
+                            : carpetHeight - _headerFillerHeight - dataHeight,
+                        _to = Math.min(_from + renderedElements, total);
 
                     return {
                         rows: currentData.slice(_from, _to),
@@ -222,7 +215,8 @@ const prefix = 'HYT_',
                             ...virtual,
                             loading: false,
                             scrollTop,
-                            ..._updatedFillerHeights,
+                            headerFillerHeight: _headerFillerHeight,
+                            footerFillerHeight: _footerFillerHeight,
                             from: _from,
                             to: _to - 1,
                         }
@@ -266,7 +260,18 @@ const prefix = 'HYT_',
             loader = false,
 
             defaultColumnWidth = 150,
-
+            // highlight: {
+            //     rowHighlightClass = '',
+            //     columnHighlightClass = '',
+            //     crossHighlightClass = '',
+            //     cellHightlightClass = '',
+            //     contentClass = '',
+            //     cellClass = '',
+            //     onHeaderHighlight = false,
+            //     onFooterHighlight = false,
+            //     onLeftMostHighlight = false,
+            //     onRightMostHighlight = false,
+            // } = {},
             cls: {
                 highlight: {
                     rowHighlightClass = '',
@@ -282,6 +287,7 @@ const prefix = 'HYT_',
             } = {},
 
             noFilterData = () => 'no data',
+
 
             LeftMost, RightMost,
             events: {
@@ -307,23 +313,11 @@ const prefix = 'HYT_',
             renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
             dataHeight = renderedElements * rowHeight,
 
+            headerFillerHeight = 0,
             moreSpaceThanContent = carpetHeight < contentHeight,
-            originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
-            
-            // to reuse __getFillerHeight here I would need to pass almost the whole virtual
-            fillerHeights = __getFillerHeights({
-                _from: 0,
-                _moreSpaceThanContent: moreSpaceThanContent,
-                _carpetHeight: carpetHeight,
-                _rowHeight: rowHeight,
-                _contentHeight: contentHeight,
-                _dataHeight: dataHeight
-            });
-            // headerFillerHeight = 0,
-            // footerFillerHeight = moreSpaceThanContent
-            //     ? contentHeight - carpetHeight
-            //     : carpetHeight - headerFillerHeight - dataHeight;
+            footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - dataHeight,
 
+            originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row }));
 
         return {
             ...cnf,
@@ -405,8 +399,8 @@ const prefix = 'HYT_',
                 moreSpaceThanContent,
                 dataHeight,
                 contentHeight,
-                // headerFillerHeight,
-                // footerFillerHeight,
+                headerFillerHeight,
+                footerFillerHeight,
                 scrollTop: 0,
                 from: 0,
                 to: renderedElements - 1,
@@ -414,7 +408,6 @@ const prefix = 'HYT_',
                 carpetHeight,
                 loading: false,
                 loader,
-                ...fillerHeights,
             },
             debounceTimes: {
                 filtering,

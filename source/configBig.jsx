@@ -17,19 +17,29 @@ export default {
         width: 300,
         cell: ({ row, column }) => row[column.key],
 
-        // header: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-        //     <span>{column.label + '_' + columnIndex}</span>
-        //     <Filter {...{column, columnIndex, filter}}/>
-        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        // </div>),
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+            isSorting
+        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{column, columnIndex, filter}}/>
+            <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        </div>),
         // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        // filter: basicFilter,
-        // sort: basicSort,
+        footer: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+            isSorting
+        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{column, columnIndex, filter}}/>
+            <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        </div>),
+        filter: basicFilter,
+        sort: basicSort,
     }, {
         key: 'entityid',
 
@@ -37,18 +47,18 @@ export default {
         key: 'name',
         cell: ({ row, column }) => row[column.key],
         width: 300,
-        // header: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-        //     <span>{column.key + '_' + columnIndex}</span>
-        //     <Filter {...{column, columnIndex, filter}}/>
-        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        // </div>),
-        // filter: basicFilter,
-        // sort: basicSort,
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+            isSorting
+        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+            <span>{column.key + '_' + columnIndex}</span>
+            <Filter {...{column, columnIndex, filter}}/>
+            <Sorter {...{column, columnIndex, sort, isSorting}}/>
+        </div>),
+        filter: basicFilter,
+        sort: basicSort,
     }, {
         key: 'date',
         cell: ({ row, column }) => row[column.key],
@@ -63,7 +73,7 @@ export default {
         cell: ({ row, column }) => row[column.key],
         // header: ({
         //     column, columnIndex,
-        //     sort, //: {sortAsc, sortDesc, unsort, direction} = {}
+        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
         //     isSorting
         // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
         //     <span>{column.key + '_' + columnIndex}</span>
@@ -114,27 +124,27 @@ export default {
     // gap: 15,
 
 
-    // header: {
-    //     height: 80,
-    //     caption: {
-    //         component: HeaderCaption,
-    //         height: 45
-    //     }
-    // },
+    header: {
+        height: 80,
+        caption: {
+            component: HeaderCaption,
+            height: 45
+        }
+    },
 
-    // footer: {
-    //     height: 60,
-    //     caption: {
-    //         component: FooterCaption,
-    //         height: 25
-    //     }
-    // },
+    footer: {
+        height: 60,
+        caption: {
+            component: FooterCaption,
+            height: 25
+        }
+    },
 
-    // loader: <div className="Loading">loading</div>,
+    loader: <div className="Loading">loading</div>,
     // noFilterData: ({total}) => <span>No results out of {total}</span>,
 
-    // RightMost,
-    // LeftMost,
+    RightMost,
+    LeftMost,
 
     // defaultColumnWidth: 100 // default value
 
