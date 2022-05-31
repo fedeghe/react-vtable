@@ -14,12 +14,20 @@ const Theader =  () => {
                 },
                 columns,
                 activeColumn,
-                crossHighlightClass,
-                columnHighlightClass,
+                cls: { 
+                    highlight: {
+                        crossHighlightClass,
+                        columnHighlightClass,
+                    },
+                },
                 // eslint-disable-next-line no-unused-vars
                 filters,
                 // eslint-disable-next-line no-unused-vars
-                sorting:{column: sortingColumn, direction: sortingDirection}
+                sorting:{column: sortingColumn, direction: sortingDirection},
+                debounceTimes: {
+                    
+                    filtering : filteringDebounceTime,
+                } 
             },
             dispatch
         } = useContext(TableContext),
@@ -71,7 +79,7 @@ const Theader =  () => {
                                     column: column.key,
                                     value
                                 }
-                            }), 200),
+                            }), filteringDebounceTime),
                             visibility: theFilter.visibility,
                             setVisibility: visibility => 
                                 dispatch({
@@ -89,7 +97,7 @@ const Theader =  () => {
                 }
             }
             return content;
-        }, [sortingDirection, sortingColumn, dispatch, filters]);
+        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>

@@ -5,6 +5,7 @@ export default createUseStyles(() => ({
         height,
         width,
         backgroundColor: 'white',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        position:'relative'
     }),
 }));

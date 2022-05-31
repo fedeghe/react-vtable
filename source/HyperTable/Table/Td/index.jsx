@@ -12,7 +12,13 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
                 },
                 events: {
                     onCellClick, onCellEnter, onCellLeave
-                }, cellClass
+                },
+                cls: {
+                    elements: {
+                        contentClass,
+                        cellClass
+                    }
+                }
             },
             dispatch
         } = useContext(TableContext),
@@ -38,13 +44,14 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
         };
 
     return <td
-        className={cls}
+        className={[cls, cellClass].join(' ')}
         {...handlers}
     >
         <div className={classes.Cell} style={style}>
-            <div className={cellClass}>
+            {contentClass ? <div className={contentClass}>
                 {content}
             </div>
+            : content}
         </div>
     </td>;
 };

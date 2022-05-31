@@ -1,0 +1,726 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HyperTable - basic should render as expected 1`] = `
+<div>
+  <div
+    class="Wrapper-0-2-1 Wrapper-d0-0-2-2"
+  >
+    <div
+      class="TableContainer-0-2-7 TableContainer-d0-0-2-14"
+    >
+      <table
+        class="Table-0-2-8"
+      >
+        <tbody>
+          <tr
+            class="Tr-0-2-28 Tr-d0-0-2-30"
+          >
+            <td
+              class="Td-0-2-29 Td-d1-0-2-31"
+              colspan="3"
+            />
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d0-0-2-33"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-0-0"
+                >
+                  666
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d1-0-2-34"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-0-1"
+                >
+                  ID0
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d2-0-2-35"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-0-2"
+                >
+                  a random string 0
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d3-0-2-36"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-1-0"
+                >
+                  667
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d4-0-2-37"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-1-1"
+                >
+                  ID1
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d5-0-2-38"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-1-2"
+                >
+                  a random string 1
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d6-0-2-39"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-2-0"
+                >
+                  668
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d7-0-2-40"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-2-1"
+                >
+                  ID2
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d8-0-2-41"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-2-2"
+                >
+                  a random string 2
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d9-0-2-42"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-3-0"
+                >
+                  669
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d10-0-2-43"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-3-1"
+                >
+                  ID3
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d11-0-2-44"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-3-2"
+                >
+                  a random string 3
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d12-0-2-45"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-4-0"
+                >
+                  670
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d13-0-2-46"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-4-1"
+                >
+                  ID4
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d14-0-2-47"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-4-2"
+                >
+                  a random string 4
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d15-0-2-48"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-5-0"
+                >
+                  671
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d16-0-2-49"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-5-1"
+                >
+                  ID5
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d17-0-2-50"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-5-2"
+                >
+                  a random string 5
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d18-0-2-51"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-6-0"
+                >
+                  672
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d19-0-2-52"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-6-1"
+                >
+                  ID6
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d20-0-2-53"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-6-2"
+                >
+                  a random string 6
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d21-0-2-54"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-7-0"
+                >
+                  673
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d22-0-2-55"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-7-1"
+                >
+                  ID7
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d23-0-2-56"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-7-2"
+                >
+                  a random string 7
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d24-0-2-57"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-8-0"
+                >
+                  674
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d25-0-2-58"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-8-1"
+                >
+                  ID8
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d26-0-2-59"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-8-2"
+                >
+                  a random string 8
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d27-0-2-60"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-9-0"
+                >
+                  675
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d28-0-2-61"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-9-1"
+                >
+                  ID9
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d29-0-2-62"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-9-2"
+                >
+                  a random string 9
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d30-0-2-63"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-10-0"
+                >
+                  676
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d31-0-2-64"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-10-1"
+                >
+                  ID10
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d32-0-2-65"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-10-2"
+                >
+                  a random string 10
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d33-0-2-66"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-11-0"
+                >
+                  677
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d34-0-2-67"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-11-1"
+                >
+                  ID11
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d35-0-2-68"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-11-2"
+                >
+                  a random string 11
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d36-0-2-69"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-12-0"
+                >
+                  678
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d37-0-2-70"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-12-1"
+                >
+                  ID12
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d38-0-2-71"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-12-2"
+                >
+                  a random string 12
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d39-0-2-72"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-13-0"
+                >
+                  679
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d40-0-2-73"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-13-1"
+                >
+                  ID13
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d41-0-2-74"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-13-2"
+                >
+                  a random string 13
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class=""
+          >
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d42-0-2-75"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-14-0"
+                >
+                  680
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d43-0-2-76"
+                style="width: 150px;"
+              >
+                <div
+                  data-uie="uie-14-1"
+                >
+                  ID14
+                </div>
+              </div>
+            </td>
+            <td
+              class="AlTop-0-2-23  "
+            >
+              <div
+                class="Cell-0-2-32 Cell-d44-0-2-77"
+                style="width: 300px;"
+              >
+                <div
+                  data-uie="uie-14-2"
+                >
+                  a random string 14
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="Tr-0-2-28 Tr-d2-0-2-78"
+          >
+            <td
+              class="Td-0-2-29 Td-d3-0-2-79"
+              colspan="3"
+            />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

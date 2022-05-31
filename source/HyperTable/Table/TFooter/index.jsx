@@ -14,8 +14,12 @@ const TFooter = () => {
                 },
                 columns,
                 activeColumn,
-                crossHighlightClass,
-                columnHighlightClass
+                cls: {
+                    highlight: {
+                        crossHighlightClass,
+                        columnHighlightClass
+                    }
+                }
             },
         } = useContext(TableContext),
         classes = useStyles({footerHeight});

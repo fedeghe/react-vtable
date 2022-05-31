@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 // import { startFPSMonitor, startMemMonitor } from 'perf-monitor'
 import Playground from './Playground';
 import 'web-page-monitor';
@@ -23,8 +23,6 @@ if(location.host.match(/^localhost/)) {
         .render({collapsible: true});
 }
 
-
-ReactDOM.render(
-    <Playground/>,
-    document.getElementById('root')
-);
+const container = document.getElementById('root'),
+    root = createRoot(container);
+root.render(<Playground/>);

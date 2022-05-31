@@ -7,9 +7,9 @@ import Caption from './Table/Caption';
 
 import useStyles from './style.js';
 
-const HyperTable = cnf => {
+const HyperTable = ({config}) => {
     const { reducer, init } = reducerFactory(),
-        initialState = useMemo(() => init(cnf), [cnf, init]),
+        initialState = useMemo(() => init(config), [config, init]),
         [ state, dispatch ] = useReducer(reducer, initialState),
         {
             dimensions: {
@@ -17,6 +17,15 @@ const HyperTable = cnf => {
             },
             header:{caption: {height : preHeaderHeight} = {}} = {},
             footer:{caption: {height : postFooterHeight} = {}} = {},
+            cls : {
+                elements: {
+                    wrapperClass
+                }
+            },
+            virtual: {
+                loading,
+                loader
+            }
         } = state,
         classes = useStyles({
             width, height,
@@ -24,8 +33,9 @@ const HyperTable = cnf => {
             postFooterHeight,
         });
     
-    return <div className={classes.Wrapper}>
+    return <div className={[classes.Wrapper, wrapperClass].join(' ')}>
         <TableContext.Provider value={{state, dispatch}}>
+            {loading && loader}
             <Caption type="header"/>
             <Table/>
             <Caption type="footer"/>

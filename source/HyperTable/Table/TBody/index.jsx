@@ -12,8 +12,13 @@ const Tbody = () => {
         state: {
             rows, columns,
             activeRow, activeColumn,
-            highlight: {
-                crossHighlightClass, rowHighlightClass, columnHighlightClass, cellHightlightClass,
+            cls: {
+                highlight: {
+                    crossHighlightClass,
+                    rowHighlightClass,
+                    columnHighlightClass,
+                    cellHightlightClass,
+                }
             },
             dimensions: {
                 rowHeight

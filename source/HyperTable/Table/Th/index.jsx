@@ -4,7 +4,7 @@ import TableContext from '../../Context';
 const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) => {
     const {
             state: {
-                highlight: {
+                events: {
                     onFooterHighlight,
                     onHeaderHighlight,
                     onRightMostHighlight,

@@ -1,5 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-const Tr = ({cls, children}) => (<tr className={cls}>{children}</tr>)
+const Tr = ({cls, children}) => (<tr className={cls}>{children}</tr>);
 
-export default Tr
+export default Tr;
