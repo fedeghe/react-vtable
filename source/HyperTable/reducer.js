@@ -13,7 +13,7 @@ const prefix = 'HYT_',
             {
                 total,
                 filters,
-                originalData, filteredData,
+                originalData, filteredData, currentData,
                 virtual,
                 gap,
                 dimensions: {
@@ -24,6 +24,7 @@ const prefix = 'HYT_',
                     direction: sortingDirection,
                     sorter
                 },
+                isFiltered,
                 virtual: {
                     from, to,
                     dataHeight, contentHeight, carpetHeight,
@@ -33,6 +34,28 @@ const prefix = 'HYT_',
                     footerFillerHeight
                 },
             } = oldState,
+            __sort = what => sorter ? [...what].sort((a, b) => sorter({
+                rowA: a, rowB: b,
+                columnKey: sortingColumn,
+                direction: sortingDirection
+            })) : [...what],
+
+            __filter = fls => Object.keys(fls).reduce(
+                (acc, filterK) => acc.filter(row => fls[filterK].value === '' || fls[filterK].filter({
+                    userValue: fls[filterK].value,
+                    row,
+                    columnKey: filterK
+                })),
+                originalData
+            ),
+            __cleanFilters = () => Object.keys(filters).reduce((acc, k) => {
+                acc[k] = {
+                    filter: filters[k].filter,
+                    visibility: false,
+                    value: ''
+                };
+                return acc;
+            }, {}),
             actions = {
                 loading: () => ({
                     virtual: {
@@ -41,9 +64,7 @@ const prefix = 'HYT_',
                     }
                 }),
                 filter: () => {
-
                     let _filters = {},
-                        some = false,
                         _to = to,
                         _from = from,
                         _headerFillerHeight = headerFillerHeight,
@@ -57,7 +78,6 @@ const prefix = 'HYT_',
                                 value: payload.value
                             }
                         };
-                        some = true;
                     } else if ('visibility' in payload) {
                         _filters = {
                             ...filters,
@@ -66,31 +86,17 @@ const prefix = 'HYT_',
                                 visibility: payload.visibility
                             }
                         };
-                        some = true;
                     }
 
-                    const newFilteredData = some
-                        ? Object.keys(_filters).reduce(
-                            (acc, filterK) => acc.filter(row => _filters[filterK].filter({
-                                userValue: _filters[filterK].value,
-                                row,
-                                columnKey: filterK
-                            })),
-                            originalData
-                        )
-                        : originalData,
+                    const _filteredData = __filter(_filters),
                         // sort again based on original data
-                        newData = sorter ? [...newFilteredData].sort((a, b) => sorter({
-                            rowA: a, rowB: b,
-                            columnKey: sortingColumn,
-                            direction: sortingDirection
-                        })) : [...newFilteredData],
-
-                        _carpetHeight = newData.length * rowHeight,
+                        _currentData = __sort(_filteredData),
+                        _filterNumbers = Object.values(_filters).reduce((acc, f) => acc + f.value.length ? 1 : 0, 0),
+                        _carpetHeight = _currentData.length * rowHeight,
                         _moreSpaceThanContent = _carpetHeight < contentHeight;
 
-                    if (to > newData.length) {
-                        _to = newData.length;
+                    if (to > _currentData.length) {
+                        _to = _currentData.length;
                         _from = _to - renderedElements;
                     }
                     _headerFillerHeight = _from * rowHeight;
@@ -100,8 +106,9 @@ const prefix = 'HYT_',
 
                     return {
                         filters: _filters,
-                        filtered: newData.length,
-                        activeFiltersCount: Object.values(_filters).reduce((acc, f) => acc + f.value.length ? 1: 0, 0),
+                        filtered: _currentData.length,
+                        activeFiltersCount: _filterNumbers,
+                        isFiltered: _filterNumbers > 0,
                         virtual: {
                             ...virtual,
                             footerFillerHeight: _footerFillerHeight,
@@ -110,39 +117,23 @@ const prefix = 'HYT_',
                             carpetHeight: _carpetHeight,
                             loading: false
                         },
-                        filteredData: newFilteredData,
-                        rows: [...newData].slice(_from, _to),
+                        currentData: _currentData,
+                        filteredData: _filteredData,
+                        rows: [..._currentData].slice(_from, _to),
                     };
                 },
-
-                sort: () => {
-                    const sorted = [...filteredData].sort((a, b) => payload.sorter({
-                        rowA: a, rowB: b,
-                        columnKey: payload.column,
-                        direction: payload.direction
-                    }));
-                    return {
-                        isSorting: true,
-                        rows: [...sorted].slice(from, to),
-                        sorting: payload
-                    };
-                },
-
                 unFilter: () => {
-                    const newData = sorter ? [...originalData].sort((a, b) => sorter({
-                        rowA: a, rowB: b,
-                        columnKey: sortingColumn,
-                        direction: sortingDirection
-                    })) : [...originalData],
-                        _carpetHeight = newData.length * rowHeight,
+                    const _currentData = __sort(originalData),
+                        _carpetHeight = _currentData.length * rowHeight,
                         _moreSpaceThanContent = _carpetHeight < contentHeight;
 
                     let _to = to,
                         _from = from,
                         _headerFillerHeight = headerFillerHeight,
                         _footerFillerHeight = footerFillerHeight;
-                    if (to > newData.length) {
-                        _to = newData.length;
+
+                    if (to > _currentData.length) {
+                        _to = _currentData.length;
                         _from = _to - renderedElements;
                     }
                     _headerFillerHeight = _from * rowHeight;
@@ -150,18 +141,13 @@ const prefix = 'HYT_',
                         ? contentHeight - _carpetHeight
                         : _carpetHeight - _headerFillerHeight - dataHeight;
                     return {
-                        filters: Object.keys(filters).reduce((acc, k) => {
-                            acc[k] = {
-                                filter: filters[k].filter,
-                                visibility: false,
-                                value: ''
-                            };
-                            return acc;
-                        }, {}),
-                        filtered: newData.length,
-                        filteredData: newData,
-                        rows: [...newData].slice(_from, _to),
+                        filters: __cleanFilters(),
                         activeFiltersCount: 0,
+                        isFiltered: false,
+                        filtered: _currentData.length,
+                        currentData: _currentData,
+                        filteredData: [...originalData],
+                        rows: [..._currentData].slice(_from, _to),
                         virtual: {
                             ...virtual,
                             footerFillerHeight: _footerFillerHeight,
@@ -174,7 +160,21 @@ const prefix = 'HYT_',
                     };
                 },
 
+                sort: () => {
+                    const _currentData = [...currentData].sort((a, b) => payload.sorter({
+                        rowA: a, rowB: b,
+                        columnKey: payload.column,
+                        direction: payload.direction
+                    }));
+                    return {
+                        isSorting: true,
+                        currentData: _currentData,
+                        rows: [..._currentData].slice(from, to),
+                        sorting: payload
+                    };
+                },
                 unSort: () => ({
+                    currentData: [...filteredData],
                     rows: [...filteredData].slice(from, to),
                     isSorting: false,
                     sorting: {
@@ -183,6 +183,7 @@ const prefix = 'HYT_',
                         sorter: null
                     }
                 }),
+
                 cellEnter: () => ({
                     activeColumn: payload?.column?.key,
                     activeRow: payload?.row?._ID,
@@ -200,7 +201,8 @@ const prefix = 'HYT_',
 
                     const scrollTop = payload,
                         _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0);
-                    if (_from === from) return oldState
+                    if (_from === from) return oldState;
+
                     // eslint-disable-next-line one-var
                     const _headerFillerHeight = _from * rowHeight,
                         _footerFillerHeight = moreSpaceThanContent
@@ -209,7 +211,7 @@ const prefix = 'HYT_',
                         _to = Math.min(_from + renderedElements, total);
 
                     return {
-                        rows: filteredData.slice(_from, _to),
+                        rows: currentData.slice(_from, _to),
                         virtual: {
                             ...virtual,
                             loading: false,
@@ -316,8 +318,7 @@ const prefix = 'HYT_',
             moreSpaceThanContent = carpetHeight < contentHeight,
             footerFillerHeight = moreSpaceThanContent ? contentHeight - carpetHeight : carpetHeight - dataHeight,
 
-            originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
-            filteredData = [...originalData];
+            originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row }));
 
         return {
             ...cnf,
@@ -339,6 +340,7 @@ const prefix = 'HYT_',
                 return acc;
             }, {}),
             activeFiltersCount: 0,
+            isFiltered: false,
             isSorting: false,
             dimensions: {
                 width, height,
@@ -361,8 +363,9 @@ const prefix = 'HYT_',
             },
             noFilterData,
             originalData,
-            filteredData,
-            rows: [...filteredData].slice(0, renderedElements),
+            currentData: [...originalData],
+            filteredData: [...originalData],
+            rows: [...originalData].slice(0, renderedElements),
             filtered: originalData.length,
             total: originalData.length,
             activeRow: null,
