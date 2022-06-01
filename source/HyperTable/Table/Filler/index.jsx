@@ -6,7 +6,13 @@ import useStyles from './style.js';
 const Filler = ({
     height,
     colspan,
+    leftMost,
+    rightMost
 }) => {
+
+    /**
+     * Here the leftMost and right most styles column couls be rendered, it woud look a way better
+     */
     const classes = useStyles({height});
     return <tr className={classes.Tr}>
         <td colSpan={colspan} className={classes.Td}></td>
