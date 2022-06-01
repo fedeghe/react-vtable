@@ -28,10 +28,12 @@ const Caption = ({type, unFilter, unSort }) => {
                 filtered,
                 virtual:{
                     from, to, 
-                    scrollTop
+                    scrollTop,
+                    loading
                 },
                 activeFiltersCount,
-                isSorting
+                isSorting,
+                isFiltering
             },
         } = useContext(TableContext),
         classes = useStyles({postFooterHeight, preHeaderHeight}),
@@ -57,7 +59,9 @@ const Caption = ({type, unFilter, unSort }) => {
                 scrollTop,
                 unFilter, unSort,
                 activeFiltersCount,
-                isSorting
+                isSorting,
+                isFiltering,
+                loading
             }}/>
             : What.Component
         }</div>
