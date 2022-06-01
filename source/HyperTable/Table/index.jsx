@@ -49,11 +49,12 @@ const Table = () => {
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         onScroll = useCallback(debounce(e => {
-            e.preventDefault();
-            e.stopPropagation();
+            // e.preventDefault();
+            // e.stopPropagation();
+            const payload = e.target.scrollTop;
             dispatch({
                 type: 'scroll',
-                payload: e.nativeEvent.target.scrollTop
+                payload: payload > 0 ? payload : 0
             });
         }, scrollingDebounceTime), []);
         
@@ -61,8 +62,9 @@ const Table = () => {
         <div
             className={classes.TableContainer}
             onScroll={e => {
-                if (Math.abs(e.nativeEvent.target.scrollTop - scrollTop) > dataHeight / 2)
+                if (Math.abs(e.target.scrollTop - scrollTop) > dataHeight / 4){
                     dispatch({type: 'loading'});
+                }
                 onScroll(e);
             }}
         >
