@@ -1,11 +1,14 @@
 import { createUseStyles } from "react-jss";
 
-export default createUseStyles(() => ({
+export default createUseStyles({
     NoData: {
         position: 'sticky',
         left: 0,
+        top: 0,
         width: ({ width}) => `${width}px`,
-        textAlign: 'center',
-        margin: '30px 0'
+        height: ({ height}) => `${height - 10}px`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
-}));
+});

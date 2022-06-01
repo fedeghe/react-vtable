@@ -6,7 +6,7 @@ export default createUseStyles(() => ({
         display: 'inline-flex',
         flexDirection: "row",
         alignItems: 'center',
-        marginLeft: 20
+        marginLeft: 5
     },
     Pointer: {
         cursor: 'pointer'
