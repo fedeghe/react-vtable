@@ -12,6 +12,7 @@ const Tbody = () => {
         state: {
             rows, columns,
             activeRow, activeColumn,
+            leftMost, rightMost,
             cls: {
                 highlight: {
                     crossHighlightClass,
@@ -35,7 +36,7 @@ const Tbody = () => {
 
     return (
         <tbody>
-            <Filler {...{ height: headerFillerHeight, colspan }} />
+            <Filler {...{ height: headerFillerHeight, colspan, leftMost }} />
             {rows.map((row, rowIndex) => (
                 <Tr
                     cls={`${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass || "") : ''}`}
@@ -73,7 +74,7 @@ const Tbody = () => {
                     />
                 </Tr>
             ))}
-            <Filler {...{ height: footerFillerHeight, colspan }} />
+            <Filler {...{ height: footerFillerHeight, colspan, rightMost }} />
         </tbody>
     );
 };
