@@ -10,11 +10,12 @@ const NoData = () => {
                 dimensions: { width },
                 total,
                 virtual: {
-                    colspan
+                    colspan,
+                    contentHeight
                 }
             }
         } = useContext(TableContext),
-        classes = useStyles({width});
+        classes = useStyles({width, height: contentHeight});
     return <tbody>
         <tr>
             <td colSpan={colspan}>
