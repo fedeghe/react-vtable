@@ -72,8 +72,10 @@ const prefix = 'HYT_',
                 const cnd = to > cdata.length,
                     _carpetHeight = cdata.length * rowHeight,
                     _moreSpaceThanContent = _carpetHeight < contentHeight,
-                    _to = cnd ? cdata.length : to,
-                    _from = cnd ? _to - renderedElements : from,
+                    _to = cnd ? cdata.length || renderedElements : to,
+                    _from = cdata.length
+                        ? (cnd ? _to - renderedElements : from)
+                        : 0,
                     fillerHeights = __getFillerHeights({
                         _from, _moreSpaceThanContent, _carpetHeight,
                         _rowHeight: rowHeight,
@@ -168,7 +170,11 @@ const prefix = 'HYT_',
                         isSorting: true,
                         currentData: _currentData,
                         rows: [..._currentData].slice(from, to),
-                        sorting: payload
+                        sorting: payload,
+                        virtual: {
+                            ...virtual,
+                            loading: false
+                        },
                     };
                 },
                 unSort: () => ({
@@ -179,7 +185,11 @@ const prefix = 'HYT_',
                         column: null,
                         direction: null,
                         sorter: null
-                    }
+                    },
+                    virtual: {
+                        ...virtual,
+                        loading: false
+                    },
                 }),
 
                 cellEnter: () => ({
@@ -197,7 +207,7 @@ const prefix = 'HYT_',
                 scroll: () => {
                     if (moreSpaceThanContent) return oldState;
 
-                    const scrollTop = payload,
+                    const scrollTop = parseInt(payload, 10),
                         _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0);
                     if (_from === from) return oldState;
 
@@ -345,7 +355,7 @@ const prefix = 'HYT_',
             isSorting: false,
             dimensions: {
                 width, height,
-                rowHeight,
+                rowHeight
             },
 
             header: {
