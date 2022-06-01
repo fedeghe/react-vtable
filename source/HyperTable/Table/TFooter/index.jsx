@@ -29,7 +29,6 @@ const TFooter = () => {
                     filtering : filteringDebounceTime,
                 } ,
                 activeFiltersCount,
-                isSorting
             },
             dispatch
         } = useContext(TableContext),
@@ -100,13 +99,13 @@ const TFooter = () => {
                 }
             }
             return content;
-        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount, isSorting]);
+        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
         
 
     return (
         Boolean(footerHeight) &&
         <tfoot className={classes.Tfoot}>
-            <Tr>
+            <Tr cls={classes.Tfoot}>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{isFooter:true}}/>
                 {columns.map((column, columnIndex) => {
 

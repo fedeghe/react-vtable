@@ -29,7 +29,6 @@ const Theader =  () => {
                     filtering : filteringDebounceTime,
                 } ,
                 activeFiltersCount,
-                isSorting
             },
             dispatch
         } = useContext(TableContext),
@@ -100,11 +99,11 @@ const Theader =  () => {
                 }
             }
             return content;
-        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount, isSorting]);
+        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>
-            <Tr>
+            <Tr cls={classes.Thead}>
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{isHeader:true}}/>
                 {columns.map((column, columnIndex) => {
                     
