@@ -88,13 +88,20 @@ const prefix = 'HYT_',
                         moreSpaceThanContent: _moreSpaceThanContent,
                         from: _from,
                         to: _to,
+                        loading: false,
                         ...fillerHeights
                     };
             },
             actions = {
+                // scrollPure: () => ({
+                //     virtual: {
+                //         ...virtual,
+                //         scrollTop: payload
+                //     }
+                // }),
                 loading: () => ({
                     virtual: {
-                        ...oldState.virtual,
+                        ...virtual,
                         loading: true
                     }
                 }),
@@ -128,11 +135,10 @@ const prefix = 'HYT_',
                         filters: _filters,
                         filtered: _currentData.length,
                         activeFiltersCount: _filterNumbers,
-                        isFiltered: _filterNumbers > 0,
+                        isFiltering: _filterNumbers > 0,
                         virtual: {
                             ...virtual,
                             ..._updatedVirtual,
-                            loading: false
                         },
                         currentData: _currentData,
                         filteredData: _filteredData,
@@ -146,7 +152,7 @@ const prefix = 'HYT_',
                     return {
                         filters: __cleanFilters(),
                         activeFiltersCount: 0,
-                        isFiltered: false,
+                        isFiltering: false,
                         filtered: _currentData.length,
                         currentData: _currentData,
                         filteredData: [...originalData],
@@ -154,7 +160,6 @@ const prefix = 'HYT_',
                         virtual: {
                             ...virtual,
                             ..._updatedVirtual,
-                            loading: false
                         },
 
                     };
@@ -170,11 +175,7 @@ const prefix = 'HYT_',
                         isSorting: true,
                         currentData: _currentData,
                         rows: [..._currentData].slice(from, to),
-                        sorting: payload,
-                        virtual: {
-                            ...virtual,
-                            loading: false
-                        },
+                        sorting: payload
                     };
                 },
                 unSort: () => ({
@@ -185,11 +186,7 @@ const prefix = 'HYT_',
                         column: null,
                         direction: null,
                         sorter: null
-                    },
-                    virtual: {
-                        ...virtual,
-                        loading: false
-                    },
+                    }
                 }),
 
                 cellEnter: () => ({
@@ -209,7 +206,7 @@ const prefix = 'HYT_',
 
                     const scrollTop = parseInt(payload, 10),
                         _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0);
-                    if (_from === from) return oldState;
+                    // if (_from === from) return oldState;
 
                     // eslint-disable-next-line one-var
                     const _to = Math.min(_from + renderedElements, total),
@@ -351,7 +348,7 @@ const prefix = 'HYT_',
                 return acc;
             }, {}),
             activeFiltersCount: 0,
-            isFiltered: false,
+            isFiltering: false,
             isSorting: false,
             dimensions: {
                 width, height,
