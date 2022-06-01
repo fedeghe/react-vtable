@@ -41,7 +41,7 @@ const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) =>
         };
 
     return <th
-        
+        style={{padding:0}}
         key={`foot${rowIndex || columnIndex}`} className={cls}
         {...handlers}
     >   

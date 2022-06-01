@@ -44,6 +44,7 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
         };
 
     return <td
+        style={{padding:0}}
         className={[cls, cellClass].join(' ')}
         {...handlers}
     >
