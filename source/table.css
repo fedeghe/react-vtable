@@ -35,7 +35,7 @@ div.tableContainer {
     max-width: var(--width);
     max-height: calc(var(--height) - var(--postTableHeight) - var(--preTableHeight));
     overflow: scroll;
-    position: relative;
+    /* position: relative; */
     padding: 0;
 }
 
@@ -50,8 +50,8 @@ th>div {
 }
 
 table {
-    position: relative;
-    border-collapse: collapse;
+    /* position: relative; */
+    /* border-collapse: collapse; */
 }
 
 td,
