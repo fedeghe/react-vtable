@@ -62,9 +62,9 @@ const Table = () => {
         <div
             className={classes.TableContainer}
             onScroll={e => {
-                if (Math.abs(e.target.scrollTop - scrollTop) > dataHeight / 4){
-                    dispatch({type: 'loading'});
-                }
+                Math.abs(e.target.scrollTop - scrollTop) > (dataHeight / 4)
+                && dispatch({type: 'loading'});
+                
                 onScroll(e);
             }}
         >
