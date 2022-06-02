@@ -12,7 +12,6 @@ export default createUseStyles(() => ({
         padding: 0
     }),
     Table: {
-        // position: 'relative',
         borderCollapse: 'collapse',  
     },
 }));
