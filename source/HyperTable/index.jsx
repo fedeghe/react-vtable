@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo, useCallback, useEffect } from 'react';
+import React, { useReducer, useMemo, useCallback } from 'react';
 
 import TableContext from './Context';
 import reducerFactory from './reducer';

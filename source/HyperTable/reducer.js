@@ -296,6 +296,7 @@ const prefix = 'HYT_',
                 onFooterHighlight = false,
                 onLeftMostHighlight = false,
                 onRightMostHighlight = false,
+                shiftPageScroll = false,
             } = {},
             debounceTimes: {
                 filtering = 50,
@@ -312,7 +313,8 @@ const prefix = 'HYT_',
 
             moreSpaceThanContent = carpetHeight < contentHeight,
             originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
-            
+            visibleElements = Math.floor(contentHeight/rowHeight),
+            visibleElementsHeight = visibleElements * rowHeight,
             // to reuse __getFillerHeight here I would need to pass almost the whole virtual
             fillerHeights = __getFillerHeights({
                 _from: 0,
@@ -389,6 +391,7 @@ const prefix = 'HYT_',
                 onFooterHighlight,
                 onLeftMostHighlight,
                 onRightMostHighlight,
+                shiftPageScroll
             },
             cls: {
                 highlight: {
@@ -415,6 +418,8 @@ const prefix = 'HYT_',
                 to: renderedElements - 1,
                 renderedElements,
                 carpetHeight,
+                visibleElements,
+                visibleElementsHeight,
                 loading: false,
                 loader,
                 ...fillerHeights,

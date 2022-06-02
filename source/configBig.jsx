@@ -115,14 +115,13 @@ export default {
         { key: 'date3', type: 'date' },
     ], 1e5),
 
-    // dimensions: {
-    //     height: 900,
-    //     width: 1400,
-    //     rowHeight: 180,    
-    // },
+    dimensions: {
+        height: 900,
+        width: 1400,
+        rowHeight: 80,    
+    },
 
-    // gap: 15,
-
+    gap: 15,
 
     header: {
         height: 80,
@@ -141,28 +140,28 @@ export default {
     },
 
     loader: <div className="Loading">loading</div>,
-    // noFilterData: ({total}) => <span>No results out of {total}</span>,
+    noFilterData: ({total}) => <span>No results out of {total}</span>,
 
     RightMost,
     LeftMost,
 
     // defaultColumnWidth: 100 // default value
 
-    // cls: {
+    cls: {
         // highlight: {
         //     rowHighlightClass: 'TableRowHighlight',
         //     columnHighlightClass: 'TableColumnHighlight',
         //     crossHighlightClass: 'TableCrossHighlight',
         //     cellHightlightClass: 'TableCellHighlight',
         // },
-        // elements: {
-            //     contentClass: 'TableContent',
-            //     cellClass: 'TableCell',
-            // wrapperClass: 'Wrapper',
-        // }
-    // },
+        elements: {
+            // contentClass: 'TableContent',
+            // cellClass: 'TableCell',
+            wrapperClass: 'Wrapper',
+        }
+    },
 
-    // events: {
+    events: {
     // onCellClick: (e, { row, column }) => {
     //     console.log('cell click', column, row);
     //     e.stopPropagation();
@@ -177,11 +176,12 @@ export default {
     // onFooterHighlight: false,
     // onLeftMostHighlight: false,
     // onRightMostHighlight: false,
-    // },
+    // shiftPageScroll: false
+    },
 
 
-    // debounceTimes: {
-    // filtering: 300,
-    // scrolling: 5
-    // }
+    debounceTimes: {
+        filtering: 5,
+        scrolling: 100
+    }
 };
