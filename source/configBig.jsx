@@ -22,10 +22,10 @@ export default {
             filter, //: {value, setValue, visibility, setVisibility} = {},
             sort, //: {sortAsc, sortDesc, unSort, direction} = {}
             isSorting
-        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
             <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{column, columnIndex, filter}}/>
-            <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort, isSorting }} />
         </div>),
         // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         footer: ({
@@ -33,10 +33,10 @@ export default {
             filter, //: {value, setValue, visibility, setVisibility} = {},
             sort, //: {sortAsc, sortDesc, unSort, direction} = {}
             isSorting
-        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
             <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{column, columnIndex, filter}}/>
-            <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort, isSorting }} />
         </div>),
         filter: basicFilter,
         sort: basicSort,
@@ -52,10 +52,10 @@ export default {
             filter, //: {value, setValue, visibility, setVisibility} = {},
             sort, //: {sortAsc, sortDesc, unSort, direction} = {}
             isSorting
-        }) => (<div style={{display: 'flex', alignItems: 'center'}}>
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
             <span>{column.key + '_' + columnIndex}</span>
-            <Filter {...{column, columnIndex, filter}}/>
-            <Sorter {...{column, columnIndex, sort, isSorting}}/>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort, isSorting }} />
         </div>),
         filter: basicFilter,
         sort: basicSort,
@@ -118,7 +118,7 @@ export default {
     dimensions: {
         height: 900,
         width: 1400,
-        rowHeight: 80,    
+        rowHeight: 80,
     },
 
     gap: 15,
@@ -140,7 +140,7 @@ export default {
     },
 
     loader: <div className="Loading">loading</div>,
-    noFilterData: ({total}) => <span>No results out of {total}</span>,
+    noFilterData: ({ total }) => <span>No results out of {total}</span>,
 
     RightMost,
     LeftMost,
@@ -162,21 +162,21 @@ export default {
     },
 
     events: {
-    // onCellClick: (e, { row, column }) => {
-    //     console.log('cell click', column, row);
-    //     e.stopPropagation();
-    // },
-    // onCellEnter: (e, {row, column}) => {
-    //     console.log('cell enter', column, row);
-    // },
-    // onCellLeave: (e, {row, column}) => {
-    //     console.log('cell leave', column, row);
-    // },
-    // onHeaderHighlight: false,
-    // onFooterHighlight: false,
-    // onLeftMostHighlight: false,
-    // onRightMostHighlight: false,
-    // shiftPageScroll: false
+        // onCellClick: (e, { row, column }) => {
+        //     console.log('cell click', column, row);
+        //     e.stopPropagation();
+        // },
+        // onCellEnter: (e, { row, column }) => {
+        //     console.log('cell enter', column, row);
+        // },
+        // onCellLeave: (e, { row, column }) => {
+        //     console.log('cell leave', column, row);
+        // },
+        // onHeaderHighlight: false,
+        // onFooterHighlight: false,
+        // onLeftMostHighlight: false,
+        // onRightMostHighlight: false,
+        shiftPageScroll: true
     },
 
 

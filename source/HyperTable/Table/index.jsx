@@ -49,7 +49,7 @@ const Table = () => {
             headerHeight,
             footerHeight,
         }),
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
         doOnScroll = useCallback(debounce(e => {
             e.preventDefault();
@@ -60,24 +60,23 @@ const Table = () => {
                 payload: payload > 0 ? payload : 0
             });
         }, scrollingDebounceTime), []),
+
         onScroll = useCallback(e => {
             Math.abs(e.target.scrollTop - scrollTop) > (dataHeight / 4)
                 && dispatch({ type: 'loading' });
-
-                doOnScroll(e);
+            doOnScroll(e);
         }, [dataHeight, dispatch, doOnScroll, scrollTop]),
+
         onKeyDown = useCallback(e => {
-            
             if (shiftPageScroll &&
-                 (
-                     (e.shiftKey && [38, 40].includes(e.keyCode)) // shift+arrowUp, shift + arrowDown
-                     ||
-                     [33, 34].includes(e.keyCode)// pgup pgdown
-                 )
+                (
+                    (e.shiftKey && [38, 40].includes(e.keyCode)) // shift+arrowUp, shift + arrowDown
+                    || [33, 34].includes(e.keyCode)// pgup pgdown
+                )
             ) {
                 e.preventDefault();
                 e.stopPropagation();
-                const sign = [34,40].includes(e.keyCode) ? 1 : -1,
+                const sign = [34, 40].includes(e.keyCode) ? 1 : -1,
                     scrTo = scrollTop + sign * visibleElementsHeight;
                 ref.current.scrollTo(0, scrTo >= 0 ? scrTo : 0);
             }
@@ -87,7 +86,7 @@ const Table = () => {
     return (
         <div
             ref={ref}
-            tabIndex={0}
+            tabIndex={0} // needed for enavble keydown
             className={classes.TableContainer}
             onKeyDown={onKeyDown}
             onScroll={onScroll}
