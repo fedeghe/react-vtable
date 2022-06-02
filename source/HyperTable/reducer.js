@@ -1,3 +1,4 @@
+import { map } from 'objwun';
 import { isFunction } from './utils';
 let count = 0;
 const prefix = 'HYT_',
@@ -27,6 +28,7 @@ const prefix = 'HYT_',
             {
                 total,
                 filters,
+                columns,
                 originalData, filteredData, currentData,
                 virtual,
                 gap,
@@ -92,13 +94,20 @@ const prefix = 'HYT_',
                         ...fillerHeights
                     };
             },
+            arrRep = (a, i, v) => {
+                if (i === 0) return [v].concat(a.slice(1));
+                if (i === a.length-1) return a.slice(0, -1).concat(v);
+                return [].concat(...(a.slice(0, i)), v, ...(a.slice(i+1)));
+            },
             actions = {
-                // scrollPure: () => ({
-                //     virtual: {
-                //         ...virtual,
-                //         scrollTop: payload
-                //     }
-                // }),
+                toggleColumnVisibility: () => {
+                    const {key, visible} = payload,
+                        cIndex = columns.findIndex(c => c.key === key);
+                    if (cIndex === -1) return {};
+                    return {
+                        columns: arrRep(columns, cIndex, {...columns[cIndex], visible})
+                    };
+                },
                 loading: () => ({
                     virtual: {
                         ...virtual,
@@ -333,7 +342,13 @@ const prefix = 'HYT_',
         return {
             ...cnf,
             gap,
-            columns: columns.map(column => column.width ? column : { ...column, width: defaultColumnWidth }),
+            columns: columns.map(
+                column => ({
+                    ...column,
+                    visible: 'visible' in column ? column.visible : true
+                })).map(
+                    column => column.width ? column : { ...column, width: defaultColumnWidth }
+                ),
             sorting: {
                 column: null,
                 direction: null,

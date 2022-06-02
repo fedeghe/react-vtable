@@ -3,6 +3,7 @@ import generateRowData from './utils';
 
 import Filter from './sample/Filter';
 import Sorter from './sample/Sorter';
+import Visibilist from './sample/Visibilist';
 import { basicFilter, basicSort } from './sample/utils';
 import HeaderCaption from './sample/HeaderCaption';
 import FooterCaption from './sample/FooterCaption';
@@ -42,8 +43,9 @@ export default {
         sort: basicSort,
     }, {
         key: 'entityid',
-
     }, {
+        visible: true,
+        visibilist: Visibilist,
         key: 'name',
         cell: ({ row, column }) => row[column.key],
         width: 300,
@@ -51,11 +53,15 @@ export default {
             column, columnIndex,
             filter, //: {value, setValue, visibility, setVisibility} = {},
             sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-            isSorting
+            isSorting,
+            visibility
         }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{column.key + '_' + columnIndex}</span>
-            <Filter {...{ column, columnIndex, filter }} />
-            <Sorter {...{ column, columnIndex, sort, isSorting }} />
+            {Boolean(visibility.visible) && <>
+                <span>{column.key + '_' + columnIndex}</span>
+                <Filter {...{ column, columnIndex, filter }} />
+                <Sorter {...{ column, columnIndex, sort, isSorting }} />
+            </>}
+            <Visibilist {...{visibility}}/>
         </div>),
         filter: basicFilter,
         sort: basicSort,

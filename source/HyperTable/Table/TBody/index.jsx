@@ -47,13 +47,15 @@ const Tbody = () => {
                         opts={{ row, rowIndex: rowIndex + from, from, to }}
                     />
                     {columns.map((column, columnIndex) => {
+                        
                         let content = row[column.key] || 'nothing';
                         if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex});
                         }
+                        if (!column.visible) content = '';
                         return (
                             <Td
-                                style={{width: `${column.width}px`}}
+                                style={column.visible ? {width: `${column.width}px`} : {}}
                                 key={`cell_${row._ID}_${columnIndex}`}
                                 row={row}
                                 column={column}
