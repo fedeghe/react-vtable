@@ -1,4 +1,3 @@
-import { map } from 'objwun';
 import { isFunction } from './utils';
 let count = 0;
 const prefix = 'HYT_',
