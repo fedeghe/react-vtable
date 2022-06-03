@@ -7,8 +7,8 @@ const Visibilist =  ({ visibility }) => {
 
     return <div className={classes.Container}>{
         visible
-        ? <span onClick={() => setVisibility(false)}>hide</span>
-        : <span onClick={() => setVisibility(true)}>+</span>
+        ? <span className={classes.Pointer} onClick={() => setVisibility(false)}>hide</span>
+        : <span className={classes.Pointer} onClick={() => setVisibility(true)}>+</span>
     }</div>;
 };
 export default Visibilist;

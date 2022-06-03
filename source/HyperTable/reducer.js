@@ -32,6 +32,7 @@ const prefix = 'HYT_',
                 originalData, filteredData, currentData,
                 virtual,
                 gap,
+                LeftMost, RightMost,
                 dimensions: {
                     rowHeight
                 },
@@ -104,8 +105,16 @@ const prefix = 'HYT_',
                     const {key, visible} = payload,
                         cIndex = columns.findIndex(c => c.key === key);
                     if (cIndex === -1) return {};
+                    
+                    // eslint-disable-next-line one-var
+                    const newColumns = arrRep(columns, cIndex, {...columns[cIndex], visible}); 
+
                     return {
-                        columns: arrRep(columns, cIndex, {...columns[cIndex], visible})
+                        columns: newColumns,
+                        virtual: {
+                            ...virtual,
+                            colspan: newColumns.filter(c => c.visible).length + !!LeftMost + !!RightMost
+                        }
                     };
                 },
                 loading: () => ({
@@ -332,7 +341,14 @@ const prefix = 'HYT_',
                 _rowHeight: rowHeight,
                 _contentHeight: contentHeight,
                 _dataHeight: dataHeight
-            });
+            }),
+            _columns = columns.map(
+                column => ({
+                    ...column,
+                    visible: 'visible' in column ? column.visible : true
+                })).map(
+                    column => column.width ? column : { ...column, width: defaultColumnWidth }
+                );
             // headerFillerHeight = 0,
             // footerFillerHeight = moreSpaceThanContent
             //     ? contentHeight - carpetHeight
@@ -342,19 +358,13 @@ const prefix = 'HYT_',
         return {
             ...cnf,
             gap,
-            columns: columns.map(
-                column => ({
-                    ...column,
-                    visible: 'visible' in column ? column.visible : true
-                })).map(
-                    column => column.width ? column : { ...column, width: defaultColumnWidth }
-                ),
+            columns: _columns,
             sorting: {
                 column: null,
                 direction: null,
                 sorter: null,
             },
-            filters: columns.reduce((acc, column) => {
+            filters: _columns.reduce((acc, column) => {
                 if (isFunction(column.filter)) {
                     acc[column.key] = {
                         filter: column.filter,
@@ -422,7 +432,7 @@ const prefix = 'HYT_',
                 },
             },
             virtual: {
-                colspan: columns.length + !!LeftMost + !!RightMost,
+                colspan: _columns.filter(c => c.visible).length + !!LeftMost + !!RightMost,
                 moreSpaceThanContent,
                 dataHeight,
                 contentHeight,
