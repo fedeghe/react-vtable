@@ -102,7 +102,8 @@ const TFooter = () => {
                                     visible: visibility
                                 }
                             }),
-                            visible: column.visible
+                            visible: column.visible,
+                            column,
                         };
                     }
                     content = column.footer(footerProps);

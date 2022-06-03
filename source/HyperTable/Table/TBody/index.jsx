@@ -52,7 +52,7 @@ const Tbody = () => {
                         if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex});
                         }
-                        if (!column.visible) content = '';
+                        if (!column.visible) content = '.';
                         return (
                             <Td
                                 style={column.visible ? {width: `${column.width}px`} : {}}
