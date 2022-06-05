@@ -1,7 +1,7 @@
 import React, {useContext, useCallback} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-import {isFunction} from './../../utils';
+import {isFunction, asCsv} from './../../utils';
 const Caption = ({type, unFilter, unSort }) => {
     const {
             state: {
@@ -21,7 +21,7 @@ const Caption = ({type, unFilter, unSort }) => {
                 // FooterCaption,
                 // preHeaderHeight,
                 // HeaderCaption,
-
+                columns,
                 total,
                 activeColumn, activeRow,
                 activeColumnIndex, activeRowIndex,
@@ -52,16 +52,19 @@ const Caption = ({type, unFilter, unSort }) => {
             const a = document.createElement('a'),
                 blob = new Blob([JSON.stringify(currentData)]);
             a.href = URL.createObjectURL(blob);
-            a.download = 'newFile.json';                     //filename to download
+            a.target = '_blank';
+            a.download = 'extract.json';                     //filename to download
             a.click();
         }, [currentData]),
         downloadCsv = useCallback(() => {
             const a = document.createElement('a'),
-                blob = new Blob([JSON.stringify(currentData)]);
+                csv = asCsv(columns, currentData),
+                blob = new Blob([csv], { type: 'text/csv' });
             a.href = URL.createObjectURL(blob);
-            a.download = 'newFile.json';                     //filename to download
+            a.target = '_blank';
+            a.download = 'extract.csv';                     //filename to download
             a.click();
-        }, [currentData]);
+        }, [columns, currentData]);
 
     return (
         What.Component && <div className={What.cls}>{
