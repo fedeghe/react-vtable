@@ -159,6 +159,9 @@ export default {
     RightMost,
     LeftMost,
 
+
+    removedContent: '.',
+
     // defaultColumnWidth: 100 // default value
 
     cls: {
