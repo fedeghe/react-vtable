@@ -1,6 +1,6 @@
 import { createUseStyles } from "react-jss";
 
-export default createUseStyles(() => ({
+export default createUseStyles({
 
     TableContainer: ({ height, width, postFooterHeight, preHeaderHeight}) => ({
         maxWidth: `${width}px`,
@@ -14,4 +14,4 @@ export default createUseStyles(() => ({
     Table: {
         borderCollapse: 'collapse',  
     },
-}));
+});

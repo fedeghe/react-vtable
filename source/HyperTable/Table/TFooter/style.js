@@ -1,6 +1,6 @@
 import { createUseStyles } from "react-jss";
 
-export default createUseStyles(() => ({
+export default createUseStyles({
     Tfoot: ({footerHeight}) => ({
         height: `${footerHeight}px`
     }),
@@ -26,4 +26,4 @@ export default createUseStyles(() => ({
         },
         backgroundColor: 'white'
     },
-}));
+});

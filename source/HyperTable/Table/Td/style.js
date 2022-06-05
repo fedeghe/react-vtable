@@ -1,6 +1,6 @@
 import { createUseStyles } from "react-jss";
 
-export default createUseStyles(() => ({
+export default createUseStyles({
     Cell: {
         height: ({rowHeight}) => `${rowHeight}px`,
         overflow:'scroll',
@@ -9,4 +9,4 @@ export default createUseStyles(() => ({
         border: '1px solid black',
         borderCollapse: 'collapse'
     }
-}));
+});

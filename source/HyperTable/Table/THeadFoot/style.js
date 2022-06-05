@@ -1,6 +1,6 @@
 import { createUseStyles } from "react-jss";
 
-export default createUseStyles(() => ({
+export default createUseStyles({
     Thead: ({headerHeight}) => ({
         height: `${headerHeight}px`
     }),
@@ -50,4 +50,4 @@ export default createUseStyles(() => ({
         },
         backgroundColor: 'white'
     },
-}));
+});

@@ -1,6 +1,6 @@
 import { createUseStyles } from "react-jss";
 
-export default createUseStyles(() => ({
+export default createUseStyles({
     Wrapper : ({width, height}) => ({
         height,
         width,
@@ -8,4 +8,4 @@ export default createUseStyles(() => ({
         overflow: 'hidden',
         position:'relative'
     }),
-}));
+});
