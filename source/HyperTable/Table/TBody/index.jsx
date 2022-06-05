@@ -30,6 +30,7 @@ const Tbody = () => {
                 colspan,
                 from, to
             },
+            removedContent
         },
     } = useContext(TableContext),
         classes = useStyles({ rowHeight });
@@ -52,7 +53,7 @@ const Tbody = () => {
                         if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex});
                         }
-                        if (!column.visible) content = '.';
+                        if (!column.visible) content = removedContent;
                         return (
                             <Td
                                 style={column.visible ? {width: `${column.width}px`} : {}}
