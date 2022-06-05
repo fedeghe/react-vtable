@@ -9,7 +9,8 @@ import {
 import "@testing-library/jest-dom/extend-expect";
 import { configure } from "@testing-library/dom";
 
-import HyperTable from "../dist/index.js";
+// import HyperTable from "../dist/index.js";
+import HyperTable from "../source/HyperTable";
 import config from "./configs/basic";
 
 configure({
