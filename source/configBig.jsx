@@ -14,101 +14,96 @@ export default {
 
     columns: [{
         key: 'id',
-        label: 'idz',
-        width: 300,
-        cell: ({ row, column }) => row[column.key],
+        // label: 'idz',
+        // width: 300,
+        // cell: ({ row, column }) => row[column.key],
 
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-            isSorting
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{ column, columnIndex, filter }} />
-            <Sorter {...{ column, columnIndex, sort, isSorting }} />
-        </div>),
-        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        footer: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-            isSorting
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{ column, columnIndex, filter }} />
-            <Sorter {...{ column, columnIndex, sort, isSorting }} />
-        </div>),
-        filter: basicFilter,
-        sort: basicSort,
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{ column, columnIndex, filter }} />
+        //     <Sorter {...{ column, columnIndex, sort, isSorting }} />
+        // </div>),
+        // // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        // footer: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+        //     isSorting
+        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{ column, columnIndex, filter }} />
+        //     <Sorter {...{ column, columnIndex, sort, isSorting }} />
+        // </div>),
+        // filter: basicFilter,
+        // sort: basicSort,
     }, {
         key: 'entityid',
     }, {
         key: 'name',
-        cell: ({ row, column }) => row[column.key],
-        width: 300,
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-            isSorting,
-            visibility
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            {Boolean(visibility.visible) && <>
-                <span>{column.key + '_' + columnIndex}</span>
-                <Filter {...{ column, columnIndex, filter }} />
-                <Sorter {...{ column, columnIndex, sort, isSorting }} />
-            </>}
-            <Visibilist {...{visibility}}/>
-        </div>),
-        visible: true,
-        visibilist: Visibilist,
-        filter: basicFilter,
-        sort: basicSort,
+        // cell: ({ row, column }) => row[column.key],
+        // width: 300,
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+        //     isSorting,
+        //     visibility
+        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+        //     {Boolean(visibility.visible) && <>
+        //         <span>{column.key + '_' + columnIndex}</span>
+        //         <Filter {...{ column, columnIndex, filter }} />
+        //         <Sorter {...{ column, columnIndex, sort, isSorting }} />
+        //     </>}
+        //     <Visibilist {...{visibility}}/>
+        // </div>),
+        // visible: true,
+        // visibilist: Visibilist,
+        // filter: basicFilter,
+        // sort: basicSort,
     }, {
         key: 'date',
-        cell: ({ row, column }) => row[column.key],
+        // cell: ({ row, column }) => row[column.key],
     }, {
         key: 'actions',
-        cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
-        width: 300
+        // cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
+        // width: 300
     },
     {
         key: 'id2',
-        width: 150,
-        cell: ({ row, column }) => row[column.key],
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-            isSorting,
-            visibility
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            {Boolean(visibility.visible) && <>
-                <span>{column.key + '_' + columnIndex}</span>
-                <Filter {...{ column, columnIndex, filter }} />
-                <Sorter {...{ column, columnIndex, sort, isSorting }} />
-            </>}
-            <Visibilist {...{visibility}}/>
-        </div>),
-        visible: true,
-        visibilist: Visibilist,
-        filter: basicFilter,
-        sort: basicSort,
-
+        // width: 150,
+        // cell: ({ row, column }) => row[column.key],
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+        //     isSorting,
+        //     visibility
+        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+        //     {Boolean(visibility.visible) && <>
+        //         <span>{column.key + '_' + columnIndex}</span>
+        //         <Filter {...{ column, columnIndex, filter }} />
+        //         <Sorter {...{ column, columnIndex, sort, isSorting }} />
+        //     </>}
+        //     <Visibilist {...{visibility}}/>
+        // </div>),
+        // visible: true,
+        // visibilist: Visibilist,
+        // filter: basicFilter,
+        // sort: basicSort,
     },
     {
         key: 'date2',
-        cell: ({ row, column }) => row[column.key],
-        width: 300
+        // width: 300
     },
     { key: 'entityid2', },
     { key: 'name2', },
     { key: 'id3', },
-    {
-        key: 'date3',
-        cell: ({ row, column }) => row[column.key],
-    },
+    { key: 'date3', },
     { key: 'entityid3', },
     { key: 'name3', }
     ],
@@ -127,58 +122,58 @@ export default {
         { key: 'entityid3', type: 'int' },
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
-    ], 1e5),
+    ], 1e3),
 
-    dimensions: {
-        height: 900,
-        width: 1400,
-        rowHeight: 80,
-    },
+    // dimensions: {
+    //     height: 900,
+    //     width: 1400,
+    //     rowHeight: 80,
+    // },
 
-    gap: 15,
+    // gap: 15,
 
-    header: {
-        height: 80,
-        caption: {
-            component: HeaderCaption,
-            height: 45
-        }
-    },
+    // header: {
+    //     height: 80,
+    //     caption: {
+    //         component: HeaderCaption,
+    //         height: 45
+    //     }
+    // },
 
-    footer: {
-        height: 60,
-        caption: {
-            component: FooterCaption,
-            height: 25
-        }
-    },
+    // footer: {
+    //     height: 60,
+    //     caption: {
+    //         component: FooterCaption,
+    //         height: 25
+    //     }
+    // },
 
-    loader: <div className="Loading">loading</div>,
-    noFilterData: ({ total }) => <span>No results out of {total}</span>,
+    // loader: <div className="Loading">loading</div>,
+    // noFilterData: ({ total }) => <span>No results out of {total}</span>,
 
-    RightMost,
-    LeftMost,
+    // RightMost,
+    // LeftMost,
 
 
-    removedContent: '.',
+    // removedContent: '.',
 
     // defaultColumnWidth: 100 // default value
 
-    cls: {
+    // cls: {
         // highlight: {
         //     rowHighlightClass: 'TableRowHighlight',
         //     columnHighlightClass: 'TableColumnHighlight',
         //     crossHighlightClass: 'TableCrossHighlight',
         //     cellHightlightClass: 'TableCellHighlight',
         // },
-        elements: {
+        // elements: {
             // contentClass: 'TableContent',
             // cellClass: 'TableCell',
-            wrapperClass: 'Wrapper',
-        }
-    },
+            // wrapperClass: 'Wrapper',
+        // }
+    // },
 
-    events: {
+    // events: {
         // onCellClick: (e, { row, column }) => {
         //     console.log('cell click', column, row);
         //     e.stopPropagation();
@@ -193,12 +188,12 @@ export default {
         // onFooterHighlight: false,
         // onLeftMostHighlight: false,
         // onRightMostHighlight: false,
-        shiftPageScroll: true
-    },
+        // shiftPageScroll: true
+    // },
 
 
-    debounceTimes: {
-        filtering: 5,
-        scrolling: 100
-    }
+    // debounceTimes: {
+    //     filtering: 5,
+    //     scrolling: 100
+    // }
 };
