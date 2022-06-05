@@ -61,7 +61,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-0-2"
                 >
-                  a random string 0
+                  a random, string 0
                 </div>
               </div>
             </td>
@@ -107,7 +107,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-1-2"
                 >
-                  a random string 1
+                  a random, string 1
                 </div>
               </div>
             </td>
@@ -153,7 +153,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-2-2"
                 >
-                  a random string 2
+                  a random, string 2
                 </div>
               </div>
             </td>
@@ -199,7 +199,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-3-2"
                 >
-                  a random string 3
+                  a random, string 3
                 </div>
               </div>
             </td>
@@ -245,7 +245,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-4-2"
                 >
-                  a random string 4
+                  a random, string 4
                 </div>
               </div>
             </td>
@@ -291,7 +291,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-5-2"
                 >
-                  a random string 5
+                  a random, string 5
                 </div>
               </div>
             </td>
@@ -337,7 +337,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-6-2"
                 >
-                  a random string 6
+                  a random, string 6
                 </div>
               </div>
             </td>
@@ -383,7 +383,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-7-2"
                 >
-                  a random string 7
+                  a random, string 7
                 </div>
               </div>
             </td>
@@ -429,7 +429,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-8-2"
                 >
-                  a random string 8
+                  a random, string 8
                 </div>
               </div>
             </td>
@@ -475,7 +475,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-9-2"
                 >
-                  a random string 9
+                  a random, string 9
                 </div>
               </div>
             </td>
@@ -521,7 +521,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-10-2"
                 >
-                  a random string 10
+                  a random, string 10
                 </div>
               </div>
             </td>
@@ -567,7 +567,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-11-2"
                 >
-                  a random string 11
+                  a random, string 11
                 </div>
               </div>
             </td>
@@ -613,7 +613,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-12-2"
                 >
-                  a random string 12
+                  a random, string 12
                 </div>
               </div>
             </td>
@@ -659,7 +659,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-13-2"
                 >
-                  a random string 13
+                  a random, string 13
                 </div>
               </div>
             </td>
@@ -705,7 +705,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-14-2"
                 >
-                  a random string 14
+                  a random, string 14
                 </div>
               </div>
             </td>
