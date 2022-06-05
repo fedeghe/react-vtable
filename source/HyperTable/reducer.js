@@ -222,11 +222,8 @@ const prefix = 'HYT_',
                     if (moreSpaceThanContent) return oldState;
 
                     const scrollTop = parseInt(payload, 10),
-                        _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0);
-                    // if (_from === from) return oldState;
-
-                    // eslint-disable-next-line one-var
-                    const _to = Math.min(_from + renderedElements, total),
+                        _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
+                        _to = Math.min(_from + renderedElements, total),
                         _updatedFillerHeights = __getFillerHeights({
                             _from,
                             _moreSpaceThanContent: moreSpaceThanContent,
@@ -287,6 +284,8 @@ const prefix = 'HYT_',
 
             defaultColumnWidth = 150,
 
+            removedContent = '.',
+
             cls: {
                 highlight: {
                     rowHighlightClass = '',
@@ -332,7 +331,6 @@ const prefix = 'HYT_',
             originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
             visibleElements = Math.floor(contentHeight/rowHeight),
             visibleElementsHeight = visibleElements * rowHeight,
-            // to reuse __getFillerHeight here I would need to pass almost the whole virtual
             fillerHeights = __getFillerHeights({
                 _from: 0,
                 _moreSpaceThanContent: moreSpaceThanContent,
@@ -348,10 +346,6 @@ const prefix = 'HYT_',
                 })).map(
                     column => column.width ? column : { ...column, width: defaultColumnWidth }
                 );
-            // headerFillerHeight = 0,
-            // footerFillerHeight = moreSpaceThanContent
-            //     ? contentHeight - carpetHeight
-            //     : carpetHeight - headerFillerHeight - dataHeight;
 
 
         return {
@@ -406,7 +400,7 @@ const prefix = 'HYT_',
             activeColumn: null,
             activeRowIndex: null,
             activeColumnIndex: null,
-
+            removedContent,
             events: {
                 onCellClick,
                 onCellEnter,
@@ -435,8 +429,6 @@ const prefix = 'HYT_',
                 moreSpaceThanContent,
                 dataHeight,
                 contentHeight,
-                // headerFillerHeight,
-                // footerFillerHeight,
                 scrollTop: 0,
                 from: 0,
                 to: renderedElements - 1,
