@@ -3,6 +3,7 @@ import generateRowData from './utils';
 
 import Filter from './sample/Filter';
 import Sorter from './sample/Sorter';
+import Visibilist from './sample/Visibilist';
 import { basicFilter, basicSort } from './sample/utils';
 import HeaderCaption from './sample/HeaderCaption';
 import FooterCaption from './sample/FooterCaption';
@@ -42,7 +43,6 @@ export default {
         sort: basicSort,
     }, {
         key: 'entityid',
-
     }, {
         key: 'name',
         cell: ({ row, column }) => row[column.key],
@@ -51,12 +51,18 @@ export default {
             column, columnIndex,
             filter, //: {value, setValue, visibility, setVisibility} = {},
             sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-            isSorting
+            isSorting,
+            visibility
         }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{column.key + '_' + columnIndex}</span>
-            <Filter {...{ column, columnIndex, filter }} />
-            <Sorter {...{ column, columnIndex, sort, isSorting }} />
+            {Boolean(visibility.visible) && <>
+                <span>{column.key + '_' + columnIndex}</span>
+                <Filter {...{ column, columnIndex, filter }} />
+                <Sorter {...{ column, columnIndex, sort, isSorting }} />
+            </>}
+            <Visibilist {...{visibility}}/>
         </div>),
+        visible: true,
+        visibilist: Visibilist,
         filter: basicFilter,
         sort: basicSort,
     }, {
@@ -71,16 +77,24 @@ export default {
         key: 'id2',
         width: 150,
         cell: ({ row, column }) => row[column.key],
-        // header: ({
-        //     column, columnIndex,
-        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{display: 'flex', alignItems: 'center'}}>
-        //     <span>{column.key + '_' + columnIndex}</span>
-        //     <Sorter {...{column, columnIndex, sort, isSorting}}/>
-        // </div>),
-        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        // sort: basicSort,
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+            isSorting,
+            visibility
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+            {Boolean(visibility.visible) && <>
+                <span>{column.key + '_' + columnIndex}</span>
+                <Filter {...{ column, columnIndex, filter }} />
+                <Sorter {...{ column, columnIndex, sort, isSorting }} />
+            </>}
+            <Visibilist {...{visibility}}/>
+        </div>),
+        visible: true,
+        visibilist: Visibilist,
+        filter: basicFilter,
+        sort: basicSort,
 
     },
     {
@@ -144,6 +158,9 @@ export default {
 
     RightMost,
     LeftMost,
+
+
+    removedContent: '.',
 
     // defaultColumnWidth: 100 // default value
 

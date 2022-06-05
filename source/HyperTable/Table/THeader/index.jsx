@@ -36,7 +36,7 @@ const Theader =  () => {
         classes = useStyles({headerHeight}),
 
         getColumnContent = useCallback(({column, columnIndex}) => {
-            let content = column.key;
+            let content;
             if ('header' in column) {
                 
                 
@@ -70,7 +70,6 @@ const Theader =  () => {
                     }
                     if (isFunction(column.filter)) {
                         const theFilter = filters?.[column.key];
-
                         headerProps.filter = {
                             value: theFilter?.value,
                             setValue: debounce(value => dispatch({
@@ -93,10 +92,25 @@ const Theader =  () => {
                             activeFiltersCount
                         };
                     }
+                    if (isFunction(column.visibilist)){
+                        headerProps.visibility = {
+                            setVisibility:  visibility => dispatch({
+                                type: 'toggleColumnVisibility',
+                                payload: {
+                                    key: column.key,
+                                    visible: visibility
+                                }
+                            }),
+                            visible: column.visible,
+                            column
+                        };
+                    }
                     content = column.header(headerProps);
                 } else {
-                    content  = column.header;
+                    content = column.header;
                 }
+            } else {
+                content = column.visible ? column.key : '';
             }
             return content;
         }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
@@ -106,10 +120,10 @@ const Theader =  () => {
             <Tr cls={classes.Thead}>
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{isHeader:true}}/>
                 {columns.map((column, columnIndex) => {
-                    
+                    // if ('visible' in column && !column.visible) return null;
                     const content = getColumnContent({column, columnIndex});
                     return <Th
-                        style={{width: `${column.width}px`}}
+                        style={column.visible ? {width: `${column.width}px`} : {}}
                         key={`head${columnIndex}`}
                         cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         content={content}

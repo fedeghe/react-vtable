@@ -31,7 +31,6 @@ const THeadFoot =  ({pos}) => {
                     filtering : filteringDebounceTime,
                 } ,
                 activeFiltersCount,
-                isSorting
             },
             dispatch
         } = useContext(TableContext),
@@ -71,7 +70,6 @@ const THeadFoot =  ({pos}) => {
                         unSort: () => dispatch({type:'unSort'}),
                         direction: sortingDirection,
                         isSorting: column.key === sortingColumn,
-                        isSorting
                     };
                 }
                 if (isFunction(column.filter)) {
@@ -99,6 +97,18 @@ const THeadFoot =  ({pos}) => {
                         activeFiltersCount
                     };
                 }
+                if (isFunction(column.visibilist)){
+                    hfProps.visibility = {
+                        setVisibility:  visibility => dispatch({
+                            type: 'toggleColumnVisibility',
+                            payload: {
+                                key: column.key,
+                                visible: visibility
+                            }
+                        }),
+                        visible: column.visible
+                    };
+                }
                 switch(pos) {
                     case 'header': 
                         if (isFunction(column.header)) {       
@@ -120,7 +130,7 @@ const THeadFoot =  ({pos}) => {
         }, [
             pos, sortingDirection, sortingColumn,
             dispatch, filters, filteringDebounceTime,
-            activeFiltersCount, isSorting
+            activeFiltersCount,
         ]);
 
     return {

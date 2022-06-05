@@ -44,10 +44,21 @@ debounce = (func, wait) => {
             setTimeout(() => enabled = true, wait);
         }, wait);
     };
+},
+escapeComma = r => `${r}`.replace(/,/g, '\\,'),
+asCsv = (columns, jsonData) => {
+    const lines = [],
+        keys = columns.map(c => c.key);
+    lines.push(keys.join(','));
+    jsonData.forEach(row => {
+        lines.push(keys.map(k => escapeComma(row[k])).join(','));
+    });
+    return lines.join("\n");
 };
 
 export {
     replaceall,
     isFunction,
-    debounce
+    debounce,
+    asCsv
 };

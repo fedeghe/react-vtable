@@ -27,9 +27,11 @@ const prefix = 'HYT_',
             {
                 total,
                 filters,
+                columns,
                 originalData, filteredData, currentData,
                 virtual,
                 gap,
+                LeftMost, RightMost,
                 dimensions: {
                     rowHeight
                 },
@@ -92,13 +94,28 @@ const prefix = 'HYT_',
                         ...fillerHeights
                     };
             },
+            arrRep = (a, i, v) => {
+                if (i === 0) return [v].concat(a.slice(1));
+                if (i === a.length-1) return a.slice(0, -1).concat(v);
+                return [].concat(...(a.slice(0, i)), v, ...(a.slice(i+1)));
+            },
             actions = {
-                // scrollPure: () => ({
-                //     virtual: {
-                //         ...virtual,
-                //         scrollTop: payload
-                //     }
-                // }),
+                toggleColumnVisibility: () => {
+                    const {key, visible} = payload,
+                        cIndex = columns.findIndex(c => c.key === key);
+                    if (cIndex === -1) return {};
+                    
+                    // eslint-disable-next-line one-var
+                    const newColumns = arrRep(columns, cIndex, {...columns[cIndex], visible}); 
+
+                    return {
+                        columns: newColumns,
+                        virtual: {
+                            ...virtual,
+                            colspan: newColumns.filter(c => c.visible).length + !!LeftMost + !!RightMost
+                        }
+                    };
+                },
                 loading: () => ({
                     virtual: {
                         ...virtual,
@@ -205,11 +222,8 @@ const prefix = 'HYT_',
                     if (moreSpaceThanContent) return oldState;
 
                     const scrollTop = parseInt(payload, 10),
-                        _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0);
-                    // if (_from === from) return oldState;
-
-                    // eslint-disable-next-line one-var
-                    const _to = Math.min(_from + renderedElements, total),
+                        _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
+                        _to = Math.min(_from + renderedElements, total),
                         _updatedFillerHeights = __getFillerHeights({
                             _from,
                             _moreSpaceThanContent: moreSpaceThanContent,
@@ -270,6 +284,8 @@ const prefix = 'HYT_',
 
             defaultColumnWidth = 150,
 
+            removedContent = '.',
+
             cls: {
                 highlight: {
                     rowHighlightClass = '',
@@ -315,7 +331,6 @@ const prefix = 'HYT_',
             originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
             visibleElements = Math.floor(contentHeight/rowHeight),
             visibleElementsHeight = visibleElements * rowHeight,
-            // to reuse __getFillerHeight here I would need to pass almost the whole virtual
             fillerHeights = __getFillerHeights({
                 _from: 0,
                 _moreSpaceThanContent: moreSpaceThanContent,
@@ -323,23 +338,26 @@ const prefix = 'HYT_',
                 _rowHeight: rowHeight,
                 _contentHeight: contentHeight,
                 _dataHeight: dataHeight
-            });
-            // headerFillerHeight = 0,
-            // footerFillerHeight = moreSpaceThanContent
-            //     ? contentHeight - carpetHeight
-            //     : carpetHeight - headerFillerHeight - dataHeight;
+            }),
+            _columns = columns.map(
+                column => ({
+                    ...column,
+                    visible: 'visible' in column ? column.visible : true
+                })).map(
+                    column => column.width ? column : { ...column, width: defaultColumnWidth }
+                );
 
 
         return {
             ...cnf,
             gap,
-            columns: columns.map(column => column.width ? column : { ...column, width: defaultColumnWidth }),
+            columns: _columns,
             sorting: {
                 column: null,
                 direction: null,
                 sorter: null,
             },
-            filters: columns.reduce((acc, column) => {
+            filters: _columns.reduce((acc, column) => {
                 if (isFunction(column.filter)) {
                     acc[column.key] = {
                         filter: column.filter,
@@ -382,7 +400,7 @@ const prefix = 'HYT_',
             activeColumn: null,
             activeRowIndex: null,
             activeColumnIndex: null,
-
+            removedContent,
             events: {
                 onCellClick,
                 onCellEnter,
@@ -407,12 +425,10 @@ const prefix = 'HYT_',
                 },
             },
             virtual: {
-                colspan: columns.length + !!LeftMost + !!RightMost,
+                colspan: _columns.filter(c => c.visible).length + !!LeftMost + !!RightMost,
                 moreSpaceThanContent,
                 dataHeight,
                 contentHeight,
-                // headerFillerHeight,
-                // footerFillerHeight,
                 scrollTop: 0,
                 from: 0,
                 to: renderedElements - 1,

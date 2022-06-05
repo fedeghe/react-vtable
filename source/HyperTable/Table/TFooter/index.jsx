@@ -36,7 +36,7 @@ const TFooter = () => {
         classes = useStyles({footerHeight}),
 
         getColumnContent = useCallback(({column, columnIndex}) => {
-            let content = column.key;
+            let content;
             if ('footer' in column) {
                 
                 
@@ -93,10 +93,27 @@ const TFooter = () => {
                             activeFiltersCount
                         };
                     }
+                    if (isFunction(column.visibilist)){
+                        footerProps.visibility = {
+                            setVisibility:  visibility => dispatch({
+                                type: 'toggleColumnVisibility',
+                                payload: {
+                                    key: column.key,
+                                    visible: visibility
+                                }
+                            }),
+                            visible: column.visible,
+                            column,
+                        };
+                    }
                     content = column.footer(footerProps);
+
                 } else {
-                    content  = column.header;
+                    content = column.visible ? column.footer : '';
                 }
+                
+            } else {
+                content = column.visible ? column.key : '';
             }
             return content;
         }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
@@ -108,10 +125,10 @@ const TFooter = () => {
             <Tr cls={classes.Tfoot}>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{isFooter:true}}/>
                 {columns.map((column, columnIndex) => {
-
+                    // if ('visible' in column && !column.visible) return null;
                     const content = getColumnContent({column, columnIndex});
                     return <Th
-                        style={{width: `${column.width}px`}}
+                        style={column.visible ? {width: `${column.width}px`} : {}}
                         key={`foot${columnIndex}`}
                         cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         content={content}

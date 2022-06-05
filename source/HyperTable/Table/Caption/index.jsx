@@ -1,7 +1,7 @@
-import React, {useContext} from 'react';
+import React, {useContext, useCallback} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-import {isFunction} from './../../utils';
+import {isFunction, asCsv} from './../../utils';
 const Caption = ({type, unFilter, unSort }) => {
     const {
             state: {
@@ -21,7 +21,7 @@ const Caption = ({type, unFilter, unSort }) => {
                 // FooterCaption,
                 // preHeaderHeight,
                 // HeaderCaption,
-
+                columns,
                 total,
                 activeColumn, activeRow,
                 activeColumnIndex, activeRowIndex,
@@ -33,7 +33,8 @@ const Caption = ({type, unFilter, unSort }) => {
                 },
                 activeFiltersCount,
                 isSorting,
-                isFiltering
+                isFiltering,
+                currentData
             },
         } = useContext(TableContext),
         classes = useStyles({postFooterHeight, preHeaderHeight}),
@@ -46,7 +47,24 @@ const Caption = ({type, unFilter, unSort }) => {
                 Component : FooterCaption,
                 cls:classes.FooterCaption
             }
-        }[type];
+        }[type],
+        downloadJson = useCallback(() => {
+            const a = document.createElement('a'),
+                blob = new Blob([JSON.stringify(currentData)]);
+            a.href = URL.createObjectURL(blob);
+            a.target = '_blank';
+            a.download = 'extract.json';                     //filename to download
+            a.click();
+        }, [currentData]),
+        downloadCsv = useCallback(() => {
+            const a = document.createElement('a'),
+                csv = asCsv(columns, currentData),
+                blob = new Blob([csv], { type: 'text/csv' });
+            a.href = URL.createObjectURL(blob);
+            a.target = '_blank';
+            a.download = 'extract.csv';                     //filename to download
+            a.click();
+        }, [columns, currentData]);
 
     return (
         What.Component && <div className={What.cls}>{
@@ -61,7 +79,8 @@ const Caption = ({type, unFilter, unSort }) => {
                 activeFiltersCount,
                 isSorting,
                 isFiltering,
-                loading
+                loading,
+                downloadJson, downloadCsv
             }}/>
             : What.Component
         }</div>
