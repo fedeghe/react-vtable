@@ -41,6 +41,7 @@ export default {
         </div>),
         filter: basicFilter,
         sort: basicSort,
+        sorted: 'asc'
     }, {
         key: 'entityid',
     }, {

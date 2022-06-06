@@ -343,19 +343,45 @@ const prefix = 'HYT_',
                     isVisible: 'isVisible' in column ? column.isVisible : true
                 })).map(
                     column => column.width ? column : { ...column, width: defaultColumnWidth }
-                );
+                ),
+
+            // initial sorting ? 
+            presortIndex = columns.findIndex(c => 'sorted' in c && ['asc', 'desc'].includes(c.sorted));
+
+        let currentData = [...originalData],
+            sorting = {
+                column: null,
+                direction: null,
+                sorter: null,
+            },
+            isSorting = false;
+        if (presortIndex >= 0) {
+            // throw an exception in case the sort function is not in the column
+            if (!isFunction(columns[presortIndex].sort)) {
+                throw new Error("a presorted column needs a sort function");
+            }
+            currentData = currentData.sort((a, b) => columns[presortIndex].sort({
+                rowA: a,
+                rowB: b,
+                columnKey: columns[presortIndex].key,
+                direction: columns[presortIndex].sorted
+            }));
+            sorting = {
+                column: columns[presortIndex].key,
+                direction: columns[presortIndex].sorted,
+                sorter: columns[presortIndex].sort
+            }
+            isSorting = true;
+        }
+        console.log(presortIndex);
 
 
         return {
             ...cnf,
             gap,
             columns: _columns,
-            sorting: {
-                column: null,
-                direction: null,
-                sorter: null,
-            },
-            isSorting: false,
+            sorting,
+            isSorting,
             
             filters: _columns.reduce((acc, column) => {
                 if (isFunction(column.filter)) {
@@ -391,9 +417,9 @@ const prefix = 'HYT_',
             },
             noFilterData,
             originalData,
-            currentData: [...originalData],
+            currentData: [...currentData],
             filteredData: [...originalData],
-            rows: [...originalData].slice(0, renderedElements),
+            rows: [...currentData].slice(0, renderedElements),
             filtered: originalData.length,
             total: originalData.length,
             activeRow: null,
