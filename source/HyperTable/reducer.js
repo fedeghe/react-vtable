@@ -355,6 +355,7 @@ const prefix = 'HYT_',
                 sorter: null,
             },
             isSorting = false;
+            
         if (presortIndex >= 0) {
             // throw an exception in case the sort function is not in the column
             if (!isFunction(columns[presortIndex].sort)) {
@@ -370,11 +371,9 @@ const prefix = 'HYT_',
                 column: columns[presortIndex].key,
                 direction: columns[presortIndex].sorted,
                 sorter: columns[presortIndex].sort
-            }
+            };
             isSorting = true;
         }
-        console.log(presortIndex);
-
 
         return {
             ...cnf,
