@@ -41,7 +41,7 @@ export default {
         </div>),
         filter: basicFilter,
         sort: basicSort,
-        sorted: 'asc'
+        // sorted: 'asc' // autosort at init ? 
     }, {
         key: 'entityid',
     }, {
@@ -152,8 +152,8 @@ export default {
     // loader: <div className="Loading">loading</div>,
     // noFilterData: ({ total }) => <span>No results out of {total}</span>,
 
-    // RightMost,
-    // LeftMost,
+    RightMost,
+    LeftMost,
 
 
     // removedContent: '.',
