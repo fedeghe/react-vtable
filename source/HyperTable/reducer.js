@@ -70,14 +70,42 @@ const prefix = 'HYT_',
                 return acc;
             }, {}),
             
+            // __getVirtual = cdata => {
+            //     const cnd = to > cdata.length,
+            //         _carpetHeight = cdata.length * rowHeight,
+            //         _moreSpaceThanContent = _carpetHeight < contentHeight,
+            //         _to = cnd ? cdata.length - 1 || renderedElements : to,
+            //         _from = cdata.length
+            //             ? (cnd ? _to - renderedElements : from)
+            //             : 0,
+            //         fillerHeights = __getFillerHeights({
+            //             _from, _moreSpaceThanContent, _carpetHeight,
+            //             _rowHeight: rowHeight,
+            //             _contentHeight: contentHeight,
+            //             _dataHeight: dataHeight
+            //         });
+                
+            //         return {
+            //             carpetHeight: _carpetHeight,
+            //             moreSpaceThanContent: _moreSpaceThanContent,
+            //             from: _from,
+            //             to: _to,
+            //             loading: false,
+            //             ...fillerHeights
+            //         };
+            // },
             __getVirtual = cdata => {
-                const cnd = to > cdata.length,
+                // On filter and unfilter reset first to 0, 
+                // if I want to keep the percentage scroll potentially stady
+                // some more work needs to be done here
+                const _from = 0,
+                    _to = Math.min(cdata.length, renderedElements),
                     _carpetHeight = cdata.length * rowHeight,
                     _moreSpaceThanContent = _carpetHeight < contentHeight,
-                    _to = cnd ? cdata.length || renderedElements : to,
-                    _from = cdata.length
-                        ? (cnd ? _to - renderedElements : from)
-                        : 0,
+                    // _to = cnd ? cdata.length - 1 || renderedElements : to,
+                    // _from = cdata.length
+                    //     ? (cnd ? _to - renderedElements : from)
+                    //     : 0,
                     fillerHeights = __getFillerHeights({
                         _from, _moreSpaceThanContent, _carpetHeight,
                         _rowHeight: rowHeight,
