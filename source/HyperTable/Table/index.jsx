@@ -81,12 +81,17 @@ const Table = () => {
                 ref.current.scrollTo(0, scrTo >= 0 ? scrTo : 0);
             }
         }, [scrollTop, shiftPageScroll, visibleElementsHeight]);
-
+    /**
+     * on filter | unfilter
+     * the state.virtual.scrollTop gets resetted... (a linear solution is not possible to mantain the scroll position)
+     * thus here when it gets to 0 we force the scroll top to reset
+     */
     useEffect(() => {
         if (scrollTop === 0) {
-            ref.current.scrollTo(0, 0);
+            // ref.current.scrollTo(ref.current.scrollLeft, 0);
+            ref.current.scrollTop = 0;
         }
-    }, [scrollTop]);
+    }, [scrollTop, ref]);
 
 
     return (
