@@ -14,33 +14,33 @@ export default {
 
     columns: [{
         key: 'id',
-        // label: 'idz',
-        // width: 300,
-        // cell: ({ row, column }) => row[column.key],
+        label: 'idz',
+        width: 300,
+        cell: ({ row, column }) => row[column.key],
 
-        // header: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-        //     <span>{column.label + '_' + columnIndex}</span>
-        //     <Filter {...{ column, columnIndex, filter }} />
-        //     <Sorter {...{ column, columnIndex, sort, isSorting }} />
-        // </div>),
-        // // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        // footer: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-        //     isSorting
-        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-        //     <span>{column.label + '_' + columnIndex}</span>
-        //     <Filter {...{ column, columnIndex, filter }} />
-        //     <Sorter {...{ column, columnIndex, sort, isSorting }} />
-        // </div>),
-        // filter: basicFilter,
-        // sort: basicSort,
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+            isSorting
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort, isSorting }} />
+        </div>),
+        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        footer: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+            isSorting
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort, isSorting }} />
+        </div>),
+        filter: basicFilter,
+        sort: basicSort,
     }, {
         key: 'entityid',
     }, {
@@ -122,7 +122,7 @@ export default {
         { key: 'entityid3', type: 'int' },
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
-    ], 1e3),
+    ], 1e5),
 
     // dimensions: {
     //     height: 900,
@@ -140,13 +140,13 @@ export default {
         }
     },
 
-    // footer: {
-    //     height: 60,
-    //     caption: {
-    //         component: FooterCaption,
-    //         height: 25
-    //     }
-    // },
+    footer: {
+        height: 60,
+        caption: {
+            component: FooterCaption,
+            height: 25
+        }
+    },
 
     // loader: <div className="Loading">loading</div>,
     // noFilterData: ({ total }) => <span>No results out of {total}</span>,

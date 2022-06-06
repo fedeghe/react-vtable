@@ -7,6 +7,7 @@ export default createUseStyles({
     },
     Td: {
         border: '1px solid black',
-        borderCollapse: 'collapse'
+        borderCollapse: 'collapse',
+        padding:0
     }
 });
