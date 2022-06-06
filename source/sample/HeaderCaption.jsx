@@ -13,11 +13,11 @@ const HeaderCaption = ({
 }) => (
     <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em', padding:'10px' }}>
         Pre header component ({total}) [{activeRow}, {activeColumn}] scrollTop: [{scrollTop}]
-        {Boolean(isFiltering) && <button onClick={unFilter}>unFilter all</button>}
-        {Boolean(isSorting) && <button onClick={unSort}>unSort all</button>}
+        {Boolean(isFiltering) && <button onClick={unFilter}>unFilter all</button>}-
+        {Boolean(isSorting) && <button onClick={unSort}>unSort all</button>} -
         {loading && <span> LOADING</span>}
-        <span onClick={downloadJson}>download as json</span> - 
-        <span onClick={downloadCsv}>download as csv</span> - 
+        <button onClick={downloadJson}>download as json</button> - 
+        <button onClick={downloadCsv}>download as csv</button> - 
     </div>
 );
 
