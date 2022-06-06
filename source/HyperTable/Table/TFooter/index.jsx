@@ -99,21 +99,21 @@ const TFooter = () => {
                                 type: 'toggleColumnVisibility',
                                 payload: {
                                     key: column.key,
-                                    visible: visibility
+                                    isVisible: visibility
                                 }
                             }),
-                            visible: column.visible,
+                            isVisible: column.isVisible,
                             column,
                         };
                     }
                     content = column.footer(footerProps);
 
                 } else {
-                    content = column.visible ? column.footer : '';
+                    content = column.isVisible ? column.footer : '';
                 }
                 
             } else {
-                content = column.visible ? column.key : '';
+                content = column.isVsible ? column.key : '';
             }
             return content;
         }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
@@ -125,10 +125,9 @@ const TFooter = () => {
             <Tr cls={classes.Tfoot}>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{isFooter:true}}/>
                 {columns.map((column, columnIndex) => {
-                    // if ('visible' in column && !column.visible) return null;
                     const content = getColumnContent({column, columnIndex});
                     return <Th
-                        style={column.visible ? {width: `${column.width}px`} : {}}
+                        style={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`foot${columnIndex}`}
                         cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         content={content}

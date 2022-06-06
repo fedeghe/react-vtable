@@ -53,10 +53,10 @@ const Tbody = () => {
                         if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex});
                         }
-                        if (!column.visible) content = removedContent;
+                        if (!column.isVisible) content = removedContent;
                         return (
                             <Td
-                                style={column.visible ? {width: `${column.width}px`} : {}}
+                                style={column.isVisible ? {width: `${column.width}px`} : {}}
                                 key={`cell_${row._ID}_${columnIndex}`}
                                 row={row}
                                 column={column}

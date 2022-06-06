@@ -101,18 +101,18 @@ const prefix = 'HYT_',
             },
             actions = {
                 toggleColumnVisibility: () => {
-                    const {key, visible} = payload,
+                    const {key, isVisible} = payload,
                         cIndex = columns.findIndex(c => c.key === key);
                     if (cIndex === -1) return {};
                     
                     // eslint-disable-next-line one-var
-                    const newColumns = arrRep(columns, cIndex, {...columns[cIndex], visible}); 
+                    const newColumns = arrRep(columns, cIndex, {...columns[cIndex], isVisible}); 
 
                     return {
                         columns: newColumns,
                         virtual: {
                             ...virtual,
-                            colspan: newColumns.filter(c => c.visible).length + !!LeftMost + !!RightMost
+                            colspan: newColumns.filter(c => c.isVisible).length + !!LeftMost + !!RightMost
                         }
                     };
                 },
@@ -342,7 +342,7 @@ const prefix = 'HYT_',
             _columns = columns.map(
                 column => ({
                     ...column,
-                    visible: 'visible' in column ? column.visible : true
+                    isVisible: 'isVisible' in column ? column.isVisible : true
                 })).map(
                     column => column.width ? column : { ...column, width: defaultColumnWidth }
                 );
@@ -425,7 +425,7 @@ const prefix = 'HYT_',
                 },
             },
             virtual: {
-                colspan: _columns.filter(c => c.visible).length + !!LeftMost + !!RightMost,
+                colspan: _columns.filter(c => c.isVisible).length + !!LeftMost + !!RightMost,
                 moreSpaceThanContent,
                 dataHeight,
                 contentHeight,

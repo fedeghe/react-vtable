@@ -3,10 +3,10 @@ import useStyles from './style.js';
 
 const Visibilist =  ({ visibility }) => {
     const classes = useStyles(),
-        {visible, setVisibility, column} = visibility;
+        {isVisible, setVisibility, column} = visibility;
 
     return <div className={classes.Container}>{
-        visible
+        isVisible
         ? <span className={classes.Pointer} title={`hide column \`${column.key}\``} onClick={() => setVisibility(false)}>hide</span>
         : <span className={classes.Pointer} title={`show column \`${column.key}\``} onClick={() => setVisibility(true)}>+</span>
     }</div>;

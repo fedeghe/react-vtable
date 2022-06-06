@@ -103,10 +103,10 @@ const THeadFoot =  ({pos}) => {
                             type: 'toggleColumnVisibility',
                             payload: {
                                 key: column.key,
-                                visible: visibility
+                                isVisible: visibility
                             }
                         }),
-                        visible: column.visible
+                        isVisible: column.isVisible
                     };
                 }
                 switch(pos) {

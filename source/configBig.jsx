@@ -54,14 +54,14 @@ export default {
         //     isSorting,
         //     visibility
         // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-        //     {Boolean(visibility.visible) && <>
+        //     {Boolean(visibility.isVisible) && <>
         //         <span>{column.key + '_' + columnIndex}</span>
         //         <Filter {...{ column, columnIndex, filter }} />
         //         <Sorter {...{ column, columnIndex, sort, isSorting }} />
         //     </>}
         //     <Visibilist {...{visibility}}/>
         // </div>),
-        // visible: true,
+        // isVisible: true,
         // visibilist: Visibilist,
         // filter: basicFilter,
         // sort: basicSort,
@@ -84,14 +84,14 @@ export default {
         //     isSorting,
         //     visibility
         // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-        //     {Boolean(visibility.visible) && <>
+        //     {Boolean(visibility.isVisible) && <>
         //         <span>{column.key + '_' + columnIndex}</span>
         //         <Filter {...{ column, columnIndex, filter }} />
         //         <Sorter {...{ column, columnIndex, sort, isSorting }} />
         //     </>}
         //     <Visibilist {...{visibility}}/>
         // </div>),
-        // visible: true,
+        // isVisible: true,
         // visibilist: Visibilist,
         // filter: basicFilter,
         // sort: basicSort,
@@ -132,13 +132,13 @@ export default {
 
     // gap: 15,
 
-    // header: {
-    //     height: 80,
-    //     caption: {
-    //         component: HeaderCaption,
-    //         height: 45
-    //     }
-    // },
+    header: {
+        height: 80,
+        caption: {
+            component: HeaderCaption,
+            height: 45
+        }
+    },
 
     // footer: {
     //     height: 60,

@@ -98,10 +98,10 @@ const Theader =  () => {
                                 type: 'toggleColumnVisibility',
                                 payload: {
                                     key: column.key,
-                                    visible: visibility
+                                    isVisible: visibility
                                 }
                             }),
-                            visible: column.visible,
+                            isVisible: column.isVisible,
                             column
                         };
                     }
@@ -110,7 +110,7 @@ const Theader =  () => {
                     content = column.header;
                 }
             } else {
-                content = column.visible ? column.key : '';
+                content = column.isVisible ? column.key : '';
             }
             return content;
         }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
@@ -120,10 +120,10 @@ const Theader =  () => {
             <Tr cls={classes.Thead}>
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{isHeader:true}}/>
                 {columns.map((column, columnIndex) => {
-                    // if ('visible' in column && !column.visible) return null;
+
                     const content = getColumnContent({column, columnIndex});
                     return <Th
-                        style={column.visible ? {width: `${column.width}px`} : {}}
+                        style={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`head${columnIndex}`}
                         cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         content={content}
