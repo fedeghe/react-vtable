@@ -21,9 +21,9 @@ configure({
 const Sorter =  ({sort}) => {
     const {sortAsc, sortDesc, unSort, direction, isSorting} = sort;
     return <div>
-        <span title={direction === 'asc' ? "sorting": ""} data-uie="sortAsc" onClick={() => sortAsc()}>▲</span>
+        <span title={direction === 'asc' ? "sorting": ""} data-uie="sortAsc" onClick={sortAsc}>▲</span>
         {direction && isSorting && <span  data-uie="unsort" onClick={unSort}>&times;</span>}
-        <span title={direction === 'desc' ? "sorting" : ""} data-uie="sortDesc" onClick={() => sortDesc()}>▼</span>
+        <span title={direction === 'desc' ? "sorting" : ""} data-uie="sortDesc" onClick={sortDesc}>▼</span>
     </div>;
 };
 
