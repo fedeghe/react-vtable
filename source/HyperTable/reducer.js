@@ -357,6 +357,8 @@ const prefix = 'HYT_',
                 direction: null,
                 sorter: null,
             },
+            isSorting: false,
+            
             filters: _columns.reduce((acc, column) => {
                 if (isFunction(column.filter)) {
                     acc[column.key] = {
@@ -369,7 +371,7 @@ const prefix = 'HYT_',
             }, {}),
             activeFiltersCount: 0,
             isFiltering: false,
-            isSorting: false,
+            
             dimensions: {
                 width, height,
                 rowHeight
