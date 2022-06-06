@@ -56,4 +56,4 @@ Additionally some other options allow to:
 - specify onEnter, onLeave and onClick cell handlers
 - enable line, column, cell and cross highlighting class to be used   
 
-To make it clear nothing is better than an example (you can still get a look at `configBig.jsx` and the `sample` folder and run `yarn && yarn start`)
+To make it clear nothing is better than an example (you can still get a look at the `sample` folder and use `configBig.jsx` in use it in `source/Playground.jsx` then just run `yarn && yarn start`)
