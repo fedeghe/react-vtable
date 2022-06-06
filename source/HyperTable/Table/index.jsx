@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useContext, useRef, useEffect } from 'react';
 import NoData from './NoData';
 
 import THeader from './THeader';
@@ -81,6 +81,12 @@ const Table = () => {
                 ref.current.scrollTo(0, scrTo >= 0 ? scrTo : 0);
             }
         }, [scrollTop, shiftPageScroll, visibleElementsHeight]);
+
+    useEffect(() => {
+        if (scrollTop === 0) {
+            ref.current.scrollTo(0, 0);
+        }
+    }, [scrollTop]);
 
 
     return (

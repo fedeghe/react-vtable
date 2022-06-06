@@ -70,42 +70,11 @@ const prefix = 'HYT_',
                 return acc;
             }, {}),
             
-            // __getVirtual = cdata => {
-            //     const cnd = to > cdata.length,
-            //         _carpetHeight = cdata.length * rowHeight,
-            //         _moreSpaceThanContent = _carpetHeight < contentHeight,
-            //         _to = cnd ? cdata.length - 1 || renderedElements : to,
-            //         _from = cdata.length
-            //             ? (cnd ? _to - renderedElements : from)
-            //             : 0,
-            //         fillerHeights = __getFillerHeights({
-            //             _from, _moreSpaceThanContent, _carpetHeight,
-            //             _rowHeight: rowHeight,
-            //             _contentHeight: contentHeight,
-            //             _dataHeight: dataHeight
-            //         });
-                
-            //         return {
-            //             carpetHeight: _carpetHeight,
-            //             moreSpaceThanContent: _moreSpaceThanContent,
-            //             from: _from,
-            //             to: _to,
-            //             loading: false,
-            //             ...fillerHeights
-            //         };
-            // },
             __getVirtual = cdata => {
-                // On filter and unfilter reset first to 0, 
-                // if I want to keep the percentage scroll potentially stady
-                // some more work needs to be done here
-                const _from = 0,
-                    _to = Math.min(cdata.length, renderedElements),
-                    _carpetHeight = cdata.length * rowHeight,
+                const _carpetHeight = cdata.length * rowHeight,
+                    _from = 0,
+                    _to = renderedElements > cdata.length ? cdata.length : renderedElements,
                     _moreSpaceThanContent = _carpetHeight < contentHeight,
-                    // _to = cnd ? cdata.length - 1 || renderedElements : to,
-                    // _from = cdata.length
-                    //     ? (cnd ? _to - renderedElements : from)
-                    //     : 0,
                     fillerHeights = __getFillerHeights({
                         _from, _moreSpaceThanContent, _carpetHeight,
                         _rowHeight: rowHeight,
@@ -113,14 +82,15 @@ const prefix = 'HYT_',
                         _dataHeight: dataHeight
                     });
                 
-                    return {
-                        carpetHeight: _carpetHeight,
-                        moreSpaceThanContent: _moreSpaceThanContent,
-                        from: _from,
-                        to: _to,
-                        loading: false,
-                        ...fillerHeights
-                    };
+                return {
+                    carpetHeight: _carpetHeight,
+                    moreSpaceThanContent: _moreSpaceThanContent,
+                    scrollTop: 0,
+                    from: 0,
+                    to: _to,
+                    loading: false,
+                    ...fillerHeights
+                };
             },
             arrRep = (a, i, v) => {
                 if (i === 0) return [v].concat(a.slice(1));
