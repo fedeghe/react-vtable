@@ -113,7 +113,7 @@ const TFooter = () => {
                 }
                 
             } else {
-                content = column.isVsible ? column.key : '';
+                content = column.isVisible ? column.key : '';
             }
             return content;
         }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
