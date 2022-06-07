@@ -22,6 +22,30 @@ const prefix = 'HYT_',
         };
     },
 
+    __filter = (fls, _originalData) => Object.keys(fls).reduce(
+        (acc, filterK) => acc.filter(row => fls[filterK].value === '' || fls[filterK].filter({
+            userValue: fls[filterK].value,
+            row,
+            columnKey: filterK
+        })),
+        _originalData
+    ),
+
+    __cleanFilters = _filters => Object.keys(_filters).reduce((acc, k) => {
+        acc[k] = {
+            filter: _filters[k].filter,
+            visibility: false,
+            value: ''
+        };
+        return acc;
+    }, {}),
+
+    __sort = (what, _sorter, _sortingColumn, _sortingDirection) => _sorter ? [...what].sort((a, b) => _sorter({
+        rowA: a, rowB: b,
+        columnKey: _sortingColumn,
+        direction: _sortingDirection
+    })) : [...what],
+
     reducer = (oldState, action) => {
         const { payload, type } = action,
             {
@@ -47,29 +71,8 @@ const prefix = 'HYT_',
                     renderedElements,
                 },
             } = oldState,
-            __sort = what => sorter ? [...what].sort((a, b) => sorter({
-                rowA: a, rowB: b,
-                columnKey: sortingColumn,
-                direction: sortingDirection
-            })) : [...what],
-
-            __filter = fls => Object.keys(fls).reduce(
-                (acc, filterK) => acc.filter(row => fls[filterK].value === '' || fls[filterK].filter({
-                    userValue: fls[filterK].value,
-                    row,
-                    columnKey: filterK
-                })),
-                originalData
-            ),
-            __cleanFilters = () => Object.keys(filters).reduce((acc, k) => {
-                acc[k] = {
-                    filter: filters[k].filter,
-                    visibility: false,
-                    value: ''
-                };
-                return acc;
-            }, {}),
             
+
             __getVirtual = cdata => {
                 const _carpetHeight = cdata.length * rowHeight,
                     _from = 0,
@@ -141,8 +144,8 @@ const prefix = 'HYT_',
                         };
                     }
 
-                    const _filteredData = __filter(_filters),
-                        _currentData = __sort(_filteredData),
+                    const _filteredData = __filter(_filters, originalData),
+                        _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
                         _filterNumbers = Object.values(_filters).filter(f => f.value).length,
                         _updatedVirtual = __getVirtual(_currentData);
 
@@ -165,7 +168,7 @@ const prefix = 'HYT_',
                         _updatedVirtual = __getVirtual(_currentData);
 
                     return {
-                        filters: __cleanFilters(),
+                        filters: __cleanFilters(filters),
                         activeFiltersCount: 0,
                         isFiltering: false,
                         filtered: _currentData.length,
@@ -346,7 +349,19 @@ const prefix = 'HYT_',
                 ),
 
             // initial sorting ? 
-            presortIndex = columns.findIndex(c => 'sorted' in c && ['asc', 'desc'].includes(c.sorted));
+            presortIndex = columns.findIndex(c => 'sorted' in c && ['asc', 'desc'].includes(c.sorted)),
+            
+            // initial filter, needs some more work, not only for filters
+            filters = _columns.reduce((acc, column) => {
+                if (isFunction(column.filter)) {
+                    acc[column.key] = {
+                        filter: column.filter,
+                        value:  '',
+                        visibility: false                   
+                    };
+                }
+                return acc;
+            }, {});
 
         let currentData = [...originalData],
             sorting = {
@@ -382,16 +397,7 @@ const prefix = 'HYT_',
             sorting,
             isSorting,
             
-            filters: _columns.reduce((acc, column) => {
-                if (isFunction(column.filter)) {
-                    acc[column.key] = {
-                        filter: column.filter,
-                        value: '',
-                        visibility: false
-                    };
-                }
-                return acc;
-            }, {}),
+            filters,
             activeFiltersCount: 0,
             isFiltering: false,
             
