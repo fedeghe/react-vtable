@@ -53,7 +53,7 @@ No headers, no filter or sorting, nothing, just the data. This case is really ba
 those component you will write will receive a lot of useful data and functions, just to mention wun: the "download as csv" function.
 
 Additionally some other options allow to: 
-- tune the number of rows rendered (around the wun the user sees)
+- tune the number of rows rendered (around the wuns the user sees)
 - tune the filtering and scrolling debounce times
 - tune the column default width (150)
 - specify onEnter, onLeave and onClick cell handlers
