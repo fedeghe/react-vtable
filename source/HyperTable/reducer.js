@@ -9,16 +9,16 @@ const prefix = 'HYT_',
     },
 
     __getFillerHeights = ({
-        _from, _moreSpaceThanContent, _carpetHeight,
-        _rowHeight, _contentHeight, _dataHeight
+        from, moreSpaceThanContent, carpetHeight,
+        rowHeight, contentHeight, dataHeight
     }) => {
-        const _headerFillerHeight = _from * _rowHeight,
-            _footerFillerHeight = _moreSpaceThanContent
-                ? _contentHeight - _carpetHeight
-                : _carpetHeight - _headerFillerHeight - _dataHeight;
+        const headerFillerHeight = from * rowHeight,
+            footerFillerHeight = moreSpaceThanContent
+                ? contentHeight - carpetHeight
+                : carpetHeight - headerFillerHeight - dataHeight;
         return {
-            headerFillerHeight: _headerFillerHeight,
-            footerFillerHeight: _footerFillerHeight
+            headerFillerHeight,
+            footerFillerHeight
         };
     },
 
@@ -79,10 +79,12 @@ const prefix = 'HYT_',
                     _to = renderedElements > cdata.length ? cdata.length : renderedElements,
                     _moreSpaceThanContent = _carpetHeight < contentHeight,
                     fillerHeights = __getFillerHeights({
-                        _from, _moreSpaceThanContent, _carpetHeight,
-                        _rowHeight: rowHeight,
-                        _contentHeight: contentHeight,
-                        _dataHeight: dataHeight
+                        from: _from, 
+                        moreSpaceThanContent:_moreSpaceThanContent,
+                        carpetHeight: _carpetHeight,
+                        rowHeight,
+                        contentHeight,
+                        dataHeight
                     });
                 
                 return {
@@ -151,7 +153,6 @@ const prefix = 'HYT_',
 
                     return {
                         filters: _filters,
-                        preFiltered: false,
                         filtered: _currentData.length,
                         activeFiltersCount: _filterNumbers,
                         isFiltering: _filterNumbers > 0,
@@ -227,12 +228,12 @@ const prefix = 'HYT_',
                         _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
                         _to = Math.min(_from + renderedElements, total),
                         _updatedFillerHeights = __getFillerHeights({
-                            _from,
-                            _moreSpaceThanContent: moreSpaceThanContent,
-                            _carpetHeight: carpetHeight,
-                            _rowHeight: rowHeight,
-                            _contentHeight: contentHeight,
-                            _dataHeight: dataHeight
+                            from: _from,
+                            moreSpaceThanContent,
+                            carpetHeight,
+                            rowHeight,
+                            contentHeight,
+                            dataHeight
                         });
 
                     return {
@@ -256,8 +257,7 @@ const prefix = 'HYT_',
         return oldState;
     },
     init = cnf => {
-        let activeFiltersCount = 0,
-            preFiltered = false;
+        let activeFiltersCount = 0;
         const {
             data = [],
             columns = [],
@@ -322,44 +322,20 @@ const prefix = 'HYT_',
                 filtering = 50,
                 scrolling = 100
             } = {}
-        } = cnf,
-            contentHeight = height
-                - (HeaderCaption ? headerCaptionHeight : 0)
-                - headerHeight - footerHeight
-                - (FooterCaption ? footerCaptionHeight : 0),
-            carpetHeight = data.length * rowHeight,
-            renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
-            dataHeight = renderedElements * rowHeight,
+        } = cnf;
 
-            moreSpaceThanContent = carpetHeight < contentHeight,
-            originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
-            visibleElements = Math.floor(contentHeight/rowHeight),
-            visibleElementsHeight = visibleElements * rowHeight,
-            fillerHeights = __getFillerHeights({
-                _from: 0,
-                _moreSpaceThanContent: moreSpaceThanContent,
-                _carpetHeight: carpetHeight,
-                _rowHeight: rowHeight,
-                _contentHeight: contentHeight,
-                _dataHeight: dataHeight
-            }),
-            _columns = columns.map(
-                column => ({
-                    ...column,
-                    isVisible: 'isVisible' in column ? column.isVisible : true
-                })).map(
-                    column => column.width ? column : { ...column, width: defaultColumnWidth }
-                ),
-
-            // initial sorting ? 
-            presortIndex = columns.findIndex(c => 'sorted' in c && ['asc', 'desc'].includes(c.sorted)),
-            
-            // initial filter, needs some more work, not only for filters
+        // eslint-disable-next-line one-var
+        const _columns = columns.map(
+            column => ({
+                ...column,
+                isVisible: 'isVisible' in column ? column.isVisible : true
+            })).map(
+                column => column.width ? column : { ...column, width: defaultColumnWidth }
+            ),
             filters = _columns.reduce((acc, column) => {
                 if (isFunction(column.filter)) {
                     const value = column.filtered || '';
                     activeFiltersCount += !!value;
-                    if (value) preFiltered = true;
                     acc[column.key] = {
                         filter: column.filter,
                         value,
@@ -367,17 +343,45 @@ const prefix = 'HYT_',
                     };
                 }
                 return acc;
-            }, {});
+            }, {}),
+            originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
+            contentHeight = height
+                - (HeaderCaption ? headerCaptionHeight : 0)
+                - headerHeight - footerHeight
+                - (FooterCaption ? footerCaptionHeight : 0),
+            renderedElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
+            dataHeight = renderedElements * rowHeight,
+
+
+            filteredData = __filter(filters, originalData),
+            
+            carpetHeight = filteredData.length * rowHeight,
+            moreSpaceThanContent = carpetHeight < contentHeight,
+            visibleElements = Math.floor(contentHeight / rowHeight),
+            visibleElementsHeight = visibleElements * rowHeight,
+            fillerHeights = __getFillerHeights({
+                from: 0,
+                moreSpaceThanContent,
+                carpetHeight,
+                rowHeight,
+                contentHeight,
+                dataHeight
+            }),
+            
+
+            // initial sorting ? 
+            presortIndex = columns.findIndex(c => 'sorted' in c && ['asc', 'desc'].includes(c.sorted));
 
         // eslint-disable-next-line one-var
-        let currentData = [...originalData],
+        let currentData = [...filteredData],
             sorting = {
                 column: null,
                 direction: null,
                 sorter: null,
             },
             isSorting = false;
-            
+
+        
         if (presortIndex >= 0) {
             // throw an exception in case the sort function is not in the column
             if (!isFunction(columns[presortIndex].sort)) {
@@ -406,7 +410,6 @@ const prefix = 'HYT_',
             
             filters,
             activeFiltersCount,
-            preFiltered,
             isFiltering: activeFiltersCount > 0,
             
             dimensions: {
@@ -430,10 +433,10 @@ const prefix = 'HYT_',
             },
             noFilterData,
             originalData,
-            currentData: [...currentData],
-            filteredData: [...originalData],
-            rows: [...currentData].slice(0, renderedElements),
-            filtered: originalData.length,
+            currentData,
+            filteredData,
+            rows: currentData.slice(0, renderedElements),
+            filtered: currentData.length,
             total: originalData.length,
             activeRow: null,
             activeColumn: null,
@@ -475,7 +478,7 @@ const prefix = 'HYT_',
                 carpetHeight,
                 visibleElements,
                 visibleElementsHeight,
-                loading: preFiltered,
+                loading: false,
                 loader,
                 ...fillerHeights,
             },
