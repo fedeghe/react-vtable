@@ -60,7 +60,6 @@ const Tbody = () => {
                                 key={`cell_${row._ID}_${columnIndex}`}
                                 row={row}
                                 column={column}
-                                content={content}
                                 rowIndex={rowIndex}
                                 columnIndex={columnIndex}
                                 cls={[
@@ -68,7 +67,7 @@ const Tbody = () => {
                                     activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : '',
                                     (cellHightlightClass && activeRow === row._ID && activeColumn === column.key) ? cellHightlightClass : ''
                                 ].join(' ')}
-                            />
+                            >{content}</Td>
                         );
                     })}
                     <RightMost
