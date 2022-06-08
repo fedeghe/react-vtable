@@ -59,5 +59,6 @@ Additionally some other options allow to:
 - specify onEnter, onLeave and onClick cell handlers
 - enable line, column, cell and cross highlighting class to be used  
 - show already sorted (wun column)
+- prefilter (+ than wun column)
 
 To make it clear nothing is better than an example (you can still get a look at the `sample` folder and use `configBig.jsx` in use it in `source/Playground.jsx` then just run `yarn && yarn start`)
