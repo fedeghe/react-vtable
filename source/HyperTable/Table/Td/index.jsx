@@ -1,7 +1,7 @@
 import React, { useContext, useCallback } from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
+const Td = ({row, column, rowIndex, columnIndex, cls, children, style}) => {
     const {
             state: {
                 dimensions: {
@@ -50,9 +50,9 @@ const Td = ({row, column, rowIndex, columnIndex, cls, content, style}) => {
     >
         <div className={classes.Cell} style={style}>
             {contentClass ? <div className={contentClass}>
-                {content}
+                {children}
             </div>
-            : content}
+            : children}
         </div>
     </td>;
 };
