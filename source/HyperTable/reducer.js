@@ -47,7 +47,7 @@ const prefix = 'HYT_',
     })) : [...what],
 
     reducer = (oldState, action) => {
-        const { payload, type } = action,
+        const { payload = {}, type } = action,
             {
                 total,
                 filters,
@@ -124,7 +124,7 @@ const prefix = 'HYT_',
                     }
                 }),
                 filter: () => {
-                    let _filters = {};
+                    let _filters = {...filters};
 
                     if ('value' in payload) {
                         _filters = {
@@ -151,6 +151,7 @@ const prefix = 'HYT_',
 
                     return {
                         filters: _filters,
+                        preFiltered: false,
                         filtered: _currentData.length,
                         activeFiltersCount: _filterNumbers,
                         isFiltering: _filterNumbers > 0,
@@ -255,6 +256,8 @@ const prefix = 'HYT_',
         return oldState;
     },
     init = cnf => {
+        let activeFiltersCount = 0,
+            preFiltered = false;
         const {
             data = [],
             columns = [],
@@ -354,15 +357,19 @@ const prefix = 'HYT_',
             // initial filter, needs some more work, not only for filters
             filters = _columns.reduce((acc, column) => {
                 if (isFunction(column.filter)) {
+                    const value = column.filtered || '';
+                    activeFiltersCount += !!value;
+                    if (value) preFiltered = true;
                     acc[column.key] = {
                         filter: column.filter,
-                        value:  '',
-                        visibility: false                   
+                        value,
+                        visibility: !!value
                     };
                 }
                 return acc;
             }, {});
 
+        // eslint-disable-next-line one-var
         let currentData = [...originalData],
             sorting = {
                 column: null,
@@ -398,8 +405,9 @@ const prefix = 'HYT_',
             isSorting,
             
             filters,
-            activeFiltersCount: 0,
-            isFiltering: false,
+            activeFiltersCount,
+            preFiltered,
+            isFiltering: activeFiltersCount > 0,
             
             dimensions: {
                 width, height,
@@ -467,7 +475,7 @@ const prefix = 'HYT_',
                 carpetHeight,
                 visibleElements,
                 visibleElementsHeight,
-                loading: false,
+                loading: preFiltered,
                 loader,
                 ...fillerHeights,
             },

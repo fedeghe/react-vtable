@@ -41,7 +41,8 @@ export default {
         </div>),
         filter: basicFilter,
         sort: basicSort,
-        // sorted: 'asc' // autosort at init ? 
+        // sorted: 'asc', // autosort at init ? 
+        // filtered: '23'
     }, {
         key: 'entityid',
     }, {
