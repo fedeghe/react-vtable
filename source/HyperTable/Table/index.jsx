@@ -39,8 +39,7 @@ const Table = () => {
                 scrollTop,
                 dataHeight,
                 visibleElementsHeight
-            },
-            preFiltered
+            }
         } = state,
         classes = useStyles({
             width, height,
@@ -93,10 +92,6 @@ const Table = () => {
             ref.current.scrollTop = 0;
         }
     }, [scrollTop, ref]);
-
-    useEffect(() => {
-        if (preFiltered) dispatch({type: 'filter'});
-    }, [preFiltered]);
 
 
     return (
