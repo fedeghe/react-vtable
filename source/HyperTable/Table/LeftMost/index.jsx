@@ -20,9 +20,8 @@ const LeftMost = ({cls, opts}) => {
                 row={opts.row}
                 rowIndex={opts.rowIndex}
                 columnIndex={null}
-                content={theLeftMost({from, to, ...opts})}
                 pos="leftMost"
-            />
+            >{theLeftMost({from, to, ...opts})}</Th>
         )
     );
 };

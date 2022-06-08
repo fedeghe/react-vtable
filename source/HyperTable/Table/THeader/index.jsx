@@ -126,11 +126,10 @@ const Theader =  () => {
                         style={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`head${columnIndex}`}
                         cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                        content={content}
                         column={column}
                         columnIndex={columnIndex}
                         pos="header"
-                    />;
+                    >{content}</Th>;
                 })}
                 <RightMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderRight}`} opts={{isHeader:true}}/>
             </Tr>

@@ -130,11 +130,10 @@ const TFooter = () => {
                         style={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`foot${columnIndex}`}
                         cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                        content={content}
                         column={column}
                         columnIndex={columnIndex}
                         pos="footer"
-                    />;
+                    >{content}</Th>;
                 })}
                 <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{isFooter:true}}/>
             </Tr>

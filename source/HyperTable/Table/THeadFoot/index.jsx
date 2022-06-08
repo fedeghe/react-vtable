@@ -145,11 +145,10 @@ const THeadFoot =  ({pos}) => {
                             style={{width: `${column.width}px`}}
                             key={`${pos}${columnIndex}`}
                             cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                            content={content}
                             column={column}
                             columnIndex={columnIndex}
                             pos={pos}
-                        />;
+                        >{content}</Th>;
                     })}
                     <RightMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigRight}`} opts={{isHeader:true}}/>
                 </Tr>
@@ -166,11 +165,10 @@ const THeadFoot =  ({pos}) => {
                             style={{width: `${column.width}px`}}
                             key={`${pos}${columnIndex}`}
                             cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                            content={content}
                             column={column}
                             columnIndex={columnIndex}
                             pos={pos}
-                        />;
+                        >{content}</Th>;
                     })}
                     <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigRight}`} opts={{isFooter:true}}/>
                 </Tr>

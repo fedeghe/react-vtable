@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import TableContext from '../../Context';
 
-const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) => {
+const Th = ({ row, column, rowIndex, columnIndex, cls, children, pos, style }) => {
     const {
             state: {
                 events: {
@@ -46,7 +46,7 @@ const Th = ({ row, column, rowIndex, columnIndex, cls, content, pos, style }) =>
         {...handlers}
     >   
         <div style={style}>
-            {content}
+            {children}
         </div>
     </th>;
 };
