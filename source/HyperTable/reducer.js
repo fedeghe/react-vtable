@@ -165,7 +165,7 @@ const prefix = 'HYT_',
                     };
                 },
                 unFilter: () => {
-                    const _currentData = __sort(originalData),
+                    const _currentData = __sort(originalData, sorter, sortingColumn, sortingDirection),
                         _updatedVirtual = __getVirtual(_currentData);
 
                     return {
