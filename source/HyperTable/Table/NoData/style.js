@@ -6,7 +6,7 @@ export default createUseStyles({
         left: 0,
         top: 0,
         width: ({ width}) => `${width}px`,
-        height: ({ height}) => `${height - 10}px`,
+        height: ({ height}) => `${height}px`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
