@@ -29,6 +29,7 @@ const TFooter = () => {
                     filtering : filteringDebounceTime,
                 } ,
                 activeFiltersCount,
+                isFiltering
             },
             dispatch
         } = useContext(TableContext),
@@ -90,7 +91,8 @@ const TFooter = () => {
                                     }
                                 }),
                             unFilter: debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
-                            activeFiltersCount
+                            activeFiltersCount,
+                            isFiltering
                         };
                     }
                     if (isFunction(column.visibilist)){
@@ -116,26 +118,29 @@ const TFooter = () => {
                 content = column.isVisible ? column.key : '';
             }
             return content;
-        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
+        }, [
+            sortingDirection, sortingColumn, dispatch,
+            filters, filteringDebounceTime,
+            activeFiltersCount, isFiltering
+        ]);
         
 
     return (
         Boolean(footerHeight) &&
         <tfoot className={classes.Tfoot}>
             <Tr cls={classes.Tfoot}>
-                <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{isFooter:true}}/>
-                {columns.map((column, columnIndex) => {
-                    const content = getColumnContent({column, columnIndex});
-                    return <Th
+                <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{type: 'footer'}}/>
+                {columns.map((column, columnIndex) => (
+                    <Th
                         style={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`foot${columnIndex}`}
                         cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         column={column}
                         columnIndex={columnIndex}
                         pos="footer"
-                    >{content}</Th>;
-                })}
-                <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{isFooter:true}}/>
+                    >{getColumnContent({column, columnIndex})}</Th>
+                ))}
+                <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{type: 'footer'}}/>
             </Tr>
         </tfoot>
     );

@@ -25,10 +25,10 @@ const Theader =  () => {
                 // eslint-disable-next-line no-unused-vars
                 sorting:{column: sortingColumn, direction: sortingDirection},
                 debounceTimes: {
-                    
                     filtering : filteringDebounceTime,
                 } ,
                 activeFiltersCount,
+                isFiltering
             },
             dispatch
         } = useContext(TableContext),
@@ -89,7 +89,8 @@ const Theader =  () => {
                                     }
                                 }),
                             unFilter: debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
-                            activeFiltersCount
+                            activeFiltersCount,
+                            isFiltering
                         };
                     }
                     if (isFunction(column.visibilist)){
@@ -113,25 +114,27 @@ const Theader =  () => {
                 content = column.isVisible ? column.key : '';
             }
             return content;
-        }, [sortingDirection, sortingColumn, dispatch, filters, filteringDebounceTime, activeFiltersCount]);
+        }, [
+            sortingDirection, sortingColumn, dispatch,
+            filters, filteringDebounceTime,
+            activeFiltersCount, isFiltering
+        ]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>
             <Tr cls={classes.Thead}>
-                <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{isHeader:true}}/>
-                {columns.map((column, columnIndex) => {
-
-                    const content = getColumnContent({column, columnIndex});
-                    return <Th
+                <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{type:'header'}}/>
+                {columns.map((column, columnIndex) => (
+                    <Th
                         style={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`head${columnIndex}`}
                         cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         column={column}
                         columnIndex={columnIndex}
                         pos="header"
-                    >{content}</Th>;
-                })}
-                <RightMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderRight}`} opts={{isHeader:true}}/>
+                    >{getColumnContent({column, columnIndex})}</Th>
+                ))}
+                <RightMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderRight}`} opts={{type: 'header'}}/>
             </Tr>
         </thead>
     );

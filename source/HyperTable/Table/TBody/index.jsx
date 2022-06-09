@@ -28,9 +28,9 @@ const Tbody = () => {
                 headerFillerHeight,
                 footerFillerHeight,
                 colspan,
-                from, to
+                from
             },
-            removedContent
+            commonRemovedContent
         },
     } = useContext(TableContext),
         classes = useStyles({ rowHeight });
@@ -45,7 +45,7 @@ const Tbody = () => {
                 >
                     <LeftMost
                         cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass) : ''}`}
-                        opts={{ row, rowIndex: rowIndex + from, from, to }}
+                        opts={{ row, rowIndex: rowIndex + from, type: 'body' }}
                     />
                     {columns.map((column, columnIndex) => {
                         
@@ -53,7 +53,7 @@ const Tbody = () => {
                         if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex});
                         }
-                        if (!column.isVisible) content = removedContent;
+                        if (!column.isVisible) content = column.removedContent || commonRemovedContent || '';
                         return (
                             <Td
                                 style={column.isVisible ? {width: `${column.width}px`} : {}}
@@ -72,7 +72,7 @@ const Tbody = () => {
                     })}
                     <RightMost
                         cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass) : ''}`}
-                        opts={{ row, rowIndex: rowIndex + from }}
+                        opts={{ row, rowIndex: rowIndex + from, type: 'body'}}
                     />
                 </Tr>
             ))}

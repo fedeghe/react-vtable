@@ -289,7 +289,7 @@ const prefix = 'HYT_',
 
             defaultColumnWidth = 150,
 
-            removedContent = '.',
+            commonRemovedContent = '.',
 
             cls: {
                 highlight: {
@@ -335,7 +335,7 @@ const prefix = 'HYT_',
             ),
             filters = _columns.reduce((acc, column) => {
                 if (isFunction(column.filter)) {
-                    const value = column.filtered || '';
+                    const value = column.preFiltered || '';
                     activeFiltersCount += !!value;
                     acc[column.key] = {
                         filter: column.filter,
@@ -371,7 +371,7 @@ const prefix = 'HYT_',
             
 
             // initial sorting ? 
-            presortIndex = columns.findIndex(c => 'sorted' in c && ['asc', 'desc'].includes(c.sorted));
+            presortIndex = columns.findIndex(c => 'preSorted' in c && ['asc', 'desc'].includes(c.preSorted));
 
         // eslint-disable-next-line one-var
         let currentData = [...filteredData],
@@ -392,11 +392,11 @@ const prefix = 'HYT_',
                 rowA: a,
                 rowB: b,
                 columnKey: columns[presortIndex].key,
-                direction: columns[presortIndex].sorted
+                direction: columns[presortIndex].preSorted
             }));
             sorting = {
                 column: columns[presortIndex].key,
-                direction: columns[presortIndex].sorted,
+                direction: columns[presortIndex].preSorted,
                 sorter: columns[presortIndex].sort
             };
             isSorting = true;
@@ -443,7 +443,7 @@ const prefix = 'HYT_',
             activeColumn: null,
             activeRowIndex: null,
             activeColumnIndex: null,
-            removedContent,
+            commonRemovedContent,
             events: {
                 onCellClick,
                 onCellEnter,
