@@ -285,7 +285,7 @@ const prefix = 'HYT_',
 
             gap = 10,
 
-            loader = false,
+            Loader = () => null,
 
             defaultColumnWidth = 150,
 
@@ -305,7 +305,7 @@ const prefix = 'HYT_',
                 } = {},
             } = {},
 
-            noFilterData = () => 'no data',
+            NoFilterData = () => 'no data',
 
             LeftMost, RightMost,
             events: {
@@ -432,7 +432,7 @@ const prefix = 'HYT_',
                     height: footerCaptionHeight
                 }
             },
-            noFilterData,
+            NoFilterData,
             originalData,
             currentData,
             filteredData,
@@ -480,7 +480,7 @@ const prefix = 'HYT_',
                 visibleElements,
                 visibleElementsHeight,
                 loading: false,
-                loader,
+                Loader,
                 ...fillerHeights,
             },
             debounceTimes: {

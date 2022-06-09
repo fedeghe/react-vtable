@@ -6,7 +6,7 @@ const NoData = () => {
 
     const {
             state: {
-                noFilterData,
+                NoFilterData,
                 dimensions: { width },
                 total,
                 virtual: {
@@ -16,10 +16,11 @@ const NoData = () => {
             }
         } = useContext(TableContext),
         classes = useStyles({width, height: contentHeight});
+        console.log(contentHeight)
     return <tbody>
         <tr>
             <td colSpan={colspan}>
-                <div className={classes.NoData}>{noFilterData({ total })}</div>
+                <div className={classes.NoData}>{NoFilterData({ total })}</div>
             </td>
         </tr>
     </tbody>;

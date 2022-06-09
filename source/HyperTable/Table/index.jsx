@@ -38,7 +38,7 @@ const Table = () => {
             virtual: {
                 scrollTop,
                 dataHeight,
-                visibleElementsHeight
+                visibleElementsHeight,
             }
         } = state,
         classes = useStyles({
@@ -92,7 +92,6 @@ const Table = () => {
             ref.current.scrollTop = 0;
         }
     }, [scrollTop, ref]);
-
 
     return (
         <div
