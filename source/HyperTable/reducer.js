@@ -69,14 +69,15 @@ const prefix = 'HYT_',
                     dataHeight, contentHeight, carpetHeight,
                     moreSpaceThanContent,
                     renderedElements,
+                    scrollTop
                 },
             } = oldState,
             
 
-            __getVirtual = cdata => {
-                const _carpetHeight = cdata.length * rowHeight,
+            __getVirtual = ({_currentData, _filterNumbers}) => {
+                const _carpetHeight = _currentData.length * rowHeight,
                     _from = 0,
-                    _to = renderedElements > cdata.length ? cdata.length : renderedElements,
+                    _to = renderedElements > _currentData.length ? _currentData.length : renderedElements,
                     _moreSpaceThanContent = _carpetHeight < contentHeight,
                     fillerHeights = __getFillerHeights({
                         from: _from, 
@@ -90,7 +91,7 @@ const prefix = 'HYT_',
                 return {
                     carpetHeight: _carpetHeight,
                     moreSpaceThanContent: _moreSpaceThanContent,
-                    scrollTop: 0,
+                    scrollTop: _filterNumbers ? 0 : scrollTop,
                     from: 0,
                     to: _to,
                     loading: false,
@@ -149,7 +150,7 @@ const prefix = 'HYT_',
                     const _filteredData = __filter(_filters, originalData),
                         _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
                         _filterNumbers = Object.values(_filters).filter(f => f.value).length,
-                        _updatedVirtual = __getVirtual(_currentData);
+                        _updatedVirtual = __getVirtual({_currentData, _filterNumbers});
 
                     return {
                         filters: _filters,
@@ -167,7 +168,7 @@ const prefix = 'HYT_',
                 },
                 unFilter: () => {
                     const _currentData = __sort(originalData, sorter, sortingColumn, sortingDirection),
-                        _updatedVirtual = __getVirtual(_currentData);
+                        _updatedVirtual = __getVirtual({_currentData, _filterNumbers: 0});
 
                     return {
                         filters: __cleanFilters(filters),
@@ -224,8 +225,8 @@ const prefix = 'HYT_',
                 scroll: () => {
                     if (moreSpaceThanContent) return oldState;
 
-                    const scrollTop = parseInt(payload, 10),
-                        _from = Math.max(Math.ceil(scrollTop / rowHeight) - gap, 0),
+                    const _scrollTop = parseInt(payload, 10),
+                        _from = Math.max(Math.ceil(_scrollTop / rowHeight) - gap, 0),
                         _to = Math.min(_from + renderedElements, total),
                         _updatedFillerHeights = __getFillerHeights({
                             from: _from,
@@ -241,7 +242,7 @@ const prefix = 'HYT_',
                         virtual: {
                             ...virtual,
                             loading: false,
-                            scrollTop,
+                            scrollTop: _scrollTop,
                             ..._updatedFillerHeights,
                             from: _from,
                             to: _to - 1,
