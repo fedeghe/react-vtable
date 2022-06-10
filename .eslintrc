@@ -6,7 +6,14 @@
         "import/no-unresolved": 0,
         "semi": "error",
         "one-var": "error",
-        "no-multiple-empty-lines": ["error", { "max": 2 }]
+        "no-multiple-empty-lines": ["error", { "max": 2 }],
+        "import/no-cycle": [
+            "error",
+            {
+              "maxDepth": 10,
+              "ignoreExternal": true
+            }
+          ]
     },
     "plugins": [
         "react-hooks",
@@ -39,5 +46,5 @@
     "globals": {
         "WebPageMonitor": true
     },
-    "ignorePatterns": ["tests/*"]
+    "ignorePatterns": ["tests/*", "*.md"]
 }
