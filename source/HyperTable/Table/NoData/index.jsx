@@ -18,7 +18,7 @@ const NoData = () => {
         classes = useStyles({width, height: contentHeight});
     return <tbody>
         <tr>
-            <td colSpan={colspan}>
+            <td colSpan={colspan} className={classes.Td}>
                 <div className={classes.NoData}>
                     <NoFilterData total={total} />
                 </div>
