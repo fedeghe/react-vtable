@@ -113,8 +113,8 @@ Follows the complete reference for the config prop:
             ``` js
             rowA, rowB, columnKey, direction
             ```  
-            **this function is expected to return 1, 0 or -1**  
-            ant it is mandatory if we want to use the _sort_ object passed to the _header_ and _footer_.  
+            **this function is expected to return `1`, `0` or `-1`**  
+            it is mandatory if we want to use the _sort_ object passed to the _header_ and _footer_.  
         - _isVisible_ \<boolean\>  
             a boolean to preset the visibility (needs the _visibilist_)
         - _visibilist_ \<ƒunction\>  
@@ -126,7 +126,7 @@ Follows the complete reference for the config prop:
             ```  
             this is meant to allow to show a visibility toggler
         - _removedContent_ \<string\>  
-            overriding value to show in the cells of the hidden columns; wins over _commonRemovedContent_ which wins over the default '-' value.  
+            overriding value to show in the cells of the hidden columns; wins over _commonRemovedContent_ which wins over the default `-` value.  
         - _preSorted_ \<enum ['asc', 'desc']\>  
             sort at load the table sorted based on that column;  only the first column with this attribute will be effective.  
             values accepted: **'asc'** or **'desc'**  
@@ -236,13 +236,13 @@ Follows the complete reference for the config prop:
     onCellEnter: (e, { row, column }) => {},
     onCellLeave: (e, { row, column }) => {},
 
-    // when one of the cls.highlight is set by default the hovering styles will be applied only from the content, not by the header nor footer nor leftmost nor rightmost. Those flags can enable that behaviour.
+    // when wun of the cls.highlight is set by default the hovering styles will be applied only on the content hoveing, not by the header nor footer nor leftmost nor rightmost. Those flags can enable that behaviour.
     onHeaderHighlight: false,
     onFooterHighlight: false,
     onLeftMostHighlight: false,
     onRightMostHighlight: false,
 
-    // if enabled will enable a event handler that on shift+arrowup|pageup and shift+arrowdown|pagedown will trigger a page scroll
+    // allows to enable a event handler that on shift+arrowup|pageup and shift+arrowdown|pagedown will trigger a full page scroll
     shiftPageScroll: true
     ```
 
@@ -250,7 +250,7 @@ Follows the complete reference for the config prop:
     allows to tune the default debouncing times for filtering and scrolling; it may contain:  
     ``` js
     filtering:  defaulted 50
-    scrolling:  defaulted 100
+    scrolling:  defaulted 50
     ```
 
 ---
