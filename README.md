@@ -188,13 +188,15 @@ Follows the complete reference for the config prop:
     ``` js
     row, rowIndex, type, from, to
     ```
-    this component is meant to return the content of a sticky column that will be rendered in the right
+    this component is meant to return the content of a sticky column that will be rendered in the right.  
+    `type` is a value in `['header', 'body', 'footer']`
 - _LeftMost_  \<ƒunction\>  
     it receives the following props:
     ``` js
     row, rowIndex, type, from, to
     ```
-    this component is meant to return the content of a sticky column that will be rendered in the left
+    this component is meant to return the content of a sticky column that will be rendered in the left.  
+    `type` is a value in `['header', 'body', 'footer']`
 - _commonRemovedContent_ \<string\>  
     in case we use the _visibilist_ without spefifying on the column the _removedContent_, this will allow to overrive the default value '.'.  
 - _defaultColumnWidth_ \<integer\>  
@@ -210,10 +212,10 @@ Follows the complete reference for the config prop:
         rowHighlightClass: '',
 
         // if specified will apply the styles to the hovered column
-        columnHighlightClass: ''
+        columnHighlightClass: '',
 
         // if specified will apply the style to the hovered row+column
-        crossHighlightClass: ''
+        crossHighlightClass: '',
 
         // if specified will apply the style to the hovered cell
         cellHightlightClass: ''
@@ -221,13 +223,16 @@ Follows the complete reference for the config prop:
     elements: {  
         // if specified will be appied to a content wrapper into the <td> 
         contentClass: '',
+        
         // if specified will be appied to the <td> 
         cellClass: '',
+
         // if specified will be appied to the table wrapper
         wrapperClass: ''
     }
     ```  
-    It's **crucial** that all those classes do not modify the size thus must not include `border, padding, height, width, etc...`
+    It's **crucial** that all those classes do not modify the size thus must not include `border, padding, height, width, etc...`  
+    It's up to the user to make those classes reachable.
 
 - _events_ \<object literal\>
     ``` js
