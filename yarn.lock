@@ -7568,7 +7568,7 @@ react-display-name@^0.2.4:
   resolved "https://registry.yarnpkg.com/react-display-name/-/react-display-name-0.2.5.tgz#304c7cbfb59ee40389d436e1a822c17fe27936c6"
   integrity sha512-I+vcaK9t4+kypiSgaiVWAipqHRXYmZIuAiS8vzFvXHHXVigg/sMKwlRgLy6LH2i3rmP+0Vzfl5lFsFRwF1r3pg==
 
-react-dom@^18.1.0:
+react-dom@>=17:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.1.0.tgz#7f6dd84b706408adde05e1df575b3a024d7e8a2f"
   integrity sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w==
@@ -7613,7 +7613,7 @@ react-testing-library@^8.0.1:
   resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-8.0.1.tgz#b3dd43bce3fa88423cf0a23292fb819023c227cc"
   integrity sha512-Gq4JC9r3prA4hYwo7afcbHHMFckO29+5Nrh2KblAEPuK/DWaU0bJE1vtpAgLhzhY9bBirmcgjjIHljHEwGAXKw==
 
-react@^18.1.0:
+react@>=17:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.1.0.tgz#6f8620382decb17fdc5cc223a115e2adbf104890"
   integrity sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ==
