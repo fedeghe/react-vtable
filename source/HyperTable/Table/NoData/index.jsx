@@ -16,7 +16,6 @@ const NoData = () => {
             }
         } = useContext(TableContext),
         classes = useStyles({width, height: contentHeight});
-        console.log(contentHeight)
     return <tbody>
         <tr>
             <td colSpan={colspan}>
