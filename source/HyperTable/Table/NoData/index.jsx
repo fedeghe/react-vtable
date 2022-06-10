@@ -19,7 +19,9 @@ const NoData = () => {
     return <tbody>
         <tr>
             <td colSpan={colspan}>
-                <div className={classes.NoData}>{NoFilterData({ total })}</div>
+                <div className={classes.NoData}>
+                    <NoFilterData total={total} />
+                </div>
             </td>
         </tr>
     </tbody>;
