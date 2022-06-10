@@ -150,7 +150,7 @@ Follows the complete reference for the config prop:
 - _header_ ⬆️   
  _footer_ ⬇️  
  both object literals containing   
-    - _height_ \<integer\>
+    - _height_ \<integer\>  default 0 => no show
     - _caption_:  
         - _height_ \<integer\>
         - _component_ \<ƒunction\>    
@@ -254,5 +254,7 @@ Follows the complete reference for the config prop:
     ```
 
 ---
-fedeghe 2022
+---
+---
+MIT licensed - fedeghe 2022
 
