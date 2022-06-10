@@ -31,9 +31,9 @@ const config = {
         address: 'far far away 4066', phoneNumber: '+3456789012'
     }]
 }
-```
+```  
+and render
 ``` html
-// and render
  <HyperTable config={config} />
 ```
 No headers, no filter or sorting, nothing, just the data. This case is really basic and rarely could meet what we might expect and need from a table. The good new is that there are many many options that can quickly allow you to use :  
@@ -44,6 +44,8 @@ No headers, no filter or sorting, nothing, just the data. This case is really ba
 - headless sticky left and/or right column
 - headless loader  
 - headless no data component  
+- headless column visibility toggler
+- headless downloader (csv, json)
 
 those component you will write will receive a lot of useful data and functions, just to mention wun: the "download as csv" function.
 
@@ -56,8 +58,12 @@ Additionally some other options allow to:
 - show already sorted (wun column)
 - prefilter (+ than wun column)
 
+---
+
 ## try it
-run `yarn && yarn start` and take a look at the `sample` folder, use&tune `configBig.jsx` in `source/Playground.jsx`.
+run `yarn && yarn start`  
+take a look at the `sample` folder  
+in `source/Playground.jsx` use `configBig.jsx` and try to tune the configuration.
 
 ---
 
@@ -171,9 +177,9 @@ Follows the complete reference for the config prop:
 - _Loader_ \<ƒunction\>  
     expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
 - _NoFilterData_ \<ƒunction\>  
-    expected to retunr the content to be rendered when the filter produce no results; the content will automatically centered; this component will receive the following prop  
+    expected to return the content to be rendered when the filter produce no results; the content will get automatically centered; this component will receive the following prop  
     ``` js
-    total
+    total // the total number of elements in original data
     ```
     representing the size of *data*. The default is just a 'no data' string.  
 
@@ -195,42 +201,57 @@ Follows the complete reference for the config prop:
     each column have a default with of **150px**, this parameter allows to change that default value; still in each column is possible to set a specific value (will be always interpreted in pixel unit)
 
 
----  
 
-WIP 
-
-----  
-
-
-- _cls_ \<object literal\>
-
+- _cls_ \<object literal\>  
+    this is meant to allow to add some style both to some relevant elements and to the column,row, cell and cross on hover event:  
+    ``` js
     highlight: {
+        // if specified will apply the style to the hovered row
         rowHighlightClass: '',
+
+        // if specified will apply the styles to the hovered column
         columnHighlightClass: ''
+
+        // if specified will apply the style to the hovered row+column
         crossHighlightClass: ''
+
+        // if specified will apply the style to the hovered cell
         cellHightlightClass: ''
     },
-    elements: {
+    elements: {  
+        // if specified will be appied to a content wrapper into the <td> 
         contentClass: '',
+        // if specified will be appied to the <td> 
         cellClass: '',
+        // if specified will be appied to the table wrapper
         wrapperClass: ''
     }
+    ```  
+    It's **crucial** that all those classes do not modify the size thus must not include `border, padding, height, width, etc...`
 
-- events: {
+- _events_ \<object literal\>
+    ``` js
+    // self explanatory, as second param will get a literal containing the row and column
     onCellClick: (e, { row, column }) => {},
     onCellEnter: (e, { row, column }) => {},
     onCellLeave: (e, { row, column }) => {},
+
+    // when one of the cls.highlight is set by default the hovering styles will be applied only from the content, not by the header nor footer nor leftmost nor rightmost. Those flags can enable that behaviour.
     onHeaderHighlight: false,
     onFooterHighlight: false,
     onLeftMostHighlight: false,
     onRightMostHighlight: false,
-    shiftPageScroll: true
-}
 
-debounceTimes: {
-    filtering:  default 50
-    scrolling:  default 100
-}
+    // if enabled will enable a event handler that on shift+arrowup|pageup and shift+arrowdown|pagedown will trigger a page scroll
+    shiftPageScroll: true
+    ```
+
+- _debounceTimes_ \<object literal\>  
+    allows to tune the default debouncing times for filtering and scrolling; it may contain:  
+    ``` js
+    filtering:  defaulted 50
+    scrolling:  defaulted 100
+    ```
 
 ---
 fedeghe 2022
