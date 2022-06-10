@@ -23,24 +23,27 @@ const Td = ({row, column, rowIndex, columnIndex, cls, children, style}) => {
             dispatch
         } = useContext(TableContext),
         classes = useStyles({ rowHeight }),
+        onMouseEnter = useCallback(e => {
+            onCellEnter && onCellEnter.call(e, e, { row, column, rowIndex: from + rowIndex, colIndex: columnIndex });
+            dispatch({
+                type: 'cellEnter',
+                payload: {
+                    row,
+                    column,
+                    rowIndex: from + rowIndex,
+                    columnIndex
+                }
+            });
+        }, [onCellEnter, column, columnIndex, dispatch, from, row, rowIndex]),
+        onMouseLeave = useCallback(e => {
+            onCellLeave && onCellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
+            dispatch({ type: 'cellLeave' });
+        }, [onCellLeave, column, columnIndex, dispatch, from, row, rowIndex]),
+        onClick = useCallback(e => onCellClick && onCellClick.call(e, e, { row, column }), [onCellClick, column, row]),
         handlers = {
-            onMouseEnter: useCallback(e => {
-                onCellEnter && onCellEnter.call(e, e, { row, column, rowIndex: from + rowIndex, colIndex: columnIndex });
-                dispatch({
-                    type: 'cellEnter',
-                    payload: {
-                        row,
-                        column,
-                        rowIndex: from + rowIndex,
-                        columnIndex
-                    }
-                });
-            }, [onCellEnter, column, columnIndex, dispatch, from, row, rowIndex]),
-            onMouseLeave: useCallback(e => {
-                onCellLeave && onCellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
-                dispatch({ type: 'cellLeave' });
-            }, [onCellLeave, column, columnIndex, dispatch, from, row, rowIndex]),
-            onClick: useCallback(e => onCellClick && onCellClick.call(e, e, { row, column }), [onCellClick, column, row])
+            onMouseEnter,
+            onMouseLeave,
+            onClick
         };
 
     return <td

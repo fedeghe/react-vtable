@@ -20,24 +20,25 @@ const Th = ({ row, column, rowIndex, columnIndex, cls, children, pos, style }) =
             rightMost: onRightMostHighlight,
             leftMost: onLeftMostHighlight
         }[pos],
-
+        onMouseEnter = useCallback(
+            () => dealWithEvent && dispatch({
+                type: 'cellEnter',
+                payload: {
+                    row,
+                    column,
+                    rowIndex,
+                    columnIndex
+                }
+            }),
+            [column, columnIndex, dealWithEvent, dispatch, row, rowIndex]
+        ),
+        onMouseLeave = useCallback(
+            () => dealWithEvent && dispatch({ type: 'cellLeave' }),
+            [dealWithEvent, dispatch]
+        ),
         handlers = {
-            onMouseEnter: useCallback(
-                () => dealWithEvent && dispatch({
-                    type: 'cellEnter',
-                    payload: {
-                        row,
-                        column,
-                        rowIndex,
-                        columnIndex
-                    }
-                }),
-                [column, columnIndex, dealWithEvent, dispatch, row, rowIndex]
-            ),
-            onMouseLeave: useCallback(
-                () => dealWithEvent && dispatch({ type: 'cellLeave' }),
-                [dealWithEvent, dispatch]
-            )
+            onMouseEnter,
+            onMouseLeave
         };
 
     return <th
