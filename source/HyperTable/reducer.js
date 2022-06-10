@@ -321,7 +321,7 @@ const prefix = 'HYT_',
             } = {},
             debounceTimes: {
                 filtering = 50,
-                scrolling = 100
+                scrolling = 50
             } = {}
         } = cnf;
 
