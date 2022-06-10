@@ -13,5 +13,6 @@ export default createUseStyles({
     }),
     Table: {
         borderCollapse: 'collapse',  
+        borderSpacing: 0
     },
 });
