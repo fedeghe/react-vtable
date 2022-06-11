@@ -30,4 +30,5 @@ export default {
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
     ], 1e5),
+    events: { shiftPageScroll: true },
 };

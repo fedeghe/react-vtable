@@ -100,6 +100,7 @@ const Table = () => {
             className={classes.TableContainer}
             onKeyDown={onKeyDown}
             onScroll={onScroll}
+            data-cy="table"
         >
             <table className={classes.Table}>
                 <THeader />

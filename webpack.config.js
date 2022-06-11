@@ -1,30 +1,23 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, './HyperTable/index.jsx'),
+        index: path.resolve(__dirname, './source/index.jsx'),
     },
     output: {
-        path: path.resolve(__dirname, '../dist'),
+        path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
-        libraryTarget: "umd"
     },
-
-    //   output: {
-    //     path: './dist',
-    //     filename: 'libpack.js',
-    //     library: 'libpack',
-    //     libraryTarget:'umd'
-    // },
-    optimization: {
-        minimizer: [new UglifyJsPlugin()],
-    },
+    devtool: 'inline-source-map',
     plugins: [
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
+        new HtmlWebpackPlugin({
+            title: 'development',
+            template: 'source/index.html'
+        }),
     ],
-
     module: {
         rules: [
             {
@@ -33,7 +26,7 @@ module.exports = {
                 use: ['babel-loader'],
             },
             {
-                test: /\.less$/i,
+                test: /\.css$/i,
                 use: [{
                     loader: 'style-loader'
                 }, {
@@ -47,8 +40,13 @@ module.exports = {
     resolve: {
         extensions: ['*', '.js', '.jsx'],
     },
-    mode: 'production',
-    externals: {
-        react: "react"
-    }
+
+    devServer: {
+        // contentBase: path.resolve(__dirname, './dist'),
+        compress: true,
+        port: 9000,
+        hot: true,
+        host: 'localhost',
+    },
+    mode: 'development'
 };

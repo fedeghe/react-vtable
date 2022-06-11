@@ -1,6 +1,6 @@
 let id = 0,
     strid = 0;
-const sameInt = 666,
+const sameInt = 1,
     sameDate = +new Date(2000,1,1,1,1,1),
     generators = {
         int: (same = false, i) => same ? (sameInt + i) : parseInt(Math.random() * 1000, 10),
