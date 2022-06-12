@@ -16,11 +16,12 @@ const NoData = () => {
             }
         } = useContext(TableContext),
         classes = useStyles({width, height: contentHeight});
-        console.log(contentHeight)
     return <tbody>
         <tr>
-            <td colSpan={colspan}>
-                <div className={classes.NoData}>{NoFilterData({ total })}</div>
+            <td colSpan={colspan} className={classes.Td}>
+                <div className={classes.NoData}>
+                    <NoFilterData total={total} />
+                </div>
             </td>
         </tr>
     </tbody>;

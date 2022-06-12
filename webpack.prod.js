@@ -9,7 +9,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
-        libraryTarget: "umd"
+        library: 'react-hypertable',
+        globalObject: 'this',
+        libraryTarget: 'umd',
     },
 
     //   output: {
@@ -32,23 +34,28 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['babel-loader'],
             },
-            {
-                test: /\.less$/i,
-                use: [{
-                    loader: 'style-loader'
-                }, {
-                    loader: 'css-loader'
-                }, {
-                    loader: 'less-loader'
-                }]
-            },
         ],
     },
     resolve: {
         extensions: ['*', '.js', '.jsx'],
+        alias: {
+            src: path.resolve(__dirname, 'src/'),
+          },
     },
     mode: 'production',
     externals: {
-        react: "react"
-    }
+        // Don't bundle react or react-dom
+        react: {
+          commonjs: 'react',
+          commonjs2: 'react',
+          amd: 'react',
+          root: 'React',
+        },
+        'react-dom': {
+          commonjs: 'react-dom',
+          commonjs2: 'react-dom',
+          amd: 'react-dom',
+          root: 'ReactDOM',
+        },
+      },
 };

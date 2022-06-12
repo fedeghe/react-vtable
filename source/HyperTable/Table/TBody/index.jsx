@@ -9,30 +9,30 @@ import {isFunction} from './../../utils';
 import useStyles from './style.js';
 const Tbody = () => {
     const {
-        state: {
-            rows, columns,
-            activeRow, activeColumn,
-            leftMost, rightMost,
-            cls: {
-                highlight: {
-                    crossHighlightClass,
-                    rowHighlightClass,
-                    columnHighlightClass,
-                    cellHightlightClass,
-                }
+            state: {
+                rows, columns,
+                activeRow, activeColumn,
+                leftMost, rightMost,
+                cls: {
+                    highlight: {
+                        crossHighlightClass,
+                        rowHighlightClass,
+                        columnHighlightClass,
+                        cellHightlightClass,
+                    }
+                },
+                dimensions: {
+                    rowHeight
+                },
+                virtual: {
+                    headerFillerHeight,
+                    footerFillerHeight,
+                    colspan,
+                    from
+                },
+                commonRemovedContent
             },
-            dimensions: {
-                rowHeight
-            },
-            virtual: {
-                headerFillerHeight,
-                footerFillerHeight,
-                colspan,
-                from
-            },
-            commonRemovedContent
-        },
-    } = useContext(TableContext),
+        } = useContext(TableContext),
         classes = useStyles({ rowHeight });
 
     return (

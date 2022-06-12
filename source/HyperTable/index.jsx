@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo, useCallback } from 'react';
+import React, { useReducer, useCallback } from 'react';
 
 import TableContext from './Context';
 import reducerFactory from './reducer';
@@ -11,8 +11,8 @@ import useStyles from './style.js';
 
 const HyperTable = ({config}) => {
     const { reducer, init } = reducerFactory(),
-        initialState = useMemo(() => init(config), [config, init]),
-        [ state, dispatch ] = useReducer(reducer, initialState),
+        // initialState = useMemo(() => init(config), [config, init]),
+        [ state, dispatch ] = useReducer(reducer, config, init),
         {
             dimensions: {
                 width, height

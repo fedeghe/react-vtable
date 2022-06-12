@@ -5,7 +5,7 @@ import Th from './../Th';
 const RightMost = ({cls, opts}) => {
     const {
         state: {
-            RightMost: theRightMost,
+            RightMost,
             virtual:{
                 from, to, 
             },
@@ -13,7 +13,7 @@ const RightMost = ({cls, opts}) => {
     } = useContext(TableContext);
 
     return (
-        Boolean(theRightMost) && (
+        Boolean(RightMost) && (
             <Th
                 cls={`TableRightMost ${cls}`}
                 column={null}
@@ -21,7 +21,7 @@ const RightMost = ({cls, opts}) => {
                 rowIndex={opts.rowIndex}
                 columnIndex={null}
                 pos="rightMost"
-            >{theRightMost({from, to, ...opts})}</Th>
+            ><RightMost from={from} to={to} {...opts}/></Th>
         )
     );
 };

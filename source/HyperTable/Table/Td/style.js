@@ -8,6 +8,6 @@ export default createUseStyles({
     Td: {
         border: '1px solid black',
         borderCollapse: 'collapse',
-        padding:0
+        padding:'0px'
     }
 });

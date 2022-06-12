@@ -10,5 +10,6 @@ export default createUseStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    Td: {padding: '0px'},
 });
