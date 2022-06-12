@@ -8,15 +8,15 @@ const Filter =  ({filter}) => {
     return <div className={classes.Container}>{
         visibility
         ? <div>
-            <input type="text" onChange={e => setValue(e.target.value.replace(/^\s/g, ''))} value={value} autoFocus/>
-            <span className={classes.Pointer} onClick={() => {
+            <input data-cy="filter-input" type="text" onChange={e => setValue(e.target.value.replace(/^\s/g, ''))} value={value} autoFocus/>
+            <span data-cy="filter-close" className={classes.Pointer} onClick={() => {
                 setValue('');
                 setVisibility(false);
             }}>&times;</span>
             &nbsp;|&nbsp;
-            <span className={classes.Pointer} onClick={unFilter}>unfilter all</span>
+            <span data-cy="filter-unfilter-all" className={classes.Pointer} onClick={unFilter}>unfilter all</span>
         </div>
-        : <span className={classes.Pointer} onClick={() => setVisibility(true)}>Y</span>
+        : <span data-cy="filter-button" className={classes.Pointer} onClick={() => setVisibility(true)}>Y</span>
     }</div>;
 };
 export default Filter;

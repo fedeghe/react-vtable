@@ -9,9 +9,3 @@ export const TABLEDIMENSIONS = {
   width: WIDTH,
   height: HEIGHT
 };
-
-export const COLUMNS = [
-    { key: 'id', },
-    { key: 'entityid', },
-    { key: 'name', },
-  ];

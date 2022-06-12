@@ -2,10 +2,65 @@
 import React from 'react';
 import HyperTable from '../../source/HyperTable';
 import generateRowData from '../../source/utils';
+import { basicFilter, basicSort } from '../../source/sample/utils';
+import Filter from '../../source/sample/Filter';
+import Sorter from '../../source/sample/Sorter';
 
-import { COLUMNS, DATASIZE, TABLEDIMENSIONS } from './const';
+import { DATASIZE, TABLEDIMENSIONS } from './const';
 
-const baseConfigNoData = {
+/*
+  Config 1
+  - sticky column headers
+  - sorting 
+  - filtering
+*/
+
+const COLUMNS = [
+    { 
+        key: 'id',
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{column.key}</span>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort }} />
+        </div>), 
+        filter: basicFilter,
+        sort: basicSort,
+    },
+    { 
+        key: 'entityid',
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{column.key}</span>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort }} />
+        </div>), 
+        filter: basicFilter,
+        sort: basicSort,
+    },
+    { 
+        key: 'name',
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{column.key}</span>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort }} />
+        </div>), 
+        filter: basicFilter,
+        sort: basicSort,
+    },
+  ],
+
+ baseConfigNoData = {
   columns: COLUMNS,
   data: [],
   dimensions: TABLEDIMENSIONS
@@ -14,9 +69,19 @@ const baseConfigNoData = {
  baseConfigWithData = {
     columns: COLUMNS,
     data: generateRowData([
-        { key: 'id', type: 'int' },
-        { key: 'entityid', type: 'id' },
-        { key: 'name', type: 'str' },
+        { 
+            key: 'id', 
+            type: 'int',
+
+        },
+        { 
+            key: 'entityid', 
+            type: 'id',
+        },
+        { 
+            key: 'name',
+            type: 'str',
+        },
         ], DATASIZE, true
     ),
     dimensions: TABLEDIMENSIONS,
@@ -39,7 +104,7 @@ describe('HyperTable with config 1', () => {
   it('shows no data', () => {
     cy.viewport(TABLEDIMENSIONS.width, TABLEDIMENSIONS.height);
     cy.mount(<HyperTable config={baseConfigNoData} />);
-    cy.contains('no data');
+    cy.contains('no data').should('exist');
   });
 
   /* 

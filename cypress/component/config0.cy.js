@@ -3,9 +3,21 @@ import React from 'react';
 import HyperTable from '../../source/HyperTable';
 import generateRowData from '../../source/utils';
 
-import { COLUMNS, DATASIZE, TABLEDIMENSIONS } from './const';
+import { DATASIZE, TABLEDIMENSIONS } from './const';
 
-const baseConfigNoData = {
+
+/*
+  Config 0
+  - no features
+*/
+
+const COLUMNS = [
+  { key: 'id', },
+  { key: 'entityid', },
+  { key: 'name', },
+],
+
+ baseConfigNoData = {
   columns: COLUMNS,
   data: [],
   dimensions: TABLEDIMENSIONS
@@ -32,7 +44,7 @@ describe('HyperTable with config 0', () => {
   it('shows no data', () => {
     cy.viewport(TABLEDIMENSIONS.width, TABLEDIMENSIONS.height);
     cy.mount(<HyperTable config={baseConfigNoData} />);
-    cy.contains('no data');
+    cy.contains('no data').should('exist');
   });
 
   /* 
