@@ -10,7 +10,7 @@ module.exports = {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
         library: 'react-hypertable',
-        globalObject: 'this',
+        // globalObject: 'this',
         libraryTarget: 'umd',
     },
 
@@ -37,10 +37,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx'],
-        alias: {
-            src: path.resolve(__dirname, 'src/'),
-          },
+        extensions: ['.js', '.jsx'],
     },
     mode: 'production',
     externals: {
