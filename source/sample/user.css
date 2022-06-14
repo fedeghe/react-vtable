@@ -43,6 +43,10 @@ body {
     padding: 5px;
 }
 
+.TableRow {
+    outline: 1px solid #ddd
+}
+
 .TableCell {
     border: 1px solid lightgray;
     border-collapse: collapse;

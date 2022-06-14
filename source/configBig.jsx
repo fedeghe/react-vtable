@@ -172,6 +172,7 @@ export default {
             // contentClass: 'TableContent',
             // cellClass: 'TableCell',
             // wrapperClass: 'Wrapper',
+            // rowClass: 'TableRow'
         // }
     // },
 
