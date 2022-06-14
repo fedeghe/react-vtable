@@ -10,16 +10,12 @@ module.exports = {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
         library: 'react-hypertable',
-        globalObject: 'this',
+        // globalObject: 'this',
         libraryTarget: 'umd',
+        // libraryTarget: "commonjs-module"
     },
+    externalsType : 'umd',
 
-    //   output: {
-    //     path: './dist',
-    //     filename: 'libpack.js',
-    //     library: 'libpack',
-    //     libraryTarget:'umd'
-    // },
     optimization: {
         minimizer: [new UglifyJsPlugin()],
     },
@@ -38,24 +34,22 @@ module.exports = {
     },
     resolve: {
         extensions: ['*', '.js', '.jsx'],
-        alias: {
-            src: path.resolve(__dirname, 'src/'),
-          },
     },
     mode: 'production',
     externals: {
         // Don't bundle react or react-dom
-        react: {
-          commonjs: 'react',
-          commonjs2: 'react',
-          amd: 'react',
-          root: 'React',
-        },
-        'react-dom': {
-          commonjs: 'react-dom',
-          commonjs2: 'react-dom',
-          amd: 'react-dom',
-          root: 'ReactDOM',
-        },
+        react: "react"
+        // react: {
+        //   commonjs: 'react',
+        //   commonjs2: 'react',
+        //   amd: 'react',
+        //   root: 'React',
+        // },
+        // 'react-dom': {
+        //   commonjs: 'react-dom',
+        //   commonjs2: 'react-dom',
+        //   amd: 'react-dom',
+        //   root: 'ReactDOM',
+        // },
       },
 };

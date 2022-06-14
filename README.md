@@ -227,6 +227,9 @@ Follows the complete reference for the config prop:
         // if specified will be appied to the <td> 
         cellClass: '',
 
+        // if specified will be appied to the body <tr> 
+        rowClass: '',
+
         // if specified will be appied to the table wrapper
         wrapperClass: ''
     }

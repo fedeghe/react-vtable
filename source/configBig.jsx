@@ -4,7 +4,7 @@ import generateRowData from './utils';
 import Filter from './sample/Filter';
 import Sorter from './sample/Sorter';
 import Visibilist from './sample/Visibilist';
-import { basicFilter, basicSort } from './sample/utils';
+import { basicFilter, basicSort } from './sample/basicFilterAndSort';
 import HeaderCaption from './sample/HeaderCaption';
 import FooterCaption from './sample/FooterCaption';
 import LeftMost from './sample/LeftMost';
@@ -172,6 +172,7 @@ export default {
             // contentClass: 'TableContent',
             // cellClass: 'TableCell',
             // wrapperClass: 'Wrapper',
+            // rowClass: 'TableRow'
         // }
     // },
 
