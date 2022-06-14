@@ -11,7 +11,7 @@ const Filler = ({
 }) => {
 
     /**
-     * Here the leftMost and right most styles column couls be rendered, it woud look a way better
+     * Here the leftMost and right most styles column could be rendered, it woud look a way better
      */
     const classes = useStyles({height});
     return <tr className={classes.Tr}>
