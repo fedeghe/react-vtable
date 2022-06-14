@@ -69,12 +69,11 @@ const prefix = 'HYT_',
                     dataHeight, contentHeight, carpetHeight,
                     moreSpaceThanContent,
                     renderedElements,
-                    scrollTop
                 },
             } = oldState,
             
 
-            __getVirtual = ({_currentData, _filterNumbers}) => {
+            __getVirtual = ({_currentData}) => {
                 const _carpetHeight = _currentData.length * rowHeight,
                     _from = 0,
                     _to = renderedElements > _currentData.length ? _currentData.length : renderedElements,
@@ -151,7 +150,7 @@ const prefix = 'HYT_',
                     const _filteredData = __filter(_filters, originalData),
                         _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
                         _filterNumbers = Object.values(_filters).filter(f => f.value).length,
-                        _updatedVirtual = __getVirtual({_currentData, _filterNumbers});
+                        _updatedVirtual = __getVirtual({_currentData });
 
                     return {
                         filters: _filters,
@@ -169,7 +168,7 @@ const prefix = 'HYT_',
                 },
                 unFilter: () => {
                     const _currentData = __sort(originalData, sorter, sortingColumn, sortingDirection),
-                        _updatedVirtual = __getVirtual({_currentData, _filterNumbers: 0});
+                        _updatedVirtual = __getVirtual({_currentData });
 
                     return {
                         filters: __cleanFilters(filters),
