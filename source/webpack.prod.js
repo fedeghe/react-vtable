@@ -9,11 +9,14 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
-        library: 'react-hypertable',
-        // globalObject: 'this',
-        libraryTarget: 'umd',
-        // libraryTarget: "commonjs-module"
+        // library: {
+        //     name: 'react-hypertable',
+        //     type: 'umd',
+        // }
+
+        libraryTarget: "umd"
     },
+    devtool: 'inline-source-map',
     externalsType : 'umd',
 
     optimization: {
@@ -34,22 +37,24 @@ module.exports = {
     },
     resolve: {
         extensions: ['*', '.js', '.jsx'],
+        // alias: {
+        //     react: path.resolve('./../node_modules/react')
+        // }
     },
     mode: 'production',
+    
     externals: {
-        // Don't bundle react or react-dom
-        react: "react"
-        // react: {
-        //   commonjs: 'react',
-        //   commonjs2: 'react',
-        //   amd: 'react',
-        //   root: 'React',
-        // },
-        // 'react-dom': {
-        //   commonjs: 'react-dom',
-        //   commonjs2: 'react-dom',
-        //   amd: 'react-dom',
-        //   root: 'ReactDOM',
-        // },
-      },
+        react: {
+            root: 'React',
+            commonjs2: 'react',
+            commonjs: 'react',
+            amd: 'react'
+        },
+        'react-dom': {
+            root: 'ReactDOM',
+            commonjs2: 'react-dom',
+            commonjs: 'react-dom',
+            amd: 'react-dom'
+        }
+      }
 };
