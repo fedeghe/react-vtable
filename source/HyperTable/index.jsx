@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer } from 'react';
 
 import TableContext from './Context';
 import reducerFactory from './reducer';
@@ -37,14 +37,8 @@ const HyperTable = ({config}) => {
             preHeaderHeight,
             postFooterHeight,
         }),
-        unFilter = useCallback(
-            debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
-            [filteringDebounceTime]
-        ),
-        unSort = useCallback(
-            debounce(() => dispatch({type: 'unSort'}), filteringDebounceTime),
-            [filteringDebounceTime]
-        ),
+        unFilter = debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
+        unSort = debounce(() => dispatch({type: 'unSort'}), filteringDebounceTime),
         p = {
             unSort, unFilter
         };
