@@ -13,7 +13,6 @@ export default {
     }, {
         key: 'name',
         width:300,
-        cell: () => {}
     }],
     data: generateRowData([
         { key: 'id', type: 'int' },
