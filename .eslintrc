@@ -47,5 +47,5 @@
     "globals": {
         "WebPageMonitor": true
     },
-    "ignorePatterns": ["tests/*", "*.md"]
+    "ignorePatterns": ["tests/*", "*.md", "dist/index.js"]
 }
