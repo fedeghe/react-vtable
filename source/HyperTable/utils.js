@@ -46,19 +46,26 @@ debounce = (func, wait) => {
     };
 },
 escapeComma = r => `${r}`.replace(/,/g, '\\,'),
+removeID = jsonData => jsonData.map(row => {
+    var r = {...row};
+    delete r._ID;
+    return r;
+}),
 asCsv = (columns, jsonData) => {
     const lines = [],
         keys = columns.map(c => c.key);
     lines.push(keys.join(','));
-    jsonData.forEach(row => {
+    removeID(jsonData).forEach(row => {
         lines.push(keys.map(k => escapeComma(row[k])).join(','));
     });
     return lines.join("\n");
-};
+},
+asJson = removeID;
 
 export {
     replaceall,
     isFunction,
     debounce,
-    asCsv
+    asCsv,
+    asJson
 };

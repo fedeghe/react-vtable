@@ -1,7 +1,7 @@
 import React, {useContext, useCallback} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-import {isFunction, asCsv} from './../../utils';
+import {isFunction, asCsv, asJson} from './../../utils';
 const Caption = ({type, unFilter, unSort }) => {
     const {
             state: {
@@ -50,7 +50,7 @@ const Caption = ({type, unFilter, unSort }) => {
         }[type],
         downloadJson = useCallback(() => {
             const a = document.createElement('a'),
-                blob = new Blob([JSON.stringify(currentData)]);
+                blob = new Blob([JSON.stringify(asJson(currentData))]);
             a.href = URL.createObjectURL(blob);
             a.target = '_blank';
             a.download = 'extract.json';                     //filename to download
