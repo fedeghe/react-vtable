@@ -175,7 +175,7 @@ Follows the complete reference for the config prop:
     the default content for _header_ and _footer_ cells is the _column.key_ and this can be easily changed specifying the omonimous function in the the column setting.  
 
 - _Loader_ \<ƒunction\>  
-    expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
+    component expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
 - _NoFilterData_ \<ƒunction\>  
     expected to return the content to be rendered when the filter produce no results; the content will get automatically centered; this component will receive the following prop  
     ``` js
