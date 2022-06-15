@@ -152,7 +152,7 @@ Follows the complete reference for the config prop:
  both object literals containing   
     - _height_ \<integer\>  default 0 => no show
     - _caption_:  
-        - _height_ \<integer\>
+        - _height_ \<integer\> default 25px
         - _component_ \<ƒunction\>    
             gets the following props:   
             - _from_: the first index of *data* actually rendered   
