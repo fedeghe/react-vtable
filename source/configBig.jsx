@@ -11,7 +11,6 @@ import LeftMost from './sample/LeftMost';
 import RightMost from './sample/RightMost';
 
 export default {
-
     columns: [{
         key: 'id',
         label: 'idz',
@@ -150,7 +149,7 @@ export default {
         }
     },
 
-    Loader: <div className="Loading">loading</div>,
+    Loader: () => <div className="Loading">loading</div>,
     // NoFilterData: ({ total }) => <span>No results out of {total}</span>,
 
     RightMost,
