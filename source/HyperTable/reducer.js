@@ -325,7 +325,7 @@ const prefix = 'HYT_',
                 filtering = 50,
                 scrolling = 50
             } = {},
-            rhtID = '___ID',
+            rhtID = '_ID',
         } = cnf;
 
         // eslint-disable-next-line one-var
@@ -447,6 +447,7 @@ const prefix = 'HYT_',
             activeRowIndex: null,
             activeColumnIndex: null,
             commonRemovedContent,
+            rhtID,
             events: {
                 onCellClick,
                 onCellEnter,
