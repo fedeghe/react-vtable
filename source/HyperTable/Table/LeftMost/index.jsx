@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import TableContext from '../../Context';
 import Th from './../Th';
 
-const LeftMost = ({cls, opts}) => {
+const _LeftMost = ({cls, opts}) => {
     const {
         state: {
             LeftMost,
@@ -25,4 +25,4 @@ const LeftMost = ({cls, opts}) => {
         )
     );
 };
-export default LeftMost;
+export default _LeftMost;
