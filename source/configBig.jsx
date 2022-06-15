@@ -67,7 +67,7 @@ export default {
 
         filter: basicFilter,
         sort: basicSort,
-        preFiltered: '34',
+        // preFiltered: '34',
     }, {
         key: 'date',
         // cell: ({ row, column }) => row[column.key],
@@ -124,7 +124,7 @@ export default {
         { key: 'entityid3', type: 'int' },
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
-    ], 1e5),
+    ], 1e4),
 
     // dimensions: {
     //     height: 900,
@@ -196,6 +196,6 @@ export default {
 
     debounceTimes: {
     //     filtering: 5,
-        // scrolling: 10
+        // scrolling: 5
     }
 };

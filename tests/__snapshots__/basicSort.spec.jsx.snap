@@ -91,7 +91,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-0-0"
                 >
-                  666
+                  1
                 </div>
               </div>
             </td>
@@ -141,7 +141,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-1-0"
                 >
-                  667
+                  2
                 </div>
               </div>
             </td>
@@ -191,7 +191,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-2-0"
                 >
-                  668
+                  3
                 </div>
               </div>
             </td>
@@ -241,7 +241,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-3-0"
                 >
-                  669
+                  4
                 </div>
               </div>
             </td>
@@ -291,7 +291,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-4-0"
                 >
-                  670
+                  5
                 </div>
               </div>
             </td>
@@ -341,7 +341,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-5-0"
                 >
-                  671
+                  6
                 </div>
               </div>
             </td>
@@ -391,7 +391,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-6-0"
                 >
-                  672
+                  7
                 </div>
               </div>
             </td>
@@ -441,7 +441,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-7-0"
                 >
-                  673
+                  8
                 </div>
               </div>
             </td>
@@ -491,7 +491,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-8-0"
                 >
-                  674
+                  9
                 </div>
               </div>
             </td>
@@ -541,7 +541,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-9-0"
                 >
-                  675
+                  10
                 </div>
               </div>
             </td>
@@ -591,7 +591,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-10-0"
                 >
-                  676
+                  11
                 </div>
               </div>
             </td>
@@ -641,7 +641,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-11-0"
                 >
-                  677
+                  12
                 </div>
               </div>
             </td>
@@ -691,7 +691,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
                 <div
                   data-uie="uie-12-0"
                 >
-                  678
+                  13
                 </div>
               </div>
             </td>
@@ -837,7 +837,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-0-0"
                 >
-                  715
+                  50
                 </div>
               </div>
             </td>
@@ -887,7 +887,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-1-0"
                 >
-                  714
+                  49
                 </div>
               </div>
             </td>
@@ -937,7 +937,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-2-0"
                 >
-                  713
+                  48
                 </div>
               </div>
             </td>
@@ -987,7 +987,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-3-0"
                 >
-                  712
+                  47
                 </div>
               </div>
             </td>
@@ -1037,7 +1037,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-4-0"
                 >
-                  711
+                  46
                 </div>
               </div>
             </td>
@@ -1087,7 +1087,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-5-0"
                 >
-                  710
+                  45
                 </div>
               </div>
             </td>
@@ -1137,7 +1137,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-6-0"
                 >
-                  709
+                  44
                 </div>
               </div>
             </td>
@@ -1187,7 +1187,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-7-0"
                 >
-                  708
+                  43
                 </div>
               </div>
             </td>
@@ -1237,7 +1237,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-8-0"
                 >
-                  707
+                  42
                 </div>
               </div>
             </td>
@@ -1287,7 +1287,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-9-0"
                 >
-                  706
+                  41
                 </div>
               </div>
             </td>
@@ -1337,7 +1337,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-10-0"
                 >
-                  705
+                  40
                 </div>
               </div>
             </td>
@@ -1387,7 +1387,7 @@ exports[`HyperTable - basic sort should behave as expected 2`] = `
                 <div
                   data-uie="uie-11-0"
                 >
-                  704
+                  39
                 </div>
               </div>
             </td>

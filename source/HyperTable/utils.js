@@ -46,16 +46,16 @@ debounce = (func, wait) => {
     };
 },
 escapeComma = r => `${r}`.replace(/,/g, '\\,'),
-removeID = jsonData => jsonData.map(row => {
+removeID = (jsonData, rhtID) => jsonData.map(row => {
     var r = {...row};
-    delete r._ID;
+    delete r[rhtID];
     return r;
 }),
-asCsv = (columns, jsonData) => {
+asCsv = (columns, jsonData, rhtID) => {
     const lines = [],
         keys = columns.map(c => c.key);
     lines.push(keys.join(','));
-    removeID(jsonData).forEach(row => {
+    removeID(jsonData, rhtID).forEach(row => {
         lines.push(keys.map(k => escapeComma(row[k])).join(','));
     });
     return lines.join("\n");

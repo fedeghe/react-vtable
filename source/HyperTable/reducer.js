@@ -17,8 +17,8 @@ const prefix = 'HYT_',
                 ? contentHeight - carpetHeight
                 : carpetHeight - headerFillerHeight - dataHeight;
         return {
-            headerFillerHeight,
-            footerFillerHeight
+            headerFillerHeight: Math.max(headerFillerHeight, 0),
+            footerFillerHeight: Math.max(footerFillerHeight, 0)
         };
     },
 
@@ -70,6 +70,7 @@ const prefix = 'HYT_',
                     moreSpaceThanContent,
                     renderedElements,
                 },
+                rhtID
             } = oldState,
             
 
@@ -212,7 +213,7 @@ const prefix = 'HYT_',
 
                 cellEnter: () => ({
                     activeColumn: payload?.column?.key,
-                    activeRow: payload?.row?._ID,
+                    activeRow: payload?.row[rhtID],
                     activeColumnIndex: payload?.columnIndex,
                     activeRowIndex: payload?.rowIndex
                 }),
@@ -323,7 +324,8 @@ const prefix = 'HYT_',
             debounceTimes: {
                 filtering = 50,
                 scrolling = 50
-            } = {}
+            } = {},
+            rhtID = '___ID',
         } = cnf;
 
         // eslint-disable-next-line one-var
@@ -346,7 +348,7 @@ const prefix = 'HYT_',
                 }
                 return acc;
             }, {}),
-            originalData = data.map(row => ({ _ID: `${uniqueID}`, ...row })),
+            originalData = data.map(row => ({ [rhtID]: `${uniqueID}`, ...row })),
             contentHeight = height
                 - (HeaderCaption ? headerCaptionHeight : 0)
                 - headerHeight - footerHeight
