@@ -5,10 +5,10 @@ import reducerFactory from './../source/HyperTable/reducer'
 import zeroConfig from './configs/zero'
 import generateRowData from './../source/utils';
 
-
+const deepClone = o => JSON.parse(JSON.stringify(o))
 
 describe('reducer', function () {
-    const { init } = reducerFactory(),
+    const { init, reducer } = reducerFactory(),
         basicFilter = ({userValue, row, columnKey}) => `${row[columnKey]}`.includes(userValue),
         basicSort = ({rowA, rowB, columnKey, direction}) => {
             const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
@@ -90,7 +90,7 @@ describe('reducer', function () {
     });
 
     it('initialise as expected - all in', () => {
-        const newConfig = {...zeroConfig}
+        const newConfig = deepClone(zeroConfig)
         newConfig.dimensions = {
             height: 800,
             width:400,
@@ -182,4 +182,89 @@ describe('reducer', function () {
         expect(state.debounceTimes).toMatchObject(newConfig.debounceTimes)
         expect(state.rhtID).toBe(newConfig.rhtID)
     });
+
+    it('actions - toggleColumnVisibility', () => {
+        const state = init(zeroConfig);
+        const newState1 = reducer(state, {
+            payload: {key: 'id', isVisible: false},
+            type: 'toggleColumnVisibility'
+        })
+        expect(newState1.columns[0].isVisible).toBe(false)
+        expect(newState1.virtual.colspan).toBe(2)
+
+        const newState2 = reducer(newState1, {
+            payload: {key: 'name', isVisible: false},
+            type: 'toggleColumnVisibility'
+        })
+        expect(newState2.columns[2].isVisible).toBe(false)
+        expect(newState2.virtual.colspan).toBe(1)
+
+        const newState3 = reducer(newState2, {
+            payload: {key: 'id', isVisible: true},
+            type: 'toggleColumnVisibility'
+        })
+        expect(newState3.columns[0].isVisible).toBe(true)
+        expect(newState3.virtual.colspan).toBe(2)
+
+        const newState4 = reducer(newState3, {
+            payload: {key: 'name', isVisible: true},
+            type: 'toggleColumnVisibility'
+        })
+        expect(newState4.columns[2].isVisible).toBe(true)
+        expect(newState4.virtual.colspan).toBe(3)
+    });
+    it('actions - loading', () => {
+        const state = init(zeroConfig);
+        const newState1 = reducer(state, {type: 'loading'})
+        expect(newState1.virtual.loading).toBe(true)
+    });
+    it('actions - filter visibility', () => {
+        const newConfig = deepClone(zeroConfig)
+        newConfig.columns[0].filter = basicFilter
+        const state = init(newConfig);
+        const newState1 = reducer(state, {
+            type: 'filter',
+            payload: {
+                visibility: true,
+                column: 'id'
+            }
+        })
+        expect(newState1.filters.id.value).toBe('')
+        expect(newState1.filters.id.visibility).toBe(true)
+        expect(newState1.activeFiltersCount).toBe(0)
+        expect(newState1.isFiltering).toBe(false)
+        expect(newState1.filteredData.length).toBe(10)
+    });
+    it('actions - filter value', () => {
+        const newConfig = deepClone(zeroConfig)
+        newConfig.columns[0].filter = basicFilter
+        const state = init(newConfig);
+        // show first
+        const newState1 = reducer(state, {
+            type: 'filter',
+            payload: {
+                visibility: true,
+                column: 'id'
+            }
+        })
+        expect(newState1.filteredData.length).toBe(10)
+        
+        const newState2 = reducer(newState1, {
+            type: 'filter',
+            payload: {
+                value: '4',
+                column: 'id'
+            }
+        })
+        expect(newState2.filters.id.value).toBe('4')
+        expect(newState2.filters.id.visibility).toBe(true)
+        expect(newState2.activeFiltersCount).toBe(1)
+        expect(newState2.isFiltering).toBe(true)
+        expect(newState2.filteredData.length).toBe(1)
+        expect(newState2.virtual.from).toBe(0)
+        expect(newState2.virtual.to).toBe(1)
+    });
+
+
+
 });
