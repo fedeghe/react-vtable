@@ -23,7 +23,7 @@ const prefix = 'HYT_',
     },
 
     __filter = (fls, _originalData) => Object.keys(fls).reduce(
-        (acc, filterK) => acc.filter(row => fls[filterK].value === '' || fls[filterK].filter({
+        (acc, filterK) => acc.filter(row => fls[filterK].value === '' || !fls[filterK].visibility || fls[filterK].filter({
             userValue: fls[filterK].value,
             row,
             columnKey: filterK
@@ -130,27 +130,25 @@ const prefix = 'HYT_',
                 filter: () => {
                     let _filters = {...filters};
 
-                    if ('value' in payload) {
+                    const updatedFields = {};
+
+                    if ('value' in payload) updatedFields.value = payload.value;
+                    if ('visibility' in payload) updatedFields.visibility = payload.visibility;
+
+                    if ('column' in payload) {
                         _filters = {
                             ...filters,
                             [payload.column]: {
                                 ...filters[payload.column],
-                                value: payload.value
-                            }
-                        };
-                    } else if ('visibility' in payload) {
-                        _filters = {
-                            ...filters,
-                            [payload.column]: {
-                                ...filters[payload.column],
-                                visibility: payload.visibility
+                                ...updatedFields
                             }
                         };
                     }
 
+                    // eslint-disable-next-line one-var
                     const _filteredData = __filter(_filters, originalData),
                         _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
-                        _filterNumbers = Object.values(_filters).filter(f => f.value).length,
+                        _filterNumbers = Object.values(_filters).filter(f => f.value && f.visibility).length,
                         _updatedVirtual = __getVirtual({_currentData });
 
                     return {
