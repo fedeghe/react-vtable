@@ -261,7 +261,7 @@ Follows the complete reference for the config prop:
     scrolling:  defaulted 50
     ```
 - _rhtID_ <string>  
-    by default each row gets an added index in a field by default called `_ID`. In case this clashes with your data pick something else and keep in ming it need to be a valid object literal key
+    by default each row gets an added index in a field by default called `_ID`. In case this clashes with your data pick something else and keep in mind it needs to be a valid object literal key.
 ---
 ---
 ---
