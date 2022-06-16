@@ -235,6 +235,7 @@ describe('reducer', function () {
         expect(newState1.isFiltering).toBe(false)
         expect(newState1.filteredData.length).toBe(10)
     });
+
     it('actions - filter value', () => {
         const newConfig = deepClone(zeroConfig)
         newConfig.columns[0].filter = basicFilter
@@ -244,26 +245,83 @@ describe('reducer', function () {
             type: 'filter',
             payload: {
                 visibility: true,
-                column: 'id'
+                column: 'id',
+                value: '4'
             }
         })
-        expect(newState1.filteredData.length).toBe(10)
-        
+        expect(newState1.rows.length).toBe(1)
+        expect(newState1.filters.id.value).toBe('4')
+        expect(newState1.filters.id.visibility).toBe(true)
+        expect(newState1.activeFiltersCount).toBe(1)
+        expect(newState1.isFiltering).toBe(true)
+        expect(newState1.filteredData.length).toBe(1)
+        expect(newState1.virtual.from).toBe(0)
+        expect(newState1.virtual.to).toBe(1)
+
+        // unfilter single
         const newState2 = reducer(newState1, {
             type: 'filter',
             payload: {
-                value: '4',
+                visibility: false,
                 column: 'id'
             }
         })
+    
+        expect(newState2.rows.length).toBe(9)
         expect(newState2.filters.id.value).toBe('4')
-        expect(newState2.filters.id.visibility).toBe(true)
-        expect(newState2.activeFiltersCount).toBe(1)
-        expect(newState2.isFiltering).toBe(true)
-        expect(newState2.filteredData.length).toBe(1)
+        expect(newState2.filters.id.visibility).toBe(false)
+        expect(newState2.activeFiltersCount).toBe(0)
+        expect(newState2.isFiltering).toBe(false)
+        expect(newState2.filteredData.length).toBe(10)
         expect(newState2.virtual.from).toBe(0)
-        expect(newState2.virtual.to).toBe(1)
+        expect(newState2.virtual.to).toBe(9)
     });
+
+    it('actions - unfilter all', () => {
+        const newConfig = deepClone(zeroConfig);
+        newConfig.columns[0].filter = basicFilter;
+        newConfig.columns[1].filter = basicFilter;
+        const state = init(newConfig),
+            // first filter
+            newState1 = reducer(state, {
+                type: 'filter',
+                payload: {
+                    visibility: true,
+                    value: '4',
+                    column: 'id'
+                }
+            }),
+            // second filter
+            newState2 = reducer(newState1, {
+                type: 'filter',
+                payload: {
+                    visibility: true,
+                    value: '4',
+                    column: 'entityid'
+                }
+            });
+            
+        expect(newState2.rows.length).toBe(0);
+
+        expect(newState2.filters.id.value).toBe('4');
+        expect(newState2.filters.id.visibility).toBe(true);
+        expect(newState2.activeFiltersCount).toBe(2);
+        expect(newState2.isFiltering).toBe(true);
+        expect(newState2.filteredData.length).toBe(0);
+        expect(newState2.virtual.from).toBe(0);
+        expect(newState2.virtual.to).toBe(0);
+
+        // unfilter all
+        const newState3 = reducer(newState2, {type: 'unFilter'});
+    
+        expect(newState3.rows.length).toBe(9);
+        expect(newState3.activeFiltersCount).toBe(0);
+        expect(newState3.isFiltering).toBe(false);
+        expect(newState3.filteredData.length).toBe(10);
+        expect(newState3.virtual.from).toBe(0);
+        expect(newState3.virtual.to).toBe(9);
+    });
+
 
 
 
