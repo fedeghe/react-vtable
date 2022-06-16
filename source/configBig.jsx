@@ -123,7 +123,7 @@ export default {
         { key: 'entityid3', type: 'int' },
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
-    ], 10),
+    ], 1e5),
 
     // dimensions: {
     //     height: 900,
