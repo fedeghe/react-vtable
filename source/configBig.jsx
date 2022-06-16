@@ -38,8 +38,8 @@ export default {
         </div>),
         filter: basicFilter,
         sort: basicSort,
-        preSorted: 'asc', // autosort at init ? 
-        preFiltered: '23'
+        // preSorted: 'asc', // autosort at init ? 
+        // preFiltered: '23'
     }, {
         key: 'entityid',
     }, {
@@ -123,7 +123,7 @@ export default {
         { key: 'entityid3', type: 'int' },
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
-    ], 1e4),
+    ], 10),
 
     // dimensions: {
     //     height: 900,
