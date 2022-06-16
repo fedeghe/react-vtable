@@ -11,7 +11,6 @@ import LeftMost from './sample/LeftMost';
 import RightMost from './sample/RightMost';
 
 export default {
-
     columns: [{
         key: 'id',
         label: 'idz',
@@ -39,8 +38,8 @@ export default {
         </div>),
         filter: basicFilter,
         sort: basicSort,
-        preSorted: 'asc', // autosort at init ? 
-        preFiltered: '23'
+        // preSorted: 'asc', // autosort at init ? 
+        // preFiltered: '23'
     }, {
         key: 'entityid',
     }, {
@@ -67,7 +66,7 @@ export default {
 
         filter: basicFilter,
         sort: basicSort,
-        preFiltered: '34',
+        // preFiltered: '34',
     }, {
         key: 'date',
         // cell: ({ row, column }) => row[column.key],
@@ -150,7 +149,7 @@ export default {
         }
     },
 
-    Loader: <div className="Loading">loading</div>,
+    Loader: () => <div className="Loading">loading</div>,
     // NoFilterData: ({ total }) => <span>No results out of {total}</span>,
 
     RightMost,
@@ -196,6 +195,6 @@ export default {
 
     debounceTimes: {
     //     filtering: 5,
-        // scrolling: 10
+        // scrolling: 5
     }
 };

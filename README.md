@@ -152,7 +152,7 @@ Follows the complete reference for the config prop:
  both object literals containing   
     - _height_ \<integer\>  default 0 => no show
     - _caption_:  
-        - _height_ \<integer\>
+        - _height_ \<integer\> default 25px
         - _component_ \<ƒunction\>    
             gets the following props:   
             - _from_: the first index of *data* actually rendered   
@@ -175,7 +175,7 @@ Follows the complete reference for the config prop:
     the default content for _header_ and _footer_ cells is the _column.key_ and this can be easily changed specifying the omonimous function in the the column setting.  
 
 - _Loader_ \<ƒunction\>  
-    expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
+    component expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
 - _NoFilterData_ \<ƒunction\>  
     expected to return the content to be rendered when the filter produce no results; the content will get automatically centered; this component will receive the following prop  
     ``` js
@@ -260,7 +260,8 @@ Follows the complete reference for the config prop:
     filtering:  defaulted 50
     scrolling:  defaulted 50
     ```
-
+- _rhtID_ <string>  
+    by default each row gets an added index in a field by default called `_ID`. In case this clashes with your data pick something else and keep in ming it need to be a valid object literal key
 ---
 ---
 ---

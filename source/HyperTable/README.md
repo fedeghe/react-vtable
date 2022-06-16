@@ -22,7 +22,7 @@ carpetHeight = data.length * rowHeight;
 ```
 we also need to compute the number of elements that we will really render as:
 ``` js
-renderedElements = 2 * gap + Math.ceil(height / rowHeight) + 1;
+renderableElements = 2 * gap + Math.ceil(height / rowHeight) + 1;
 ```
 Adding 1 might seem strange but take a better look, what we really want is to always have _gap_ elements rendered always invisible at the top and at the bottom (but for the two edge cases).  
 Later we'll thinking about filtering and we will inplicitly also clearly consider and solve another edge case where there is more space than content.
@@ -32,7 +32,7 @@ Later we'll thinking about filtering and we will inplicitly also clearly conside
 We can create some very useful `<tr>` tags containing just one empty `<td/>` tag (with a _colSpan_ attribute equal to the number of columns of our table). We will exploit two of those Filler _tr_ tags changing rapidly the height of the contained _td_.
 
 ## Filler, Data, Filler  
-Now at the very first render of the Table we can imagine to render a Filler with 0 height, then the very first `renderedElements` of data, then another Filler that allows us to reach exactly `carpetHeight`.
+Now at the very first render of the Table we can imagine to render a Filler with 0 height, then the very first `renderableElements` of data, then another Filler that allows us to reach exactly `carpetHeight`.
 
 ![](./Table//readme/table0.png)
 
@@ -59,7 +59,7 @@ When it happens we can in order:
     `FROM = ceil(scrollTop / rowHeight)`
 - proceed only if the new `FROM` differs from the previous `FROM`
 - compute the index in `data` of the last element we will render as  
-    `TO = FROM + renderedElements - 1`  
+    `TO = FROM + renderableElements - 1`  
 - compute the new headerFillerHeight as  
     `headerFillerHeight = FROM * rowHeight`
 - compute the new footerFillerHeight as  

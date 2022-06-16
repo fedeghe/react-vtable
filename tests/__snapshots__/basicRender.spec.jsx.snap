@@ -22,7 +22,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             />
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -36,7 +36,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-0-0"
                 >
-                  666
+                  1
                 </div>
               </div>
             </td>
@@ -72,7 +72,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -86,7 +86,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-1-0"
                 >
-                  667
+                  2
                 </div>
               </div>
             </td>
@@ -122,7 +122,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -136,7 +136,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-2-0"
                 >
-                  668
+                  3
                 </div>
               </div>
             </td>
@@ -172,7 +172,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -186,7 +186,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-3-0"
                 >
-                  669
+                  4
                 </div>
               </div>
             </td>
@@ -222,7 +222,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -236,7 +236,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-4-0"
                 >
-                  670
+                  5
                 </div>
               </div>
             </td>
@@ -272,7 +272,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -286,7 +286,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-5-0"
                 >
-                  671
+                  6
                 </div>
               </div>
             </td>
@@ -322,7 +322,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -336,7 +336,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-6-0"
                 >
-                  672
+                  7
                 </div>
               </div>
             </td>
@@ -372,7 +372,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -386,7 +386,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-7-0"
                 >
-                  673
+                  8
                 </div>
               </div>
             </td>
@@ -422,7 +422,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -436,7 +436,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-8-0"
                 >
-                  674
+                  9
                 </div>
               </div>
             </td>
@@ -472,7 +472,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -486,7 +486,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-9-0"
                 >
-                  675
+                  10
                 </div>
               </div>
             </td>
@@ -522,7 +522,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -536,7 +536,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-10-0"
                 >
-                  676
+                  11
                 </div>
               </div>
             </td>
@@ -572,7 +572,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -586,7 +586,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-11-0"
                 >
-                  677
+                  12
                 </div>
               </div>
             </td>
@@ -622,7 +622,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -636,7 +636,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-12-0"
                 >
-                  678
+                  13
                 </div>
               </div>
             </td>
@@ -672,7 +672,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -686,7 +686,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-13-0"
                 >
-                  679
+                  14
                 </div>
               </div>
             </td>
@@ -722,7 +722,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class=" "
             style="padding: 0px;"
           >
             <td
@@ -736,7 +736,7 @@ exports[`HyperTable - basic should render as expected 1`] = `
                 <div
                   data-uie="uie-14-0"
                 >
-                  680
+                  15
                 </div>
               </div>
             </td>
