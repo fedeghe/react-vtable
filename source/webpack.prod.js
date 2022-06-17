@@ -1,6 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -19,9 +19,13 @@ module.exports = {
     devtool: 'inline-source-map',
     externalsType : 'umd',
 
+    // optimization: {
+    //     minimizer: [new UglifyJsPlugin()],
+    // },
     optimization: {
-        minimizer: [new UglifyJsPlugin()],
-    },
+        minimize: true,
+        minimizer: [new TerserPlugin()],
+      },
     plugins: [
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     ],
