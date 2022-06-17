@@ -14,58 +14,58 @@ export default {
     columns: [{
         key: 'id',
         label: 'idz',
-        width: 350,
-        cell: ({ row, column }) => row[column.key],
+        // width: 350,
+        // cell: ({ row, column }) => row[column.key],
 
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{ column, columnIndex, filter }} />
-            <Sorter {...{ column, columnIndex, sort }} />
-        </div>),
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
+        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{ column, columnIndex, filter }} />
+        //     <Sorter {...{ column, columnIndex, sort }} />
+        // </div>),
         // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        footer: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{ column, columnIndex, filter }} />
-            <Sorter {...{ column, columnIndex, sort }} />
-        </div>),
-        filter: basicFilter,
-        sort: basicSort,
+        // footer: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
+        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+        //     <span>{column.label + '_' + columnIndex}</span>
+        //     <Filter {...{ column, columnIndex, filter }} />
+        //     <Sorter {...{ column, columnIndex, sort }} />
+        // </div>),
+        // filter: basicFilter,
+        // sort: basicSort,
         // preSorted: 'asc', // autosort at init ? 
         // preFiltered: '23'
     }, {
         key: 'entityid',
     }, {
         key: 'name',
-        cell: ({ row, column }) => row[column.key],
-        width: 300,
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction} = {}
-            visibility
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            {Boolean(visibility.isVisible) && <>
-                <span>{column.key + '_' + columnIndex}</span>
-                <Filter {...{ column, columnIndex, filter }} />
-                <Sorter {...{ column, columnIndex, sort }} />
-            </>}
-            <Visibilist {...{visibility}}/>
-        </div>),
+        // cell: ({ row, column }) => row[column.key],
+        // width: 300,
+        // header: ({
+        //     column, columnIndex,
+        //     filter, //: {value, setValue, visibility, setVisibility} = {},
+        //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
+        //     visibility
+        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+        //     {Boolean(visibility.isVisible) && <>
+        //         <span>{column.key + '_' + columnIndex}</span>
+        //         <Filter {...{ column, columnIndex, filter }} />
+        //         <Sorter {...{ column, columnIndex, sort }} />
+        //     </>}
+        //     <Visibilist {...{visibility}}/>
+        // </div>),
         
-        isVisible: true,
-        visibilist: Visibilist,
-        // removedContent: ':',
+        // isVisible: true,
+        // visibilist: Visibilist,
+        // // removedContent: ':',
 
-        filter: basicFilter,
-        sort: basicSort,
+        // filter: basicFilter,
+        // sort: basicSort,
         // preFiltered: '34',
     }, {
         key: 'date',
