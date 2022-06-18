@@ -6,8 +6,8 @@ import useStyles from './style.js';
 const Filler = ({
     height,
     colspan,
-    leftMost,
-    rightMost
+    // leftMost,
+    // rightMost
 }) => {
 
     /**

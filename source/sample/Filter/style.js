@@ -1,8 +1,7 @@
 import { createUseStyles } from "react-jss";
 
-export default createUseStyles(() => ({
+export default createUseStyles({
     Container: {
-        // height:36,
         display: 'inline-flex',
         flexDirection: "row",
         alignItems: 'center',
@@ -11,4 +10,4 @@ export default createUseStyles(() => ({
     Pointer: {
         cursor: 'pointer'
     }
-}));
+});

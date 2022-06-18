@@ -5,23 +5,19 @@ export default createUseStyles({
         height: `${footerHeight}px`
     }),
     TorigFooter: {
-        bottom:0,
+        bottom:'0px',
         zIndex:100,
         textAlign:'center !important',
     },
-    TorigFooterLeft: {
-        left:0,
-    },
-    TorigFooterRight: {
-        right:0,
-    },
+    TorigFooterLeft: {left:'0px',},
+    TorigFooterRight: {right:'0px',},
     TfootTh: {
         position: 'sticky',
         textAlign: 'left',
         verticalAlign: 'middle',
         bottom: 0,
         '&:lastChild': {
-            right: 0,
+            right: '0px',
             zIndex: 1
         },
         backgroundColor: 'white'

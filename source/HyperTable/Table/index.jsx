@@ -1,8 +1,9 @@
 import React, { useCallback, useContext, useRef, useEffect } from 'react';
 import NoData from './NoData';
 
-import THeader from './THeader';
 import TBody from './TBody';
+import THeader from './THeader';
+import Ter from './Ter';
 import TFooter from './TFooter';
 import TableContext from './../Context';
 import { debounce } from './../utils';
@@ -103,7 +104,9 @@ const Table = () => {
         >
             <table className={classes.Table}>
                 <THeader />
+                {/* <Ter typehf='header'/> */}
                 {rows.length ? <TBody /> : <NoData />}
+                {/* <Ter typehf='footer'/> */}
                 <TFooter />
             </table>
         </div>

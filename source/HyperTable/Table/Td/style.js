@@ -6,7 +6,6 @@ export default createUseStyles({
         overflow:'scroll',
     },
     Td: {
-        border: '1px solid black',
         borderCollapse: 'collapse',
         padding:'0px'
     }

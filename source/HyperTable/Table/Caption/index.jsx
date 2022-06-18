@@ -17,10 +17,6 @@ const Caption = ({type, unFilter, unSort }) => {
                         component: HeaderCaption
                     } = {}
                 },
-                // postFooterHeight,
-                // FooterCaption,
-                // preHeaderHeight,
-                // HeaderCaption,
                 columns,
                 total,
                 activeColumn, activeRow,
