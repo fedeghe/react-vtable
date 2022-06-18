@@ -49,12 +49,12 @@ const Tbody = () => {
                         opts={{ row, rowIndex: rowIndex + from, type: 'body' }}
                     />
                     {columns.map((column, columnIndex) => {
-                        
                         let content = row[column.key] || 'nothing';
                         if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex});
                         }
-                        if (!column.isVisible) content = column.removedContent || commonRemovedContent || '';
+                        if (!column.isVisible)
+                            content = column.removedContent || commonRemovedContent || '';
                         return (
                             <Td
                                 style={column.isVisible ? {width: `${column.width}px`} : {}}

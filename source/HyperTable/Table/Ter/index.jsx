@@ -6,9 +6,13 @@ import Tr from '../Tr';
 import Th from '../Th';
 import {isFunction, debounce} from './../../utils';
 import useStyles from './style.js';
-const TFooter = () => {
-    const {
+const Ter = ({typehf}) => {
+    const isHeader = typehf === 'header',
+        {
             state: {
+                header: {
+                    height: headerHeight,
+                },
                 footer: {
                     height: footerHeight,
                 },
@@ -31,18 +35,19 @@ const TFooter = () => {
             dispatch
         } = useContext(TableContext),
 
-        classes = useStyles({footerHeight}),
+        classes = useStyles({type: typehf, height : isHeader ? headerHeight : footerHeight}),
 
         getColumnContent = useCallback(({column, columnIndex}) => {
             let content;
-            if ('footer' in column) {
-                if (isFunction(column.footer)) {
-                    const footerProps = {
+            if (typehf in column) {
+                
+                if (isFunction(column[typehf])) {
+                    const props = {
                         column,
                         columnIndex,
                     };
                     if (isFunction(column.sort)) {
-                        footerProps.sort = {
+                        props.sort = {
                             sortAsc: () => dispatch({
                                 type:'sort',
                                 payload: {
@@ -67,7 +72,7 @@ const TFooter = () => {
                     if (isFunction(column.filter)) {
                         const theFilter = filters?.[column.key];
 
-                        footerProps.filter = {
+                        props.filter = {
                             value: theFilter?.value,
                             setValue: debounce(value => dispatch({
                                 type: 'filter',
@@ -91,7 +96,7 @@ const TFooter = () => {
                         };
                     }
                     if (isFunction(column.visibilist)){
-                        footerProps.visibility = {
+                        props.visibility = {
                             setVisibility:  visibility => dispatch({
                                 type: 'toggleColumnVisibility',
                                 payload: {
@@ -103,10 +108,10 @@ const TFooter = () => {
                             column,
                         };
                     }
-                    content = column.footer(footerProps);
+                    content = column[typehf](props);
 
                 } else {
-                    content = column.isVisible ? column.footer : '';
+                    content = column.isVisible ? column[typehf] : '';
                 }
                 
             } else {
@@ -116,28 +121,32 @@ const TFooter = () => {
         }, [
             sortingDirection, sortingColumn, dispatch,
             filters, filteringDebounceTime,
-            activeFiltersCount, isFiltering
-        ]);
-        
+            activeFiltersCount, isFiltering, typehf
+        ]),
+        height = isHeader ? headerHeight : footerHeight,
+        TerTag = ({children, ...props}) => isHeader
+            ? <thead {...props}>{children}</thead>
+            : <tfoot {...props}>{children}</tfoot>,
+        thTableClass = isHeader ? 'TableHeader' : 'TableFooter';
 
     return (
-        Boolean(footerHeight) &&
-        <tfoot className={classes.Tfoot}>
-            <Tr cls={classes.Tfoot}>
-                <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{type: 'footer'}}/>
+        Boolean(height) &&
+        <TerTag className={classes.Ter}>
+            <Tr cls={classes.Ter}>
+                <LeftMost cls={`${classes.T_Th} ${classes.Torig_} ${classes.Torig_Left}`} opts={{type: typehf}}/>
                 {columns.map((column, columnIndex) => (
                     <Th
                         style={column.isVisible ? {width: `${column.width}px`} : {}}
-                        key={`foot${columnIndex}`}
-                        cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
+                        key={`${typehf}${columnIndex}`}
+                        cls={`${thTableClass} ${classes.T_Th} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         column={column}
                         columnIndex={columnIndex}
-                        pos="footer"
+                        pos={typehf}
                     >{getColumnContent({column, columnIndex})}</Th>
                 ))}
-                <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{type: 'footer'}}/>
+                <RightMost cls={`${classes.T_Th} ${classes.Torig_} ${classes.Torig_Right}`} opts={{type: typehf}}/>
             </Tr>
-        </tfoot>
+        </TerTag>
     );
 };
-export default TFooter;
+export default Ter;

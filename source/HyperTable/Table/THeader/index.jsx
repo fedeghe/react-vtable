@@ -20,9 +20,7 @@ const Theader =  () => {
                         columnHighlightClass,
                     },
                 },
-                // eslint-disable-next-line no-unused-vars
                 filters,
-                // eslint-disable-next-line no-unused-vars
                 sorting:{column: sortingColumn, direction: sortingDirection},
                 debounceTimes: {
                     filtering : filteringDebounceTime,
