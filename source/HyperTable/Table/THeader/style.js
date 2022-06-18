@@ -15,11 +15,11 @@ export default createUseStyles({
         position: 'sticky',
         textAlign: 'left',
         verticalAlign: 'middle',
+        backgroundColor: 'white',
         top: 0,
-        '&:firstChild': {
-            left: '0px',
-            zIndex: 1
-        },
-        backgroundColor: 'white'
+        // '&:firstChild': {
+        //     left: '0px',
+        //     zIndex: 1,
+        // },
     },
 });

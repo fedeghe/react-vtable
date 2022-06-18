@@ -133,27 +133,27 @@ export default {
 
     // gap: 15,
 
-    header: {
-        height: 80,
-        caption: {
-            component: HeaderCaption,
-            height: 45
-        }
-    },
+    // header: {
+    //     height: 80,
+    //     caption: {
+    //         component: HeaderCaption,
+    //         height: 45
+    //     }
+    // },
 
-    footer: {
-        height: 60,
-        caption: {
-            component: FooterCaption,
-            height: 25
-        }
-    },
+    // footer: {
+    //     height: 60,
+    //     caption: {
+    //         component: FooterCaption,
+    //         height: 25
+    //     }
+    // },
 
-    Loader: () => <div className="Loading">loading</div>,
+    // Loader: () => <div className="Loading">loading</div>,
     // NoFilterData: ({ total }) => <span>No results out of {total}</span>,
 
-    RightMost,
-    LeftMost,
+    // RightMost,
+    // LeftMost,
 
 
     // commonRemovedContent: '-',
@@ -193,8 +193,8 @@ export default {
         // shiftPageScroll: true
     // },
 
-    debounceTimes: {
+    // debounceTimes: {
     //     filtering: 5,
         // scrolling: 5
-    }
+    // }
 };
