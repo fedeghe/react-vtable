@@ -262,6 +262,14 @@ Follows the complete reference for the config prop:
     ```
 - _rhtID_ <string>  
     by default each row gets an added index in a field by default called `_ID`. In case this clashes with your data pick something else and keep in mind it needs to be a valid object literal key.
+
+## Todo's list
+
+- [ ] make the vertical virtualization optional through a cutoff value defaulted to 100. The user can change that value.  
+    If the data bring more rows than the cutoff value then the virtualzation is effective otherwise it is not (switch effective also on filtering).
+
+- [ ] add the column virtualization also with cutoff value defaulted to 20.
+
 ---
 ---
 ---
