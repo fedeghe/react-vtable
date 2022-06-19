@@ -271,7 +271,7 @@ Follows the complete reference for the config prop:
 
 ## Todo's list
 
-- [ ] make the vertical virtualization optional through a cutoff value defaulted to 100. The user can change that value.  
+- [x] make the vertical virtualization optional through a cutoff value defaulted to 100. The user can change that value.  
     If the data bring more rows than the cutoff value then the virtualzation is effective otherwise it is not (switch effective also on filtering).
 
 - [ ] add the column virtualization also with cutoff value defaulted to 20.
