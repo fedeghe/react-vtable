@@ -270,6 +270,9 @@ Follows the complete reference for the config prop:
 
 - [ ] add the column virtualization also with cutoff value defaulted to 20.
 
+- [ ] allow a column search, which will behave as a filter and will be available in the _LeftMost_ and _RightMost_.
+
+- [ ] groups: allow a _groupName_ and a _grouper_ field in the column; it allows to specify a named function that will receive the full row and it is expected to return a boolean: if `true` then the row will be listed in a the group named as _groupName_.
 ---
 ---
 ---
