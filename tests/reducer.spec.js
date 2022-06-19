@@ -3,7 +3,6 @@
  */
 import reducerFactory from './../source/HyperTable/reducer'
 import zeroConfig from './configs/zero'
-import generateRowData from './../source/utils';
 import emptyDefaultState  from './emptyDefaultState.json'
 
 const deepClone = o => JSON.parse(JSON.stringify(o))
@@ -27,8 +26,8 @@ describe('reducer - basic', function () {
             width:400, height:200, rowHeight:40
         })
         expect(state.columns.length).toBe(3)
-        expect(state.data.length).toBe(100)
-        expect(state.originalData.length).toBe(100)
+        expect(state.data.length).toBe(1000)
+        expect(state.originalData.length).toBe(1000)
         expect(state.rows.length).toBe(9)
         expect(state.gap).toBe(2)
         expect(state.sorting).toMatchObject({column: null, direction: null, sorter: null})
@@ -38,8 +37,8 @@ describe('reducer - basic', function () {
         expect(state.activeFiltersCount).toBe(0)
         expect(state.header).toMatchObject({height: 0, caption: {height: 25, component: null}})
         expect(state.footer).toMatchObject({height: 0, caption: {height: 25, component: null}})
-        expect(state.filtered).toBe(100)
-        expect(state.total).toBe(100)
+        expect(state.filtered).toBe(1000)
+        expect(state.total).toBe(1000)
         expect(state.activeRow).toBeNull()
         expect(state.activeColumn).toBeNull()
         expect(state.activeRowIndex).toBeNull()
@@ -76,12 +75,12 @@ describe('reducer - basic', function () {
             "fromRow": 0,
             "toRow": 8,
             "renderableElements": 9,
-            "carpetHeight": 4000,
+            "carpetHeight": 40000,
             "visibleElements": 5,
             "visibleElementsHeight": 200,
             "loading": false,
             "headerFillerHeight": 0,
-            "footerFillerHeight": 3640
+            "footerFillerHeight": 39640
         })
         expect(state.debounceTimes).toMatchObject({
             "filtering": 50,
@@ -113,8 +112,8 @@ describe('reducer - basic', function () {
 
         expect(state.dimensions).toMatchObject(newConfig.dimensions)
         expect(state.columns.length).toBe(3)
-        expect(state.data.length).toBe(100)
-        expect(state.originalData.length).toBe(100)
+        expect(state.data.length).toBe(1000)
+        expect(state.originalData.length).toBe(1000)
         expect(state.rows.length).toBe(10)
         expect(state.gap).toBe(2)
         expect(state.sorting).toMatchObject({
@@ -130,8 +129,8 @@ describe('reducer - basic', function () {
         expect(state.header.caption.component()).toBe('caption')
         expect(state.footer).toMatchObject({height: newConfig.footer.height, caption: {height: newConfig.footer.caption.height}})
         expect(state.footer.caption.component()).toBe('caption')
-        expect(state.filtered).toBe(19)
-        expect(state.total).toBe(100)
+        expect(state.filtered).toBe(271)
+        expect(state.total).toBe(1000)
         
         expect(state.activeRow).toBeNull()
         expect(state.activeColumn).toBeNull()
@@ -170,12 +169,12 @@ describe('reducer - basic', function () {
             "fromRow": 0,
             "toRow": 9,
             "renderableElements": 10,
-            "carpetHeight": 1900,
+            "carpetHeight": 27100,
             "visibleElements": 5,
             "visibleElementsHeight": 500,
             "loading": false,
             "headerFillerHeight": 0,
-            "footerFillerHeight": 900
+            "footerFillerHeight": 26100
         })
         expect(state.debounceTimes).toMatchObject(newConfig.debounceTimes)
         expect(state.rhtID).toBe(newConfig.rhtID)
@@ -246,7 +245,7 @@ describe('reducer - basic', function () {
         expect(newState1.filters.id.visibility).toBe(true)
         expect(newState1.activeFiltersCount).toBe(0)
         expect(newState1.isFiltering).toBe(false)
-        expect(newState1.filteredData.length).toBe(100)
+        expect(newState1.filteredData.length).toBe(1000)
     });
 
     it('actions - filter value', () => {
@@ -275,7 +274,7 @@ describe('reducer - basic', function () {
         expect(newState1.filters.id.visibility).toBe(true)
         expect(newState1.activeFiltersCount).toBe(1)
         expect(newState1.isFiltering).toBe(true)
-        expect(newState1.filteredData.length).toBe(19)
+        expect(newState1.filteredData.length).toBe(271)
         expect(newState1.virtual.fromRow).toBe(0)
         expect(newState1.virtual.toRow).toBe(9)
 
@@ -286,7 +285,7 @@ describe('reducer - basic', function () {
         expect(newState2.filters.id.visibility).toBe(false)
         expect(newState2.activeFiltersCount).toBe(0)
         expect(newState2.isFiltering).toBe(false)
-        expect(newState2.filteredData.length).toBe(100)
+        expect(newState2.filteredData.length).toBe(1000)
         expect(newState2.virtual.fromRow).toBe(0)
         expect(newState2.virtual.toRow).toBe(9)
     });
@@ -323,14 +322,14 @@ describe('reducer - basic', function () {
         expect(newState2.filters.id.visibility).toBe(true);
         expect(newState2.activeFiltersCount).toBe(2);
         expect(newState2.isFiltering).toBe(true);
-        expect(newState2.filteredData.length).toBe(9);
+        expect(newState2.filteredData.length).toBe(180);
         expect(newState2.virtual.fromRow).toBe(0);
         expect(newState2.virtual.toRow).toBe(9);
     
         expect(newState3.rows.length).toBe(9);
         expect(newState3.activeFiltersCount).toBe(0);
         expect(newState3.isFiltering).toBe(false);
-        expect(newState3.filteredData.length).toBe(100);
+        expect(newState3.filteredData.length).toBe(1000);
         expect(newState3.virtual.fromRow).toBe(0);
         expect(newState3.virtual.toRow).toBe(9);
     });
@@ -356,7 +355,7 @@ describe('reducer - basic', function () {
                 }
             });
         expect(state.rows[0].id).toBe(1);
-        expect(newState1.rows[0].id).toBe(100);
+        expect(newState1.rows[0].id).toBe(1000);
         expect(newState2.rows[0].id).toBe(1);
     });
 
@@ -374,7 +373,7 @@ describe('reducer - basic', function () {
             }),
             newState2 = reducer(newState1, {type: 'unSort'});
         expect(state.rows[0].id).toBe(1);
-        expect(newState1.rows[0].id).toBe(100);
+        expect(newState1.rows[0].id).toBe(1000);
         expect(newState2.rows[0].id).toBe(1);
     });
 
@@ -450,7 +449,7 @@ describe('reducer - basic', function () {
         expect(newState.virtual.loading).toBeFalsy();
         expect(newState.virtual.scrollTop).toBe(400);
         expect(newState.virtual.headerFillerHeight).toBe(320);
-        expect(newState.virtual.footerFillerHeight).toBe(3320);
+        expect(newState.virtual.footerFillerHeight).toBe(39320);
         expect(newState.virtual.fromRow).toBe(8);
         expect(newState.virtual.toRow).toBe(16);
     });

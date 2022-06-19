@@ -78,7 +78,7 @@
         "visibleElementsHeight": 800,
         "loading": false,
         "headerFillerHeight": 0,
-        "footerFillerHeight": 800
+        "footerFillerHeight": 0
     },
     "debounceTimes": {
         "filtering": 50,
