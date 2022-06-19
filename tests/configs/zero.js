@@ -18,6 +18,6 @@ export default {
         { key: 'id', type: 'int' },
         { key: 'entityid', type: 'id' },
         { key: 'name', type: 'str' }
-    ], 100, true),
+    ], 1000, true),
     gap: 2,
 };

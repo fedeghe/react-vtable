@@ -57,6 +57,7 @@ Additionally some other options allow to:
 - enable line, column, cell and cross highlighting class to be used  
 - show already sorted (wun column)
 - prefilter (+ than wun column)
+- tune a cut-off value for the virtualisation
 
 ---
 
@@ -260,7 +261,12 @@ Follows the complete reference for the config prop:
     filtering:  defaulted 50
     scrolling:  defaulted 50
     ```
-- _rhtID_ <string>  
+- _virtualization_ \<object literal\>  
+    Contains some fine tuning parameters giving more control over the virtualization.
+    - _verticalCutoff_  \<integer\>  
+        This is defaulted to 100. When the filtered elements are less than this value, all rows will be rendered. When more it will be effective. Set it to 0 in case the virtualization mechanism should always be active.
+
+- _rhtID_ \<string\>  
     by default each row gets an added index in a field by default called `_ID`. In case this clashes with your data pick something else and keep in mind it needs to be a valid object literal key.
 
 ## Todo's list

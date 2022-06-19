@@ -13,33 +13,33 @@ import RightMost from './sample/RightMost';
 export default {
     columns: [{
         key: 'id',
-        // label: 'idz',
-        // width: 350,
-        // cell: ({ row, column }) => row[column.key],
+        label: 'idz',
+        width: 350,
+        cell: ({ row, column }) => row[column.key],
 
-        // header: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
-        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-        //     <span>{column.label + '_' + columnIndex}</span>
-        //     <Filter {...{ column, columnIndex, filter }} />
-        //     <Sorter {...{ column, columnIndex, sort }} />
-        // </div>),
+        header: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort }} />
+        </div>),
         // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        // footer: ({
-        //     column, columnIndex,
-        //     filter, //: {value, setValue, visibility, setVisibility} = {},
-        //     sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
-        // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-        //     <span>{column.label + '_' + columnIndex}</span>
-        //     <Filter {...{ column, columnIndex, filter }} />
-        //     <Sorter {...{ column, columnIndex, sort }} />
-        // </div>),
-        // filter: basicFilter,
-        // sort: basicSort,
-        // preSorted: 'asc', // autosort at init ? 
-        // preFiltered: '23'
+        footer: ({
+            column, columnIndex,
+            filter, //: {value, setValue, visibility, setVisibility} = {},
+            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
+        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{column.label + '_' + columnIndex}</span>
+            <Filter {...{ column, columnIndex, filter }} />
+            <Sorter {...{ column, columnIndex, sort }} />
+        </div>),
+        filter: basicFilter,
+        sort: basicSort,
+        preSorted: 'asc', // autosort at init ? 
+        preFiltered: '23'
     }, {
         key: 'entityid',
     }, {
@@ -133,27 +133,27 @@ export default {
 
     // gap: 15,
 
-    // header: {
-    //     height: 80,
-    //     caption: {
-    //         component: HeaderCaption,
-    //         height: 45
-    //     }
-    // },
+    header: {
+        height: 80,
+        caption: {
+            component: HeaderCaption,
+            height: 45
+        }
+    },
 
-    // footer: {
-    //     height: 60,
-    //     caption: {
-    //         component: FooterCaption,
-    //         height: 25
-    //     }
-    // },
+    footer: {
+        height: 60,
+        caption: {
+            component: FooterCaption,
+            height: 25
+        }
+    },
 
     // Loader: () => <div className="Loading">loading</div>,
     // NoFilterData: ({ total }) => <span>No results out of {total}</span>,
 
-    // RightMost,
-    // LeftMost,
+    RightMost,
+    LeftMost,
 
 
     // commonRemovedContent: '-',
@@ -192,6 +192,10 @@ export default {
         // onRightMostHighlight: false,
         // shiftPageScroll: true
     // },
+
+    // virtualization: {
+    //     verticalCutoff: 0
+    // }
 
     // debounceTimes: {
     //     filtering: 5,
