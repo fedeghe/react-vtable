@@ -8,7 +8,7 @@
         "build": "webpack --config source/webpack.prod.js",
         "test": "jest -u",
         "testwatch": "jest -u --watchAll",
-        "cover": "jest --coverage",
+        "cover": "jest --coverage --collectCoverageFrom='source/**/*.js'",
         "lint": "eslint ./source/HyperTable/*.*"
     },
     "repository": {

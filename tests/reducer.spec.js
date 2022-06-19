@@ -505,6 +505,18 @@ describe('reducer - edge', function () {
         expect(newState3.rows[2].id).toBe(2);
     });
     
+    it('edge - mixed sort asc, sort desc, unsort', () => {
+        const newConfig = deepClone(zeroConfig);
+        
+        newConfig.columns[0].filter = basicFilter;
+        newConfig.columns[0].preFiltered = '23';
+        const state = init(newConfig);
+        // desc
+        expect(state.rows.length).toBe(9);
+        const newState = reducer(state, {type: 'scroll', payload: 3000})
+        expect(newState.rows.length).toBe(9);
+    });
+    
     it('edge - filter to no data', () => {
         const newConfig = deepClone(zeroConfig);
         newConfig.columns[0].filter = basicFilter;
@@ -577,7 +589,7 @@ describe('reducer - edge', function () {
         expect(state.virtual.Loader()).toBeNull();
     });
 
-    it('edge - scroll 0', () => {
+    it('edge - empty config - scroll no payload', () => {
         const state = init({});
         reducer(state, {type: 'scroll'});
         expect(state).toMatchObject(emptyDefaultState);
