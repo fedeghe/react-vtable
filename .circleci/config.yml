@@ -14,8 +14,8 @@ jobs:
     steps:
       - checkout
       - run: echo "build project"
-      - yarn
-      - yarn build
+      - run: yarn
+      - run: yarn build
 
 workflows:
   version: 2
