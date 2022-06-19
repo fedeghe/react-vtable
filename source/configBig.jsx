@@ -193,6 +193,10 @@ export default {
         // shiftPageScroll: true
     // },
 
+    // virtualization: {
+    //     verticalCutoff: 0
+    // }
+
     // debounceTimes: {
     //     filtering: 5,
         // scrolling: 5
