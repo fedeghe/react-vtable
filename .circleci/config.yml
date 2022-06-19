@@ -1,21 +1,21 @@
 version: 2
-  jobs:
-    test:
-      docker:
-        - image: circleci/node:12.16
-      steps:
-        - checkout
-        - run: echo "Running tests"
-        - run: yarn
-        - run: yarn test
-    build:
-      docker:
-        - image: circleci/node:12.16
-      steps:
-        - checkout
-        - run: echo "build project"
-        - yarn
-        - yarn build
+jobs:
+  test:
+    docker:
+      - image: circleci/node:12.16
+    steps:
+      - checkout
+      - run: echo "Running tests"
+      - run: yarn
+      - run: yarn test
+  build:
+    docker:
+      - image: circleci/node:12.16
+    steps:
+      - checkout
+      - run: echo "build project"
+      - yarn
+      - yarn build
 
 workflows:
   version: 2
