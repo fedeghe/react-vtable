@@ -1,7 +1,7 @@
 import React from 'react';
 import useStyles from './style.js';
 
-const Visibilist =  ({ visibility }) => {
+export default ({ visibility }) => {
     const classes = useStyles(),
         {isVisible, setVisibility, column} = visibility;
 
@@ -11,4 +11,3 @@ const Visibilist =  ({ visibility }) => {
         : <span className={classes.Pointer} title={`show column \`${column.key}\``} onClick={() => setVisibility(true)}>+</span>
     }</div>;
 };
-export default Visibilist;

@@ -1,7 +1,7 @@
 import React from 'react';
 import useStyles from './style.js';
 
-const Sorter =  ({sort}) => {
+export default ({sort}) => {
     const {sortAsc, sortDesc, unSort, direction, isSorting} = sort,
         classes = useStyles({isSorting, direction});
     return <div className={classes.Container}>
@@ -10,5 +10,5 @@ const Sorter =  ({sort}) => {
         <span data-cy="sort-desc" className={[classes.Item, classes.Descending].join(' ')} onClick={sortDesc}>▼</span>
     </div>;
 };
-export default Sorter;
+
 //▲ &bull; ▼ 

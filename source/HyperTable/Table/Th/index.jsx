@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import TableContext from '../../Context';
 
-const Th = ({ row, column, rowIndex, columnIndex, cls, children, pos, style }) => {
+export default ({ row, column, rowIndex, columnIndex, cls, children, pos, style }) => {
     const {
             state: {
                 events: {
@@ -51,4 +51,3 @@ const Th = ({ row, column, rowIndex, columnIndex, cls, children, pos, style }) =
         </div>
     </th>;
 };
-export default Th;

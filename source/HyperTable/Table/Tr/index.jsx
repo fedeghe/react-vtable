@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import TableContext from './../../Context';
 
-const Tr = ({cls, children}) => {
+export default ({cls, children}) => {
     const {
         state: {
             cls: { 
@@ -14,4 +14,3 @@ const Tr = ({cls, children}) => {
     return <tr className={[cls, rowClass].join(' ')} style={{padding:0}}>{children}</tr>;
 };
 
-export default Tr;

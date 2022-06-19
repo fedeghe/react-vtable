@@ -5,25 +5,21 @@ export default createUseStyles({
         height: `${headerHeight}px`
     }),    
     TorigHeader: {
-        top:0,
+        top:'0px',
         zIndex: 100,
         textAlign:'center !important'
     },
-    TorigHeaderLeft: {
-        left:0,
-    },
-    TorigHeaderRight: {
-        right:0,
-    },
+    TorigHeaderLeft: {left:'0px',},
+    TorigHeaderRight: {right:'0px',},
     TheadTh: {
         position: 'sticky',
         textAlign: 'left',
         verticalAlign: 'middle',
+        backgroundColor: 'white',
         top: 0,
-        '&:firstChild': {
-            left: 0,
-            zIndex: 1
-        },
-        backgroundColor: 'white'
+        // '&:firstChild': {
+        //     left: '0px',
+        //     zIndex: 1,
+        // },
     },
 });

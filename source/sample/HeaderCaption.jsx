@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HeaderCaption = ({
+export default ({
     total, activeColumn, activeRow, scrollTop,
     unFilter,
     unSort,
@@ -20,5 +20,3 @@ const HeaderCaption = ({
         <button onClick={downloadCsv}>download as csv</button> - 
     </div>
 );
-
-export default HeaderCaption;

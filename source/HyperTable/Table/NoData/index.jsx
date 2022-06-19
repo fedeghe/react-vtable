@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import TableContext from '../../Context';
 
 import useStyles from './style.js';
-const NoData = () => {
-
+export default () => {
     const {
             state: {
                 NoFilterData,
@@ -11,11 +10,12 @@ const NoData = () => {
                 total,
                 virtual: {
                     colspan,
-                    contentHeight
+                    contentHeight: height
                 }
             }
         } = useContext(TableContext),
-        classes = useStyles({width, height: contentHeight});
+        classes = useStyles({width, height});
+
     return <tbody>
         <tr>
             <td colSpan={colspan} className={classes.Td}>
@@ -26,4 +26,3 @@ const NoData = () => {
         </tr>
     </tbody>;
 };
-export default NoData;

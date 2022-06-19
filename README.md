@@ -152,7 +152,7 @@ Follows the complete reference for the config prop:
  both object literals containing   
     - _height_ \<integer\>  default 0 => no show
     - _caption_:  
-        - _height_ \<integer\>
+        - _height_ \<integer\> default 25px
         - _component_ \<ƒunction\>    
             gets the following props:   
             - _from_: the first index of *data* actually rendered   
@@ -175,7 +175,7 @@ Follows the complete reference for the config prop:
     the default content for _header_ and _footer_ cells is the _column.key_ and this can be easily changed specifying the omonimous function in the the column setting.  
 
 - _Loader_ \<ƒunction\>  
-    expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
+    component expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
 - _NoFilterData_ \<ƒunction\>  
     expected to return the content to be rendered when the filter produce no results; the content will get automatically centered; this component will receive the following prop  
     ``` js
@@ -260,7 +260,19 @@ Follows the complete reference for the config prop:
     filtering:  defaulted 50
     scrolling:  defaulted 50
     ```
+- _rhtID_ <string>  
+    by default each row gets an added index in a field by default called `_ID`. In case this clashes with your data pick something else and keep in mind it needs to be a valid object literal key.
 
+## Todo's list
+
+- [ ] make the vertical virtualization optional through a cutoff value defaulted to 100. The user can change that value.  
+    If the data bring more rows than the cutoff value then the virtualzation is effective otherwise it is not (switch effective also on filtering).
+
+- [ ] add the column virtualization also with cutoff value defaulted to 20.
+
+- [ ] allow a column search, which will behave as a filter and will be available in the _LeftMost_ and _RightMost_.
+
+- [ ] groups: allow a _groupName_ and a _grouper_ field in the column; it allows to specify a named function that will receive the full row and it is expected to return a boolean: if `true` then the row will be listed in a the group named as _groupName_.
 ---
 ---
 ---

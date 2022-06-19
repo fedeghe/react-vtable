@@ -7,7 +7,7 @@ import Tr from '../Tr';
 import Td from '../Td';
 import {isFunction} from './../../utils';
 import useStyles from './style.js';
-const Tbody = () => {
+export default () => {
     const {
             state: {
                 rows, columns,
@@ -30,7 +30,8 @@ const Tbody = () => {
                     colspan,
                     from
                 },
-                commonRemovedContent
+                commonRemovedContent,
+                rhtID
             },
         } = useContext(TableContext),
         classes = useStyles({ rowHeight });
@@ -40,24 +41,24 @@ const Tbody = () => {
             <Filler {...{ height: headerFillerHeight, colspan, leftMost }} />
             {rows.map((row, rowIndex) => (
                 <Tr
-                    cls={`${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass || "") : ''}`}
-                    key={row._ID}
+                    cls={`${activeRow === row[rhtID] ? (crossHighlightClass || rowHighlightClass || "") : ''}`}
+                    key={row[rhtID]}
                 >
                     <LeftMost
-                        cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass) : ''}`}
+                        cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row[rhtID] ? (crossHighlightClass || rowHighlightClass) : ''}`}
                         opts={{ row, rowIndex: rowIndex + from, type: 'body' }}
                     />
                     {columns.map((column, columnIndex) => {
-                        
                         let content = row[column.key] || 'nothing';
                         if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex});
                         }
-                        if (!column.isVisible) content = column.removedContent || commonRemovedContent || '';
+                        if (!column.isVisible)
+                            content = column.removedContent || commonRemovedContent || '';
                         return (
                             <Td
                                 style={column.isVisible ? {width: `${column.width}px`} : {}}
-                                key={`cell_${row._ID}_${columnIndex}`}
+                                key={`cell_${row[rhtID]}_${columnIndex}`}
                                 row={row}
                                 column={column}
                                 rowIndex={rowIndex}
@@ -65,13 +66,13 @@ const Tbody = () => {
                                 cls={[
                                     classes.AlTop,
                                     activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : '',
-                                    (cellHightlightClass && activeRow === row._ID && activeColumn === column.key) ? cellHightlightClass : ''
+                                    (cellHightlightClass && activeRow === row[rhtID] && activeColumn === column.key) ? cellHightlightClass : ''
                                 ].join(' ')}
                             >{content}</Td>
                         );
                     })}
                     <RightMost
-                        cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row._ID ? (crossHighlightClass || rowHighlightClass) : ''}`}
+                        cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row[rhtID] ? (crossHighlightClass || rowHighlightClass) : ''}`}
                         opts={{ row, rowIndex: rowIndex + from, type: 'body'}}
                     />
                 </Tr>
@@ -80,4 +81,3 @@ const Tbody = () => {
         </tbody>
     );
 };
-export default Tbody;

@@ -6,7 +6,7 @@ import Tr from '../Tr';
 import Th from '../Th';
 import {isFunction, debounce} from './../../utils';
 import useStyles from './style.js';
-const TFooter = () => {
+export default () => {
     const {
             state: {
                 footer: {
@@ -20,12 +20,9 @@ const TFooter = () => {
                         columnHighlightClass,
                     },
                 },
-                // eslint-disable-next-line no-unused-vars
                 filters,
-                // eslint-disable-next-line no-unused-vars
                 sorting:{column: sortingColumn, direction: sortingDirection},
                 debounceTimes: {
-                    
                     filtering : filteringDebounceTime,
                 } ,
                 activeFiltersCount,
@@ -39,8 +36,6 @@ const TFooter = () => {
         getColumnContent = useCallback(({column, columnIndex}) => {
             let content;
             if ('footer' in column) {
-                
-                
                 if (isFunction(column.footer)) {
                     const footerProps = {
                         column,
@@ -145,4 +140,3 @@ const TFooter = () => {
         </tfoot>
     );
 };
-export default TFooter;

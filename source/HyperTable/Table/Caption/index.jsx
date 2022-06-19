@@ -1,8 +1,9 @@
 import React, {useContext, useCallback} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-import {isFunction, asCsv} from './../../utils';
-const Caption = ({type, unFilter, unSort }) => {
+import {isFunction, asCsv, asJson} from './../../utils';
+
+export default ({type, unFilter, unSort }) => {
     const {
             state: {
                 footer: {
@@ -17,10 +18,6 @@ const Caption = ({type, unFilter, unSort }) => {
                         component: HeaderCaption
                     } = {}
                 },
-                // postFooterHeight,
-                // FooterCaption,
-                // preHeaderHeight,
-                // HeaderCaption,
                 columns,
                 total,
                 activeColumn, activeRow,
@@ -34,7 +31,8 @@ const Caption = ({type, unFilter, unSort }) => {
                 activeFiltersCount,
                 isSorting,
                 isFiltering,
-                currentData
+                currentData,
+                rhtID
             },
         } = useContext(TableContext),
         classes = useStyles({postFooterHeight, preHeaderHeight}),
@@ -50,21 +48,21 @@ const Caption = ({type, unFilter, unSort }) => {
         }[type],
         downloadJson = useCallback(() => {
             const a = document.createElement('a'),
-                blob = new Blob([JSON.stringify(currentData)]);
+                blob = new Blob([JSON.stringify(asJson(currentData, rhtID))]);
             a.href = URL.createObjectURL(blob);
             a.target = '_blank';
             a.download = 'extract.json';                     //filename to download
             a.click();
-        }, [currentData]),
+        }, [currentData, rhtID]),
         downloadCsv = useCallback(() => {
             const a = document.createElement('a'),
-                csv = asCsv(columns, currentData),
+                csv = asCsv(columns, currentData, rhtID),
                 blob = new Blob([csv], { type: 'text/csv' });
             a.href = URL.createObjectURL(blob);
             a.target = '_blank';
             a.download = 'extract.csv';                     //filename to download
             a.click();
-        }, [columns, currentData]);
+        }, [columns, currentData, rhtID]);
 
     return (
         What.Component && <div className={What.cls}>{
@@ -86,4 +84,3 @@ const Caption = ({type, unFilter, unSort }) => {
         }</div>
     );
 };
-export default Caption;

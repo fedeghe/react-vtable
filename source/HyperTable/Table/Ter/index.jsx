@@ -1,16 +1,20 @@
 import React, {useContext, useCallback} from 'react';
-import TableContext from './../../Context';
+import TableContext from '../../Context';
 import RightMost from '../RightMost';
 import LeftMost from '../LeftMost';
 import Tr from '../Tr';
 import Th from '../Th';
 import {isFunction, debounce} from './../../utils';
 import useStyles from './style.js';
-export default () => {
-    const {
+export default ({typehf}) => {
+    const isHeader = typehf === 'header',
+        {
             state: {
                 header: {
-                    height: headerHeight
+                    height: headerHeight,
+                },
+                footer: {
+                    height: footerHeight,
                 },
                 columns,
                 activeColumn,
@@ -31,20 +35,19 @@ export default () => {
             dispatch
         } = useContext(TableContext),
 
-        classes = useStyles({headerHeight}),
+        classes = useStyles({type: typehf, height : isHeader ? headerHeight : footerHeight}),
 
         getColumnContent = useCallback(({column, columnIndex}) => {
             let content;
-            if ('header' in column) {
+            if (typehf in column) {
                 
-                
-                if (isFunction(column.header)) {
-                    const headerProps = {
+                if (isFunction(column[typehf])) {
+                    const props = {
                         column,
                         columnIndex,
                     };
                     if (isFunction(column.sort)) {
-                        headerProps.sort = {
+                        props.sort = {
                             sortAsc: () => dispatch({
                                 type:'sort',
                                 payload: {
@@ -68,7 +71,8 @@ export default () => {
                     }
                     if (isFunction(column.filter)) {
                         const theFilter = filters?.[column.key];
-                        headerProps.filter = {
+
+                        props.filter = {
                             value: theFilter?.value,
                             setValue: debounce(value => dispatch({
                                 type: 'filter',
@@ -92,7 +96,7 @@ export default () => {
                         };
                     }
                     if (isFunction(column.visibilist)){
-                        headerProps.visibility = {
+                        props.visibility = {
                             setVisibility:  visibility => dispatch({
                                 type: 'toggleColumnVisibility',
                                 payload: {
@@ -101,13 +105,15 @@ export default () => {
                                 }
                             }),
                             isVisible: column.isVisible,
-                            column
+                            column,
                         };
                     }
-                    content = column.header(headerProps);
+                    content = column[typehf](props);
+
                 } else {
-                    content = column.header;
+                    content = column.isVisible ? column[typehf] : '';
                 }
+                
             } else {
                 content = column.isVisible ? column.key : '';
             }
@@ -115,25 +121,31 @@ export default () => {
         }, [
             sortingDirection, sortingColumn, dispatch,
             filters, filteringDebounceTime,
-            activeFiltersCount, isFiltering
-        ]);
-        
-    return (Boolean(headerHeight) &&
-        <thead className={classes.Thead}>
-            <Tr cls={classes.Thead}>
-                <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{type:'header'}}/>
+            activeFiltersCount, isFiltering, typehf
+        ]),
+        height = isHeader ? headerHeight : footerHeight,
+        TerTag = ({children, ...props}) => isHeader
+            ? <thead {...props}>{children}</thead>
+            : <tfoot {...props}>{children}</tfoot>,
+        thTableClass = isHeader ? 'TableHeader' : 'TableFooter';
+
+    return (
+        Boolean(height) &&
+        <TerTag className={classes.Ter}>
+            <Tr cls={classes.Ter}>
+                <LeftMost cls={`${classes.T_Th} ${classes.Torig_} ${classes.Torig_Left}`} opts={{type: typehf}}/>
                 {columns.map((column, columnIndex) => (
                     <Th
                         style={column.isVisible ? {width: `${column.width}px`} : {}}
-                        key={`head${columnIndex}`}
-                        cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
+                        key={`${typehf}${columnIndex}`}
+                        cls={`${thTableClass} ${classes.T_Th} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         column={column}
                         columnIndex={columnIndex}
-                        pos="header"
+                        pos={typehf}
                     >{getColumnContent({column, columnIndex})}</Th>
                 ))}
-                <RightMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderRight}`} opts={{type: 'header'}}/>
+                <RightMost cls={`${classes.T_Th} ${classes.Torig_} ${classes.Torig_Right}`} opts={{type: typehf}}/>
             </Tr>
-        </thead>
+        </TerTag>
     );
 };

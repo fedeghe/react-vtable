@@ -1,0 +1,87 @@
+{
+    "columns": [],
+    "gap": 10,
+    "sorting": {
+        "column": null,
+        "direction": null,
+        "sorter": null
+    },
+    "isSorting": false,
+    "filters": {},
+    "activeFiltersCount": 0,
+    "isFiltering": false,
+    "dimensions": {
+        "height": 800,
+        "width": 1200,
+        "rowHeight": 80
+    },
+    "header": {
+        "height": 0,
+        "caption": {
+            "component": null,
+            "height": 25
+        }
+    },
+    "footer": {
+        "height": 0,
+        "caption": {
+            "component": null,
+            "height": 25
+        }
+    },
+    "originalData": [],
+    "currentData": [],
+    "filteredData": [],
+    "rows": [],
+    "filtered": 0,
+    "total": 0,
+    "activeRow": null,
+    "activeColumn": null,
+    "activeRowIndex": null,
+    "activeColumnIndex": null,
+    "commonRemovedContent": ".",
+    "rhtID": "_ID",
+    "events": {
+        "onCellClick": null,
+        "onCellEnter": null,
+        "onCellLeave": null,
+        "onHeaderHighlight": false,
+        "onFooterHighlight": false,
+        "onLeftMostHighlight": false,
+        "onRightMostHighlight": false,
+        "shiftPageScroll": false
+    },
+    "cls": {
+        "highlight": {
+            "rowHighlightClass": "",
+            "columnHighlightClass": "",
+            "crossHighlightClass": "",
+            "cellHightlightClass": ""
+        },
+        "elements": {
+            "contentClass": "",
+            "cellClass": "",
+            "rowClass": "",
+            "wrapperClass": ""
+        }
+    },
+    "virtual": {
+        "colspan": 0,
+        "carpetHeight": 0,
+        "contentHeight": 800,
+        "moreSpaceThanContent": true,
+        "scrollTop": 0,
+        "from": 0,
+        "to": 29,
+        "renderableElements": 30,
+        "visibleElements": 10,
+        "visibleElementsHeight": 800,
+        "loading": false,
+        "headerFillerHeight": 0,
+        "footerFillerHeight": 800
+    },
+    "debounceTimes": {
+        "filtering": 50,
+        "scrolling": 50
+    }
+}

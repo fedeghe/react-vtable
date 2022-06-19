@@ -6,10 +6,10 @@ module.exports = {
     entry: {
         index: path.resolve(__dirname, './source/index.jsx'),
     },
-    output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: '[name].js',
-    },
+    // output: {
+    //     path: path.resolve(__dirname, './dist'),
+    //     filename: '[name].js',
+    // },
     devtool: 'inline-source-map',
     plugins: [
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
