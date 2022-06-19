@@ -272,7 +272,7 @@ Follows the complete reference for the config prop:
 
 - [ ] allow a column search, which will behave as a filter and will be available in the _LeftMost_ and _RightMost_.
 
-- [ ] groups: allow a _groupName_ and a _grouper_ field in the column; it allows to specify a named function that will receive the full row and it is expected to return a boolean: if `true` then the row will be listed in a the group named as _groupName_.
+- [ ] groups: allow a _groupName_ and _grouper_ fields in the column;  _grouper_ allows to specify a function that will receive the full row and it is expected to return a boolean: if `true` then the row will be listed in a the group named as _groupName_.
 ---
 ---
 ---
