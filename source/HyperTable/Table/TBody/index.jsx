@@ -7,7 +7,7 @@ import Tr from '../Tr';
 import Td from '../Td';
 import {isFunction} from './../../utils';
 import useStyles from './style.js';
-const Tbody = () => {
+export default () => {
     const {
             state: {
                 rows, columns,
@@ -81,4 +81,3 @@ const Tbody = () => {
         </tbody>
     );
 };
-export default Tbody;

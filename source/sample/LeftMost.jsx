@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LeftMost = ({ row, rowIndex, type, from, to }) => {
+export default ({ row, rowIndex, type, from, to }) => {
     switch(type) {
         case 'footer': 
             return <div style={{ width: '100px' }}>LF {to}</div>;
@@ -10,5 +10,3 @@ const LeftMost = ({ row, rowIndex, type, from, to }) => {
             return <div style={{ width: '100px' }}>L {rowIndex}</div>;
     }
 };
-
-export default LeftMost;

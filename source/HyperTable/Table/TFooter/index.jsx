@@ -6,7 +6,7 @@ import Tr from '../Tr';
 import Th from '../Th';
 import {isFunction, debounce} from './../../utils';
 import useStyles from './style.js';
-const TFooter = () => {
+export default () => {
     const {
             state: {
                 footer: {
@@ -140,4 +140,3 @@ const TFooter = () => {
         </tfoot>
     );
 };
-export default TFooter;

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import TableContext from '../../Context';
 
 import useStyles from './style.js';
-const NoData = () => {
+export default () => {
     const {
             state: {
                 NoFilterData,
@@ -26,4 +26,3 @@ const NoData = () => {
         </tr>
     </tbody>;
 };
-export default NoData;

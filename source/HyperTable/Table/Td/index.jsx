@@ -1,7 +1,7 @@
 import React, { useContext, useCallback } from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-const Td = ({row, column, rowIndex, columnIndex, cls, children, style}) => {
+export default ({row, column, rowIndex, columnIndex, cls, children, style}) => {
     const {
             state: {
                 dimensions: {
@@ -60,4 +60,3 @@ const Td = ({row, column, rowIndex, columnIndex, cls, children, style}) => {
     </td>;
 };
 
-export default Td;

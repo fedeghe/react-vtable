@@ -2,7 +2,8 @@ import React, {useContext, useCallback} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
 import {isFunction, asCsv, asJson} from './../../utils';
-const Caption = ({type, unFilter, unSort }) => {
+
+export default ({type, unFilter, unSort }) => {
     const {
             state: {
                 footer: {
@@ -83,4 +84,3 @@ const Caption = ({type, unFilter, unSort }) => {
         }</div>
     );
 };
-export default Caption;

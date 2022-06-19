@@ -9,7 +9,7 @@ import { debounce } from './utils';
 
 import useStyles from './style.js';
 
-const HyperTable = ({config}) => {
+export default ({config}) => {
     const { reducer, init } = reducerFactory(),
         // initialState = useMemo(() => init(config), [config, init]),
         [ state, dispatch ] = useReducer(reducer, config, init),
@@ -54,4 +54,3 @@ const HyperTable = ({config}) => {
 
 };
 
-export default HyperTable;

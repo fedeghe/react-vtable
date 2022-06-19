@@ -3,7 +3,7 @@ import useStyles from './style.js';
 /**
  * Here does not make any sense to use Tr and Td
  */
-const Filler = ({
+export default ({
     height,
     colspan,
     // leftMost,
@@ -18,5 +18,3 @@ const Filler = ({
         <td colSpan={colspan} className={classes.Td}></td>
     </tr>;
 };
-
-export default Filler;

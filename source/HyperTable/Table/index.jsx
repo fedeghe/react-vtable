@@ -3,13 +3,13 @@ import NoData from './NoData';
 
 import TBody from './TBody';
 import THeader from './THeader';
-import Ter from './Ter';
+// import Ter from './Ter';
 import TFooter from './TFooter';
 import TableContext from './../Context';
 import { debounce } from './../utils';
 import useStyles from './style.js';
 
-const Table = () => {
+export default () => {
     const ref = useRef(),
         { state, dispatch } = useContext(TableContext),
         {
@@ -113,4 +113,3 @@ const Table = () => {
     );
 };
 
-export default Table;

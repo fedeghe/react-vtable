@@ -13,7 +13,7 @@ import RightMost from './sample/RightMost';
 export default {
     columns: [{
         key: 'id',
-        label: 'idz',
+        // label: 'idz',
         // width: 350,
         // cell: ({ row, column }) => row[column.key],
 

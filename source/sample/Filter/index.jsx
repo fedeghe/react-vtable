@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useStyles from './style.js';
 
-const Filter =  ({filter}) => {
+export default ({filter}) => {
     const classes = useStyles(),
         {value, setValue, visibility, setVisibility, unFilter} = filter,
         [human, setHuman] = useState(false);
@@ -24,4 +24,3 @@ const Filter =  ({filter}) => {
         }}>Y</span>
     }</div>;
 };
-export default Filter;

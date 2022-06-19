@@ -6,7 +6,7 @@ import Tr from '../Tr';
 import Th from '../Th';
 import {isFunction, debounce} from './../../utils';
 import useStyles from './style.js';
-const Theader =  () => {
+export default () => {
     const {
             state: {
                 header: {
@@ -137,4 +137,3 @@ const Theader =  () => {
         </thead>
     );
 };
-export default Theader;

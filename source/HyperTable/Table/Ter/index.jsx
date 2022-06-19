@@ -6,7 +6,7 @@ import Tr from '../Tr';
 import Th from '../Th';
 import {isFunction, debounce} from './../../utils';
 import useStyles from './style.js';
-const Ter = ({typehf}) => {
+export default ({typehf}) => {
     const isHeader = typehf === 'header',
         {
             state: {
@@ -149,4 +149,3 @@ const Ter = ({typehf}) => {
         </TerTag>
     );
 };
-export default Ter;
