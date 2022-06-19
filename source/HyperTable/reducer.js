@@ -345,7 +345,7 @@ const prefix = 'HYT_',
             } = {},
             rhtID = '_ID',
             virtualization: {
-                verticalCutoff =100,
+                verticalCutoff = 100,
             } = {}
         } = cnf;
 
