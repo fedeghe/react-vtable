@@ -9,10 +9,10 @@ const prefix = 'HYT_',
     },
 
     __getFillerHeights = ({
-        from, moreSpaceThanContent, carpetHeight,
+        fromRow, moreSpaceThanContent, carpetHeight,
         rowHeight, contentHeight, dataHeight
     }) => {
-        const headerFillerHeight = from * rowHeight,
+        const headerFillerHeight = fromRow * rowHeight,
             footerFillerHeight = moreSpaceThanContent
                 ? contentHeight - carpetHeight
                 : carpetHeight - headerFillerHeight - dataHeight;
@@ -74,7 +74,7 @@ const prefix = 'HYT_',
                     sorter
                 },
                 virtual: {
-                    from, to,
+                    fromRow, toRow,
                     dataHeight, contentHeight, carpetHeight,
                     moreSpaceThanContent,
                     renderableElements,
@@ -85,11 +85,11 @@ const prefix = 'HYT_',
 
             __getVirtual = ({_currentData}) => {
                 const _carpetHeight = _currentData.length * rowHeight,
-                    _from = 0,
-                    _to = renderableElements > _currentData.length ? _currentData.length : renderableElements,
+                    _fromRow = 0,
+                    _toRow = renderableElements > _currentData.length ? _currentData.length : renderableElements,
                     _moreSpaceThanContent = _carpetHeight < contentHeight,
                     fillerHeights = __getFillerHeights({
-                        from: _from, 
+                        fromRow: _fromRow, 
                         moreSpaceThanContent:_moreSpaceThanContent,
                         carpetHeight: _carpetHeight,
                         rowHeight,
@@ -102,8 +102,8 @@ const prefix = 'HYT_',
                     moreSpaceThanContent: _moreSpaceThanContent,
                     // scrollTop: _filterNumbers ? 0 : scrollTop,
                     scrollTop: 0,
-                    from: 0,
-                    to: _to,
+                    fromRow: 0,
+                    toRow: _toRow,
                     loading: false,
                     ...fillerHeights
                 };
@@ -166,7 +166,7 @@ const prefix = 'HYT_',
                         },
                         currentData: _currentData,
                         filteredData: _filteredData,
-                        rows: [..._currentData].slice(_updatedVirtual.from, _updatedVirtual.to),
+                        rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
                     };
                 },
                 unFilter: () => {
@@ -180,7 +180,7 @@ const prefix = 'HYT_',
                         filtered: _currentData.length,
                         currentData: _currentData,
                         filteredData: [...originalData],
-                        rows: [..._currentData].slice(_updatedVirtual.from, _updatedVirtual.to),
+                        rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
                         virtual: {
                             ...virtual,
                             ..._updatedVirtual,
@@ -194,14 +194,14 @@ const prefix = 'HYT_',
                     return {
                         isSorting: true,
                         currentData: _currentData,
-                        rows: [..._currentData].slice(from, to),
+                        rows: [..._currentData].slice(fromRow, toRow),
                         sorting: payload
                     };
                 },
 
                 unSort: () => ({
                     currentData: [...filteredData],
-                    rows: [...filteredData].slice(from, to),
+                    rows: [...filteredData].slice(fromRow, toRow),
                     isSorting: false,
                     sorting: {
                         column: null,
@@ -226,10 +226,10 @@ const prefix = 'HYT_',
                     if (moreSpaceThanContent) return oldState;
 
                     const _scrollTop = parseInt(payload, 10),
-                        _from = Math.max(Math.ceil(_scrollTop / rowHeight) - gap, 0),
-                        _to = Math.min(_from + renderableElements, total),
+                        _fromRow = Math.max(Math.ceil(_scrollTop / rowHeight) - gap, 0),
+                        _toRow = Math.min(_fromRow + renderableElements, total),
                         _updatedFillerHeights = __getFillerHeights({
-                            from: _from,
+                            fromRow: _fromRow,
                             moreSpaceThanContent,
                             carpetHeight,
                             rowHeight,
@@ -238,14 +238,14 @@ const prefix = 'HYT_',
                         });
 
                     return {
-                        rows: currentData.slice(_from, _to),
+                        rows: currentData.slice(_fromRow, _toRow),
                         virtual: {
                             ...virtual,
                             loading: false,
                             scrollTop: _scrollTop,
                             ..._updatedFillerHeights,
-                            from: _from,
-                            to: _to - 1,
+                            fromRow: _fromRow,
+                            toRow: _toRow - 1,
                         }
                     };
                 }
@@ -363,7 +363,7 @@ const prefix = 'HYT_',
             visibleElements = Math.floor(contentHeight / rowHeight),
             visibleElementsHeight = visibleElements * rowHeight,
             fillerHeights = __getFillerHeights({
-                from: 0,
+                fromRow: 0,
                 moreSpaceThanContent,
                 carpetHeight,
                 rowHeight,
@@ -477,8 +477,8 @@ const prefix = 'HYT_',
                 dataHeight,
                 contentHeight,
                 scrollTop: 0,
-                from: 0,
-                to: renderableElements - 1,
+                fromRow: 0,
+                toRow: renderableElements - 1,
                 renderableElements,
                 carpetHeight,
                 visibleElements,

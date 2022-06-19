@@ -73,8 +73,8 @@ describe('reducer - basic', function () {
             "dataHeight": 360,
             "contentHeight": 200,
             "scrollTop": 0,
-            "from": 0,
-            "to": 8,
+            "fromRow": 0,
+            "toRow": 8,
             "renderableElements": 9,
             "carpetHeight": 4000,
             "visibleElements": 5,
@@ -167,8 +167,8 @@ describe('reducer - basic', function () {
             "dataHeight": 1000,
             "contentHeight": 580,
             "scrollTop": 0,
-            "from": 0,
-            "to": 9,
+            "fromRow": 0,
+            "toRow": 9,
             "renderableElements": 10,
             "carpetHeight": 1900,
             "visibleElements": 5,
@@ -276,8 +276,8 @@ describe('reducer - basic', function () {
         expect(newState1.activeFiltersCount).toBe(1)
         expect(newState1.isFiltering).toBe(true)
         expect(newState1.filteredData.length).toBe(19)
-        expect(newState1.virtual.from).toBe(0)
-        expect(newState1.virtual.to).toBe(9)
+        expect(newState1.virtual.fromRow).toBe(0)
+        expect(newState1.virtual.toRow).toBe(9)
 
         
     
@@ -287,8 +287,8 @@ describe('reducer - basic', function () {
         expect(newState2.activeFiltersCount).toBe(0)
         expect(newState2.isFiltering).toBe(false)
         expect(newState2.filteredData.length).toBe(100)
-        expect(newState2.virtual.from).toBe(0)
-        expect(newState2.virtual.to).toBe(9)
+        expect(newState2.virtual.fromRow).toBe(0)
+        expect(newState2.virtual.toRow).toBe(9)
     });
 
     it('actions - unfilter all', () => {
@@ -324,15 +324,15 @@ describe('reducer - basic', function () {
         expect(newState2.activeFiltersCount).toBe(2);
         expect(newState2.isFiltering).toBe(true);
         expect(newState2.filteredData.length).toBe(9);
-        expect(newState2.virtual.from).toBe(0);
-        expect(newState2.virtual.to).toBe(9);
+        expect(newState2.virtual.fromRow).toBe(0);
+        expect(newState2.virtual.toRow).toBe(9);
     
         expect(newState3.rows.length).toBe(9);
         expect(newState3.activeFiltersCount).toBe(0);
         expect(newState3.isFiltering).toBe(false);
         expect(newState3.filteredData.length).toBe(100);
-        expect(newState3.virtual.from).toBe(0);
-        expect(newState3.virtual.to).toBe(9);
+        expect(newState3.virtual.fromRow).toBe(0);
+        expect(newState3.virtual.toRow).toBe(9);
     });
 
     it('actions - sort', () => {
@@ -451,8 +451,8 @@ describe('reducer - basic', function () {
         expect(newState.virtual.scrollTop).toBe(400);
         expect(newState.virtual.headerFillerHeight).toBe(320);
         expect(newState.virtual.footerFillerHeight).toBe(3320);
-        expect(newState.virtual.from).toBe(8);
-        expect(newState.virtual.to).toBe(16);
+        expect(newState.virtual.fromRow).toBe(8);
+        expect(newState.virtual.toRow).toBe(16);
     });
 });
 
@@ -525,8 +525,8 @@ describe('reducer - edge', function () {
         expect(newState.activeFiltersCount).toBe(1);
         expect(newState.isFiltering).toBe(true);
         expect(newState.filteredData.length).toBe(0);
-        expect(newState.virtual.from).toBe(0);
-        expect(newState.virtual.to).toBe(0);
+        expect(newState.virtual.fromRow).toBe(0);
+        expect(newState.virtual.toRow).toBe(0);
     });
 
     it('edge - toggleColumnVisibility non existent column', () => {

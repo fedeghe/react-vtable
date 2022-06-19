@@ -7,7 +7,7 @@ export default ({cls, opts}) => {
         state: {
             RightMost,
             virtual:{
-                from, to, 
+                fromRow, toRow, 
             },
         },
     } = useContext(TableContext);
@@ -21,7 +21,7 @@ export default ({cls, opts}) => {
                 rowIndex={opts.rowIndex}
                 columnIndex={null}
                 pos="rightMost"
-            ><RightMost from={from} to={to} {...opts}/></Th>
+            ><RightMost fromRow={fromRow} toRow={toRow} {...opts}/></Th>
         )
     );
 };

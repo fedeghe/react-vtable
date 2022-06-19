@@ -28,7 +28,7 @@ export default () => {
                     headerFillerHeight,
                     footerFillerHeight,
                     colspan,
-                    from
+                    fromRow
                 },
                 commonRemovedContent,
                 rhtID
@@ -46,7 +46,7 @@ export default () => {
                 >
                     <LeftMost
                         cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row[rhtID] ? (crossHighlightClass || rowHighlightClass) : ''}`}
-                        opts={{ row, rowIndex: rowIndex + from, type: 'body' }}
+                        opts={{ row, rowIndex: rowIndex + fromRow, type: 'body' }}
                     />
                     {columns.map((column, columnIndex) => {
                         let content = row[column.key] || 'nothing';
@@ -73,7 +73,7 @@ export default () => {
                     })}
                     <RightMost
                         cls={`${classes.TbodyThMost} ${classes.TbodyThRightMost} ${classes.AlTop} ${activeRow === row[rhtID] ? (crossHighlightClass || rowHighlightClass) : ''}`}
-                        opts={{ row, rowIndex: rowIndex + from, type: 'body'}}
+                        opts={{ row, rowIndex: rowIndex + fromRow, type: 'body'}}
                     />
                 </Tr>
             ))}

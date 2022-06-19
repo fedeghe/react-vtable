@@ -24,7 +24,7 @@ export default ({type, unFilter, unSort }) => {
                 activeColumnIndex, activeRowIndex,
                 filtered,
                 virtual:{
-                    from, to, 
+                    fromRow, toRow, 
                     scrollTop,
                     loading
                 },
@@ -68,7 +68,7 @@ export default ({type, unFilter, unSort }) => {
         What.Component && <div className={What.cls}>{
             isFunction(What.Component)
             ? <What.Component {...{
-                from, to, total,
+                fromRow, toRow, total,
                 activeColumn, activeColumnIndex,
                 activeRow, activeRowIndex,
                 filtered,

@@ -8,7 +8,7 @@ export default ({row, column, rowIndex, columnIndex, cls, children, style}) => {
                     rowHeight
                 },
                 virtual: {
-                    from
+                    fromRow
                 },
                 events: {
                     onCellClick, onCellEnter, onCellLeave
@@ -24,21 +24,21 @@ export default ({row, column, rowIndex, columnIndex, cls, children, style}) => {
         } = useContext(TableContext),
         classes = useStyles({ rowHeight }),
         onMouseEnter = useCallback(e => {
-            onCellEnter && onCellEnter.call(e, e, { row, column, rowIndex: from + rowIndex, colIndex: columnIndex });
+            onCellEnter && onCellEnter.call(e, e, { row, column, rowIndex: fromRow + rowIndex, colIndex: columnIndex });
             dispatch({
                 type: 'cellEnter',
                 payload: {
                     row,
                     column,
-                    rowIndex: from + rowIndex,
+                    rowIndex: fromRow + rowIndex,
                     columnIndex
                 }
             });
-        }, [onCellEnter, column, columnIndex, dispatch, from, row, rowIndex]),
+        }, [onCellEnter, column, columnIndex, dispatch, fromRow, row, rowIndex]),
         onMouseLeave = useCallback(e => {
-            onCellLeave && onCellLeave.call(e, e, { row, column, rowIndex: from + rowIndex, columnIndex });
+            onCellLeave && onCellLeave.call(e, e, { row, column, rowIndex: fromRow + rowIndex, columnIndex });
             dispatch({ type: 'cellLeave' });
-        }, [onCellLeave, column, columnIndex, dispatch, from, row, rowIndex]),
+        }, [onCellLeave, column, columnIndex, dispatch, fromRow, row, rowIndex]),
         onClick = useCallback(e => onCellClick && onCellClick.call(e, e, { row, column }), [onCellClick, column, row]),
         handlers = {
             onMouseEnter,
