@@ -1,5 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 import TableContext from '../../Context';
+import useStyles from './style.js';
 
 export default ({ row, column, rowIndex, columnIndex, cls, children, pos, style }) => {
     const {
@@ -39,11 +40,12 @@ export default ({ row, column, rowIndex, columnIndex, cls, children, pos, style 
         handlers = {
             onMouseEnter,
             onMouseLeave
-        };
+        },
+        classes = useStyles();
 
     return <th
-        style={{padding:0}}
-        key={`foot${rowIndex || columnIndex}`} className={cls}
+        className={[classes.Th, cls].join(' ')}
+        key={`Th${rowIndex || columnIndex}`}
         {...handlers}
     >   
         <div style={style}>

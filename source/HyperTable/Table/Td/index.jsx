@@ -47,8 +47,7 @@ export default ({row, column, rowIndex, columnIndex, cls, children, style}) => {
         };
 
     return <td
-        style={{padding:0}}
-        className={[cls, cellClass].join(' ')}
+        className={[classes.Td, cls, cellClass].join(' ')}
         {...handlers}
     >
         <div className={classes.Cell} style={style}>

@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import TableContext from './../../Context';
+import useStyles from './style.js';
 
 export default ({cls, children}) => {
     const {
@@ -10,7 +11,8 @@ export default ({cls, children}) => {
                 },
             }
         }
-    } = useContext(TableContext);
-    return <tr className={[cls, rowClass].join(' ')} style={{padding:0}}>{children}</tr>;
+    } = useContext(TableContext),
+    classes = useStyles();
+    return <tr className={[classes.Tr, cls, rowClass].join(' ')}>{children}</tr>;
 };
 

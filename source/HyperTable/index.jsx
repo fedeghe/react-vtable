@@ -45,7 +45,7 @@ export default ({config}) => {
     
     return <div className={[classes.Wrapper, wrapperClass].join(' ')}>
         <TableContext.Provider value={{state, dispatch}}>
-            {loading && <div style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}><Loader/></div>}
+            {loading && <div className={classes.LoaderContainer}><Loader/></div>}
             <Caption type="header" {...p}/>
             <Table/>
             <Caption type="footer" {...p}/>

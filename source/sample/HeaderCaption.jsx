@@ -16,8 +16,8 @@ export default ({
         {Boolean(isFiltering) && <button onClick={unFilter}>unFilter all</button>}-
         {Boolean(isSorting) && <button onClick={unSort}>unSort all</button>} -
         {loading && <span> LOADING</span>}
-        <button onClick={downloadJson}>download as json</button> - 
-        <button onClick={() => downloadXsv()}>download as csv</button> - 
-        <button onClick={() => downloadXsv("\t")}>download as tsv</button> - 
+        <button onClick={downloadJson}>▼ json</button> - 
+        <button onClick={() => downloadXsv()}>▼ csv</button> - 
+        <button onClick={() => downloadXsv("\t")}>▼ tsv</button> - 
     </div>
 );
