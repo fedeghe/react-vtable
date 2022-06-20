@@ -92,7 +92,7 @@ export default () => {
                     }
                     if (isFunction(column.visibilist)){
                         footerProps.visibility = {
-                            setVisibility:  visibility => dispatch({
+                            setVisibility: visibility => dispatch({
                                 type: 'toggleColumnVisibility',
                                 payload: {
                                     key: column.key,
@@ -104,11 +104,9 @@ export default () => {
                         };
                     }
                     content = column.footer(footerProps);
-
                 } else {
                     content = column.isVisible ? column.footer : '';
                 }
-                
             } else {
                 content = column.isVisible ? column.key : '';
             }

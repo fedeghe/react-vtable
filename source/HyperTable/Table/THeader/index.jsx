@@ -36,8 +36,6 @@ export default () => {
         getColumnContent = useCallback(({column, columnIndex}) => {
             let content;
             if ('header' in column) {
-                
-                
                 if (isFunction(column.header)) {
                     const headerProps = {
                         column,
@@ -93,7 +91,7 @@ export default () => {
                     }
                     if (isFunction(column.visibilist)){
                         headerProps.visibility = {
-                            setVisibility:  visibility => dispatch({
+                            setVisibility: visibility => dispatch({
                                 type: 'toggleColumnVisibility',
                                 payload: {
                                     key: column.key,
