@@ -171,7 +171,7 @@ Follows the complete reference for the config prop:
             - _isFiltering_: a boolean that will be true if any filter is active  
             - _loading_: a boolean that will be true only while a recomputation is running to get the new set to display  
             - _downloadJson_: a function to download the current set as JSON  
-            - _downloadCsv_: a function to download the current set as csv  
+            - _downloadXsv(separator = ',')_: a function to download the current set as _xsv_ where you defined which one should be the separator (comma, tab, or whatever). The default separator is comma.
 
     the default content for _header_ and _footer_ cells is the _column.key_ and this can be easily changed specifying the omonimous function in the the column setting.  
 
@@ -273,6 +273,8 @@ Follows the complete reference for the config prop:
 
 - [x] make the vertical virtualization optional through a cutoff value defaulted to 100. The user can change that value.  
     If the data bring more rows than the cutoff value then the virtualzation is effective otherwise it is not (switch effective also on filtering).
+
+- [x] download as _x_sv: instead of providing a _downloadCsv_ function provide a _downloadXsv_ where an additional parameter receives the separator (defaulted to `,`, thus _csv_)
 
 - [ ] add the column virtualization also with cutoff value defaulted to 20.
 
