@@ -9,7 +9,7 @@ export default ({
     isFiltering,
     loading,
     downloadJson,
-    downloadCsv,
+    downloadXsv,
 }) => (
     <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', fontSize: '1.2em', padding:'10px' }}>
         Pre header component ({total}) [{activeRow}, {activeColumn}] scrollTop: [{scrollTop}]
@@ -17,6 +17,7 @@ export default ({
         {Boolean(isSorting) && <button onClick={unSort}>unSort all</button>} -
         {loading && <span> LOADING</span>}
         <button onClick={downloadJson}>download as json</button> - 
-        <button onClick={downloadCsv}>download as csv</button> - 
+        <button onClick={() => downloadXsv()}>download as csv</button> - 
+        <button onClick={() => downloadXsv("\t")}>download as tsv</button> - 
     </div>
 );

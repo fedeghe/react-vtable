@@ -1,7 +1,7 @@
 import React, {useContext, useCallback} from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-import {isFunction, asCsv, asJson} from './../../utils';
+import {isFunction, asXsv, asJson} from './../../utils';
 
 export default ({type, unFilter, unSort }) => {
     const {
@@ -54,10 +54,10 @@ export default ({type, unFilter, unSort }) => {
             a.download = 'extract.json';                     //filename to download
             a.click();
         }, [currentData, rhtID]),
-        downloadCsv = useCallback(() => {
+        downloadXsv = useCallback((separator = ',') => {
             const a = document.createElement('a'),
-                csv = asCsv(columns, currentData, rhtID),
-                blob = new Blob([csv], { type: 'text/csv' });
+                xsv = asXsv(columns, currentData, rhtID, separator),
+                blob = new Blob([xsv], { type: 'text/csv' });
             a.href = URL.createObjectURL(blob);
             a.target = '_blank';
             a.download = 'extract.csv';                     //filename to download
@@ -78,7 +78,7 @@ export default ({type, unFilter, unSort }) => {
                 isSorting,
                 isFiltering,
                 loading,
-                downloadJson, downloadCsv
+                downloadJson, downloadXsv
             }}/>
             : What.Component
         }</div>

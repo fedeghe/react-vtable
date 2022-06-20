@@ -18,12 +18,12 @@ const isFunction = f => typeof f === 'function',
         delete r[rhtID];
         return r;
     }),
-    asCsv = (columns, jsonData, rhtID) => {
+    asXsv = (columns, jsonData, rhtID, separator) => {
         const lines = [],
             keys = columns.map(c => c.key);
-        lines.push(keys.join(','));
+        lines.push(keys.join(separator));
         removeID(jsonData, rhtID).forEach(row => {
-            lines.push(keys.map(k => escapeComma(row[k])).join(','));
+            lines.push(keys.map(k => escapeComma(row[k])).join(separator));
         });
         return lines.join("\n");
     },
@@ -32,6 +32,6 @@ const isFunction = f => typeof f === 'function',
 export {
     isFunction,
     debounce,
-    asCsv,
+    asXsv,
     asJson
 };
