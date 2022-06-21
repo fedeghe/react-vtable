@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
 
-export default ({ row, column, rowIndex, columnIndex, cls, children, pos, style }) => {
+export default ({ row, column, rowIndex, columnIndex, cls, children, pos, wrapperStyle }) => {
     const {
             state: {
                 events: {
@@ -48,7 +48,7 @@ export default ({ row, column, rowIndex, columnIndex, cls, children, pos, style 
         key={`Th${rowIndex || columnIndex}`}
         {...handlers}
     >   
-        <div style={style}>
+        <div style={wrapperStyle}>
             {children}
         </div>
     </th>;

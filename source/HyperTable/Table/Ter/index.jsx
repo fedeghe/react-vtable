@@ -136,7 +136,7 @@ export default ({typehf}) => {
                 <LeftMost cls={`${classes.T_Th} ${classes.Torig_} ${classes.Torig_Left}`} opts={{type: typehf}}/>
                 {columns.map((column, columnIndex) => (
                     <Th
-                        style={column.isVisible ? {width: `${column.width}px`} : {}}
+                        wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`${typehf}${columnIndex}`}
                         cls={`${thTableClass} ${classes.T_Th} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         column={column}

@@ -125,7 +125,7 @@ export default () => {
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{type: 'footer'}}/>
                 {columns.map((column, columnIndex) => (
                     <Th
-                        style={column.isVisible ? {width: `${column.width}px`} : {}}
+                        wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`foot${columnIndex}`}
                         cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         column={column}

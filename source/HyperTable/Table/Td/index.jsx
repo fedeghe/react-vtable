@@ -1,7 +1,7 @@
 import React, { useContext, useCallback } from 'react';
 import TableContext from '../../Context';
 import useStyles from './style.js';
-export default ({row, column, rowIndex, columnIndex, cls, children, style}) => {
+export default ({row, column, rowIndex, columnIndex, cls, children, wrapperStyle}) => {
     const {
             state: {
                 dimensions: {
@@ -50,7 +50,7 @@ export default ({row, column, rowIndex, columnIndex, cls, children, style}) => {
         className={[classes.Td, cls, cellClass].join(' ')}
         {...handlers}
     >
-        <div className={classes.Cell} style={style}>
+        <div className={classes.Cell} style={wrapperStyle}>
             {contentClass ? <div className={contentClass}>
                 {children}
             </div>

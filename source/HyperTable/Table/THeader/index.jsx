@@ -122,7 +122,7 @@ export default () => {
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{type:'header'}}/>
                 {columns.map((column, columnIndex) => (
                     <Th
-                        style={column.isVisible ? {width: `${column.width}px`} : {}}
+                        wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`head${columnIndex}`}
                         cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
                         column={column}

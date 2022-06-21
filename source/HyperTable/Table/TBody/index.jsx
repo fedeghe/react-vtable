@@ -57,7 +57,7 @@ export default () => {
                             content = column.removedContent || commonRemovedContent || '';
                         return (
                             <Td
-                                style={column.isVisible ? {width: `${column.width}px`} : {}}
+                                wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
                                 key={`cell_${row[rhtID]}_${columnIndex}`}
                                 row={row}
                                 column={column}
