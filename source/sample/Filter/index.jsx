@@ -10,17 +10,17 @@ export default ({filter}) => {
         visibility
         ? <div>
             <input type="text" onChange={e => setValue(e.target.value.replace(/^\s/g, ''))} value={value} autoFocus={human}/>
-            <span className={classes.Pointer} onClick={() => {
+            <i className={['bi', 'bi-x-lg', classes.Pointer].join(' ')} onClick={() => {
                 setValue('');
                 setHuman(false);
                 setVisibility(false);
-            }}>&times;</span>
-            &nbsp;|&nbsp;
-            <span className={classes.Pointer} onClick={unFilter}>unfilter all</span>
+            }}/>
+            
+            <i className={['bi', 'bi-filter-circle-fill', classes.Pointer].join(' ')} title={"unfilter all"} onClick={unFilter}/>
         </div>
-        : <span className={classes.Pointer} onClick={() => {
+        : <i className={['bi', 'bi-filter', classes.Pointer].join(' ')} onClick={() => {
             setHuman(true);
             setVisibility(true);
-        }}>Y</span>
+        }}/>
     }</div>;
 };

@@ -6,12 +6,12 @@ export default createUseStyles({
         display: 'inline-flex',
         flexDirection: "column",
         alignItems: 'center',
-        fontSize: '0.8em',
-        lineHeight: '0.8em',
+        fontSize: '1em',
+        lineHeight: '1em',
         // height: 36
     },
     Item: {
-        height: 12,
+        height: '1em',
         cursor: 'pointer',
         display: 'flex',
     },
