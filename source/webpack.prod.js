@@ -4,13 +4,13 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, './HyperTable/index.jsx'),
+        index: path.resolve(__dirname, './VTable/index.jsx'),
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
         // library: {
-        //     name: 'react-hypertable',
+        //     name: 'react-vtable',
         //     type: 'umd',
         // }
 

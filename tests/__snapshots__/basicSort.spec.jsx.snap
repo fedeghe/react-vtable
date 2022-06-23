@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HyperTable - basic sort should behave as expected 1`] = `
+exports[`VTable - basic sort should behave as expected 1`] = `
 <div>
   <div
     class="Wrapper-0-2-1 Wrapper-d0-0-2-2 "
@@ -741,7 +741,7 @@ exports[`HyperTable - basic sort should behave as expected 1`] = `
 </div>
 `;
 
-exports[`HyperTable - basic sort should behave as expected 2`] = `
+exports[`VTable - basic sort should behave as expected 2`] = `
 <div>
   <div
     class="Wrapper-0-2-1 Wrapper-d0-0-2-2 "

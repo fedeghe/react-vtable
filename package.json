@@ -1,5 +1,5 @@
 {
-    "name": "react-hypertable",
+    "name": "react-vtable",
     "version": "0.0.5",
     "description": "react table on steroids",
     "main": "./dist/index.js",
@@ -9,19 +9,19 @@
         "test": "jest -u",
         "testwatch": "jest -u --watchAll",
         "cover": "jest --coverage --collectCoverageFrom='source/**/*.js'",
-        "lint": "eslint ./source/HyperTable/*.*"
+        "lint": "eslint ./source/VTable/*.*"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/fedeghe/react-hypertable.git"
+        "url": "git+https://github.com/fedeghe/react-vtable.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/fedeghe/react-hypertable/issues"
+        "url": "https://github.com/fedeghe/react-vtable/issues"
     },
-    "homepage": "https://github.com/fedeghe/react-hypertable#readme",
+    "homepage": "https://github.com/fedeghe/react-vtable#readme",
     "devDependencies": {
         "@babel/core": "^7.12.9",
         "@babel/plugin-transform-runtime": "^7.12.10",

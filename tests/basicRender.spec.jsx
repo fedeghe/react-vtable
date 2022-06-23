@@ -9,18 +9,18 @@ import {
 import "@testing-library/jest-dom/extend-expect";
 import { configure } from "@testing-library/dom";
 
-import HyperTable from "../dist/index.js";
-// import HyperTable from "../source/HyperTable";
+import VTable from "../dist/index.js";
+// import VTable from "../source/VTable";
 import config from "./configs/basic";
 
 configure({
     testIdAttribute: "data-uie",
 });
 
-describe("HyperTable - basic", () => {
+describe("VTable - basic", () => {
     it("should render as expected", () => {
         const { container, getByTestId } = render(
-            <HyperTable config={config} />
+            <VTable config={config} />
         );
         // check all uie
         for(var i = 0; i < 15; i++)

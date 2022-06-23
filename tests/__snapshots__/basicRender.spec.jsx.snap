@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HyperTable - basic should render as expected 1`] = `
+exports[`VTable - basic should render as expected 1`] = `
 <div>
   <div
     class="Wrapper-0-2-1 Wrapper-d0-0-2-2 "

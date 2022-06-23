@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import reducerFactory from './../source/HyperTable/reducer'
+import reducerFactory from './../source/VTable/reducer'
 import zeroConfig from './configs/zero'
 import emptyDefaultState  from './emptyDefaultState.json'
 
