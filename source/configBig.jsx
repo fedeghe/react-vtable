@@ -21,10 +21,10 @@ export default {
             column, columnIndex,
             filter, //: {value, setValue, visibility, setVisibility} = {},
             sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{ column, columnIndex, filter }} />
-            <Sorter {...{ column, columnIndex, sort }} />
+        }) => (<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <Sorter {...{ column, columnIndex, sort }} />
+                    <span>{column.label + '_' + columnIndex}</span>
+                    <Filter {...{ column, columnIndex, filter }} />
         </div>),
         // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         footer: ({
@@ -160,20 +160,20 @@ export default {
 
     // defaultColumnWidth: 100 // default value
 
-    // cls: {
+    cls: {
         // highlight: {
         //     rowHighlightClass: 'TableRowHighlight',
         //     columnHighlightClass: 'TableColumnHighlight',
         //     crossHighlightClass: 'TableCrossHighlight',
         //     cellHightlightClass: 'TableCellHighlight',
         // },
-        // elements: {
+        elements: {
             // contentClass: 'TableContent',
             // cellClass: 'TableCell',
             // wrapperClass: 'Wrapper',
             // rowClass: 'TableRow'
-        // }
-    // },
+        }
+    },
 
     // events: {
         // onCellClick: (e, { row, column }) => {
