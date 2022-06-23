@@ -45,13 +45,6 @@ const prefix = 'HYT_',
         return acc;
     }, {}),
 
-    // __sort = (what, _sorter, _sortingColumn, _sortingDirection) => _sorter
-    //     ? [...what].sort((a, b) => _sorter({
-    //         rowA: a, rowB: b,
-    //         columnKey: _sortingColumn,
-    //         direction: _sortingDirection
-    //     }))
-    //     : [...what],
     __sort = (what, _sorter, _sortingColumn, _sortingDirection) => _sorter
         ? [...what].sort((a, b) => _sorter({
             rowA: a, rowB: b,
@@ -114,7 +107,6 @@ const prefix = 'HYT_',
                 return {
                     carpetHeight: _carpetHeight,
                     moreSpaceThanContent: _moreSpaceThanContent,
-                    // scrollTop: _filterNumbers ? 0 : scrollTop,
                     scrollTop: 0,
                     fromRow: 0,
                     toRow: _toRow,
