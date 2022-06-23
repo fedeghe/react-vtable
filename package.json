@@ -1,5 +1,5 @@
 {
-    "name": "react-vtable",
+    "name": "@fedeghe/react-vtable",
     "version": "0.0.5",
     "description": "react table on steroids",
     "main": "./dist/index.js",

@@ -3,7 +3,7 @@
 
 ## install
 
-`yarn add react-vtable`
+`yarn add @fedeghe/react-vtable`
 
 React-vtable creates a virtualized `<table>`. It renders only the very minimum amount of rows in the table, and starting from computing the height all rows would occupy creates a top and bottom _filling_ row with the right height so to allow the scrollbar to stay as if all elements were rendered. A constraint imposed by this approach is that every row will have a fixed height (defaulted to `80px`) and also the table size is settable (defaulted to `1200px * 800px`).  
 
