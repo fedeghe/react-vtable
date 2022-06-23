@@ -199,6 +199,6 @@ export default {
 
     // debounceTimes: {
     //     filtering: 5,
-        // scrolling: 5
+    //     scrolling: 10
     // }
 };
