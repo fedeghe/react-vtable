@@ -5,9 +5,14 @@ export default ({sort}) => {
     const {sortAsc, sortDesc, unSort, direction, isSorting} = sort,
         classes = useStyles({isSorting, direction});
     return <div className={classes.Container}>
-        <span className={[classes.Item, classes.Ascending].join(' ')} onClick={sortAsc}>▲</span>
-        {direction && isSorting &&  <span className={classes.Item} onClick={unSort}>&times;</span>}
-        <span className={[classes.Item, classes.Descending].join(' ')} onClick={sortDesc}>▼</span>
+        <i className={['bi', 'bi-sort-down-alt', classes.Item, classes.Ascending].join(' ')}
+            onClick={() => {(!isSorting || direction !== 'asc')  ? sortAsc() : unSort();}}
+        />
+        {/* {direction && isSorting &&  <span className={classes.Item} onClick={unSort}>&times;</span>} */}
+        <i className={['bi', 'bi-sort-down', classes.Item, classes.Descending].join(' ')}
+            onClick={() => {(!isSorting || direction !== 'desc')  ? sortDesc() : unSort();}}
+        />
+        
     </div>;
 };
 
