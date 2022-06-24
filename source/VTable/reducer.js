@@ -35,6 +35,16 @@ const prefix = 'HYT_',
         })),
         originalData
     ),
+    
+    // must either match one of the specified user filter function 
+    // either (in case no filter is specified) match column[key]
+    __globalFilter = (value, columns, originalData) =>     
+        originalData.filter(row => 
+            columns.filter(column => isFunction(column.filter)).some(column => 
+                column.filter({userValue: value, row, columnKey: column.key})
+            ) 
+            || columns.some(column => `${row[column.key]}`.includes(value))
+        ),
 
     __cleanFilters = _filters => Object.keys(_filters).reduce((acc, k) => {
         acc[k] = {
@@ -142,6 +152,28 @@ const prefix = 'HYT_',
                         loading: true
                     }
                 }),
+                globalFilter : () => {
+                    const value = payload,
+                        _filteredData = __globalFilter(value, columns, originalData),
+                        _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
+                        _virtualization = __updateVirtualization({currentData: _currentData, virtualization}),
+                        _updatedVirtual = __getVirtual({_currentData, _virtualization });
+                    
+                    return {
+                        filters: __cleanFilters(filters),
+                        globalFilterValue: value,
+                        virtual: {
+                            ...virtual,
+                            ..._updatedVirtual,
+                        },
+                        currentData: _currentData,
+                        filteredData: _filteredData,
+                        filtered: _currentData.length,
+                        rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
+                        virtualization: _virtualization,
+                        activeFiltersCount: 1,
+                    };
+                },
                 filter: () => {
                     // if (!('column' in payload)) throw new Error('filter needs a column');
                     // if (!columns.some(c => c.key === payload.column)) throw new Error("u are trying to filter a column that doesn't exist");
@@ -194,6 +226,7 @@ const prefix = 'HYT_',
                             ...virtual,
                             ..._updatedVirtual,
                         },
+                        globalFilterValue: '',
                         virtualization: _virtualization
                     };
                 },
@@ -431,6 +464,7 @@ const prefix = 'HYT_',
             isSorting,
             
             filters,
+            globalFilterValue: '',
             activeFiltersCount,
             isFiltering: activeFiltersCount > 0,
             

@@ -3,7 +3,7 @@ import TableContext from '../../Context';
 import useStyles from './style.js';
 import {isFunction, asXsv, asJson} from './../../utils';
 
-export default ({type, unFilter, unSort }) => {
+export default ({type, unFilter, unSort, globalFilter, globalFilterValue }) => {
     const {
             state: {
                 footer: {
@@ -74,6 +74,7 @@ export default ({type, unFilter, unSort }) => {
                 filtered,
                 scrollTop,
                 unFilter, unSort,
+                globalFilter, globalFilterValue,
                 activeFiltersCount,
                 isSorting,
                 isFiltering,

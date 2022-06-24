@@ -31,6 +31,7 @@ export default ({config}) => {
             debounceTimes: {
                 filtering : filteringDebounceTime,
             },
+            globalFilterValue
         } = state,
         classes = useStyles({
             width, height,
@@ -38,9 +39,10 @@ export default ({config}) => {
             postFooterHeight,
         }),
         unFilter = debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
+        globalFilter = debounce(value => dispatch({type: 'globalFilter', payload: value || ''}), filteringDebounceTime),
         unSort = debounce(() => dispatch({type: 'unSort'}), filteringDebounceTime),
         p = {
-            unSort, unFilter
+            unSort, unFilter, globalFilter, globalFilterValue
         };
     
     return <div className={[classes.Wrapper, wrapperClass].join(' ')}>
