@@ -20,7 +20,7 @@ export default ({
         <div>
             Pre header component ({total}) [{activeRow}, {activeColumn}] scrollTop: [{scrollTop}]
         </div>
-        <input type="text" value={globalFilterValue} onChange={e => globalFilter(e.target.value)}/>
+        <input className={classes.Filter} type="text" value={globalFilterValue} onChange={e => globalFilter(e.target.value)}/>
         <div className={classes.Butts}>
             {loading && <div className="spinner-grow spinner-grow-sm text-warning" role="status">
                 <span className="visually-hidden">Loading...</span>

@@ -162,6 +162,7 @@ const prefix = 'HYT_',
                     return {
                         filters: __cleanFilters(filters),
                         globalFilterValue: value,
+                        isFiltering: !!value,
                         virtual: {
                             ...virtual,
                             ..._updatedVirtual,

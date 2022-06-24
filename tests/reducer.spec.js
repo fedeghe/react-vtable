@@ -290,6 +290,37 @@ describe('reducer - basic', function () {
         expect(newState2.virtual.toRow).toBe(9)
     });
 
+    it('actions - filter global', () => {
+        const newConfig = deepClone(zeroConfig)
+        newConfig.columns[0].filter = basicFilter
+        const state = init(newConfig),
+            // show first
+            newState1 = reducer(state, {
+                type: 'globalFilter',
+                payload: '4'
+            }),
+            // unfilter single
+            newState2 = reducer(newState1, {type: 'unFilter'});
+        expect(newState1.rows.length).toBe(9)
+        expect(newState1.globalFilterValue).toBe('4')
+        
+        expect(newState1.activeFiltersCount).toBe(1)
+        expect(newState1.isFiltering).toBe(true)
+        expect(newState1.filteredData.length).toBe(362)
+        expect(newState1.virtual.fromRow).toBe(0)
+        expect(newState1.virtual.toRow).toBe(9)
+
+        expect(newState2.rows.length).toBe(9)
+        expect(newState2.globalFilterValue).toBe('')
+
+        expect(newState2.filters.id.visibility).toBe(false)
+        expect(newState2.activeFiltersCount).toBe(0)
+        expect(newState2.isFiltering).toBe(false)
+        expect(newState2.filteredData.length).toBe(1000)
+        expect(newState2.virtual.fromRow).toBe(0)
+        expect(newState2.virtual.toRow).toBe(9)
+    });
+
     it('actions - unfilter all', () => {
         const newConfig = deepClone(zeroConfig);
         newConfig.columns[0].filter = basicFilter;
