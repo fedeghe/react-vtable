@@ -3,6 +3,8 @@ import useStyles from './style.js';
 
 export default ({
     total, activeColumn, activeRow, scrollTop,
+    globalFilter,
+    globalFilterValue,
     unFilter,
     unSort,
     activeFiltersCount,
@@ -18,6 +20,7 @@ export default ({
         <div>
             Pre header component ({total}) [{activeRow}, {activeColumn}] scrollTop: [{scrollTop}]
         </div>
+        <input className={classes.Filter} type="text" value={globalFilterValue} onChange={e => globalFilter(e.target.value)}/>
         <div className={classes.Butts}>
             {loading && <div className="spinner-grow spinner-grow-sm text-warning" role="status">
                 <span className="visually-hidden">Loading...</span>

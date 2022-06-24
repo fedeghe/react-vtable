@@ -1,8 +1,8 @@
 import React from 'react';
 import VTable from './VTable';
 
-// import config from './configBig';
-import config from './configSmall';
+import config from './configBig';
+// import config from './configSmall';
 
 import './sample/user.css';
 

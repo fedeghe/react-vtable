@@ -14,5 +14,8 @@ export default createUseStyles({
         '&>*': {
             marginLeft: '10px'
         }
+    },
+    Filter: {
+        width:100
     }
 });

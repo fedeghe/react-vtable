@@ -38,7 +38,7 @@ and render
 ```
 No headers, no filter or sorting, nothing, just the data. This case is really basic and rarely could meet what we might expect and need from a table. The good new is that there are many many options that can quickly allow you to use :  
 - headless sticky header and footer
-- headless filters (multiple) available [header & footer]
+- headless filters (multiple) available [header & footer] and global filtering helper
 - headless sort and unsort (single row) [header & footer]
 - headless header and footer captions, getting a lot of useful informations
 - headless sticky left and/or right column
@@ -166,6 +166,8 @@ Follows the complete reference for the config prop:
             - _scrollTop_: an integer with the corrent scrollTop measure in px  
             - _unFilter_: a function to remove all filters  
             - _unSort_: a function to unSort (reset to original *data* order)  
+            - _globalFilter_: the globalFiltering function (expects one value),
+            - _globalFilterValue_: the current global filter value,
             - _activeFiltersCount_: an integer of how many filters are active  
             - _isSorting_: a boolean that will be true if a sorter is active    
             - _isFiltering_: a boolean that will be true if any filter is active  
@@ -275,6 +277,8 @@ Follows the complete reference for the config prop:
     If the data bring more rows than the cutoff value then the virtualzation is effective otherwise it is not (switch effective also on filtering).
 
 - [x] download as _x_sv: instead of providing a _downloadCsv_ function provide a _downloadXsv_ where an additional parameter receives the separator (defaulted to `,`, thus _csv_)
+
+- [x] add a global search function.  
 
 - [ ] add the column virtualization also with cutoff value defaulted to 20.
 
