@@ -16,6 +16,7 @@ export default createUseStyles({
         }
     },
     Filter: {
-        width:100
+        width:100,
+        outline: 'none'
     }
 });
