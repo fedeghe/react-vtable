@@ -176,8 +176,6 @@ const prefix = 'HYT_',
                     };
                 },
                 filter: () => {
-                    // if (!('column' in payload)) throw new Error('filter needs a column');
-                    // if (!columns.some(c => c.key === payload.column)) throw new Error("u are trying to filter a column that doesn't exist");
                     const updatedFields = {};
                     ('value' in payload) && (updatedFields.value = payload.value);
                     ('visibility' in payload) && (updatedFields.visibility = payload.visibility);
