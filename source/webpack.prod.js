@@ -10,22 +10,19 @@ module.exports = {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
         // library: {
-        //     name: 'react-vtable',
+        //     name: '@fedeghe/react-vtable',
         //     type: 'umd',
-        // }
-
+        // },
         libraryTarget: "umd"
     },
-    devtool: 'inline-source-map',
-    externalsType : 'umd',
+    // devtool: 'inline-source-map',
+    externalsType : "umd",
 
-    // optimization: {
-    //     minimizer: [new UglifyJsPlugin()],
-    // },
     optimization: {
         minimize: true,
         minimizer: [new TerserPlugin()],
-      },
+    },
+
     plugins: [
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     ],
