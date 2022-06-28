@@ -16,7 +16,7 @@
         "type": "git",
         "url": "git+https://github.com/fedeghe/react-vtable.git"
     },
-    "keywords": [],
+    "keywords": ["react table", "react virtual table"],
     "author": "fedeghe@gmail.com",
     "license": "MIT",
     "bugs": {
