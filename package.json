@@ -2,7 +2,7 @@
     "name": "@fedeghe/react-vtable",
     "version": "0.0.8",
     "description": "react table on steroids",
-    "main": "dist/index.js",
+    "main": "./dist/index.js",
     "private": false,
     "scripts": {
         "start": "webpack serve --open --config source/webpack.dev.js",
