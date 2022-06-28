@@ -18,7 +18,7 @@
     },
     "keywords": [],
     "author": "fedeghe@gmail.com",
-    "license": "ISC",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/fedeghe/react-vtable/issues"
     },
