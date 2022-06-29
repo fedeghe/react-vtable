@@ -38,9 +38,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['*', '.js', '.jsx'],
-        alias: {
-            react: path.resolve(__dirname, './../node_modules/react')
-        }
+        // alias: {
+        //     react: path.resolve(__dirname, './../node_modules/react')
+        // }
     },
     mode: 'production',
     
