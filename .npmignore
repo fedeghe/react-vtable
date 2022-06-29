@@ -5,3 +5,4 @@ source
 .babelrc
 .circleci
 .eslintrc
+.git
