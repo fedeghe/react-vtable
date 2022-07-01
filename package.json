@@ -1,6 +1,6 @@
 {
     "name": "@fedeghe/react-vtable",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "react table on steroids",
     "main": "dist/index.js",
     "scripts": {
@@ -72,6 +72,7 @@
         "react": "^18.0.0",
         "react-dom": "^18.0.0"
     },
-    "files": ["./dist/*.js"]
-
+    "files": [
+        "./dist/*.js"
+    ]
 }
