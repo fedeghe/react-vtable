@@ -73,6 +73,7 @@ const prefix = 'HYT_',
             {
                 total,
                 filters,
+                globalFilterValue,
                 columns,
                 originalData, filteredData, currentData,
                 virtual,
@@ -154,13 +155,20 @@ const prefix = 'HYT_',
                 }),
                 globalFilter : () => {
                     const value = payload,
-                        _filteredData = __globalFilter(value, columns, originalData),
-                        _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
+                        _filterNumbers = Object.values(filters).filter(f => f.value && f.visibility).length;
+
+                    let _filteredData = __globalFilter(value, columns, originalData);
+                    
+                    if (_filterNumbers) {
+                        _filteredData = __filter(filters, _filteredData);
+                    }
+                    // eslint-disable-next-line one-var
+                    const _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
                         _virtualization = __updateVirtualization({currentData: _currentData, virtualization}),
                         _updatedVirtual = __getVirtual({_currentData, _virtualization });
                     
                     return {
-                        filters: __cleanFilters(filters),
+                        // filters: __cleanFilters(filters),
                         globalFilterValue: value,
                         isFiltering: !!value,
                         virtual: {
@@ -172,7 +180,7 @@ const prefix = 'HYT_',
                         filtered: _currentData.length,
                         rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
                         virtualization: _virtualization,
-                        activeFiltersCount: 1,
+                        activeFiltersCount: _filterNumbers + 1,
                     };
                 },
                 filter: () => {
@@ -186,9 +194,13 @@ const prefix = 'HYT_',
                                 ...filters[payload.column],
                                 ...updatedFields
                             }
-                        },
-                        _filteredData = __filter(_filters, originalData),
-                        _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
+                        };
+                    let _filteredData = __filter(_filters, originalData);
+                    if (globalFilterValue) {
+                        _filteredData = __globalFilter(globalFilterValue, columns, _filteredData);
+                    }
+                    // eslint-disable-next-line one-var
+                    const _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
                         _filterNumbers = Object.values(_filters).filter(f => f.value && f.visibility).length,
                         _virtualization = __updateVirtualization({currentData: _currentData, virtualization}),
                         _updatedVirtual = __getVirtual({_currentData, _virtualization });
@@ -196,8 +208,8 @@ const prefix = 'HYT_',
                     return {
                         filters: _filters,
                         filtered: _currentData.length,
-                        activeFiltersCount: _filterNumbers,
-                        isFiltering: _filterNumbers > 0,
+                        activeFiltersCount: _filterNumbers + ~~!!globalFilterValue,
+                        isFiltering: _filterNumbers > 0 || globalFilterValue,
                         virtual: {
                             ...virtual,
                             ..._updatedVirtual,

@@ -38,8 +38,8 @@ export default {
         </div>),
         filter: basicFilter,
         sort: basicSort,
-        preSorted: 'asc', // autosort at init ? 
-        preFiltered: '23'
+        // preSorted: 'asc', // autosort at init ? 
+        // preFiltered: '23'
     }, {
         key: 'entityid',
     }, {
