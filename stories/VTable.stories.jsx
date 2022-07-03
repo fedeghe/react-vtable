@@ -2,8 +2,8 @@
 import React from 'react';
 
 import VTable from '../source/VTable';
-import bigConfig from '../source/configBig';
-import smallConfig from '../source/configSmall';
+import fullConfig from '../source/configFullSized';
+import basicConfig from '../source/configBasicSized';
 
 export default {
   title: 'VTable/Use Cases',
@@ -14,14 +14,16 @@ export default {
   },
 };
 
-const Template = (args) => <div style={{ margin: 20 }}><VTable {...args} /></div>;
+const Template = (args) => <div style={{ margin: 20 }}>
+    <VTable {...args} />
+</div>;
 
 export const BigConfig = Template.bind({});
 BigConfig.args = {
-    config: bigConfig,
+    config: fullConfig(1e3),
 };
 
 export const SmallConfig = Template.bind({});
 SmallConfig.args = {
-    config: smallConfig,
+    config: basicConfig(1e3),
 };
