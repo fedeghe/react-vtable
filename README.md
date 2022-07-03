@@ -280,6 +280,8 @@ Follows the complete reference for the config prop:
 
 - [x] add a global search function.  
 
+- [ ] allow both global and fields filter
+
 - [ ] add the column virtualization also with cutoff value defaulted to 20.
 
 - [ ] allow a column search, which will behave as a filter and will be available in the _LeftMost_ and _RightMost_.
