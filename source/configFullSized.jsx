@@ -10,7 +10,7 @@ import FooterCaption from './sample/FooterCaption';
 import LeftMost from './sample/LeftMost';
 import RightMost from './sample/RightMost';
 
-export default {
+export default size => ({
     columns: [{
         key: 'id',
         label: 'idz',
@@ -123,7 +123,7 @@ export default {
         { key: 'entityid3', type: 'int' },
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
-    ], 1e5),
+    ], size),
 
     // dimensions: {
     //     height: 900,
@@ -201,4 +201,4 @@ export default {
     //     filtering: 5,
     //     scrolling: 10
     // }
-};
+});
