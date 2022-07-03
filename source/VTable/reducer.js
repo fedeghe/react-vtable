@@ -209,7 +209,7 @@ const prefix = 'HYT_',
                         filters: _filters,
                         filtered: _currentData.length,
                         activeFiltersCount: _filterNumbers + ~~!!globalFilterValue,
-                        isFiltering: _filterNumbers > 0 || globalFilterValue,
+                        isFiltering: _filterNumbers > 0 || !!globalFilterValue,
                         virtual: {
                             ...virtual,
                             ..._updatedVirtual,
