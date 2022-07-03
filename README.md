@@ -280,7 +280,7 @@ Follows the complete reference for the config prop:
 
 - [x] add a global search function.  
 
-- [ ] allow both global and fields filter
+- [x] allow both global and fields filter
 
 - [ ] add the column virtualization also with cutoff value defaulted to 20.
 
