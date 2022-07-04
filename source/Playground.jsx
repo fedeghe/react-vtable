@@ -1,10 +1,10 @@
 import React from 'react';
-import HyperTable from './HyperTable';
+import VTable from './VTable';
 
-// import config from './configBig';
-import config from './configSmall';
+import config from './configFullSized';
+// import config from './configBasicSized';
 
 import './sample/user.css';
 
-const Pg = () => <HyperTable config={config} />;
+const Pg = () => <VTable config={config(1e5)} />;
 export default Pg;

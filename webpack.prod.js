@@ -4,28 +4,25 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, './source/HyperTable/index.jsx'),
+        index: path.resolve(__dirname, './VTable/index.jsx'),
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
         // library: {
-        //     name: 'react-hypertable',
+        //     name: '@fedeghe/react-vtable',
         //     type: 'umd',
-        // }
-
+        // },
         libraryTarget: "umd"
     },
-    devtool: 'inline-source-map',
-    externalsType : 'umd',
+    // devtool: 'inline-source-map',
+    externalsType : "umd",
 
-    // optimization: {
-    //     minimizer: [new UglifyJsPlugin()],
-    // },
     optimization: {
         minimize: true,
         minimizer: [new TerserPlugin()],
-      },
+    },
+
     plugins: [
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     ],
@@ -42,7 +39,7 @@ module.exports = {
     resolve: {
         extensions: ['*', '.js', '.jsx'],
         // alias: {
-        //     react: path.resolve('./../node_modules/react')
+        //     react: path.resolve(__dirname, './../node_modules/react')
         // }
     },
     mode: 'production',

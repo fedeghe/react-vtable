@@ -19,5 +19,4 @@ const sameInt = 1,
             }, {})
         );
 
-// eslint-disable-next-line import/prefer-default-export
 export  default generateRowData ;

@@ -71,14 +71,14 @@
         "contentHeight": 800,
         "moreSpaceThanContent": true,
         "scrollTop": 0,
-        "from": 0,
-        "to": 29,
+        "fromRow": 0,
+        "toRow": 29,
         "renderableElements": 30,
         "visibleElements": 10,
         "visibleElementsHeight": 800,
         "loading": false,
         "headerFillerHeight": 0,
-        "footerFillerHeight": 800
+        "footerFillerHeight": 0
     },
     "debounceTimes": {
         "filtering": 50,

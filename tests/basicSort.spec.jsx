@@ -10,8 +10,8 @@ import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event"
 import { configure } from "@testing-library/dom";
 
-import HyperTable from "../dist/index.js";
-// import HyperTable from "../source/HyperTable";
+import VTable from "../dist/index.js";
+// import VTable from "../source/VTable";
 import config from "./configs/basic";
 
 configure({
@@ -44,10 +44,10 @@ config.columns[0].sort = ({rowA, rowB, columnKey, direction}) => {
 };
 config.header = {height:80};
 
-describe("HyperTable - basic sort", () => {
+describe("VTable - basic sort", () => {
     it("should behave as expected", () => {
         const { container, getByTestId } = render(
-            <HyperTable config={config} />
+            <VTable config={config} />
         );
 
         expect(container).toMatchSnapshot();

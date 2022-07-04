@@ -2,25 +2,25 @@ import React, { useState } from 'react';
 import useStyles from './style.js';
 
 export default ({filter}) => {
-    const classes = useStyles(),
-        {value, setValue, visibility, setVisibility, unFilter} = filter,
+    const {value, setValue, visibility, setVisibility, unFilter} = filter,
+        classes = useStyles({visibility}),    
         [human, setHuman] = useState(false);
 
     return <div className={classes.Container}>{
         visibility
         ? <div>
             <input type="text" onChange={e => setValue(e.target.value.replace(/^\s/g, ''))} value={value} autoFocus={human}/>
-            <span className={classes.Pointer} onClick={() => {
+            <i className={['bi', 'bi-x-lg', classes.Close, classes.Pointer].join(' ')} onClick={() => {
                 setValue('');
                 setHuman(false);
                 setVisibility(false);
-            }}>&times;</span>
-            &nbsp;|&nbsp;
-            <span data-cy="filter-unfilter-all" className={classes.Pointer} onClick={unFilter}>unfilter all</span>
+            }}/>
+            
+            {/* <i className={['bi', 'bi-filter-circle-fill', classes.Pointer].join(' ')} title={"unfilter all"} onClick={unFilter}/> */}
         </div>
-        : <span className={classes.Pointer} onClick={() => {
+        : <i className={['bi', 'bi-filter', classes.Pointer].join(' ')} onClick={() => {
             setHuman(true);
             setVisibility(true);
-        }}>Y</span>
+        }}/>
     }</div>;
 };

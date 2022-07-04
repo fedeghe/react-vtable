@@ -1,11 +1,11 @@
 
-# react-hypertable
+# react-vtable
 
 ## install
 
-`yarn add react-hypertable`
+`yarn add @fedeghe/react-vtable`
 
-React-hypertable creates a true `<table>` without using problematic fake scrollbars. It renders only the very minimum amount of rows in the table, and starting from computing the height all rows would occupy creates a top and bottom _filling_ row with the right height so to allow the scrollbar to stay as if all elements were rendered. A constraint imposed by this approach is that every row will have a fixed height (defaulted to `80px`) and also the table size is settable (defaulted to `1200px * 800px`).  
+React-vtable creates a virtualized `<table>`. It renders only the very minimum amount of rows in the table, and starting from computing the height all rows would occupy creates a top and bottom _filling_ row with the right height so to allow the scrollbar to stay as if all elements were rendered. A constraint imposed by this approach is that every row will have a fixed height (defaulted to `80px`) and also the table size is settable (defaulted to `1200px * 800px`).  
 
 The very minimum, but not that useful, config might look like the following:  
 
@@ -34,11 +34,11 @@ const config = {
 ```  
 and render
 ``` html
- <HyperTable config={config} />
+ <VTable config={config} />
 ```
 No headers, no filter or sorting, nothing, just the data. This case is really basic and rarely could meet what we might expect and need from a table. The good new is that there are many many options that can quickly allow you to use :  
 - headless sticky header and footer
-- headless filters (multiple) available [header & footer]
+- headless filters (multiple) available [header & footer] and global filtering helper
 - headless sort and unsort (single row) [header & footer]
 - headless header and footer captions, getting a lot of useful informations
 - headless sticky left and/or right column
@@ -57,6 +57,7 @@ Additionally some other options allow to:
 - enable line, column, cell and cross highlighting class to be used  
 - show already sorted (wun column)
 - prefilter (+ than wun column)
+- tune a cut-off value for the virtualisation
 
 ---
 
@@ -165,12 +166,14 @@ Follows the complete reference for the config prop:
             - _scrollTop_: an integer with the corrent scrollTop measure in px  
             - _unFilter_: a function to remove all filters  
             - _unSort_: a function to unSort (reset to original *data* order)  
+            - _globalFilter_: the globalFiltering function (expects one value),
+            - _globalFilterValue_: the current global filter value,
             - _activeFiltersCount_: an integer of how many filters are active  
             - _isSorting_: a boolean that will be true if a sorter is active    
             - _isFiltering_: a boolean that will be true if any filter is active  
             - _loading_: a boolean that will be true only while a recomputation is running to get the new set to display  
             - _downloadJson_: a function to download the current set as JSON  
-            - _downloadCsv_: a function to download the current set as csv  
+            - _downloadXsv(separator = ',')_: a function to download the current set as _xsv_ where you defined which one should be the separator (comma, tab, or whatever). The default separator is comma.
 
     the default content for _header_ and _footer_ cells is the _column.key_ and this can be easily changed specifying the omonimous function in the the column setting.  
 
@@ -260,19 +263,30 @@ Follows the complete reference for the config prop:
     filtering:  defaulted 50
     scrolling:  defaulted 50
     ```
-- _rhtID_ <string>  
+- _virtualization_ \<object literal\>  
+    Contains some fine tuning parameters giving more control over the virtualization.
+    - _verticalCutoff_  \<integer\>  
+        This is defaulted to 100. When the filtered elements are less than this value, all rows will be rendered. When more it will be effective. Set it to 0 in case the virtualization mechanism should always be active.
+
+- _rhtID_ \<string\>  
     by default each row gets an added index in a field by default called `_ID`. In case this clashes with your data pick something else and keep in mind it needs to be a valid object literal key.
 
 ## Todo's list
 
-- [ ] make the vertical virtualization optional through a cutoff value defaulted to 100. The user can change that value.  
+- [x] make the vertical virtualization optional through a cutoff value defaulted to 100. The user can change that value.  
     If the data bring more rows than the cutoff value then the virtualzation is effective otherwise it is not (switch effective also on filtering).
+
+- [x] download as _x_sv: instead of providing a _downloadCsv_ function provide a _downloadXsv_ where an additional parameter receives the separator (defaulted to `,`, thus _csv_)
+
+- [x] add a global search function.  
+
+- [x] allow both global and fields filter
 
 - [ ] add the column virtualization also with cutoff value defaulted to 20.
 
 - [ ] allow a column search, which will behave as a filter and will be available in the _LeftMost_ and _RightMost_.
 
-- [ ] groups: allow a _groupName_ and a _grouper_ field in the column; it allows to specify a named function that will receive the full row and it is expected to return a boolean: if `true` then the row will be listed in a the group named as _groupName_.
+- [ ] groups: allow a _groupName_ and _grouper_ fields in the column;  _grouper_ allows to specify a function that will receive the full row and it is expected to return a boolean: if `true` then the row will be listed in a the group named as _groupName_.
 ---
 ---
 ---

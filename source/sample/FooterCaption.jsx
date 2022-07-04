@@ -1,12 +1,12 @@
 import React from 'react';
 
 export default ({
-    from, to,
+    fromRow, toRow,
     activeColumnIndex, activeRowIndex,
     filtered, total
 }) => (
     <div style={{ color: 'white', backgroundColor: 'royalBlue', height: 'inherit', textAlign: 'center' }}>
-        Post footer component [{from}, {to}] [row: {activeRowIndex}, col: {activeColumnIndex}] filtered {filtered} out of {total}
+        Post footer component [{fromRow}, {toRow}] [row: {activeRowIndex}, col: {activeColumnIndex}] filtered {filtered} out of {total}
     </div>
 );
 
