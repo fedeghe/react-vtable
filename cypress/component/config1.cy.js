@@ -1,8 +1,8 @@
 
 import React from 'react';
-import HyperTable from '../../source/HyperTable';
+import VTable from '../../source/VTable';
 import generateRowData from '../../source/utils';
-import { basicFilter, basicSort } from '../../source/sample/utils';
+import { basicFilter, basicSort } from '../../source/sample/basicFilterAndSort';
 import Filter from '../../source/sample/Filter';
 import Sorter from '../../source/sample/Sorter';
 
@@ -99,16 +99,16 @@ const COLUMNS = [
     },
 };
 
-describe('HyperTable with config 1', () => {
+describe('VTable with config 1', () => {
 
   it('shows no data', () => {
     cy.viewport(TABLEDIMENSIONS.width, TABLEDIMENSIONS.height);
-    cy.mount(<HyperTable config={baseConfigNoData} />);
+    cy.mount(<VTable config={baseConfigNoData} />);
     cy.contains('no data').should('exist');
   });
 
   /* 
-    The HyperTable shows 13 rows at once in/with the given viewport/dimensions.
+    The VTable shows 13 rows at once in/with the given viewport/dimensions.
     As the table 'virtualises' the rows we can not simply loop through all entries
     as Cypress will fail to find elements. This is why we need to scroll before
     checking for new elements using the tables shift arrow down next page feature.
@@ -118,7 +118,7 @@ describe('HyperTable with config 1', () => {
 
   it('shows data', () => {
     cy.viewport(TABLEDIMENSIONS.width, TABLEDIMENSIONS.height);
-    cy.mount(<HyperTable config={baseConfigWithData} />);
+    cy.mount(<VTable config={baseConfigWithData} />);
 
     // make sure column headers are not rendered
     baseConfigWithData.columns.forEach(column => {
