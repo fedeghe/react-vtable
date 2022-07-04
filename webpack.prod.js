@@ -4,7 +4,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, './VTable/index.jsx'),
+        index: path.resolve(__dirname, './source/VTable/index.jsx'),
     },
     output: {
         path: path.resolve(__dirname, '../dist'),

@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, './source/index.jsx'),
+        index: path.resolve(__dirname, './source/VTable/index.jsx'),
     },
     // output: {
     //     path: path.resolve(__dirname, './dist'),
