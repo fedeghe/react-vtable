@@ -18,12 +18,12 @@ const Template = (args) => <div style={{ margin: 20 }}>
     <VTable {...args} />
 </div>;
 
-export const BigConfig = Template.bind({});
-BigConfig.args = {
+export const FullConfig = Template.bind({});
+FullConfig.args = {
     config: fullConfig(1e3),
 };
 
-export const SmallConfig = Template.bind({});
-SmallConfig.args = {
+export const BasicConfig = Template.bind({});
+BasicConfig.args = {
     config: basicConfig(1e3),
 };
