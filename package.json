@@ -4,7 +4,7 @@
     "description": "react table on steroids",
     "main": "dist/index.js",
     "scripts": {
-        "start": "webpack serve --open --config webpack.dev.js",
+        "start": "webpack serve --open --config webpack.config.js",
         "build": "webpack --config webpack.prod.js",
         "test": "jest -u",
         "testwatch": "jest -u --watchAll",
@@ -56,7 +56,7 @@
         "bootstrap-icons": "^1.8.3",
         "clean-webpack-plugin": "^3.0.0",
         "css-loader": "^5.0.2",
-        "cypress": "^10.1.0",
+        "cypress": "^10.3.0",
         "eslint": "^8.16.0",
         "eslint-config-esnext": "^4.1.0",
         "eslint-config-recommended": "^4.1.0",
