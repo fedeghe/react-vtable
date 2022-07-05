@@ -7,7 +7,7 @@ module.exports = {
         index: path.resolve(__dirname, './source/VTable/index.jsx'),
     },
     output: {
-        path: path.resolve(__dirname, '../dist'),
+        path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
         // library: {
         //     name: '@fedeghe/react-vtable',
