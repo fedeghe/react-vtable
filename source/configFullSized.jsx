@@ -26,6 +26,7 @@ export default size => ({
                     <span>{column.label + '_' + columnIndex}</span>
                     <Filter {...{ column, columnIndex, filter }} />
         </div>),
+        
         // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
         footer: ({
             column, columnIndex,
@@ -36,16 +37,20 @@ export default size => ({
             <Filter {...{ column, columnIndex, filter }} />
             <Sorter {...{ column, columnIndex, sort }} />
         </div>),
+
         filter: basicFilter,
+        
         sort: basicSort,
+
         // preSorted: 'asc', // autosort at init ? 
+        
         // preFiltered: '23'
     }, {
         key: 'entityid',
     }, {
         key: 'name',
         // cell: ({ row, column }) => row[column.key],
-        // width: 300,
+        // width: 400,
         // header: ({
         //     column, columnIndex,
         //     filter, //: {value, setValue, visibility, setVisibility} = {},
@@ -60,7 +65,7 @@ export default size => ({
         //     <Visibilist {...{visibility}}/>
         // </div>),
         
-        // isVisible: true,
+        
         // visibilist: Visibilist,
         // // removedContent: ':',
 
@@ -69,6 +74,7 @@ export default size => ({
         // preFiltered: '34',
     }, {
         key: 'date',
+        isVisible: false,
         // cell: ({ row, column }) => row[column.key],
     }, {
         key: 'actions',
