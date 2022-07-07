@@ -155,7 +155,7 @@ Follows the complete reference for the config prop:
     - _height_ \<integer\>  default 0 => no show
     - _caption_:  
         - _height_ \<integer\> default 25px
-        - _component_ \<ƒunction\>    
+        - _Component_ \<ƒunction\>    
             gets the following props:   
             - _from_: the first index of *data* actually rendered   
             - _to_: the last index of *data* actually rendered  
