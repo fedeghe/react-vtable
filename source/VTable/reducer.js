@@ -322,6 +322,7 @@ const prefix = 'HYT_',
                 width = 1200,
                 rowHeight = 80,
             } = {},
+            globalPreFilter = '',
             header: {
                 height: headerHeight = 0,
                 caption: {
@@ -413,8 +414,13 @@ const prefix = 'HYT_',
             renderableElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
             dataHeight = renderableElements * rowHeight,
 
-
-            filteredData = __filter(filters, originalData),
+            // prefilter ? 
+            filteredData = __filter(filters,
+                globalPreFilter  
+                ? __globalFilter(globalPreFilter, columns, originalData)
+                : originalData
+            ),
+            
             virtualization= {
                 verticalCutoff,
                 verticalEnabled: filteredData.length > verticalCutoff
@@ -475,7 +481,7 @@ const prefix = 'HYT_',
             isSorting,
             
             filters,
-            globalFilterValue: '',
+            globalFilterValue: globalPreFilter,
             activeFiltersCount,
             isFiltering: activeFiltersCount > 0,
             

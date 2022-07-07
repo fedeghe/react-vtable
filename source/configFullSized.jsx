@@ -157,6 +157,7 @@ export default size => ({
 
     Loader: () => <div className="Loading">loading</div>,
     NoFilterData: ({ total }) => <span>No results out of {total}</span>,
+    globalPreFilter: '24',
 
     RightMost,
     LeftMost,
