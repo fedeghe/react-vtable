@@ -21,14 +21,14 @@ export default () => {
             header: {
                 height: headerHeight,
                 caption: {
-                    component: HeaderCaption,
+                    Component: HeaderCaption,
                     height: preHeaderHeight
                 } = {}
             } = {},
             footer: {
                 height: footerHeight,
                 caption: {
-                    component: FooterCaption,
+                    Component: FooterCaption,
                     height: postFooterHeight
                 } = {}
             } = {},

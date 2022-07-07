@@ -142,7 +142,7 @@ export default size => ({
     header: {
         height: 80,
         caption: {
-            component: HeaderCaption,
+            Component: HeaderCaption,
             height: 45
         }
     },
@@ -150,14 +150,14 @@ export default size => ({
     footer: {
         height: 60,
         caption: {
-            component: FooterCaption,
+            Component: FooterCaption,
             height: 25
         }
     },
 
     Loader: () => <div className="Loading">loading</div>,
     NoFilterData: ({ total }) => <span>No results out of {total}</span>,
-    globalPreFilter: '24',
+    // globalPreFilter: '24',
 
     RightMost,
     LeftMost,

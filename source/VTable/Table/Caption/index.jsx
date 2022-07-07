@@ -9,13 +9,13 @@ export default ({type, unFilter, unSort, globalFilter, globalFilterValue }) => {
                 footer: {
                     caption: {
                         height: postFooterHeight,
-                        component: FooterCaption
+                        Component: FooterCaption
                     } = {}
                 },
                 header: {
                     caption: {
                         height: preHeaderHeight,
-                        component: HeaderCaption
+                        Component: HeaderCaption
                     } = {}
                 },
                 columns,

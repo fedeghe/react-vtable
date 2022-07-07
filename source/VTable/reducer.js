@@ -326,7 +326,7 @@ const prefix = 'HYT_',
             header: {
                 height: headerHeight = 0,
                 caption: {
-                    component: HeaderCaption = null,
+                    Component: HeaderCaption = null,
                     height: headerCaptionHeight = 25
                 } = {}
             } = {},
@@ -334,7 +334,7 @@ const prefix = 'HYT_',
             footer: {
                 height: footerHeight = 0,
                 caption: {
-                    component: FooterCaption = null,
+                    Component: FooterCaption = null,
                     height: footerCaptionHeight = 25
                 } = {}
             } = {},
@@ -493,14 +493,14 @@ const prefix = 'HYT_',
             header: {
                 height: headerHeight,
                 caption: {
-                    component: HeaderCaption,
+                    Component: HeaderCaption,
                     height: headerCaptionHeight
                 }
             },
             footer: {
                 height: footerHeight,
                 caption: {
-                    component: FooterCaption,
+                    Component: FooterCaption,
                     height: footerCaptionHeight
                 }
             },
