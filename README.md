@@ -58,6 +58,7 @@ Additionally some other options allow to:
 - show already sorted (wun column)
 - prefilter (+ than wun column)
 - tune a cut-off value for the virtualisation
+- preset the global filter value
 
 ---
 
@@ -176,6 +177,9 @@ Follows the complete reference for the config prop:
             - _downloadXsv(separator = ',')_: a function to download the current set as _xsv_ where you defined which one should be the separator (comma, tab, or whatever). The default separator is comma.
 
     the default content for _header_ and _footer_ cells is the _column.key_ and this can be easily changed specifying the omonimous function in the the column setting.  
+
+- _globalPreFilter_ \<string\>  
+    allows to preset the global filter value
 
 - _Loader_ \<ƒunction\>  
     component expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
