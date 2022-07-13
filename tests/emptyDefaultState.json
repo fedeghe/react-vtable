@@ -18,14 +18,14 @@
     "header": {
         "height": 0,
         "caption": {
-            "component": null,
+            "Component": null,
             "height": 25
         }
     },
     "footer": {
         "height": 0,
         "caption": {
-            "component": null,
+            "Component": null,
             "height": 25
         }
     },

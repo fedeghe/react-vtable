@@ -35,8 +35,8 @@ describe('reducer - basic', function () {
         expect(state.isFiltering).toBe(false)
         expect(state.filters).toMatchObject({})
         expect(state.activeFiltersCount).toBe(0)
-        expect(state.header).toMatchObject({height: 0, caption: {height: 25, component: null}})
-        expect(state.footer).toMatchObject({height: 0, caption: {height: 25, component: null}})
+        expect(state.header).toMatchObject({height: 0, caption: {height: 25, Component: null}})
+        expect(state.footer).toMatchObject({height: 0, caption: {height: 25, Component: null}})
         expect(state.filtered).toBe(1000)
         expect(state.total).toBe(1000)
         expect(state.activeRow).toBeNull()
@@ -96,8 +96,8 @@ describe('reducer - basic', function () {
             width:400,
             rowHeight: 100
         }
-        newConfig.header = {height: 100, caption: {component: () => 'caption', height:20}}
-        newConfig.footer = {height: 80, caption: {component: () => 'caption', height:20}}
+        newConfig.header = {height: 100, caption: {Component: () => 'caption', height:20}}
+        newConfig.footer = {height: 80, caption: {Component: () => 'caption', height:20}}
         newConfig.debounceTimes = {
             filtering: 5, scrolling: 4
         }
@@ -126,9 +126,9 @@ describe('reducer - basic', function () {
         expect(state.filters).toMatchObject({})
         expect(state.activeFiltersCount).toBe(1)
         expect(state.header).toMatchObject({height: newConfig.header.height, caption: {height: newConfig.header.caption.height}})
-        expect(state.header.caption.component()).toBe('caption')
+        expect(state.header.caption.Component()).toBe('caption')
         expect(state.footer).toMatchObject({height: newConfig.footer.height, caption: {height: newConfig.footer.caption.height}})
-        expect(state.footer.caption.component()).toBe('caption')
+        expect(state.footer.caption.Component()).toBe('caption')
         expect(state.filtered).toBe(271)
         expect(state.total).toBe(1000)
         
