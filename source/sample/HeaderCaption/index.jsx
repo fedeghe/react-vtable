@@ -29,7 +29,7 @@ export default ({
             {Boolean(isSorting) && <button type="button" className="btn btn-secondary btn-sm" onClick={unSort}>unsort</button>}
             <button type="button" className="btn btn-secondary btn-sm" onClick={downloadJson}>▼ json</button>
             <button type="button" className="btn btn-secondary btn-sm" onClick={() => downloadXsv()}>▼ csv</button>
-            <button type="button" className="btn btn-secondary btn-sm" onClick={() => downloadXsv("\t")}>▼ tsv</button>
+            <button type="button" className="btn btn-secondary btn-sm" onClick={() => downloadXsv({separator: "\t"})}>▼ tsv</button>
         </div>
     </div>
 )};

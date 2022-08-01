@@ -6,5 +6,5 @@ import config from './configFullSized';
 
 import './sample/user.css';
 
-const Pg = () => <VTable config={config(1e5)} />;
+const Pg = () => <VTable config={config(1e2)} />;
 export default Pg;

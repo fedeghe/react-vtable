@@ -46,23 +46,34 @@ export default ({type, unFilter, unSort, globalFilter, globalFilterValue }) => {
                 cls:classes.FooterCaption
             }
         }[type],
-        downloadJson = useCallback(() => {
+        filterDataFields = useCallback(({fields}) => 
+            fields ? currentData.map(e => {
+                const o = fields.reduce((acc, f) => {
+                    if (f in e) acc[f] = e[f];
+                    return acc;
+                }, {});
+                return o;
+            }) : currentData
+        , [currentData]),
+        downloadJson = useCallback(({fields} = {}) => {
             const a = document.createElement('a'),
-                blob = new Blob([JSON.stringify(asJson(currentData, rhtID))]);
+                data = filterDataFields({fields}),
+                blob = new Blob([JSON.stringify(asJson(data, rhtID))]);
             a.href = URL.createObjectURL(blob);
             a.target = '_blank';
             a.download = 'extract.json';                     //filename to download
             a.click();
-        }, [currentData, rhtID]),
-        downloadXsv = useCallback((separator = ',') => {
+        }, [filterDataFields, rhtID]),
+        downloadXsv = useCallback(({separator = ',', fields} = {}) => {
             const a = document.createElement('a'),
-                xsv = asXsv(columns, currentData, rhtID, separator),
+                data = filterDataFields({fields}),
+                xsv = asXsv(fields ? fields.map(f => ({key: f})) : columns, data, rhtID, separator),
                 blob = new Blob([xsv], { type: 'text/csv' });
             a.href = URL.createObjectURL(blob);
             a.target = '_blank';
             a.download = 'extract.csv';                     //filename to download
             a.click();
-        }, [columns, currentData, rhtID]);
+        }, [columns, filterDataFields, rhtID]);
 
     return (
         What.Component && <div className={What.cls}>{
