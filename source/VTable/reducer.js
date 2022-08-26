@@ -276,8 +276,9 @@ const prefix = 'HYT_',
                     activeRowIndex: null,
                 }),
                 scroll: () => {
+                    
                     if (moreSpaceThanContent) return oldState;
-                    if (!virtualization.verticalEnabled) return oldState;
+                    // if (!virtualization.verticalEnabled) return oldState;
 
                     const _scrollTop = parseInt(payload, 10),
                         _fromRow = Math.max(Math.ceil(_scrollTop / rowHeight) - gap, 0),
@@ -291,7 +292,7 @@ const prefix = 'HYT_',
                             dataHeight,
                             virtualization
                         });
-
+                    
                     return {
                         rows: currentData.slice(_fromRow, _toRow),
                         virtual: {
@@ -423,7 +424,7 @@ const prefix = 'HYT_',
             
             virtualization= {
                 verticalCutoff,
-                verticalEnabled: filteredData.length > verticalCutoff
+                verticalEnabled: filteredData.length >= verticalCutoff
             },
             
             carpetHeight = filteredData.length * rowHeight,
@@ -443,7 +444,7 @@ const prefix = 'HYT_',
 
             // initial sorting ? 
             presortIndex = columns.findIndex(c => 'preSorted' in c && ['asc', 'desc'].includes(c.preSorted));
-
+        
         // eslint-disable-next-line one-var
         let currentData = [...filteredData],
             sorting = {
