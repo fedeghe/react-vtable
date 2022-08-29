@@ -30,4 +30,5 @@ export default size => ({
         { key: 'name3', type: 'str' },
         { key: 'date3', type: 'date' },
     ], size),
+    events: { shiftPageScroll: true },
 });

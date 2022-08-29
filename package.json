@@ -11,7 +11,8 @@
         "cover": "jest --coverage --collectCoverageFrom='source/**/*.js'",
         "lint": "eslint ./source/VTable/*.*",
         "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook"
+        "build-storybook": "build-storybook",
+        "cypress:open": "npx cypress open"
     },
     "repository": {
         "type": "git",
@@ -55,9 +56,11 @@
         "bootstrap-icons": "^1.8.3",
         "clean-webpack-plugin": "^3.0.0",
         "css-loader": "^5.0.2",
+        "cypress": "^10.3.0",
         "eslint": "^8.16.0",
         "eslint-config-esnext": "^4.1.0",
         "eslint-config-recommended": "^4.1.0",
+        "eslint-plugin-cypress": "^2.12.1",
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-react": "^7.30.0",
         "eslint-plugin-react-hooks": "^4.5.0",

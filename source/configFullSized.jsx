@@ -182,7 +182,7 @@ export default size => ({
         }
     },
 
-    // events: {
+    events: {
         // onCellClick: (e, { row, column }) => {
         //     console.log('cell click', column, row);
         //     e.stopPropagation();
@@ -197,8 +197,8 @@ export default size => ({
         // onFooterHighlight: false,
         // onLeftMostHighlight: false,
         // onRightMostHighlight: false,
-        // shiftPageScroll: true
-    // },
+        shiftPageScroll: true
+    },
 
     // virtualization: {
     //     verticalCutoff: 0
