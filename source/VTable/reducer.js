@@ -1,7 +1,8 @@
 import { isFunction } from './utils';
 import {
     uniqueID, __getFillerHeights, __filter, __globalFilter,
-    __cleanFilters, __sort, __updateVirtualization, __arrRep
+    __cleanFilters, __sort, __updateVirtualization, __arrRep,
+    __getVirtual
 } from './reducerUtils';
 
 const TOGGLE_COLUMN_VISIBILITY= Symbol(),
@@ -30,7 +31,211 @@ export const ACTION_TYPES = {
 };
 
 // eslint-disable-next-line one-var
-const reducer = (oldState, action) => {
+const actions = {
+        [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: ({
+            payload, columns, virtual, LeftMost, RightMost
+        }) => {
+            const { key, isVisible } = payload,
+                cIndex = columns.findIndex(c => c.key === key);
+            if (cIndex === -1) return {};
+
+            // eslint-disable-next-line one-var
+            const newColumns = __arrRep(columns, cIndex, { ...columns[cIndex], isVisible });
+
+            return {
+                columns: newColumns,
+                virtual: {
+                    ...virtual,
+                    colspan: newColumns.filter(c => c.isVisible).length + !!LeftMost + !!RightMost
+                }
+            };
+        },
+
+        [ACTION_TYPES.LOADING]: ({virtual}) => ({
+            virtual: {
+                ...virtual,
+                loading: true
+            }
+        }),
+
+        [ACTION_TYPES.GLOBAL_FILTER]: ({
+            payload : value, filters, columns, originalData, sorter,
+            sortingColumn, sortingDirection, virtualization, virtual,
+            rowHeight, renderableElements, contentHeight, dataHeight
+        }) => {
+            const _filterNumbers = Object.values(filters).filter(f => f.value && f.visibility).length,
+                _filteredData = _filterNumbers
+                    ? __filter(filters, _filteredData)
+                    : __globalFilter(value, columns, originalData),
+                _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
+                _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
+                _updatedVirtual = __getVirtual({
+                    _currentData, _virtualization,
+                    rowHeight, renderableElements, contentHeight, dataHeight
+                });
+
+            return {
+                // filters: __cleanFilters(filters),
+                globalFilterValue: value,
+                isFiltering: !!value,
+                virtual: {
+                    ...virtual,
+                    ..._updatedVirtual,
+                },
+                currentData: _currentData,
+                filteredData: _filteredData,
+                filtered: _currentData.length,
+                rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
+                virtualization: _virtualization,
+                activeFiltersCount: _filterNumbers + 1,
+            };
+        },
+
+        [ACTION_TYPES.FILTER]: ({
+            payload, filters, originalData, globalFilterValue, columns, sorter, sortingColumn, 
+            sortingDirection, virtualization, virtual,
+            rowHeight, renderableElements, contentHeight, dataHeight
+        }) => {
+            const updatedFields = {};
+            ('value' in payload) && (updatedFields.value = payload.value);
+            ('visibility' in payload) && (updatedFields.visibility = payload.visibility);
+            // eslint-disable-next-line one-var
+            const _filters = {
+                ...filters,
+                [payload.column]: {
+                    ...filters[payload.column],
+                    ...updatedFields
+                }
+            };
+            let _filteredData = __filter(_filters, originalData);
+            if (globalFilterValue) {
+                _filteredData = __globalFilter(globalFilterValue, columns, _filteredData);
+            }
+            // eslint-disable-next-line one-var
+            const _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
+                _filterNumbers = Object.values(_filters).filter(f => f.value && f.visibility).length,
+                _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
+                _updatedVirtual = __getVirtual({
+                    _currentData, _virtualization,
+                    rowHeight, renderableElements, contentHeight, dataHeight
+                });
+
+            return {
+                filters: _filters,
+                filtered: _currentData.length,
+                activeFiltersCount: _filterNumbers + ~~!!globalFilterValue,
+                isFiltering: _filterNumbers > 0 || !!globalFilterValue,
+                virtual: {
+                    ...virtual,
+                    ..._updatedVirtual,
+                },
+                currentData: _currentData,
+                filteredData: _filteredData,
+                rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
+                virtualization: _virtualization
+            };
+        },
+
+        [ACTION_TYPES.UNFILTER]: ({
+            originalData, sorter, sortingColumn, sortingDirection, virtualization, filters, virtual,
+            rowHeight, renderableElements, contentHeight, dataHeight
+        }) => {
+            const _currentData = __sort(originalData, sorter, sortingColumn, sortingDirection),
+                _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
+                _updatedVirtual = __getVirtual({
+                    _currentData, _virtualization,
+                    rowHeight, renderableElements, contentHeight, dataHeight
+                });
+
+            return {
+                filters: __cleanFilters(filters),
+                activeFiltersCount: 0,
+                isFiltering: false,
+                filtered: _currentData.length,
+                currentData: _currentData,
+                filteredData: [...originalData],
+                rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
+                virtual: {
+                    ...virtual,
+                    ..._updatedVirtual,
+                },
+                globalFilterValue: '',
+                virtualization: _virtualization
+            };
+        },
+
+        [ACTION_TYPES.SORT]: ({
+            payload, currentData, fromRow, toRow
+        }) => {
+            const _currentData = __sort(currentData, payload.sorter, payload.column, payload.direction);
+            return {
+                isSorting: true,
+                currentData: _currentData,
+                rows: [..._currentData].slice(fromRow, toRow),
+                sorting: payload
+            };
+        },
+
+        [ACTION_TYPES.UNSORT]: ({
+            filteredData, fromRow, toRow
+        }) => ({
+            currentData: [...filteredData],
+            rows: [...filteredData].slice(fromRow, toRow),
+            isSorting: false,
+            sorting: {
+                column: null,
+                direction: null,
+                sorter: null
+            }
+        }),
+
+        [ACTION_TYPES.CELL_ENTER]: ({payload, rhtID}) => ({
+            activeColumn: payload?.column?.key,
+            activeRow: payload?.row[rhtID],
+            activeColumnIndex: payload?.columnIndex,
+            activeRowIndex: payload?.rowIndex
+        }),
+
+        [ACTION_TYPES.CELL_LEAVE]: () => ({
+            activeColumn: null,
+            activeRow: null,
+            activeColumnIndex: null,
+            activeRowIndex: null,
+        }),
+
+        [ACTION_TYPES.SCROLL]: ({
+            payload, moreSpaceThanContent, rowHeight, gap, renderableElements,
+            total, carpetHeight, contentHeight, dataHeight, virtualization, currentData,
+            virtual
+        }) => {
+            if (moreSpaceThanContent) return {};
+            const _scrollTop = parseInt(payload, 10),
+                _fromRow = Math.max(Math.ceil(_scrollTop / rowHeight) - gap, 0),
+                _toRow = Math.min(_fromRow + renderableElements, total),
+                _updatedFillerHeights = __getFillerHeights({
+                    fromRow: _fromRow,
+                    moreSpaceThanContent,
+                    carpetHeight,
+                    rowHeight,
+                    contentHeight,
+                    dataHeight,
+                    virtualization
+                });
+            return {
+                rows: currentData.slice(_fromRow, _toRow),
+                virtual: {
+                    ...virtual,
+                    loading: false,
+                    scrollTop: _scrollTop,
+                    ..._updatedFillerHeights,
+                    fromRow: _fromRow,
+                    toRow: _toRow - 1,
+                }
+            };
+        }
+    },
+
+    reducer = (oldState, action) => {
         const { payload = {}, type } = action,
             {
                 total,
@@ -38,7 +243,6 @@ const reducer = (oldState, action) => {
                 globalFilterValue,
                 columns,
                 originalData, filteredData, currentData,
-                virtual,
                 gap,
                 LeftMost, RightMost,
                 dimensions: {
@@ -49,226 +253,56 @@ const reducer = (oldState, action) => {
                     direction: sortingDirection,
                     sorter
                 },
+                virtualization,
+                virtual,
                 virtual: {
                     fromRow, toRow,
                     dataHeight, contentHeight, carpetHeight,
                     moreSpaceThanContent,
                     renderableElements,
                 },
-                rhtID,
-                virtualization
+                rhtID
             } = oldState,
 
-
-            __getVirtual = ({ _currentData, _virtualization }) => {
-                const _carpetHeight = _currentData.length * rowHeight,
-                    _fromRow = 0,
-                    _toRow = (renderableElements > _currentData.length || !_virtualization.verticalEnabled)
-                        ? _currentData.length
-                        : renderableElements,
-                    _moreSpaceThanContent = _carpetHeight < contentHeight,
-                    fillerHeights = __getFillerHeights({
-                        fromRow: _fromRow,
-                        moreSpaceThanContent: _moreSpaceThanContent,
-                        carpetHeight: _carpetHeight,
-                        rowHeight,
-                        contentHeight,
-                        dataHeight,
-                        virtualization: _virtualization
-                    });
-
-                return {
-                    carpetHeight: _carpetHeight,
-                    moreSpaceThanContent: _moreSpaceThanContent,
-                    scrollTop: 0,
-                    fromRow: 0,
-                    toRow: _toRow,
-                    loading: false,
-                    ...fillerHeights
-                };
-            },
-            
-            actions = {
-                [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: () => {
-                    const { key, isVisible } = payload,
-                        cIndex = columns.findIndex(c => c.key === key);
-                    if (cIndex === -1) return {};
-
-                    // eslint-disable-next-line one-var
-                    const newColumns = __arrRep(columns, cIndex, { ...columns[cIndex], isVisible });
-
-                    return {
-                        columns: newColumns,
-                        virtual: {
-                            ...virtual,
-                            colspan: newColumns.filter(c => c.isVisible).length + !!LeftMost + !!RightMost
-                        }
-                    };
+            params = {
+                [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: {
+                    payload, columns, virtual, LeftMost, RightMost
                 },
-                [ACTION_TYPES.LOADING]: () => ({
-                    virtual: {
-                        ...virtual,
-                        loading: true
-                    }
-                }),
-                [ACTION_TYPES.GLOBAL_FILTER]: () => {
-                    const value = payload,
-                        _filterNumbers = Object.values(filters).filter(f => f.value && f.visibility).length;
-
-                    let _filteredData = __globalFilter(value, columns, originalData);
-
-                    if (_filterNumbers) {
-                        _filteredData = __filter(filters, _filteredData);
-                    }
-                    // eslint-disable-next-line one-var
-                    const _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
-                        _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
-                        _updatedVirtual = __getVirtual({ _currentData, _virtualization });
-
-                    return {
-                        // filters: __cleanFilters(filters),
-                        globalFilterValue: value,
-                        isFiltering: !!value,
-                        virtual: {
-                            ...virtual,
-                            ..._updatedVirtual,
-                        },
-                        currentData: _currentData,
-                        filteredData: _filteredData,
-                        filtered: _currentData.length,
-                        rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
-                        virtualization: _virtualization,
-                        activeFiltersCount: _filterNumbers + 1,
-                    };
+                [ACTION_TYPES.LOADING]: {virtual},
+                [ACTION_TYPES.GLOBAL_FILTER]: {
+                    payload, filters, columns, originalData, sorter, sortingColumn, sortingDirection,
+                    virtualization, virtual,
+                    rowHeight, renderableElements, contentHeight, dataHeight
                 },
-                [ACTION_TYPES.FILTER]: () => {
-                    const updatedFields = {};
-                    ('value' in payload) && (updatedFields.value = payload.value);
-                    ('visibility' in payload) && (updatedFields.visibility = payload.visibility);
-                    // eslint-disable-next-line one-var
-                    const _filters = {
-                        ...filters,
-                        [payload.column]: {
-                            ...filters[payload.column],
-                            ...updatedFields
-                        }
-                    };
-                    let _filteredData = __filter(_filters, originalData);
-                    if (globalFilterValue) {
-                        _filteredData = __globalFilter(globalFilterValue, columns, _filteredData);
-                    }
-                    // eslint-disable-next-line one-var
-                    const _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
-                        _filterNumbers = Object.values(_filters).filter(f => f.value && f.visibility).length,
-                        _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
-                        _updatedVirtual = __getVirtual({ _currentData, _virtualization });
-
-                    return {
-                        filters: _filters,
-                        filtered: _currentData.length,
-                        activeFiltersCount: _filterNumbers + ~~!!globalFilterValue,
-                        isFiltering: _filterNumbers > 0 || !!globalFilterValue,
-                        virtual: {
-                            ...virtual,
-                            ..._updatedVirtual,
-                        },
-                        currentData: _currentData,
-                        filteredData: _filteredData,
-                        rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
-                        virtualization: _virtualization
-                    };
+                [ACTION_TYPES.FILTER]: {
+                    payload, filters, originalData, globalFilterValue, columns, sorter, sortingColumn, 
+                    sortingDirection, virtualization, virtual,
+                    rowHeight, renderableElements, contentHeight, dataHeight
                 },
-                [ACTION_TYPES.UNFILTER]: () => {
-                    const _currentData = __sort(originalData, sorter, sortingColumn, sortingDirection),
-                        _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
-                        _updatedVirtual = __getVirtual({ _currentData, _virtualization });
-
-                    return {
-                        filters: __cleanFilters(filters),
-                        activeFiltersCount: 0,
-                        isFiltering: false,
-                        filtered: _currentData.length,
-                        currentData: _currentData,
-                        filteredData: [...originalData],
-                        rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
-                        virtual: {
-                            ...virtual,
-                            ..._updatedVirtual,
-                        },
-                        globalFilterValue: '',
-                        virtualization: _virtualization
-                    };
+                [ACTION_TYPES.UNFILTER]: {
+                    originalData, sorter, sortingColumn, sortingDirection, virtualization, filters, virtual,
+                    rowHeight, renderableElements, contentHeight, dataHeight
                 },
-
-                [ACTION_TYPES.SORT]: () => {
-                    const _currentData = __sort(currentData, payload.sorter, payload.column, payload.direction);
-                    return {
-                        isSorting: true,
-                        currentData: _currentData,
-                        rows: [..._currentData].slice(fromRow, toRow),
-                        sorting: payload
-                    };
+                [ACTION_TYPES.SORT]: {
+                    payload, currentData, fromRow, toRow
                 },
-
-                [ACTION_TYPES.UNSORT]: () => ({
-                    currentData: [...filteredData],
-                    rows: [...filteredData].slice(fromRow, toRow),
-                    isSorting: false,
-                    sorting: {
-                        column: null,
-                        direction: null,
-                        sorter: null
-                    }
-                }),
-
-                [ACTION_TYPES.CELL_ENTER]: () => ({
-                    activeColumn: payload?.column?.key,
-                    activeRow: payload?.row[rhtID],
-                    activeColumnIndex: payload?.columnIndex,
-                    activeRowIndex: payload?.rowIndex
-                }),
-                [ACTION_TYPES.CELL_LEAVE]: () => ({
-                    activeColumn: null,
-                    activeRow: null,
-                    activeColumnIndex: null,
-                    activeRowIndex: null,
-                }),
-                [ACTION_TYPES.SCROLL]: () => {
-
-                    if (moreSpaceThanContent) return oldState;
-                    // if (!virtualization.verticalEnabled) return oldState;
-
-                    const _scrollTop = parseInt(payload, 10),
-                        _fromRow = Math.max(Math.ceil(_scrollTop / rowHeight) - gap, 0),
-                        _toRow = Math.min(_fromRow + renderableElements, total),
-                        _updatedFillerHeights = __getFillerHeights({
-                            fromRow: _fromRow,
-                            moreSpaceThanContent,
-                            carpetHeight,
-                            rowHeight,
-                            contentHeight,
-                            dataHeight,
-                            virtualization
-                        });
-
-                    return {
-                        rows: currentData.slice(_fromRow, _toRow),
-                        virtual: {
-                            ...virtual,
-                            loading: false,
-                            scrollTop: _scrollTop,
-                            ..._updatedFillerHeights,
-                            fromRow: _fromRow,
-                            toRow: _toRow - 1,
-                        }
-                    };
-                }
+                [ACTION_TYPES.UNSORT]: {
+                    filteredData, fromRow, toRow
+                },
+                [ACTION_TYPES.CELL_ENTER]: {payload, rhtID},
+                [ACTION_TYPES.CELL_LEAVE]: {},
+                [ACTION_TYPES.SCROLL]: {
+                    payload, moreSpaceThanContent, rowHeight, gap, renderableElements,
+                    total, carpetHeight, contentHeight, dataHeight, virtualization, currentData,
+                    virtual
+                },
             };
-        if (type in actions)
+        if (type in actions){
             return {
                 ...oldState,
-                ...actions[type]()
+                ...actions[type](params[type])
             };
+        }
         return oldState;
     },
 

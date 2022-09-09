@@ -1,3 +1,4 @@
+import {isFunction} from './utils';
 let count = 0;
 const prefix = 'HYT_';
 // eslint-disable-next-line one-var
@@ -7,7 +8,36 @@ export const uniqueID = {
             return prefix + count;
         }
     },
-    
+    __getVirtual = ({
+        _currentData, _virtualization,
+        rowHeight, renderableElements, contentHeight, dataHeight
+    }) => {
+        const _carpetHeight = _currentData.length * rowHeight,
+            _fromRow = 0,
+            _toRow = (renderableElements > _currentData.length || !_virtualization.verticalEnabled)
+                ? _currentData.length
+                : renderableElements,
+            _moreSpaceThanContent = _carpetHeight < contentHeight,
+            fillerHeights = __getFillerHeights({
+                fromRow: _fromRow,
+                moreSpaceThanContent: _moreSpaceThanContent,
+                carpetHeight: _carpetHeight,
+                rowHeight,
+                contentHeight,
+                dataHeight,
+                virtualization: _virtualization
+            });
+
+        return {
+            carpetHeight: _carpetHeight,
+            moreSpaceThanContent: _moreSpaceThanContent,
+            scrollTop: 0,
+            fromRow: 0,
+            toRow: _toRow,
+            loading: false,
+            ...fillerHeights
+        };
+    },
     __getFillerHeights = ({
         fromRow, moreSpaceThanContent, carpetHeight,
         rowHeight, contentHeight, dataHeight,
@@ -67,6 +97,7 @@ export const uniqueID = {
         ...virtualization,
         verticalEnabled: currentData.length > virtualization.verticalCutoff
     }),
+    
     __arrRep = (a, i, v) => {
         if (i === 0) return [v].concat(a.slice(1));
         if (i === a.length - 1) return a.slice(0, -1).concat(v);
