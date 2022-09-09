@@ -1,5 +1,6 @@
 import React, { useContext, useCallback } from 'react';
 import TableContext from '../../Context';
+import { ACTION_TYPES } from '../../reducer';
 import useStyles from './style.js';
 export default ({row, column, rowIndex, columnIndex, cls, children, wrapperStyle}) => {
     const {
@@ -26,7 +27,7 @@ export default ({row, column, rowIndex, columnIndex, cls, children, wrapperStyle
         onMouseEnter = useCallback(e => {
             onCellEnter && onCellEnter.call(e, e, { row, column, rowIndex: fromRow + rowIndex, colIndex: columnIndex });
             dispatch({
-                type: 'cellEnter',
+                type: ACTION_TYPES.CELL_ENTER,
                 payload: {
                     row,
                     column,
@@ -37,7 +38,7 @@ export default ({row, column, rowIndex, columnIndex, cls, children, wrapperStyle
         }, [onCellEnter, column, columnIndex, dispatch, fromRow, row, rowIndex]),
         onMouseLeave = useCallback(e => {
             onCellLeave && onCellLeave.call(e, e, { row, column, rowIndex: fromRow + rowIndex, columnIndex });
-            dispatch({ type: 'cellLeave' });
+            dispatch({ type: ACTION_TYPES.CELL_LEAVE });
         }, [onCellLeave, column, columnIndex, dispatch, fromRow, row, rowIndex]),
         onClick = useCallback(e => onCellClick && onCellClick.call(e, e, { row, column }), [onCellClick, column, row]),
         handlers = {

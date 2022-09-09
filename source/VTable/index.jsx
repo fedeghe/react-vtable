@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 
 import TableContext from './Context';
-import reducerFactory from './reducer';
+import reducerFactory, { ACTION_TYPES } from './reducer';
 import Table from './Table';
 import Caption from './Table/Caption';
 
@@ -38,9 +38,9 @@ export default ({config}) => {
             preHeaderHeight,
             postFooterHeight,
         }),
-        unFilter = debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
-        globalFilter = debounce(value => dispatch({type: 'globalFilter', payload: value || ''}), filteringDebounceTime),
-        unSort = debounce(() => dispatch({type: 'unSort'}), filteringDebounceTime),
+        unFilter = debounce(() => dispatch({type: ACTION_TYPES.UNFILTER}), filteringDebounceTime),
+        globalFilter = debounce(value => dispatch({type: ACTION_TYPES.GLOBAL_FILTER, payload: value || ''}), filteringDebounceTime),
+        unSort = debounce(() => dispatch({type: ACTION_TYPES.UNSORT}), filteringDebounceTime),
         p = {
             unSort, unFilter, globalFilter, globalFilterValue
         };

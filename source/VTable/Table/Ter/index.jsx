@@ -1,5 +1,6 @@
 import React, {useContext, useCallback} from 'react';
 import TableContext from '../../Context';
+import { ACTION_TYPES } from '../../reducer';
 import RightMost from '../RightMost';
 import LeftMost from '../LeftMost';
 import Tr from '../Tr';
@@ -49,7 +50,7 @@ export default ({typehf}) => {
                     if (isFunction(column.sort)) {
                         props.sort = {
                             sortAsc: () => dispatch({
-                                type:'sort',
+                                type:ACTION_TYPES.SORT,
                                 payload: {
                                     column: column.key,
                                     direction: 'asc',
@@ -57,14 +58,14 @@ export default ({typehf}) => {
                                 }
                             }),
                             sortDesc: () => dispatch({
-                                type:'sort',
+                                type: ACTION_TYPES.SORT,
                                 payload: {
                                     column: column.key,
                                     direction: 'desc',
                                     sorter: column.sort
                                 }
                             }),
-                            unSort: () => dispatch({type:'unSort'}),
+                            unSort: () => dispatch({type: ACTION_TYPES.UNSORT}),
                             direction: sortingDirection,
                             isSorting: column.key === sortingColumn,
                         };
@@ -75,7 +76,7 @@ export default ({typehf}) => {
                         props.filter = {
                             value: theFilter?.value,
                             setValue: debounce(value => dispatch({
-                                type: 'filter',
+                                type: ACTION_TYPES.FILTER,
                                 payload: {
                                     column: column.key,
                                     value
@@ -84,13 +85,13 @@ export default ({typehf}) => {
                             visibility: theFilter?.visibility,
                             setVisibility: visibility => 
                                 dispatch({
-                                    type: 'filter',
+                                    type: ACTION_TYPES.FILTER,
                                     payload: {
                                         column: column.key,
                                         visibility
                                     }
                                 }),
-                            unFilter: debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
+                            unFilter: debounce(() => dispatch({type: ACTION_TYPES.UNFILTER}), filteringDebounceTime),
                             activeFiltersCount,
                             isFiltering
                         };
@@ -98,7 +99,7 @@ export default ({typehf}) => {
                     if (isFunction(column.visibilist)){
                         props.visibility = {
                             setVisibility:  visibility => dispatch({
-                                type: 'toggleColumnVisibility',
+                                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
                                 payload: {
                                     key: column.key,
                                     isVisible: visibility

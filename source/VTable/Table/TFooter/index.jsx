@@ -1,5 +1,6 @@
 import React, {useContext, useCallback} from 'react';
 import TableContext from '../../Context';
+import { ACTION_TYPES } from '../../reducer';
 import RightMost from '../RightMost';
 import LeftMost from '../LeftMost';
 import Tr from '../Tr';
@@ -44,7 +45,7 @@ export default () => {
                     if (isFunction(column.sort)) {
                         footerProps.sort = {
                             sortAsc: () => dispatch({
-                                type:'sort',
+                                type: ACTION_TYPES.SORT,
                                 payload: {
                                     column: column.key,
                                     direction: 'asc',
@@ -52,14 +53,14 @@ export default () => {
                                 }
                             }),
                             sortDesc: () => dispatch({
-                                type:'sort',
+                                type: ACTION_TYPES.SORT,
                                 payload: {
                                     column: column.key,
                                     direction: 'desc',
                                     sorter: column.sort
                                 }
                             }),
-                            unSort: () => dispatch({type:'unSort'}),
+                            unSort: () => dispatch({type: ACTION_TYPES.UNSORT}),
                             direction: sortingDirection,
                             isSorting: column.key === sortingColumn,
                         };
@@ -70,7 +71,7 @@ export default () => {
                         footerProps.filter = {
                             value: theFilter?.value,
                             setValue: debounce(value => dispatch({
-                                type: 'filter',
+                                type: ACTION_TYPES.FILTER,
                                 payload: {
                                     column: column.key,
                                     value
@@ -79,13 +80,13 @@ export default () => {
                             visibility: theFilter?.visibility,
                             setVisibility: visibility => 
                                 dispatch({
-                                    type: 'filter',
+                                    type: ACTION_TYPES.FILTER,
                                     payload: {
                                         column: column.key,
                                         visibility
                                     }
                                 }),
-                            unFilter: debounce(() => dispatch({type: 'unFilter'}), filteringDebounceTime),
+                            unFilter: debounce(() => dispatch({type: ACTION_TYPES.UNFILTER}), filteringDebounceTime),
                             activeFiltersCount,
                             isFiltering
                         };
@@ -93,7 +94,7 @@ export default () => {
                     if (isFunction(column.visibilist)){
                         footerProps.visibility = {
                             setVisibility: visibility => dispatch({
-                                type: 'toggleColumnVisibility',
+                                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
                                 payload: {
                                     key: column.key,
                                     isVisible: visibility

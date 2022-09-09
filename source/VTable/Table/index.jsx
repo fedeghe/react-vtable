@@ -8,6 +8,7 @@ import TFooter from './TFooter';
 import TableContext from './../Context';
 import { debounce } from './../utils';
 import useStyles from './style.js';
+import { ACTION_TYPES } from '../reducer';
 
 export default () => {
     const ref = useRef(),
@@ -57,14 +58,14 @@ export default () => {
             e.stopPropagation();
             const payload = e.target.scrollTop;
             dispatch({
-                type: 'scroll',
+                type: ACTION_TYPES.SCROLL,
                 payload: payload > 0 ? payload : 0
             });
         }, scrollingDebounceTime), []),
 
         onScroll = useCallback(e => {
             Math.abs(e.target.scrollTop - scrollTop) > (dataHeight / 4)
-                && dispatch({ type: 'loading' });
+                && dispatch({ type: ACTION_TYPES.LOADING });
             doOnScroll(e);
         }, [dataHeight, dispatch, doOnScroll, scrollTop]),
 

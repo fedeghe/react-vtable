@@ -1,74 +1,36 @@
 import { isFunction } from './utils';
-let count = 0;
-const prefix = 'HYT_',
-    uniqueID = {
-        toString: () => {
-            count += 1;
-            return prefix + count;
-        }
-    },
+import {
+    uniqueID, __getFillerHeights, __filter, __globalFilter,
+    __cleanFilters, __sort, __updateVirtualization, __arrRep
+} from './reducerUtils';
 
-    __getFillerHeights = ({
-        fromRow, moreSpaceThanContent, carpetHeight,
-        rowHeight, contentHeight, dataHeight,
-        virtualization
-    }) => {
-        const headerFillerHeight = fromRow * rowHeight,
-            footerFillerHeight = moreSpaceThanContent
-                ? contentHeight - carpetHeight
-                : carpetHeight - headerFillerHeight - dataHeight;
-        
-        return virtualization.verticalEnabled ? {
-            headerFillerHeight: Math.max(headerFillerHeight, 0),
-            footerFillerHeight: Math.max(footerFillerHeight, 0)
-        } : {
-            headerFillerHeight: 0,
-            footerFillerHeight: 0
-        };
-    },
+const TOGGLE_COLUMN_VISIBILITY= Symbol(),
+    LOADING= Symbol(),
+    GLOBAL_FILTER= Symbol(),
+    FILTER= Symbol(),
+    UNFILTER= Symbol(),
+    SORT= Symbol(),
+    UNSORT= Symbol(),
+    CELL_ENTER= Symbol(),
+    CELL_LEAVE= Symbol(),
+    SCROLL= Symbol();
 
-    __filter = (fls, originalData) => Object.keys(fls).reduce(
-        (acc, filterK) => acc.filter(row => fls[filterK].value === '' || !fls[filterK].visibility || fls[filterK].filter({
-            userValue: fls[filterK].value,
-            row,
-            columnKey: filterK
-        })),
-        originalData
-    ),
-    
-    // must either match one of the specified user filter function 
-    // either (in case no filter is specified) match column[key]
-    __globalFilter = (value, columns, originalData) =>     
-        originalData.filter(row => 
-            columns.filter(column => isFunction(column.filter)).some(column => 
-                column.filter({userValue: value, row, columnKey: column.key})
-            ) 
-            || columns.some(column => `${row[column.key]}`.includes(value))
-        ),
+// eslint-disable-next-line one-var
+export const ACTION_TYPES = {
+    TOGGLE_COLUMN_VISIBILITY,
+    LOADING,
+    GLOBAL_FILTER,
+    FILTER,
+    UNFILTER,
+    SORT,
+    UNSORT,
+    CELL_ENTER,
+    CELL_LEAVE,
+    SCROLL,
+};
 
-    __cleanFilters = _filters => Object.keys(_filters).reduce((acc, k) => {
-        acc[k] = {
-            filter: _filters[k].filter,
-            visibility: false,
-            value: ''
-        };
-        return acc;
-    }, {}),
-
-    __sort = (what, _sorter, _sortingColumn, _sortingDirection) => _sorter
-        ? [...what].sort((a, b) => _sorter({
-            rowA: a, rowB: b,
-            columnKey: _sortingColumn,
-            direction: _sortingDirection
-        }))
-        : [...what],
-
-    __updateVirtualization = ({currentData, virtualization}) => ({
-        ...virtualization,
-        verticalEnabled: currentData.length > virtualization.verticalCutoff
-    }),
-
-    reducer = (oldState, action) => {
+// eslint-disable-next-line one-var
+const reducer = (oldState, action) => {
         const { payload = {}, type } = action,
             {
                 total,
@@ -96,9 +58,9 @@ const prefix = 'HYT_',
                 rhtID,
                 virtualization
             } = oldState,
-            
 
-            __getVirtual = ({_currentData, _virtualization}) => {
+
+            __getVirtual = ({ _currentData, _virtualization }) => {
                 const _carpetHeight = _currentData.length * rowHeight,
                     _fromRow = 0,
                     _toRow = (renderableElements > _currentData.length || !_virtualization.verticalEnabled)
@@ -106,15 +68,15 @@ const prefix = 'HYT_',
                         : renderableElements,
                     _moreSpaceThanContent = _carpetHeight < contentHeight,
                     fillerHeights = __getFillerHeights({
-                        fromRow: _fromRow, 
-                        moreSpaceThanContent:_moreSpaceThanContent,
+                        fromRow: _fromRow,
+                        moreSpaceThanContent: _moreSpaceThanContent,
                         carpetHeight: _carpetHeight,
                         rowHeight,
                         contentHeight,
                         dataHeight,
                         virtualization: _virtualization
                     });
-                
+
                 return {
                     carpetHeight: _carpetHeight,
                     moreSpaceThanContent: _moreSpaceThanContent,
@@ -125,19 +87,15 @@ const prefix = 'HYT_',
                     ...fillerHeights
                 };
             },
-            arrRep = (a, i, v) => {
-                if (i === 0) return [v].concat(a.slice(1));
-                if (i === a.length-1) return a.slice(0, -1).concat(v);
-                return [].concat(...(a.slice(0, i)), v, ...(a.slice(i+1)));
-            },
+            
             actions = {
-                toggleColumnVisibility: () => {
-                    const {key, isVisible} = payload,
+                [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: () => {
+                    const { key, isVisible } = payload,
                         cIndex = columns.findIndex(c => c.key === key);
                     if (cIndex === -1) return {};
-                    
+
                     // eslint-disable-next-line one-var
-                    const newColumns = arrRep(columns, cIndex, {...columns[cIndex], isVisible}); 
+                    const newColumns = __arrRep(columns, cIndex, { ...columns[cIndex], isVisible });
 
                     return {
                         columns: newColumns,
@@ -147,26 +105,26 @@ const prefix = 'HYT_',
                         }
                     };
                 },
-                loading: () => ({
+                [ACTION_TYPES.LOADING]: () => ({
                     virtual: {
                         ...virtual,
                         loading: true
                     }
                 }),
-                globalFilter : () => {
+                [ACTION_TYPES.GLOBAL_FILTER]: () => {
                     const value = payload,
                         _filterNumbers = Object.values(filters).filter(f => f.value && f.visibility).length;
 
                     let _filteredData = __globalFilter(value, columns, originalData);
-                    
+
                     if (_filterNumbers) {
                         _filteredData = __filter(filters, _filteredData);
                     }
                     // eslint-disable-next-line one-var
                     const _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
-                        _virtualization = __updateVirtualization({currentData: _currentData, virtualization}),
-                        _updatedVirtual = __getVirtual({_currentData, _virtualization });
-                    
+                        _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
+                        _updatedVirtual = __getVirtual({ _currentData, _virtualization });
+
                     return {
                         // filters: __cleanFilters(filters),
                         globalFilterValue: value,
@@ -183,18 +141,18 @@ const prefix = 'HYT_',
                         activeFiltersCount: _filterNumbers + 1,
                     };
                 },
-                filter: () => {
+                [ACTION_TYPES.FILTER]: () => {
                     const updatedFields = {};
                     ('value' in payload) && (updatedFields.value = payload.value);
                     ('visibility' in payload) && (updatedFields.visibility = payload.visibility);
                     // eslint-disable-next-line one-var
                     const _filters = {
-                            ...filters,
-                            [payload.column]: {
-                                ...filters[payload.column],
-                                ...updatedFields
-                            }
-                        };
+                        ...filters,
+                        [payload.column]: {
+                            ...filters[payload.column],
+                            ...updatedFields
+                        }
+                    };
                     let _filteredData = __filter(_filters, originalData);
                     if (globalFilterValue) {
                         _filteredData = __globalFilter(globalFilterValue, columns, _filteredData);
@@ -202,8 +160,8 @@ const prefix = 'HYT_',
                     // eslint-disable-next-line one-var
                     const _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
                         _filterNumbers = Object.values(_filters).filter(f => f.value && f.visibility).length,
-                        _virtualization = __updateVirtualization({currentData: _currentData, virtualization}),
-                        _updatedVirtual = __getVirtual({_currentData, _virtualization });
+                        _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
+                        _updatedVirtual = __getVirtual({ _currentData, _virtualization });
 
                     return {
                         filters: _filters,
@@ -220,10 +178,10 @@ const prefix = 'HYT_',
                         virtualization: _virtualization
                     };
                 },
-                unFilter: () => {
+                [ACTION_TYPES.UNFILTER]: () => {
                     const _currentData = __sort(originalData, sorter, sortingColumn, sortingDirection),
-                        _virtualization = __updateVirtualization({currentData: _currentData, virtualization}),
-                        _updatedVirtual = __getVirtual({_currentData, _virtualization });
+                        _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
+                        _updatedVirtual = __getVirtual({ _currentData, _virtualization });
 
                     return {
                         filters: __cleanFilters(filters),
@@ -242,7 +200,7 @@ const prefix = 'HYT_',
                     };
                 },
 
-                sort: () => {   
+                [ACTION_TYPES.SORT]: () => {
                     const _currentData = __sort(currentData, payload.sorter, payload.column, payload.direction);
                     return {
                         isSorting: true,
@@ -252,7 +210,7 @@ const prefix = 'HYT_',
                     };
                 },
 
-                unSort: () => ({
+                [ACTION_TYPES.UNSORT]: () => ({
                     currentData: [...filteredData],
                     rows: [...filteredData].slice(fromRow, toRow),
                     isSorting: false,
@@ -263,20 +221,20 @@ const prefix = 'HYT_',
                     }
                 }),
 
-                cellEnter: () => ({
+                [ACTION_TYPES.CELL_ENTER]: () => ({
                     activeColumn: payload?.column?.key,
                     activeRow: payload?.row[rhtID],
                     activeColumnIndex: payload?.columnIndex,
                     activeRowIndex: payload?.rowIndex
                 }),
-                cellLeave: () => ({
+                [ACTION_TYPES.CELL_LEAVE]: () => ({
                     activeColumn: null,
                     activeRow: null,
                     activeColumnIndex: null,
                     activeRowIndex: null,
                 }),
-                scroll: () => {
-                    
+                [ACTION_TYPES.SCROLL]: () => {
+
                     if (moreSpaceThanContent) return oldState;
                     // if (!virtualization.verticalEnabled) return oldState;
 
@@ -292,7 +250,7 @@ const prefix = 'HYT_',
                             dataHeight,
                             virtualization
                         });
-                    
+
                     return {
                         rows: currentData.slice(_fromRow, _toRow),
                         virtual: {
@@ -313,6 +271,7 @@ const prefix = 'HYT_',
             };
         return oldState;
     },
+
     init = (cnf = {}) => {
         let activeFiltersCount = 0;
         const {
@@ -417,16 +376,16 @@ const prefix = 'HYT_',
 
             // prefilter ? 
             filteredData = __filter(filters,
-                globalPreFilter  
-                ? __globalFilter(globalPreFilter, columns, originalData)
-                : originalData
+                globalPreFilter
+                    ? __globalFilter(globalPreFilter, columns, originalData)
+                    : originalData
             ),
-            
-            virtualization= {
+
+            virtualization = {
                 verticalCutoff,
                 verticalEnabled: filteredData.length >= verticalCutoff
             },
-            
+
             carpetHeight = filteredData.length * rowHeight,
             moreSpaceThanContent = carpetHeight < contentHeight,
             visibleElements = Math.floor(contentHeight / rowHeight),
@@ -440,11 +399,11 @@ const prefix = 'HYT_',
                 dataHeight,
                 virtualization
             }),
-            
+
 
             // initial sorting ? 
             presortIndex = columns.findIndex(c => 'preSorted' in c && ['asc', 'desc'].includes(c.preSorted));
-        
+
         // eslint-disable-next-line one-var
         let currentData = [...filteredData],
             sorting = {
@@ -454,7 +413,7 @@ const prefix = 'HYT_',
             },
             isSorting = false;
 
-        
+
         if (presortIndex >= 0) {
             // throw an exception in case the sort function is not in the column
             if (!isFunction(columns[presortIndex].sort)) {
@@ -480,12 +439,12 @@ const prefix = 'HYT_',
             columns: _columns,
             sorting,
             isSorting,
-            
+
             filters,
             globalFilterValue: globalPreFilter,
             activeFiltersCount,
             isFiltering: activeFiltersCount > 0,
-            
+
             dimensions: {
                 width, height,
                 rowHeight
