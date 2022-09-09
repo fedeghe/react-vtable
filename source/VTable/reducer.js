@@ -4,6 +4,11 @@ import {
     __cleanFilters, __sort, __updateVirtualization, __arrRep,
     __getVirtual
 } from './reducerUtils';
+import {
+    HEIGHT, WIDTH, ROW_HEIGHT, HEADER_CAPTION_HEIGHT, FOOTER_CAPTION_HEIGHT,
+    RVT_ID, LINE_GAP, COLUMN_WIDTH, DEBOUNCE_SCROLLING, DEBOUNCE_FILTERING,
+    VIRTUALIZATION_CUTOFF, NO_FILTER_DATA_MESSAGE, COMMON_REMOVED_CONTENT
+} from './constants';
 
 const TOGGLE_COLUMN_VISIBILITY= Symbol(),
     LOADING= Symbol(),
@@ -176,9 +181,7 @@ const actions = {
             };
         },
 
-        [ACTION_TYPES.UNSORT]: ({
-            filteredData, fromRow, toRow
-        }) => ({
+        [ACTION_TYPES.UNSORT]: ({ filteredData, fromRow, toRow }) => ({
             currentData: [...filteredData],
             rows: [...filteredData].slice(fromRow, toRow),
             isSorting: false,
@@ -312,35 +315,29 @@ const actions = {
             data = [],
             columns = [],
             dimensions: {
-                height = 800,
-                width = 1200,
-                rowHeight = 80,
+                height = HEIGHT,
+                width = WIDTH,
+                rowHeight = ROW_HEIGHT,
             } = {},
             globalPreFilter = '',
             header: {
                 height: headerHeight = 0,
                 caption: {
                     Component: HeaderCaption = null,
-                    height: headerCaptionHeight = 25
+                    height: headerCaptionHeight = HEADER_CAPTION_HEIGHT
                 } = {}
             } = {},
-
             footer: {
                 height: footerHeight = 0,
                 caption: {
                     Component: FooterCaption = null,
-                    height: footerCaptionHeight = 25
+                    height: footerCaptionHeight = FOOTER_CAPTION_HEIGHT
                 } = {}
             } = {},
-
-            gap = 10,
-
+            gap = LINE_GAP,
             Loader = () => null,
-
-            defaultColumnWidth = 150,
-
-            commonRemovedContent = '.',
-
+            defaultColumnWidth = COLUMN_WIDTH,
+            commonRemovedContent = COMMON_REMOVED_CONTENT,
             cls: {
                 highlight: {
                     rowHighlightClass = '',
@@ -356,7 +353,7 @@ const actions = {
                 } = {},
             } = {},
 
-            NoFilterData = () => 'no data',
+            NoFilterData = () => NO_FILTER_DATA_MESSAGE,
 
             LeftMost, RightMost,
             events: {
@@ -371,12 +368,12 @@ const actions = {
                 shiftPageScroll = false,
             } = {},
             debounceTimes: {
-                filtering = 50,
-                scrolling = 50
+                filtering = DEBOUNCE_FILTERING,
+                scrolling = DEBOUNCE_SCROLLING
             } = {},
-            rhtID = '_ID',
+            rhtID = RVT_ID,
             virtualization: {
-                verticalCutoff = 100,
+                verticalCutoff = VIRTUALIZATION_CUTOFF,
             } = {}
         } = cnf;
 
