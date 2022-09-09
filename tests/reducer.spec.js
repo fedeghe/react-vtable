@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import reducerFactory from './../source/VTable/reducer'
+import reducerFactory, {ACTION_TYPES} from './../source/VTable/reducer'
 import zeroConfig from './configs/zero'
 import emptyDefaultState  from './emptyDefaultState.json'
 
@@ -185,28 +185,28 @@ describe('reducer - basic', function () {
 
             newState1 = reducer(state, {
                 payload: {key: 'id', isVisible: false},
-                type: 'toggleColumnVisibility'
+                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY
             }),
             newState2 = reducer(newState1, {
                 payload: {key: 'entityid', isVisible: false},
-                type: 'toggleColumnVisibility'
+                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY
             }),
             newState3 = reducer(newState2, {
                 payload: {key: 'name', isVisible: false},
-                type: 'toggleColumnVisibility'
+                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY
             }),
 
             newState4 = reducer(newState3, {
                 payload: {key: 'id', isVisible: true},
-                type: 'toggleColumnVisibility'
+                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY
             }),
             newState5 = reducer(newState4, {
                 payload: {key: 'entityid', isVisible: true},
-                type: 'toggleColumnVisibility'
+                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY
             }),
             newState6 = reducer(newState5, {
                 payload: {key: 'name', isVisible: true},
-                type: 'toggleColumnVisibility'
+                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY
             });
 
         expect(newState1.columns[0].isVisible).toBe(false);
@@ -226,7 +226,7 @@ describe('reducer - basic', function () {
     
     it('actions - loading', () => {
         const state = init(zeroConfig),
-            newState1 = reducer(state, {type: 'loading'})
+            newState1 = reducer(state, {type: ACTION_TYPES.LOADING})
         expect(newState1.virtual.loading).toBe(true)
     });
 
@@ -235,7 +235,7 @@ describe('reducer - basic', function () {
         newConfig.columns[0].filter = basicFilter
         const state = init(newConfig),
             newState1 = reducer(state, {
-                type: 'filter',
+                type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: true,
                     column: 'id'
@@ -254,7 +254,7 @@ describe('reducer - basic', function () {
         const state = init(newConfig),
             // show first
             newState1 = reducer(state, {
-                type: 'filter',
+                type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: true,
                     column: 'id',
@@ -263,7 +263,7 @@ describe('reducer - basic', function () {
             }),
             // unfilter single
             newState2 = reducer(newState1, {
-                type: 'filter',
+                type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: false,
                     column: 'id'
@@ -296,11 +296,11 @@ describe('reducer - basic', function () {
         const state = init(newConfig),
             // show first
             newState1 = reducer(state, {
-                type: 'globalFilter',
+                type:ACTION_TYPES.GLOBAL_FILTER,
                 payload: '4'
             }),
             // unfilter single
-            newState2 = reducer(newState1, {type: 'unFilter'});
+            newState2 = reducer(newState1, {type: ACTION_TYPES.UNFILTER});
         expect(newState1.rows.length).toBe(9)
         expect(newState1.globalFilterValue).toBe('4')
         
@@ -328,7 +328,7 @@ describe('reducer - basic', function () {
         const state = init(newConfig),
             // first filter
             newState1 = reducer(state, {
-                type: 'filter',
+                type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: true,
                     value: '4',
@@ -337,7 +337,7 @@ describe('reducer - basic', function () {
             }),
             // second filter
             newState2 = reducer(newState1, {
-                type: 'filter',
+                type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: true,
                     value: '4',
@@ -345,7 +345,7 @@ describe('reducer - basic', function () {
                 }
             }),
             // unfilter all
-            newState3 = reducer(newState2, {type: 'unFilter'});
+            newState3 = reducer(newState2, {type: ACTION_TYPES.UNFILTER});
 
         expect(newState2.rows.length).toBe(9);
 
@@ -370,7 +370,7 @@ describe('reducer - basic', function () {
         newConfig.columns[0].sort = basicSort;
         const state = init(newConfig),
             newState1 = reducer(state, {
-                type: 'sort',
+                type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'desc',
                     column: 'id',
@@ -378,7 +378,7 @@ describe('reducer - basic', function () {
                 }
             }),
             newState2 = reducer(newState1, {
-                type: 'sort',
+                type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'asc',
                     column: 'id',
@@ -395,14 +395,14 @@ describe('reducer - basic', function () {
         newConfig.columns[0].sort = basicSort;
         const state = init(newConfig),
             newState1 = reducer(state, {
-                type: 'sort',
+                type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'desc',
                     column: 'id',
                     sorter: basicSort
                 }
             }),
-            newState2 = reducer(newState1, {type: 'unSort'});
+            newState2 = reducer(newState1, {type: ACTION_TYPES.UNSORT});
         expect(state.rows[0].id).toBe(1);
         expect(newState1.rows[0].id).toBe(1000);
         expect(newState2.rows[0].id).toBe(1);
@@ -412,7 +412,7 @@ describe('reducer - basic', function () {
         const newConfig = deepClone(zeroConfig),
             state = init(newConfig),
             newState = reducer(state, {
-                type: 'cellEnter',
+                type: ACTION_TYPES.CELL_ENTER,
                 payload: {
                     column: {
                         key: 'id'
@@ -439,7 +439,7 @@ describe('reducer - basic', function () {
         const newConfig = deepClone(zeroConfig),
             state = init(newConfig),
             newState = reducer(state, {
-                type: 'cellEnter',
+                type: ACTION_TYPES.CELL_ENTER,
                 payload: {
                     column: {
                         key: 'id'
@@ -451,7 +451,7 @@ describe('reducer - basic', function () {
                     rowIndex :'22'
                 }
             }),
-            newState2 = reducer(newState, {type: 'cellLeave'});
+            newState2 = reducer(newState, {type: ACTION_TYPES.CELL_LEAVE});
         expect(state.activeColumn).toBeNull()
         expect(state.activeRow).toBeNull()
         expect(state.activeColumnIndex).toBeNull()
@@ -472,7 +472,7 @@ describe('reducer - basic', function () {
         const newConfig = deepClone(zeroConfig),
             state = init(newConfig),
             newState = reducer(state, {
-                type: 'scroll',
+                type: ACTION_TYPES.SCROLL,
                 payload: 400
             });
         
@@ -509,7 +509,7 @@ describe('reducer - edge', function () {
         newConfig.columns[0].sort = basicSort;
         const state = init(newConfig),
             newState1 = reducer(state, {
-                type: 'sort',
+                type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'desc',
                     column: 'id',
@@ -517,14 +517,14 @@ describe('reducer - edge', function () {
                 }
             }),
             newState2 = reducer(newState1, {
-                type: 'sort',
+                type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'asc',
                     column: 'id',
                     sorter: basicSort
                 }
             }),
-            newState3 = reducer(newState2, {type: 'unSort'});
+            newState3 = reducer(newState2, {type: ACTION_TYPES.UNSORT});
         // desc
         expect(newState1.rows[0].id).toBe(3);
         expect(newState1.rows[2].id).toBe(1);
@@ -536,15 +536,15 @@ describe('reducer - edge', function () {
         expect(newState3.rows[2].id).toBe(2);
     });
     
-    it('edge - mixed sort asc, sort desc, unsort', () => {
+    it('edge - overscroll', () => {
         const newConfig = deepClone(zeroConfig);
         
         newConfig.columns[0].filter = basicFilter;
-        newConfig.columns[0].preFiltered = '23';
+        newConfig.columns[0].globalPreFilter = '23';
         const state = init(newConfig);
         // desc
         expect(state.rows.length).toBe(9);
-        const newState = reducer(state, {type: 'scroll', payload: 3000})
+        const newState = reducer(state, {type: ACTION_TYPES.SCROLL, payload: 3000})
         expect(newState.rows.length).toBe(9);
     });
     
@@ -554,7 +554,7 @@ describe('reducer - edge', function () {
         const state = init(newConfig),
             // show first
             newState = reducer(state, {
-                type: 'filter',
+                type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: true,
                     column: 'id',
@@ -577,7 +577,7 @@ describe('reducer - edge', function () {
         const state = init(newConfig),
             // show first
             newState1 = reducer(state, {
-                type: 'toggleColumnVisibility',
+                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
                 payload: {
                     key: 'xxx',
                     isVisible: true
@@ -622,7 +622,7 @@ describe('reducer - edge', function () {
 
     it('edge - empty config - scroll no payload', () => {
         const state = init({});
-        reducer(state, {type: 'scroll'});
+        reducer(state, {type: ACTION_TYPES.SCROLL});
         expect(state).toMatchObject(emptyDefaultState);
     });
     it('edge - scroll 0', () => {
