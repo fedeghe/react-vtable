@@ -1,14 +1,16 @@
 import React from 'react';
 import generateRowData from './utils';
 
-import Filter from './sample/Filter';
-import Sorter from './sample/Sorter';
-import Visibilist from './sample/Visibilist';
+
 import { basicFilter, basicSort } from './sample/basicFilterAndSort';
 import HeaderCaption from './sample/HeaderCaption';
 import FooterCaption from './sample/FooterCaption';
+import ColumnHeader from './sample/ColumnHeader';
+import ColumnFooter from './sample/ColumnFooter';
 import LeftMost from './sample/LeftMost';
 import RightMost from './sample/RightMost';
+
+import Visibilist from './sample/Visibilist';
 
 export default size => ({
     columns: [{
@@ -17,26 +19,10 @@ export default size => ({
         width: 350,
         cell: ({ row, column }) => row[column.key],
 
-        header: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
-        }) => (<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <Sorter {...{ column, columnIndex, sort }} />
-                    <span>{column.label + '_' + columnIndex}</span>
-                    <Filter {...{ column, columnIndex, filter }} />
-        </div>),
+        header: ColumnHeader,
         
         // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
-        footer: ({
-            column, columnIndex,
-            filter, //: {value, setValue, visibility, setVisibility} = {},
-            sort, //: {sortAsc, sortDesc, unSort, direction, isSorting} = {}
-        }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{column.label + '_' + columnIndex}</span>
-            <Filter {...{ column, columnIndex, filter }} />
-            <Sorter {...{ column, columnIndex, sort }} />
-        </div>),
+        footer: ColumnFooter,
 
         filter: basicFilter,
         
@@ -45,6 +31,7 @@ export default size => ({
         // preSorted: 'asc', // autosort at init ? 
         
         // preFiltered: '23'
+        visibilist: Visibilist,
     }, {
         key: 'entityid',
     }, {
@@ -131,11 +118,11 @@ export default size => ({
         { key: 'date3', type: 'date' },
     ], size),
 
-    // dimensions: {
-    //     height: 900,
-    //     width: 1400,
-    //     rowHeight: 80,
-    // },
+    dimensions: {
+        height: 600,
+        width: 1400,
+        rowHeight: 50,
+    },
 
     // gap: 15,
 
