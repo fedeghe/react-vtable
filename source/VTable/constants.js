@@ -4,7 +4,7 @@
 // the name of the component
 export const CMPNAME = 'react-vtable',
     // how many lines extra viewport up and down before virtualization ? 
-    LINE_GAP = 10,
+    GAP = 10,
 
     // sizes
     WIDTH = 1200,

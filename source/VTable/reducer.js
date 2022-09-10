@@ -6,7 +6,7 @@ import {
 } from './reducerUtils';
 import {
     HEIGHT, WIDTH, ROW_HEIGHT, HEADER_CAPTION_HEIGHT, FOOTER_CAPTION_HEIGHT,
-    RVT_ID, LINE_GAP, COLUMN_WIDTH, DEBOUNCE_SCROLLING, DEBOUNCE_FILTERING,
+    RVT_ID, GAP, COLUMN_WIDTH, DEBOUNCE_SCROLLING, DEBOUNCE_FILTERING,
     VIRTUALIZATION_CUTOFF, NO_FILTER_DATA_MESSAGE, COMMON_REMOVED_CONTENT
 } from './constants';
 
@@ -334,7 +334,7 @@ const actions = {
                     height: footerCaptionHeight = FOOTER_CAPTION_HEIGHT
                 } = {}
             } = {},
-            gap = LINE_GAP,
+            gap = GAP,
             Loader = () => null,
             defaultColumnWidth = COLUMN_WIDTH,
             commonRemovedContent = COMMON_REMOVED_CONTENT,
