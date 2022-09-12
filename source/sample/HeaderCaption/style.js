@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss";
 export default createUseStyles({
     Container : {
         color: 'white',
-        backgroundColor: 'royalBlue',
+        backgroundColor: 'rgb(20, 93, 130)',
         height: 'inherit',
         display:'flex',
         justifyContent:'space-between',
