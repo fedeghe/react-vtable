@@ -30,7 +30,7 @@ export default size => ({
 
         // preSorted: 'asc', // autosort at init ? 
         
-        // preFiltered: '23'
+        // preFiltered: '23',
         visibilist: Visibilist,
     }, {
         key: 'entityid',
