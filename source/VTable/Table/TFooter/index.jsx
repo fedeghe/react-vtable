@@ -13,7 +13,7 @@ export default () => {
                 footer: {
                     height: footerHeight,
                 },
-                columns,
+                headers,
                 activeColumn,
                 cls: { 
                     highlight: {
@@ -124,7 +124,7 @@ export default () => {
         <tfoot className={classes.Tfoot}>
             <Tr cls={classes.Tfoot}>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{type: 'footer'}}/>
-                {columns.map((column, columnIndex) => (
+                {headers.map((column, columnIndex) => (
                     <Th
                         wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`foot${columnIndex}`}

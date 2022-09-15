@@ -29,7 +29,7 @@ Later we'll thinking about filtering and we will inplicitly also clearly conside
 
 
 ## Filler \<tr/\>
-We can create some very useful `<tr>` tags containing just one empty `<td/>` tag (with a _colSpan_ attribute equal to the number of columns of our table). We will exploit two of those Filler _tr_ tags changing rapidly the height of the contained _td_.
+We can create some very useful `<tr>` tags containing just one empty `<td/>` tag (with a _colSpan_ attribute equal to the number of headers of our table). We will exploit two of those Filler _tr_ tags changing rapidly the height of the contained _td_.
 
 ## Filler, Data, Filler  
 Now at the very first render of the Table we can imagine to render a Filler with 0 height, then the very first `renderableElements` of data, then another Filler that allows us to reach exactly `carpetHeight`.

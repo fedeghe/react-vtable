@@ -25,7 +25,7 @@ describe('reducer - basic', function () {
         expect(state.dimensions).toMatchObject({
             width:400, height:200, rowHeight:40
         })
-        expect(state.columns.length).toBe(3)
+        expect(state.headers.length).toBe(3)
         expect(state.data.length).toBe(1000)
         expect(state.originalData.length).toBe(1000)
         expect(state.rows.length).toBe(9)
@@ -101,24 +101,24 @@ describe('reducer - basic', function () {
         newConfig.debounceTimes = {
             filtering: 5, scrolling: 4
         }
-        newConfig.columns[0].preFiltered = '4'
-        newConfig.columns[0].preSorted = 'asc'
-        newConfig.columns[0].filter = basicFilter;
-        newConfig.columns[0].sort = basicSort;
+        newConfig.headers[0].preFiltered = '4'
+        newConfig.headers[0].preSorted = 'asc'
+        newConfig.headers[0].filter = basicFilter;
+        newConfig.headers[0].sort = basicSort;
         newConfig.commonRemovedContent = '-';
         newConfig.rhtID = 'hello_';
         
         const state = init(newConfig);
 
         expect(state.dimensions).toMatchObject(newConfig.dimensions)
-        expect(state.columns.length).toBe(3)
+        expect(state.headers.length).toBe(3)
         expect(state.data.length).toBe(1000)
         expect(state.originalData.length).toBe(1000)
         expect(state.rows.length).toBe(10)
         expect(state.gap).toBe(2)
         expect(state.sorting).toMatchObject({
-            column: newConfig.columns[0].key,
-            direction: newConfig.columns[0].preSorted,
+            column: newConfig.headers[0].key,
+            direction: newConfig.headers[0].preSorted,
             sorter: basicSort
         })
         expect(state.isSorting).toBe(true)
@@ -209,18 +209,18 @@ describe('reducer - basic', function () {
                 type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY
             });
 
-        expect(newState1.columns[0].isVisible).toBe(false);
+        expect(newState1.headers[0].isVisible).toBe(false);
         expect(newState1.virtual.colspan).toBe(2);
-        expect(newState2.columns[1].isVisible).toBe(false);
+        expect(newState2.headers[1].isVisible).toBe(false);
         expect(newState2.virtual.colspan).toBe(1);
-        expect(newState3.columns[2].isVisible).toBe(false);
+        expect(newState3.headers[2].isVisible).toBe(false);
         expect(newState3.virtual.colspan).toBe(0);
         // back
-        expect(newState4.columns[0].isVisible).toBe(true);
+        expect(newState4.headers[0].isVisible).toBe(true);
         expect(newState4.virtual.colspan).toBe(1);
-        expect(newState5.columns[1].isVisible).toBe(true);
+        expect(newState5.headers[1].isVisible).toBe(true);
         expect(newState5.virtual.colspan).toBe(2);
-        expect(newState6.columns[2].isVisible).toBe(true);
+        expect(newState6.headers[2].isVisible).toBe(true);
         expect(newState6.virtual.colspan).toBe(3);
     });
     
@@ -232,7 +232,7 @@ describe('reducer - basic', function () {
 
     it('actions - filter visibility', () => {
         const newConfig = deepClone(zeroConfig)
-        newConfig.columns[0].filter = basicFilter
+        newConfig.headers[0].filter = basicFilter
         const state = init(newConfig),
             newState1 = reducer(state, {
                 type: ACTION_TYPES.FILTER,
@@ -250,7 +250,7 @@ describe('reducer - basic', function () {
 
     it('actions - filter value', () => {
         const newConfig = deepClone(zeroConfig)
-        newConfig.columns[0].filter = basicFilter
+        newConfig.headers[0].filter = basicFilter
         const state = init(newConfig),
             // show first
             newState1 = reducer(state, {
@@ -292,7 +292,7 @@ describe('reducer - basic', function () {
 
     it('actions - filter global', () => {
         const newConfig = deepClone(zeroConfig)
-        newConfig.columns[0].filter = basicFilter
+        newConfig.headers[0].filter = basicFilter
         const state = init(newConfig),
             // show first
             newState1 = reducer(state, {
@@ -323,8 +323,8 @@ describe('reducer - basic', function () {
 
     it('actions - unfilter all', () => {
         const newConfig = deepClone(zeroConfig);
-        newConfig.columns[0].filter = basicFilter;
-        newConfig.columns[1].filter = basicFilter;
+        newConfig.headers[0].filter = basicFilter;
+        newConfig.headers[1].filter = basicFilter;
         const state = init(newConfig),
             // first filter
             newState1 = reducer(state, {
@@ -367,7 +367,7 @@ describe('reducer - basic', function () {
 
     it('actions - sort', () => {
         const newConfig = deepClone(zeroConfig);
-        newConfig.columns[0].sort = basicSort;
+        newConfig.headers[0].sort = basicSort;
         const state = init(newConfig),
             newState1 = reducer(state, {
                 type: ACTION_TYPES.SORT,
@@ -392,7 +392,7 @@ describe('reducer - basic', function () {
 
     it('actions - unsort', () => {
         const newConfig = deepClone(zeroConfig);
-        newConfig.columns[0].sort = basicSort;
+        newConfig.headers[0].sort = basicSort;
         const state = init(newConfig),
             newState1 = reducer(state, {
                 type: ACTION_TYPES.SORT,
@@ -506,7 +506,7 @@ describe('reducer - edge', function () {
             {id: 1, entityid: 43, name:'Gabriel'},
             {id: 2, entityid: 13, name:'Frances'},
         ]
-        newConfig.columns[0].sort = basicSort;
+        newConfig.headers[0].sort = basicSort;
         const state = init(newConfig),
             newState1 = reducer(state, {
                 type: ACTION_TYPES.SORT,
@@ -539,8 +539,8 @@ describe('reducer - edge', function () {
     it('edge - overscroll', () => {
         const newConfig = deepClone(zeroConfig);
         
-        newConfig.columns[0].filter = basicFilter;
-        newConfig.columns[0].globalPreFilter = '23';
+        newConfig.headers[0].filter = basicFilter;
+        newConfig.headers[0].globalPreFilter = '23';
         const state = init(newConfig);
         // desc
         expect(state.rows.length).toBe(9);
@@ -550,7 +550,7 @@ describe('reducer - edge', function () {
     
     it('edge - filter to no data', () => {
         const newConfig = deepClone(zeroConfig);
-        newConfig.columns[0].filter = basicFilter;
+        newConfig.headers[0].filter = basicFilter;
         const state = init(newConfig),
             // show first
             newState = reducer(state, {
@@ -573,7 +573,7 @@ describe('reducer - edge', function () {
 
     it('edge - toggleColumnVisibility non existent column', () => {
         const newConfig = deepClone(zeroConfig);
-        newConfig.columns[0].filter = basicFilter;
+        newConfig.headers[0].filter = basicFilter;
         const state = init(newConfig),
             // show first
             newState1 = reducer(state, {
@@ -601,9 +601,9 @@ describe('reducer - edge', function () {
 
     it('edge - edge on columnVisitility', () => {
         const newConfig = deepClone(zeroConfig);
-        newConfig.columns[0].isVisible = true;
+        newConfig.headers[0].isVisible = true;
         const newState = init(newConfig);
-        expect(newState.columns[0].isVisible).toBeTruthy();
+        expect(newState.headers[0].isVisible).toBeTruthy();
     });
     
     it('edge - no config', () => {
@@ -627,7 +627,7 @@ describe('reducer - edge', function () {
     });
     it('edge - scroll 0', () => {
         const newConfig = deepClone(zeroConfig);
-        newConfig.columns[0].preSorted = 'asc';
+        newConfig.headers[0].preSorted = 'asc';
         expect(
             () => init(newConfig)
         ).toThrow('a presorted column needs a sort function');

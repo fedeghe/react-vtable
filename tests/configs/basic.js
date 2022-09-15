@@ -6,7 +6,7 @@ export default {
         width: 400,
         rowHeight: 40
     },
-    columns: [{
+    headers: [{
         key: 'id',
         width:300,
         cell: ({ row, column, rowIndex, columnIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+columnIndex}>{row[column.key]}</div>,

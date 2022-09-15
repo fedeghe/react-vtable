@@ -68,12 +68,12 @@ export const uniqueID = {
     
     // must either match one of the specified user filter function 
     // either (in case no filter is specified) match column[key]
-    __globalFilter = (value, columns, originalData) =>     
+    __globalFilter = (value, headers, originalData) =>     
         originalData.filter(row => 
-            columns.filter(column => isFunction(column.filter)).some(column => 
-                column.filter({userValue: value, row, columnKey: column.key})
+            headers.filter(header => isFunction(header.filter)).some(header => 
+                header.filter({userValue: value, row, columnKey: header.key})
             ) 
-            || columns.some(column => `${row[column.key]}`.includes(value))
+            || headers.some(header => `${row[header.key]}`.includes(value))
         ),
 
     __cleanFilters = _filters => Object.keys(_filters).reduce((acc, k) => {

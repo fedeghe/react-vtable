@@ -17,7 +17,7 @@ export default ({typehf}) => {
                 footer: {
                     height: footerHeight,
                 },
-                columns,
+                headers,
                 activeColumn,
                 cls: { 
                     highlight: {
@@ -135,7 +135,7 @@ export default ({typehf}) => {
         <TerTag className={classes.Ter}>
             <Tr cls={classes.Ter}>
                 <LeftMost cls={`${classes.T_Th} ${classes.Torig_} ${classes.Torig_Left}`} opts={{type: typehf}}/>
-                {columns.map((column, columnIndex) => (
+                {headers.map((column, columnIndex) => (
                     <Th
                         wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`${typehf}${columnIndex}`}

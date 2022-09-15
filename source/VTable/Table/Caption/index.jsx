@@ -18,7 +18,7 @@ export default ({type, unFilter, unSort, globalFilter, globalFilterValue }) => {
                         Component: HeaderCaption
                     } = {}
                 },
-                columns,
+                headers,
                 total,
                 activeColumn, activeRow,
                 activeColumnIndex, activeRowIndex,
@@ -67,13 +67,13 @@ export default ({type, unFilter, unSort, globalFilter, globalFilterValue }) => {
         downloadXsv = useCallback(({separator = ',', fields} = {}) => {
             const a = document.createElement('a'),
                 data = filterDataFields({fields}),
-                xsv = asXsv(fields ? fields.map(f => ({key: f})) : columns, data, rhtID, separator),
+                xsv = asXsv(fields ? fields.map(f => ({key: f})) : headers, data, rhtID, separator),
                 blob = new Blob([xsv], { type: 'text/csv' });
             a.href = URL.createObjectURL(blob);
             a.target = '_blank';
             a.download = 'extract.csv';                     //filename to download
             a.click();
-        }, [columns, filterDataFields, rhtID]);
+        }, [headers, filterDataFields, rhtID]);
 
     return (
         What.Component && <div className={What.cls}>{

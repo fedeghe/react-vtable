@@ -10,7 +10,7 @@ import useStyles from './style.js';
 export default () => {
     const {
             state: {
-                rows, columns,
+                rows, headers,
                 activeRow, activeColumn,
                 leftMost, rightMost,
                 cls: {
@@ -48,7 +48,7 @@ export default () => {
                         cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row[rhtID] ? (crossHighlightClass || rowHighlightClass) : ''}`}
                         opts={{ row, rowIndex: rowIndex + fromRow, type: 'body' }}
                     />
-                    {columns.map((column, columnIndex) => {
+                    {headers.map((column, columnIndex) => {
                         let content = row[column.key] || 'nothing';
                         if (column.cell && isFunction(column.cell)) {
                             content = column.cell({row, column, rowIndex, columnIndex});

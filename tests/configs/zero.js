@@ -5,7 +5,7 @@ export default {
         width: 400,
         rowHeight: 40
     },
-    columns: [{
+    headers: [{
         key: 'id',
         width:300,
     }, {

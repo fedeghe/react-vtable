@@ -13,7 +13,7 @@ import RightMost from './sample/RightMost';
 import Visibilist from './sample/Visibilist';
 
 export default size => ({
-    columns: [{
+    headers: [{
         key: 'id',
         label: 'idz',
         width: 350,

@@ -13,7 +13,7 @@ export default () => {
                 header: {
                     height: headerHeight
                 },
-                columns,
+                headers,
                 activeColumn,
                 cls: { 
                     highlight: {
@@ -121,7 +121,7 @@ export default () => {
         <thead className={classes.Thead}>
             <Tr cls={classes.Thead}>
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{type:'header'}}/>
-                {columns.map((column, columnIndex) => (
+                {headers.map((column, columnIndex) => (
                     <Th
                         wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
                         key={`head${columnIndex}`}
