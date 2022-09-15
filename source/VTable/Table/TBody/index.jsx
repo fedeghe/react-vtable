@@ -48,25 +48,25 @@ export default () => {
                         cls={`${classes.TbodyThMost} ${classes.TbodyThLeftMost} ${classes.AlTop} ${activeRow === row[rhtID] ? (crossHighlightClass || rowHighlightClass) : ''}`}
                         opts={{ row, rowIndex: rowIndex + fromRow, type: 'body' }}
                     />
-                    {headers.map((column, columnIndex) => {
-                        let content = row[column.key] || 'nothing';
-                        if (column.cell && isFunction(column.cell)) {
-                            content = column.cell({row, column, rowIndex, columnIndex});
+                    {headers.map((header, headerIndex) => {
+                        let content = row[header.key] || 'nothing';
+                        if (header.cell && isFunction(header.cell)) {
+                            content = header.cell({row, header, rowIndex, headerIndex});
                         }
-                        if (!column.isVisible)
-                            content = column.removedContent || commonRemovedContent || '';
+                        if (!header.isVisible)
+                            content = header.removedContent || commonRemovedContent || '';
                         return (
                             <Td
-                                wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
-                                key={`cell_${row[rhtID]}_${columnIndex}`}
+                                wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
+                                key={`cell_${row[rhtID]}_${headerIndex}`}
                                 row={row}
-                                column={column}
+                                header={header}
                                 rowIndex={rowIndex}
-                                columnIndex={columnIndex}
+                                headerIndex={headerIndex}
                                 cls={[
                                     classes.AlTop,
-                                    activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : '',
-                                    (cellHightlightClass && activeRow === row[rhtID] && activeColumn === column.key) ? cellHightlightClass : ''
+                                    activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : '',
+                                    (cellHightlightClass && activeRow === row[rhtID] && activeColumn === header.key) ? cellHightlightClass : ''
                                 ].join(' ')}
                             >{content}</Td>
                         );

@@ -26,7 +26,7 @@ export default ({typehf}) => {
                     },
                 },
                 filters,
-                sorting:{column: sortingColumn, direction: sortingDirection},
+                sorting:{header: sortingColumn, direction: sortingDirection},
                 debounceTimes: {
                     filtering : filteringDebounceTime,
                 } ,
@@ -38,47 +38,47 @@ export default ({typehf}) => {
 
         classes = useStyles({type: typehf, height : isHeader ? headerHeight : footerHeight}),
 
-        getColumnContent = useCallback(({column, columnIndex}) => {
+        getColumnContent = useCallback(({header, headerIndex}) => {
             let content;
-            if (typehf in column) {
+            if (typehf in header) {
                 
-                if (isFunction(column[typehf])) {
+                if (isFunction(header[typehf])) {
                     const props = {
-                        column,
-                        columnIndex,
+                        header,
+                        headerIndex,
                     };
-                    if (isFunction(column.sort)) {
+                    if (isFunction(header.sort)) {
                         props.sort = {
                             sortAsc: () => dispatch({
                                 type:ACTION_TYPES.SORT,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     direction: 'asc',
-                                    sorter: column.sort
+                                    sorter: header.sort
                                 }
                             }),
                             sortDesc: () => dispatch({
                                 type: ACTION_TYPES.SORT,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     direction: 'desc',
-                                    sorter: column.sort
+                                    sorter: header.sort
                                 }
                             }),
                             unSort: () => dispatch({type: ACTION_TYPES.UNSORT}),
                             direction: sortingDirection,
-                            isSorting: column.key === sortingColumn,
+                            isSorting: header.key === sortingColumn,
                         };
                     }
-                    if (isFunction(column.filter)) {
-                        const theFilter = filters?.[column.key];
+                    if (isFunction(header.filter)) {
+                        const theFilter = filters?.[header.key];
 
                         props.filter = {
                             value: theFilter?.value,
                             setValue: debounce(value => dispatch({
                                 type: ACTION_TYPES.FILTER,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     value
                                 }
                             }), filteringDebounceTime),
@@ -87,7 +87,7 @@ export default ({typehf}) => {
                                 dispatch({
                                     type: ACTION_TYPES.FILTER,
                                     payload: {
-                                        column: column.key,
+                                        header: header.key,
                                         visibility
                                     }
                                 }),
@@ -96,27 +96,27 @@ export default ({typehf}) => {
                             isFiltering
                         };
                     }
-                    if (isFunction(column.visibilist)){
+                    if (isFunction(header.visibilist)){
                         props.visibility = {
                             setVisibility:  visibility => dispatch({
                                 type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
                                 payload: {
-                                    key: column.key,
+                                    key: header.key,
                                     isVisible: visibility
                                 }
                             }),
-                            isVisible: column.isVisible,
-                            column,
+                            isVisible: header.isVisible,
+                            header,
                         };
                     }
-                    content = column[typehf](props);
+                    content = header[typehf](props);
 
                 } else {
-                    content = column.isVisible ? column[typehf] : '';
+                    content = header.isVisible ? header[typehf] : '';
                 }
                 
             } else {
-                content = column.isVisible ? column.key : '';
+                content = header.isVisible ? header.key : '';
             }
             return content;
         }, [
@@ -135,15 +135,15 @@ export default ({typehf}) => {
         <TerTag className={classes.Ter}>
             <Tr cls={classes.Ter}>
                 <LeftMost cls={`${classes.T_Th} ${classes.Torig_} ${classes.Torig_Left}`} opts={{type: typehf}}/>
-                {headers.map((column, columnIndex) => (
+                {headers.map((header, headerIndex) => (
                     <Th
-                        wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
-                        key={`${typehf}${columnIndex}`}
-                        cls={`${thTableClass} ${classes.T_Th} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                        column={column}
-                        columnIndex={columnIndex}
+                        wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
+                        key={`${typehf}${headerIndex}`}
+                        cls={`${thTableClass} ${classes.T_Th} ${activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
+                        header={header}
+                        headerIndex={headerIndex}
                         pos={typehf}
-                    >{getColumnContent({column, columnIndex})}</Th>
+                    >{getColumnContent({header, headerIndex})}</Th>
                 ))}
                 <RightMost cls={`${classes.T_Th} ${classes.Torig_} ${classes.Torig_Right}`} opts={{type: typehf}}/>
             </Tr>

@@ -9,9 +9,9 @@ const deepClone = o => JSON.parse(JSON.stringify(o))
 
 describe('reducer - basic', function () {
     const { init, reducer } = reducerFactory(),
-        basicFilter = ({userValue, row, columnKey}) => `${row[columnKey]}`.includes(userValue),
-        basicSort = ({rowA, rowB, columnKey, direction}) => {
-            const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
+        basicFilter = ({userValue, row, headerKey}) => `${row[headerKey]}`.includes(userValue),
+        basicSort = ({rowA, rowB, headerKey, direction}) => {
+            const v = rowA[headerKey] > rowB[headerKey] ? 1 : -1;
             return {
                 asc : v,
                 desc: -v
@@ -30,7 +30,7 @@ describe('reducer - basic', function () {
         expect(state.originalData.length).toBe(1000)
         expect(state.rows.length).toBe(9)
         expect(state.gap).toBe(2)
-        expect(state.sorting).toMatchObject({column: null, direction: null, sorter: null})
+        expect(state.sorting).toMatchObject({header: null, direction: null, sorter: null})
         expect(state.isSorting).toBe(false)
         expect(state.isFiltering).toBe(false)
         expect(state.filters).toMatchObject({})
@@ -117,7 +117,7 @@ describe('reducer - basic', function () {
         expect(state.rows.length).toBe(10)
         expect(state.gap).toBe(2)
         expect(state.sorting).toMatchObject({
-            column: newConfig.headers[0].key,
+            header: newConfig.headers[0].key,
             direction: newConfig.headers[0].preSorted,
             sorter: basicSort
         })
@@ -238,7 +238,7 @@ describe('reducer - basic', function () {
                 type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: true,
-                    column: 'id'
+                    header: 'id'
                 }
             });
         expect(newState1.filters.id.value).toBe('')
@@ -257,7 +257,7 @@ describe('reducer - basic', function () {
                 type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: true,
-                    column: 'id',
+                    header: 'id',
                     value: '4'
                 }
             }),
@@ -266,7 +266,7 @@ describe('reducer - basic', function () {
                 type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: false,
-                    column: 'id'
+                    header: 'id'
                 }
             });
         expect(newState1.rows.length).toBe(9)
@@ -332,7 +332,7 @@ describe('reducer - basic', function () {
                 payload: {
                     visibility: true,
                     value: '4',
-                    column: 'id'
+                    header: 'id'
                 }
             }),
             // second filter
@@ -341,7 +341,7 @@ describe('reducer - basic', function () {
                 payload: {
                     visibility: true,
                     value: '4',
-                    column: 'entityid'
+                    header: 'entityid'
                 }
             }),
             // unfilter all
@@ -373,7 +373,7 @@ describe('reducer - basic', function () {
                 type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'desc',
-                    column: 'id',
+                    header: 'id',
                     sorter: basicSort
                 }
             }),
@@ -381,7 +381,7 @@ describe('reducer - basic', function () {
                 type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'asc',
-                    column: 'id',
+                    header: 'id',
                     sorter: basicSort
                 }
             });
@@ -398,7 +398,7 @@ describe('reducer - basic', function () {
                 type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'desc',
-                    column: 'id',
+                    header: 'id',
                     sorter: basicSort
                 }
             }),
@@ -414,13 +414,13 @@ describe('reducer - basic', function () {
             newState = reducer(state, {
                 type: ACTION_TYPES.CELL_ENTER,
                 payload: {
-                    column: {
+                    header: {
                         key: 'id'
                     },
                     row : {
                         _ID: '22'
                     },
-                    columnIndex: '44',
+                    headerIndex: '44',
                     rowIndex :'22'
                 }
             });
@@ -441,13 +441,13 @@ describe('reducer - basic', function () {
             newState = reducer(state, {
                 type: ACTION_TYPES.CELL_ENTER,
                 payload: {
-                    column: {
+                    header: {
                         key: 'id'
                     },
                     row : {
                         _ID: '22'
                     },
-                    columnIndex: '44',
+                    headerIndex: '44',
                     rowIndex :'22'
                 }
             }),
@@ -488,11 +488,11 @@ describe('reducer - basic', function () {
 
 describe('reducer - edge', function () {
     const { init, reducer } = reducerFactory(),
-        basicFilter = ({userValue, row, columnKey}) => {
-            return `${row[columnKey]}`.includes(userValue)
+        basicFilter = ({userValue, row, headerKey}) => {
+            return `${row[headerKey]}`.includes(userValue)
         },
-        basicSort = ({rowA, rowB, columnKey, direction}) => {
-            const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
+        basicSort = ({rowA, rowB, headerKey, direction}) => {
+            const v = rowA[headerKey] > rowB[headerKey] ? 1 : -1;
             return {
                 asc : v,
                 desc: -v
@@ -512,7 +512,7 @@ describe('reducer - edge', function () {
                 type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'desc',
-                    column: 'id',
+                    header: 'id',
                     sorter: basicSort
                 }
             }),
@@ -520,7 +520,7 @@ describe('reducer - edge', function () {
                 type: ACTION_TYPES.SORT,
                 payload: {
                     direction:'asc',
-                    column: 'id',
+                    header: 'id',
                     sorter: basicSort
                 }
             }),
@@ -557,7 +557,7 @@ describe('reducer - edge', function () {
                 type: ACTION_TYPES.FILTER,
                 payload: {
                     visibility: true,
-                    column: 'id',
+                    header: 'id',
                     value: 'xxx'
                 }
             });
@@ -571,7 +571,7 @@ describe('reducer - edge', function () {
         expect(newState.virtual.toRow).toBe(0);
     });
 
-    it('edge - toggleColumnVisibility non existent column', () => {
+    it('edge - toggleColumnVisibility non existent header', () => {
         const newConfig = deepClone(zeroConfig);
         newConfig.headers[0].filter = basicFilter;
         const state = init(newConfig),
@@ -630,6 +630,6 @@ describe('reducer - edge', function () {
         newConfig.headers[0].preSorted = 'asc';
         expect(
             () => init(newConfig)
-        ).toThrow('a presorted column needs a sort function');
+        ).toThrow('a presorted header needs a sort function');
     });
 });

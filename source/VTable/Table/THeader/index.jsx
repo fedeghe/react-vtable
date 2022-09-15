@@ -22,7 +22,7 @@ export default () => {
                     },
                 },
                 filters,
-                sorting:{column: sortingColumn, direction: sortingDirection},
+                sorting:{header: sortingColumn, direction: sortingDirection},
                 debounceTimes: {
                     filtering : filteringDebounceTime,
                 } ,
@@ -34,45 +34,45 @@ export default () => {
 
         classes = useStyles({headerHeight}),
 
-        getColumnContent = useCallback(({column, columnIndex}) => {
+        getColumnContent = useCallback(({header, headerIndex}) => {
             let content;
-            if ('header' in column) {
-                if (isFunction(column.header)) {
+            if ('header' in header) {
+                if (isFunction(header.header)) {
                     const headerProps = {
-                        column,
-                        columnIndex,
+                        header,
+                        headerIndex,
                     };
-                    if (isFunction(column.sort)) {
+                    if (isFunction(header.sort)) {
                         headerProps.sort = {
                             sortAsc: () => dispatch({
                                 type: ACTION_TYPES.SORT,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     direction: 'asc',
-                                    sorter: column.sort
+                                    sorter: header.sort
                                 }
                             }),
                             sortDesc: () => dispatch({
                                 type: ACTION_TYPES.SORT,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     direction: 'desc',
-                                    sorter: column.sort
+                                    sorter: header.sort
                                 }
                             }),
                             unSort: () => dispatch({type: ACTION_TYPES.UNSORT}),
                             direction: sortingDirection,
-                            isSorting: column.key === sortingColumn,
+                            isSorting: header.key === sortingColumn,
                         };
                     }
-                    if (isFunction(column.filter)) {
-                        const theFilter = filters?.[column.key];
+                    if (isFunction(header.filter)) {
+                        const theFilter = filters?.[header.key];
                         headerProps.filter = {
                             value: theFilter?.value,
                             setValue: debounce(value => dispatch({
                                 type: ACTION_TYPES.FILTER,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     value
                                 }
                             }), filteringDebounceTime),
@@ -81,7 +81,7 @@ export default () => {
                                 dispatch({
                                     type: ACTION_TYPES.FILTER,
                                     payload: {
-                                        column: column.key,
+                                        header: header.key,
                                         visibility
                                     }
                                 }),
@@ -90,25 +90,25 @@ export default () => {
                             isFiltering
                         };
                     }
-                    if (isFunction(column.visibilist)){
+                    if (isFunction(header.visibilist)){
                         headerProps.visibility = {
                             setVisibility: visibility => dispatch({
                                 type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
                                 payload: {
-                                    key: column.key,
+                                    key: header.key,
                                     isVisible: visibility
                                 }
                             }),
-                            isVisible: column.isVisible,
-                            column
+                            isVisible: header.isVisible,
+                            header
                         };
                     }
-                    content = column.header(headerProps);
+                    content = header.header(headerProps);
                 } else {
-                    content = column.header;
+                    content = header.header;
                 }
             } else {
-                content = column.isVisible ? column.key : '';
+                content = header.isVisible ? header.key : '';
             }
             return content;
         }, [
@@ -121,15 +121,15 @@ export default () => {
         <thead className={classes.Thead}>
             <Tr cls={classes.Thead}>
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{type:'header'}}/>
-                {headers.map((column, columnIndex) => (
+                {headers.map((header, headerIndex) => (
                     <Th
-                        wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
-                        key={`head${columnIndex}`}
-                        cls={`TableHeader ${classes.TheadTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                        column={column}
-                        columnIndex={columnIndex}
+                        wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
+                        key={`head${headerIndex}`}
+                        cls={`TableHeader ${classes.TheadTh} ${activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
+                        header={header}
+                        headerIndex={headerIndex}
                         pos="header"
-                    >{getColumnContent({column, columnIndex})}</Th>
+                    >{getColumnContent({header, headerIndex})}</Th>
                 ))}
                 <RightMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderRight}`} opts={{type: 'header'}}/>
             </Tr>

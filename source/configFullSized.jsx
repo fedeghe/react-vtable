@@ -17,11 +17,11 @@ export default size => ({
         key: 'id',
         label: 'idz',
         width: 350,
-        cell: ({ row, column }) => row[column.key],
+        cell: ({ row, header }) => row[header.key],
 
         header: ColumnHeader,
         
-        // footer: ({ column, columnIndex }) => column.key + '_' + columnIndex,
+        // footer: ({ header, headerIndex }) => header.key + '_' + headerIndex,
         footer: ColumnFooter,
 
         filter: basicFilter,
@@ -36,18 +36,18 @@ export default size => ({
         key: 'entityid',
     }, {
         key: 'name',
-        // cell: ({ row, column }) => row[column.key],
+        // cell: ({ row, header }) => row[header.key],
         // width: 400,
         // header: ({
-        //     column, columnIndex,
+        //     header, headerIndex,
         //     filter, //: {value, setValue, visibility, setVisibility} = {},
         //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
         //     visibility
         // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
         //     {Boolean(visibility.isVisible) && <>
-        //         <span>{column.key + '_' + columnIndex}</span>
-        //         <Filter {...{ column, columnIndex, filter }} />
-        //         <Sorter {...{ column, columnIndex, sort }} />
+        //         <span>{header.key + '_' + headerIndex}</span>
+        //         <Filter {...{ header, headerIndex, filter }} />
+        //         <Sorter {...{ header, headerIndex, sort }} />
         //     </>}
         //     <Visibilist {...{visibility}}/>
         // </div>),
@@ -62,26 +62,26 @@ export default size => ({
     }, {
         key: 'date',
         isVisible: false,
-        // cell: ({ row, column }) => row[column.key],
+        // cell: ({ row, header }) => row[header.key],
     }, {
         key: 'actions',
-        // cell: ({ row, column }) => <div style={{ color: 'green' }}>{row[column.key]}</div>,
+        // cell: ({ row, header }) => <div style={{ color: 'green' }}>{row[header.key]}</div>,
         // width: 300
     },
     {
         key: 'id2',
         // width: 150,
-        // cell: ({ row, column }) => row[column.key],
+        // cell: ({ row, header }) => row[header.key],
         // header: ({
-        //     column, columnIndex,
+        //     header, headerIndex,
         //     filter, //: {value, setValue, visibility, setVisibility} = {},
         //     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
         //     visibility
         // }) => (<div style={{ display: 'flex', alignItems: 'center' }}>
         //     {Boolean(visibility.isVisible) && <>
-        //         <span>{column.key + '_' + columnIndex}</span>
-        //         <Filter {...{ column, columnIndex, filter }} />
-        //         <Sorter {...{ column, columnIndex, sort }} />
+        //         <span>{header.key + '_' + headerIndex}</span>
+        //         <Filter {...{ header, headerIndex, filter }} />
+        //         <Sorter {...{ header, headerIndex, sort }} />
         //     </>}
         //     <Visibilist {...{visibility}}/>
         // </div>),
@@ -170,15 +170,15 @@ export default size => ({
     },
 
     // events: {
-        // onCellClick: (e, { row, column }) => {
-        //     console.log('cell click', column, row);
+        // onCellClick: (e, { row, header }) => {
+        //     console.log('cell click', header, row);
         //     e.stopPropagation();
         // },
-        // onCellEnter: (e, { row, column }) => {
-        //     console.log('cell enter', column, row);
+        // onCellEnter: (e, { row, header }) => {
+        //     console.log('cell enter', header, row);
         // },
-        // onCellLeave: (e, { row, column }) => {
-        //     console.log('cell leave', column, row);
+        // onCellLeave: (e, { row, header }) => {
+        //     console.log('cell leave', header, row);
         // },
         // onHeaderHighlight: false,
         // onFooterHighlight: false,

@@ -22,7 +22,7 @@ export default () => {
                     },
                 },
                 filters,
-                sorting:{column: sortingColumn, direction: sortingDirection},
+                sorting:{header: sortingColumn, direction: sortingDirection},
                 debounceTimes: {
                     filtering : filteringDebounceTime,
                 } ,
@@ -34,46 +34,46 @@ export default () => {
 
         classes = useStyles({footerHeight}),
 
-        getColumnContent = useCallback(({column, columnIndex}) => {
+        getColumnContent = useCallback(({header, headerIndex}) => {
             let content;
-            if ('footer' in column) {
-                if (isFunction(column.footer)) {
+            if ('footer' in header) {
+                if (isFunction(header.footer)) {
                     const footerProps = {
-                        column,
-                        columnIndex,
+                        header,
+                        headerIndex,
                     };
-                    if (isFunction(column.sort)) {
+                    if (isFunction(header.sort)) {
                         footerProps.sort = {
                             sortAsc: () => dispatch({
                                 type: ACTION_TYPES.SORT,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     direction: 'asc',
-                                    sorter: column.sort
+                                    sorter: header.sort
                                 }
                             }),
                             sortDesc: () => dispatch({
                                 type: ACTION_TYPES.SORT,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     direction: 'desc',
-                                    sorter: column.sort
+                                    sorter: header.sort
                                 }
                             }),
                             unSort: () => dispatch({type: ACTION_TYPES.UNSORT}),
                             direction: sortingDirection,
-                            isSorting: column.key === sortingColumn,
+                            isSorting: header.key === sortingColumn,
                         };
                     }
-                    if (isFunction(column.filter)) {
-                        const theFilter = filters?.[column.key];
+                    if (isFunction(header.filter)) {
+                        const theFilter = filters?.[header.key];
 
                         footerProps.filter = {
                             value: theFilter?.value,
                             setValue: debounce(value => dispatch({
                                 type: ACTION_TYPES.FILTER,
                                 payload: {
-                                    column: column.key,
+                                    header: header.key,
                                     value
                                 }
                             }), filteringDebounceTime),
@@ -82,7 +82,7 @@ export default () => {
                                 dispatch({
                                     type: ACTION_TYPES.FILTER,
                                     payload: {
-                                        column: column.key,
+                                        header: header.key,
                                         visibility
                                     }
                                 }),
@@ -91,25 +91,25 @@ export default () => {
                             isFiltering
                         };
                     }
-                    if (isFunction(column.visibilist)){
+                    if (isFunction(header.visibilist)){
                         footerProps.visibility = {
                             setVisibility: visibility => dispatch({
                                 type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
                                 payload: {
-                                    key: column.key,
+                                    key: header.key,
                                     isVisible: visibility
                                 }
                             }),
-                            isVisible: column.isVisible,
-                            column,
+                            isVisible: header.isVisible,
+                            header,
                         };
                     }
-                    content = column.footer(footerProps);
+                    content = header.footer(footerProps);
                 } else {
-                    content = column.isVisible ? column.footer : '';
+                    content = header.isVisible ? header.footer : '';
                 }
             } else {
-                content = column.isVisible ? column.key : '';
+                content = header.isVisible ? header.key : '';
             }
             return content;
         }, [
@@ -124,15 +124,15 @@ export default () => {
         <tfoot className={classes.Tfoot}>
             <Tr cls={classes.Tfoot}>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{type: 'footer'}}/>
-                {headers.map((column, columnIndex) => (
+                {headers.map((header, headerIndex) => (
                     <Th
-                        wrapperStyle={column.isVisible ? {width: `${column.width}px`} : {}}
-                        key={`foot${columnIndex}`}
-                        cls={`TableFooter ${classes.TfootTh} ${activeColumn === column.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                        column={column}
-                        columnIndex={columnIndex}
+                        wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
+                        key={`foot${headerIndex}`}
+                        cls={`TableFooter ${classes.TfootTh} ${activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
+                        header={header}
+                        headerIndex={headerIndex}
                         pos="footer"
-                    >{getColumnContent({column, columnIndex})}</Th>
+                    >{getColumnContent({header, headerIndex})}</Th>
                 ))}
                 <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{type: 'footer'}}/>
             </Tr>

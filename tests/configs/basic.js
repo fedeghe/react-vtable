@@ -9,13 +9,13 @@ export default {
     headers: [{
         key: 'id',
         width:300,
-        cell: ({ row, column, rowIndex, columnIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+columnIndex}>{row[column.key]}</div>,
+        cell: ({ row, header, rowIndex, headerIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+headerIndex}>{row[header.key]}</div>,
     }, {
         key: 'entityid',
-        cell: ({ row, column, rowIndex, columnIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+columnIndex}>{row[column.key]}</div>,
+        cell: ({ row, header, rowIndex, headerIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+headerIndex}>{row[header.key]}</div>,
     }, {
         key: 'name',
-        cell: ({ row, column, rowIndex, columnIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+columnIndex}>{row[column.key]}</div>,
+        cell: ({ row, header, rowIndex, headerIndex }) => <div data-uie={'uie-' + rowIndex+ '-'+headerIndex}>{row[header.key]}</div>,
         width:300,
 
     }],

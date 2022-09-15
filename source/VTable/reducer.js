@@ -107,8 +107,8 @@ const actions = {
             // eslint-disable-next-line one-var
             const _filters = {
                 ...filters,
-                [payload.column]: {
-                    ...filters[payload.column],
+                [payload.header]: {
+                    ...filters[payload.header],
                     ...updatedFields
                 }
             };
@@ -172,7 +172,7 @@ const actions = {
         [ACTION_TYPES.SORT]: ({
             payload, currentData, fromRow, toRow
         }) => {
-            const _currentData = __sort(currentData, payload.sorter, payload.column, payload.direction);
+            const _currentData = __sort(currentData, payload.sorter, payload.header, payload.direction);
             return {
                 isSorting: true,
                 currentData: _currentData,
@@ -186,16 +186,16 @@ const actions = {
             rows: [...filteredData].slice(fromRow, toRow),
             isSorting: false,
             sorting: {
-                column: null,
+                header: null,
                 direction: null,
                 sorter: null
             }
         }),
 
         [ACTION_TYPES.CELL_ENTER]: ({payload, rhtID}) => ({
-            activeColumn: payload?.column?.key,
+            activeColumn: payload?.header?.key,
             activeRow: payload?.row[rhtID],
-            activeColumnIndex: payload?.columnIndex,
+            activeColumnIndex: payload?.headerIndex,
             activeRowIndex: payload?.rowIndex
         }),
 
@@ -252,7 +252,7 @@ const actions = {
                     rowHeight
                 },
                 sorting: {
-                    column: sortingColumn,
+                    header: sortingColumn,
                     direction: sortingDirection,
                     sorter
                 },
@@ -379,18 +379,18 @@ const actions = {
 
         // eslint-disable-next-line one-var
         const _headers = headers.map(
-            column => ({
-                ...column,
-                isVisible: 'isVisible' in column ? column.isVisible : true
+            header => ({
+                ...header,
+                isVisible: 'isVisible' in header ? header.isVisible : true
             })).map(
-                column => column.width ? column : { ...column, width: defaultColumnWidth }
+                header => header.width ? header : { ...header, width: defaultColumnWidth }
             ),
-            filters = _headers.reduce((acc, column) => {
-                if (isFunction(column.filter)) {
-                    const value = column.preFiltered || '';
+            filters = _headers.reduce((acc, header) => {
+                if (isFunction(header.filter)) {
+                    const value = header.preFiltered || '';
                     activeFiltersCount += !!value;
-                    acc[column.key] = {
-                        filter: column.filter,
+                    acc[header.key] = {
+                        filter: header.filter,
                         value,
                         visibility: !!value
                     };
@@ -438,7 +438,7 @@ const actions = {
         // eslint-disable-next-line one-var
         let currentData = [...filteredData],
             sorting = {
-                column: null,
+                header: null,
                 direction: null,
                 sorter: null,
             },
@@ -446,18 +446,18 @@ const actions = {
 
 
         if (presortIndex >= 0) {
-            // throw an exception in case the sort function is not in the column
+            // throw an exception in case the sort function is not in the header
             if (!isFunction(headers[presortIndex].sort)) {
-                throw new Error("a presorted column needs a sort function");
+                throw new Error("a presorted header needs a sort function");
             }
             currentData = currentData.sort((a, b) => headers[presortIndex].sort({
                 rowA: a,
                 rowB: b,
-                columnKey: headers[presortIndex].key,
+                headerKey: headers[presortIndex].key,
                 direction: headers[presortIndex].preSorted
             }));
             sorting = {
-                column: headers[presortIndex].key,
+                header: headers[presortIndex].key,
                 direction: headers[presortIndex].preSorted,
                 sorter: headers[presortIndex].sort
             };

@@ -3,7 +3,7 @@ import TableContext from '../../Context';
 import { ACTION_TYPES } from '../../reducer';
 import useStyles from './style.js';
 
-export default ({ row, column, rowIndex, columnIndex, cls, children, pos, wrapperStyle }) => {
+export default ({ row, header, rowIndex, headerIndex, cls, children, pos, wrapperStyle }) => {
     const {
             state: {
                 events: {
@@ -27,12 +27,12 @@ export default ({ row, column, rowIndex, columnIndex, cls, children, pos, wrappe
                 type: ACTION_TYPES.CELL_ENTER,
                 payload: {
                     row,
-                    column,
+                    header,
                     rowIndex,
-                    columnIndex
+                    headerIndex
                 }
             }),
-            [column, columnIndex, dealWithEvent, dispatch, row, rowIndex]
+            [header, headerIndex, dealWithEvent, dispatch, row, rowIndex]
         ),
         onMouseLeave = useCallback(
             () => dealWithEvent && dispatch({ type: ACTION_TYPES.CELL_LEAVE }),
@@ -46,7 +46,7 @@ export default ({ row, column, rowIndex, columnIndex, cls, children, pos, wrappe
 
     return <th
         className={[classes.Th, cls].join(' ')}
-        key={`Th${rowIndex || columnIndex}`}
+        key={`Th${rowIndex || headerIndex}`}
         {...handlers}
     >   
         <div style={wrapperStyle}>
