@@ -14,7 +14,7 @@ The very minimum, but not that useful, config might look like the following:
 
 ``` js
 const config = {
-    columns: [
+    headers: [
         { key: 'name', },
         { key: 'surname', },
         { key: 'address', },
@@ -75,8 +75,8 @@ in `source/Playground.jsx` use `configBig.jsx` and try to tune the configuration
 
 Follows the complete reference for the config prop: 
 
-- **columns**: [column]  
-    - column: object literal containing  
+- **headers**: [header]  
+    - header: object literal containing  
         - **key** \<string\>  
             this is the **very only mandatory** element that must be in the column literal and must have a correspondence in each _data_ array row.
         - _width_ \<integer\>  
@@ -84,13 +84,13 @@ Follows the complete reference for the config prop:
         - _cell_ \<ƒunction\>  
             receiving
             ``` js 
-            row, column
+            row, header
             ```  
             meant to decide to show something different from the row column
         - _header_ \<ƒunction\>  
             receiving
             ```js 
-            column, columnIndex,
+            header, headerIndex,
             filter: {
                 value, setValue,
                 visibility, setVisibility,
@@ -108,14 +108,14 @@ Follows the complete reference for the config prop:
         - _filter_ \<ƒunction\>  
             the filtering ƒunction receiving:
             ``` js
-            userValue, row, columnKey 
+            userValue, row, headerKey 
             ```  
             **this function is expected to return a boolean**  
             and it is mandatory if we want to use the _filter_ object passed to the _header_ and _footer_.
         - _sort_ \<ƒunction\>  
             the sorting ƒunction receiving:
             ``` js
-            rowA, rowB, columnKey, direction
+            rowA, rowB, headerKey, direction
             ```  
             **this function is expected to return `1`, `0` or `-1`**  
             it is mandatory if we want to use the _sort_ object passed to the _header_ and _footer_.  
@@ -125,12 +125,12 @@ Follows the complete reference for the config prop:
             a component that will receive the followinf props: 
             ```js
             visibility: {
-                isVisible, setVisibility, column
+                isVisible, setVisibility, header
             }
             ```  
             this is meant to allow to show a visibility toggler
         - _removedContent_ \<string\>  
-            overriding value to show in the cells of the hidden columns; wins over _commonRemovedContent_ which wins over the default `-` value.  
+            overriding value to show in the cells of the hidden headers; wins over _commonRemovedContent_ which wins over the default `-` value.  
         - _preSorted_ \<enum ['asc', 'desc']\>  
             sort at load the table sorted based on that column;  only the first column with this attribute will be effective.  
             values accepted: **'asc'** or **'desc'**  
@@ -141,7 +141,7 @@ Follows the complete reference for the config prop:
     - row: object literal  
         it contains:  
         **as values** all data needed to display directly (or derive from) what we want to show in the table;  
-        **as keys** it contains the madatory **key** values we set in the **columns**  
+        **as keys** it contains the madatory **key** values we set in the **headers**  
 
 - _dimensions_ : object literal  
     - _height_ \<integer\>  
@@ -178,7 +178,7 @@ Follows the complete reference for the config prop:
             - _downloadJson_: a function to download the current set as JSON  
             - _downloadXsv(separator = ',')_: a function to download the current set as _xsv_ where you defined which one should be the separator (comma, tab, or whatever). The default separator is comma.
 
-    the default content for _header_ and _footer_ cells is the _column.key_ and this can be easily changed specifying the omonimous function in the the column setting.  
+    the default content for _header_ and _footer_ cells is the _header.key_ and this can be easily changed specifying the omonimous function in the the header setting.  
 
 - _Loader_ \<ƒunction\>  
     component expected to return the content to be rendered as a loader when the virtualized rows range changes; it will be automatically rendered in the center of the table.  
@@ -194,24 +194,24 @@ Follows the complete reference for the config prop:
     ``` js
     row, rowIndex, type, from, to
     ```
-    this component is meant to return the content of a sticky column that will be rendered in the right.  
+    this component is meant to return the content of a sticky header that will be rendered in the right.  
     `type` is a value in `['header', 'body', 'footer']`
 - _LeftMost_  \<ƒunction\>  
     it receives the following props:
     ``` js
     row, rowIndex, type, from, to
     ```
-    this component is meant to return the content of a sticky column that will be rendered in the left.  
+    this component is meant to return the content of a sticky header that will be rendered in the left.  
     `type` is a value in `['header', 'body', 'footer']`
 - _commonRemovedContent_ \<string\>  
-    in case we use the _visibilist_ without spefifying on the column the _removedContent_, this will allow to overrive the default value '.'.  
+    in case we use the _visibilist_ without spefifying on the header the _removedContent_, this will allow to overrive the default value '.'.  
 - _defaultColumnWidth_ \<integer\>  
-    each column have a default with of **150px**, this parameter allows to change that default value; still in each column is possible to set a specific value (will be always interpreted in pixel unit)
+    each column have a default with of **150px**, this parameter allows to change that default value; still in each header is possible to set a specific value (will be always interpreted in pixel unit)
 
 
 
 - _cls_ \<object literal\>  
-    this is meant to allow to add some style both to some relevant elements and to the column,row, cell and cross on hover event:  
+    this is meant to allow to add some style both to some relevant elements and to the header,row, cell and cross on hover event:  
     ``` js
     highlight: {
         // if specified will apply the style to the hovered row
@@ -245,10 +245,10 @@ Follows the complete reference for the config prop:
 
 - _events_ \<object literal\>
     ``` js
-    // self explanatory, as second param will get a literal containing the row and column
-    onCellClick: (e, { row, column }) => {},
-    onCellEnter: (e, { row, column }) => {},
-    onCellLeave: (e, { row, column }) => {},
+    // self explanatory, as second param will get a literal containing the row and header
+    onCellClick: (e, { row, header }) => {},
+    onCellEnter: (e, { row, header }) => {},
+    onCellLeave: (e, { row, header }) => {},
 
     // when wun of the cls.highlight is set by default the hovering styles will be applied only on the content hoveing, not by the header nor footer nor leftmost nor rightmost. Those flags can enable that behaviour.
     onHeaderHighlight: false,

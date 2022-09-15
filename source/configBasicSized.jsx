@@ -1,6 +1,6 @@
 import generateRowData from './utils';
 export default size => ({
-    columns: [
+    headers: [
         { key: 'id', },
         { key: 'entityid', },
         { key: 'name', },

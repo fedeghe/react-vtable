@@ -61,19 +61,19 @@ export const uniqueID = {
         (acc, filterK) => acc.filter(row => fls[filterK].value === '' || !fls[filterK].visibility || fls[filterK].filter({
             userValue: fls[filterK].value,
             row,
-            columnKey: filterK
+            headerKey: filterK
         })),
         originalData
     ),
     
     // must either match one of the specified user filter function 
-    // either (in case no filter is specified) match column[key]
-    __globalFilter = (value, columns, originalData) =>     
+    // either (in case no filter is specified) match header[key]
+    __globalFilter = (value, headers, originalData) =>     
         originalData.filter(row => 
-            columns.filter(column => isFunction(column.filter)).some(column => 
-                column.filter({userValue: value, row, columnKey: column.key})
+            headers.filter(header => isFunction(header.filter)).some(header => 
+                header.filter({userValue: value, row, headerKey: header.key})
             ) 
-            || columns.some(column => `${row[column.key]}`.includes(value))
+            || headers.some(header => `${row[header.key]}`.includes(value))
         ),
 
     __cleanFilters = _filters => Object.keys(_filters).reduce((acc, k) => {
@@ -88,7 +88,7 @@ export const uniqueID = {
     __sort = (what, _sorter, _sortingColumn, _sortingDirection) => _sorter
         ? [...what].sort((a, b) => _sorter({
             rowA: a, rowB: b,
-            columnKey: _sortingColumn,
+            headerKey: _sortingColumn,
             direction: _sortingDirection
         }))
         : [...what],

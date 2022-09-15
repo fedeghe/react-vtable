@@ -1,8 +1,8 @@
 {
-    "columns": [],
+    "headers": [],
     "gap": 10,
     "sorting": {
-        "column": null,
+        "header": null,
         "direction": null,
         "sorter": null
     },

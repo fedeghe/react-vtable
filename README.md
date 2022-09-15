@@ -11,7 +11,7 @@ The very minimum, but not that useful, config might look like the following:
 
 ``` js
 const config = {
-    columns: [
+    headers: [
         { key: 'name', },
         { key: 'surname', },
         { key: 'address', },
@@ -73,8 +73,8 @@ in `source/Playground.jsx` use `configBig.jsx` and try to tune the configuration
 
 Follows the complete reference for the config prop: 
 
-- **columns**: [column]  
-    - column: object literal containing  
+- **headers**: [header]  
+    - header: object literal containing  
         - **key** \<string\>  
             this is the **very only mandatory** element that must be in the column literal and must have a correspondence in each _data_ array row.
         - _width_ \<integer\>  
@@ -128,7 +128,7 @@ Follows the complete reference for the config prop:
             ```  
             this is meant to allow to show a visibility toggler
         - _removedContent_ \<string\>  
-            overriding value to show in the cells of the hidden columns; wins over _commonRemovedContent_ which wins over the default `-` value.  
+            overriding value to show in the cells of the hidden headersheaders; wins over _commonRemovedContent_ which wins over the default `-` value.  
         - _preSorted_ \<enum ['asc', 'desc']\>  
             sort at load the table sorted based on that column;  only the first column with this attribute will be effective.  
             values accepted: **'asc'** or **'desc'**  
@@ -139,7 +139,7 @@ Follows the complete reference for the config prop:
     - row: object literal  
         it contains:  
         **as values** all data needed to display directly (or derive from) what we want to show in the table;  
-        **as keys** it contains the madatory **key** values we set in the **columns**  
+        **as keys** it contains the madatory **key** values we set in the **headers**  
 
 - _dimensions_ : object literal  
     - _height_ \<integer\>  

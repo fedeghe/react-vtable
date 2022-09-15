@@ -2,7 +2,7 @@ import React, { useContext, useCallback } from 'react';
 import TableContext from '../../Context';
 import { ACTION_TYPES } from '../../reducer';
 import useStyles from './style.js';
-export default ({row, column, rowIndex, columnIndex, cls, children, wrapperStyle}) => {
+export default ({row, header, rowIndex, headerIndex, cls, children, wrapperStyle}) => {
     const {
             state: {
                 dimensions: {
@@ -25,22 +25,22 @@ export default ({row, column, rowIndex, columnIndex, cls, children, wrapperStyle
         } = useContext(TableContext),
         classes = useStyles({ rowHeight }),
         onMouseEnter = useCallback(e => {
-            onCellEnter && onCellEnter.call(e, e, { row, column, rowIndex: fromRow + rowIndex, colIndex: columnIndex });
+            onCellEnter && onCellEnter.call(e, e, { row, header, rowIndex: fromRow + rowIndex, colIndex: headerIndex });
             dispatch({
                 type: ACTION_TYPES.CELL_ENTER,
                 payload: {
                     row,
-                    column,
+                    header,
                     rowIndex: fromRow + rowIndex,
-                    columnIndex
+                    headerIndex
                 }
             });
-        }, [onCellEnter, column, columnIndex, dispatch, fromRow, row, rowIndex]),
+        }, [onCellEnter, header, headerIndex, dispatch, fromRow, row, rowIndex]),
         onMouseLeave = useCallback(e => {
-            onCellLeave && onCellLeave.call(e, e, { row, column, rowIndex: fromRow + rowIndex, columnIndex });
+            onCellLeave && onCellLeave.call(e, e, { row, header, rowIndex: fromRow + rowIndex, headerIndex });
             dispatch({ type: ACTION_TYPES.CELL_LEAVE });
-        }, [onCellLeave, column, columnIndex, dispatch, fromRow, row, rowIndex]),
-        onClick = useCallback(e => onCellClick && onCellClick.call(e, e, { row, column }), [onCellClick, column, row]),
+        }, [onCellLeave, header, headerIndex, dispatch, fromRow, row, rowIndex]),
+        onClick = useCallback(e => onCellClick && onCellClick.call(e, e, { row, header }), [onCellClick, header, row]),
         handlers = {
             onMouseEnter,
             onMouseLeave,

@@ -1,9 +1,9 @@
 
-export const basicFilter = ({userValue, row, columnKey}) =>
-        `${row[columnKey]}`.includes(userValue),
+export const basicFilter = ({userValue, row, headerKey}) =>
+        `${row[headerKey]}`.includes(userValue),
 
-    basicSort = ({rowA, rowB, columnKey, direction}) => {
-        const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
+    basicSort = ({rowA, rowB, headerKey, direction}) => {
+        const v = rowA[headerKey] > rowB[headerKey] ? 1 : -1;
         return {
             asc : v,
             desc: -v

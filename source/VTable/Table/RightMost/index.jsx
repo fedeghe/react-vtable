@@ -16,10 +16,10 @@ export default ({cls, opts}) => {
         Boolean(RightMost) && (
             <Th
                 cls={`TableRightMost ${cls}`}
-                column={null}
+                header={null}
                 row={opts.row}
                 rowIndex={opts.rowIndex}
-                columnIndex={null}
+                headerIndex={null}
                 pos="rightMost"
             ><RightMost fromRow={fromRow} toRow={toRow} {...opts}/></Th>
         )

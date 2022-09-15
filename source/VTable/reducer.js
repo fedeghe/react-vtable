@@ -38,20 +38,20 @@ export const ACTION_TYPES = {
 // eslint-disable-next-line one-var
 const actions = {
         [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: ({
-            payload, columns, virtual, LeftMost, RightMost
+            payload, headers, virtual, LeftMost, RightMost
         }) => {
             const { key, isVisible } = payload,
-                cIndex = columns.findIndex(c => c.key === key);
+                cIndex = headers.findIndex(c => c.key === key);
             if (cIndex === -1) return {};
 
             // eslint-disable-next-line one-var
-            const newColumns = __arrRep(columns, cIndex, { ...columns[cIndex], isVisible });
+            const newHeaders = __arrRep(headers, cIndex, { ...headers[cIndex], isVisible });
 
             return {
-                columns: newColumns,
+                headers: newHeaders,
                 virtual: {
                     ...virtual,
-                    colspan: newColumns.filter(c => c.isVisible).length + !!LeftMost + !!RightMost
+                    colspan: newHeaders.filter(c => c.isVisible).length + !!LeftMost + !!RightMost
                 }
             };
         },
@@ -64,14 +64,14 @@ const actions = {
         }),
 
         [ACTION_TYPES.GLOBAL_FILTER]: ({
-            payload : value, filters, columns, originalData, sorter,
+            payload : value, filters, headers, originalData, sorter,
             sortingColumn, sortingDirection, virtualization, virtual,
             rowHeight, renderableElements, contentHeight, dataHeight
         }) => {
             const _filterNumbers = Object.values(filters).filter(f => f.value && f.visibility).length,
                 _filteredData = _filterNumbers
                     ? __filter(filters, _filteredData)
-                    : __globalFilter(value, columns, originalData),
+                    : __globalFilter(value, headers, originalData),
                 _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
                 _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
                 _updatedVirtual = __getVirtual({
@@ -97,7 +97,7 @@ const actions = {
         },
 
         [ACTION_TYPES.FILTER]: ({
-            payload, filters, originalData, globalFilterValue, columns, sorter, sortingColumn, 
+            payload, filters, originalData, globalFilterValue, headers, sorter, sortingColumn, 
             sortingDirection, virtualization, virtual,
             rowHeight, renderableElements, contentHeight, dataHeight
         }) => {
@@ -107,14 +107,14 @@ const actions = {
             // eslint-disable-next-line one-var
             const _filters = {
                 ...filters,
-                [payload.column]: {
-                    ...filters[payload.column],
+                [payload.header]: {
+                    ...filters[payload.header],
                     ...updatedFields
                 }
             };
             let _filteredData = __filter(_filters, originalData);
             if (globalFilterValue) {
-                _filteredData = __globalFilter(globalFilterValue, columns, _filteredData);
+                _filteredData = __globalFilter(globalFilterValue, headers, _filteredData);
             }
             // eslint-disable-next-line one-var
             const _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
@@ -172,7 +172,7 @@ const actions = {
         [ACTION_TYPES.SORT]: ({
             payload, currentData, fromRow, toRow
         }) => {
-            const _currentData = __sort(currentData, payload.sorter, payload.column, payload.direction);
+            const _currentData = __sort(currentData, payload.sorter, payload.header, payload.direction);
             return {
                 isSorting: true,
                 currentData: _currentData,
@@ -186,16 +186,16 @@ const actions = {
             rows: [...filteredData].slice(fromRow, toRow),
             isSorting: false,
             sorting: {
-                column: null,
+                header: null,
                 direction: null,
                 sorter: null
             }
         }),
 
         [ACTION_TYPES.CELL_ENTER]: ({payload, rhtID}) => ({
-            activeColumn: payload?.column?.key,
+            activeColumn: payload?.header?.key,
             activeRow: payload?.row[rhtID],
-            activeColumnIndex: payload?.columnIndex,
+            activeColumnIndex: payload?.headerIndex,
             activeRowIndex: payload?.rowIndex
         }),
 
@@ -244,7 +244,7 @@ const actions = {
                 total,
                 filters,
                 globalFilterValue,
-                columns,
+                headers,
                 originalData, filteredData, currentData,
                 gap,
                 LeftMost, RightMost,
@@ -252,7 +252,7 @@ const actions = {
                     rowHeight
                 },
                 sorting: {
-                    column: sortingColumn,
+                    header: sortingColumn,
                     direction: sortingDirection,
                     sorter
                 },
@@ -269,16 +269,16 @@ const actions = {
 
             params = {
                 [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: {
-                    payload, columns, virtual, LeftMost, RightMost
+                    payload, headers, virtual, LeftMost, RightMost
                 },
                 [ACTION_TYPES.LOADING]: {virtual},
                 [ACTION_TYPES.GLOBAL_FILTER]: {
-                    payload, filters, columns, originalData, sorter, sortingColumn, sortingDirection,
+                    payload, filters, headers, originalData, sorter, sortingColumn, sortingDirection,
                     virtualization, virtual,
                     rowHeight, renderableElements, contentHeight, dataHeight
                 },
                 [ACTION_TYPES.FILTER]: {
-                    payload, filters, originalData, globalFilterValue, columns, sorter, sortingColumn, 
+                    payload, filters, originalData, globalFilterValue, headers, sorter, sortingColumn, 
                     sortingDirection, virtualization, virtual,
                     rowHeight, renderableElements, contentHeight, dataHeight
                 },
@@ -313,7 +313,7 @@ const actions = {
         let activeFiltersCount = 0;
         const {
             data = [],
-            columns = [],
+            headers = [],
             dimensions: {
                 height = HEIGHT,
                 width = WIDTH,
@@ -378,19 +378,19 @@ const actions = {
         } = cnf;
 
         // eslint-disable-next-line one-var
-        const _columns = columns.map(
-            column => ({
-                ...column,
-                isVisible: 'isVisible' in column ? column.isVisible : true
+        const _headers = headers.map(
+            header => ({
+                ...header,
+                isVisible: 'isVisible' in header ? header.isVisible : true
             })).map(
-                column => column.width ? column : { ...column, width: defaultColumnWidth }
+                header => header.width ? header : { ...header, width: defaultColumnWidth }
             ),
-            filters = _columns.reduce((acc, column) => {
-                if (isFunction(column.filter)) {
-                    const value = column.preFiltered || '';
+            filters = _headers.reduce((acc, header) => {
+                if (isFunction(header.filter)) {
+                    const value = header.preFiltered || '';
                     activeFiltersCount += !!value;
-                    acc[column.key] = {
-                        filter: column.filter,
+                    acc[header.key] = {
+                        filter: header.filter,
                         value,
                         visibility: !!value
                     };
@@ -408,7 +408,7 @@ const actions = {
             // prefilter ? 
             filteredData = __filter(filters,
                 globalPreFilter
-                    ? __globalFilter(globalPreFilter, columns, originalData)
+                    ? __globalFilter(globalPreFilter, headers, originalData)
                     : originalData
             ),
 
@@ -433,12 +433,12 @@ const actions = {
 
 
             // initial sorting ? 
-            presortIndex = columns.findIndex(c => 'preSorted' in c && ['asc', 'desc'].includes(c.preSorted));
+            presortIndex = headers.findIndex(c => 'preSorted' in c && ['asc', 'desc'].includes(c.preSorted));
 
         // eslint-disable-next-line one-var
         let currentData = [...filteredData],
             sorting = {
-                column: null,
+                header: null,
                 direction: null,
                 sorter: null,
             },
@@ -446,20 +446,20 @@ const actions = {
 
 
         if (presortIndex >= 0) {
-            // throw an exception in case the sort function is not in the column
-            if (!isFunction(columns[presortIndex].sort)) {
-                throw new Error("a presorted column needs a sort function");
+            // throw an exception in case the sort function is not in the header
+            if (!isFunction(headers[presortIndex].sort)) {
+                throw new Error("a presorted header needs a sort function");
             }
-            currentData = currentData.sort((a, b) => columns[presortIndex].sort({
+            currentData = currentData.sort((a, b) => headers[presortIndex].sort({
                 rowA: a,
                 rowB: b,
-                columnKey: columns[presortIndex].key,
-                direction: columns[presortIndex].preSorted
+                headerKey: headers[presortIndex].key,
+                direction: headers[presortIndex].preSorted
             }));
             sorting = {
-                column: columns[presortIndex].key,
-                direction: columns[presortIndex].preSorted,
-                sorter: columns[presortIndex].sort
+                header: headers[presortIndex].key,
+                direction: headers[presortIndex].preSorted,
+                sorter: headers[presortIndex].sort
             };
             isSorting = true;
         }
@@ -467,7 +467,7 @@ const actions = {
         return {
             ...cnf,
             gap,
-            columns: _columns,
+            headers: _headers,
             sorting,
             isSorting,
 
@@ -533,7 +533,7 @@ const actions = {
                 },
             },
             virtual: {
-                colspan: _columns.filter(c => c.isVisible).length + !!LeftMost + !!RightMost,
+                colspan: _headers.filter(c => c.isVisible).length + !!LeftMost + !!RightMost,
                 moreSpaceThanContent,
                 dataHeight,
                 contentHeight,

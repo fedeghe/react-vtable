@@ -18,9 +18,9 @@ const isFunction = f => typeof f === 'function',
         delete r[rhtID];
         return r;
     }),
-    asXsv = (columns, jsonData, rhtID, separator) => {
+    asXsv = (headers, jsonData, rhtID, separator) => {
         const lines = [],
-            keys = columns.map(c => c.key);
+            keys = headers.map(c => c.key);
         lines.push(keys.join(separator));
         removeID(jsonData, rhtID).forEach(row => {
             lines.push(keys.map(k => escapeComma(row[k])).join(separator));

@@ -10,8 +10,8 @@ import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event"
 import { configure } from "@testing-library/dom";
 
-import VTable from "../dist/index.js";
-// import VTable from "../source/VTable";
+// import VTable from "../dist/index.js";
+import VTable from "../source/VTable";
 import config from "./configs/basic";
 
 configure({
@@ -27,16 +27,16 @@ const Sorter =  ({sort}) => {
     </div>;
 };
 
-config.columns[0].header = ({
-    column, columnIndex,
+config.headers[0].header = ({
+    header, headerIndex,
     sort, //: {sortAsc, sortDesc, unSort, direction} = {}
     isSorting
 }) => <>
-    <span>{column.key + '_' + columnIndex}</span>
-    <Sorter {...{ column, columnIndex, sort, isSorting }} />
+    <span>{header.key + '_' + headerIndex}</span>
+    <Sorter {...{ header, headerIndex, sort, isSorting }} />
 </>;
-config.columns[0].sort = ({rowA, rowB, columnKey, direction}) => {
-    const v = rowA[columnKey] > rowB[columnKey] ? 1 : -1;
+config.headers[0].sort = ({rowA, rowB, headerKey, direction}) => {
+    const v = rowA[headerKey] > rowB[headerKey] ? 1 : -1;
     return {
         asc : v,
         desc: -v
