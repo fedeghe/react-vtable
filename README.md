@@ -1,5 +1,5 @@
 
-# react-vtable (WIP)
+# react-vtable
 
 ## install
 
