@@ -2,15 +2,15 @@ import React from 'react';
 import generateRowData from './utils';
 
 
-import { basicFilter, basicSort } from './sample/basicFilterAndSort';
-import HeaderCaption from './sample/HeaderCaption';
-import FooterCaption from './sample/FooterCaption';
-import ColumnHeader from './sample/ColumnHeader';
-import ColumnFooter from './sample/ColumnFooter';
-import LeftMost from './sample/LeftMost';
-import RightMost from './sample/RightMost';
+import { basicFilter, basicSort } from './basicFilterAndSort';
+import HeaderCaption from './HeaderCaption';
+import FooterCaption from './FooterCaption';
+import ColumnHeader from './ColumnHeader';
+import ColumnFooter from './ColumnFooter';
+import LeftMost from './LeftMost';
+import RightMost from './RightMost';
 
-import Visibilist from './sample/Visibilist';
+import Visibilist from './Visibilist';
 
 export default size => ({
     headers: [{
