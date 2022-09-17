@@ -1,5 +1,5 @@
 import React from 'react'
-import generateRowData from './../../source/utils';
+import generateRowData from './../../source/sample/utils';
 export default {
     dimensions: {
         height: 200,

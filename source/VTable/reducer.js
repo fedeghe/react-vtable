@@ -266,44 +266,37 @@ const actions = {
                 },
                 rhtID
             } = oldState,
-
+            emptyObjFuncf = () => ({}),
             params = {
-                [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: {
-                    payload, headers, virtual, LeftMost, RightMost
-                },
-                [ACTION_TYPES.LOADING]: {virtual},
-                [ACTION_TYPES.GLOBAL_FILTER]: {
+                [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: ()  =>({payload, headers, virtual, LeftMost, RightMost}),
+                [ACTION_TYPES.LOADING]: ()  =>({virtual}),
+                [ACTION_TYPES.GLOBAL_FILTER]: ()  =>({
                     payload, filters, headers, originalData, sorter, sortingColumn, sortingDirection,
                     virtualization, virtual,
                     rowHeight, renderableElements, contentHeight, dataHeight
-                },
-                [ACTION_TYPES.FILTER]: {
+                }),
+                [ACTION_TYPES.FILTER]: ()  =>({
                     payload, filters, originalData, globalFilterValue, headers, sorter, sortingColumn, 
                     sortingDirection, virtualization, virtual,
                     rowHeight, renderableElements, contentHeight, dataHeight
-                },
-                [ACTION_TYPES.UNFILTER]: {
+                }),
+                [ACTION_TYPES.UNFILTER]: ()  =>({
                     originalData, sorter, sortingColumn, sortingDirection, virtualization, filters, virtual,
                     rowHeight, renderableElements, contentHeight, dataHeight
-                },
-                [ACTION_TYPES.SORT]: {
-                    payload, currentData, fromRow, toRow
-                },
-                [ACTION_TYPES.UNSORT]: {
-                    filteredData, fromRow, toRow
-                },
-                [ACTION_TYPES.CELL_ENTER]: {payload, rhtID},
-                [ACTION_TYPES.CELL_LEAVE]: {},
-                [ACTION_TYPES.SCROLL]: {
+                }),
+                [ACTION_TYPES.SORT]: ()  =>({payload, currentData, fromRow, toRow}),
+                [ACTION_TYPES.UNSORT]: ()  =>({filteredData, fromRow, toRow}),
+                [ACTION_TYPES.CELL_ENTER]: ()  =>({payload, rhtID}),
+                [ACTION_TYPES.SCROLL]: ()  =>({
                     payload, moreSpaceThanContent, rowHeight, gap, renderableElements,
                     total, carpetHeight, contentHeight, dataHeight, virtualization, currentData,
                     virtual
-                },
-            };
+                }),
+            }[type] || emptyObjFuncf;
         if (type in actions){
             return {
                 ...oldState,
-                ...actions[type](params[type])
+                ...actions[type](params())
             };
         }
         return oldState;
