@@ -61,7 +61,7 @@ export default size => ({
         // preFiltered: '34',
     }, {
         key: 'date',
-        isVisible: false,
+        // isVisible: false,
         // cell: ({ row, header }) => row[header.key],
     }, {
         key: 'actions',
