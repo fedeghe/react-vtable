@@ -113,7 +113,11 @@ export default () => {
                 content = header.isVisible ? header.key : '';
             }
             return content;
-        }, [headerSortDir, unSort, sortingDirection, sortingColumn, filters, setFilterValue, setFilterVisibility, unFilter, activeFiltersCount, isFiltering, setVisibilistVisibility]);
+        }, [
+            headerSortDir, unSort, sortingDirection, sortingColumn,
+            filters, setFilterValue, setFilterVisibility, unFilter,
+            activeFiltersCount, isFiltering, setVisibilistVisibility
+        ]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>

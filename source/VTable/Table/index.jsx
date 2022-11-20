@@ -3,7 +3,7 @@ import NoData from './NoData';
 
 import TBody from './TBody';
 import THeader from './THeader';
-// import Ter from './Ter';
+import Ter from './Ter';
 import TFooter from './TFooter';
 import TableContext from './../Context';
 import { debounce } from './../utils';
