@@ -15,7 +15,6 @@ export default ({ row, header, rowIndex, headerIndex, cls, children, pos, wrappe
             },
             dispatch
         } = useContext(TableContext),
-
         dealWithEvent = {
             header: onHeaderHighlight,
             footer: onFooterHighlight,

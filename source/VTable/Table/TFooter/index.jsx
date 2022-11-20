@@ -34,6 +34,42 @@ export default () => {
 
         classes = useStyles({footerHeight}),
 
+        headerSortDir = useCallback(({header, direction}) => 
+            () => dispatch({
+                type: ACTION_TYPES.SORT,
+                payload: {
+                    header: header.key,
+                    direction,
+                    sorter: header.sort
+                }
+            }),
+            [dispatch]
+        ),
+        unSort = useCallback(() => dispatch({type: ACTION_TYPES.UNSORT}), [dispatch]),
+        setFilterValue = useCallback(({header }) => debounce(value => dispatch({
+            type: ACTION_TYPES.FILTER,
+            payload: {
+                header: header.key,
+                value
+            }
+        }), filteringDebounceTime), [dispatch, filteringDebounceTime]),
+        setFilterVisibility = useCallback(({header}) => visibility => 
+            dispatch({
+                type: ACTION_TYPES.FILTER,
+                payload: {
+                    header: header.key,
+                    visibility
+                }
+            }), [dispatch]),
+        unFilter = useCallback(() => debounce(() => dispatch({type: ACTION_TYPES.UNFILTER}), filteringDebounceTime), [dispatch, filteringDebounceTime]),
+        setVisibilistVisibility = useCallback(({header}) => visibility => dispatch({
+            type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
+            payload: {
+                key: header.key,
+                isVisible: visibility
+            }
+        }), [dispatch]),
+
         getColumnContent = useCallback(({header, headerIndex}) => {
             let content;
             if ('footer' in header) {
@@ -44,23 +80,9 @@ export default () => {
                     };
                     if (isFunction(header.sort)) {
                         footerProps.sort = {
-                            sortAsc: () => dispatch({
-                                type: ACTION_TYPES.SORT,
-                                payload: {
-                                    header: header.key,
-                                    direction: 'asc',
-                                    sorter: header.sort
-                                }
-                            }),
-                            sortDesc: () => dispatch({
-                                type: ACTION_TYPES.SORT,
-                                payload: {
-                                    header: header.key,
-                                    direction: 'desc',
-                                    sorter: header.sort
-                                }
-                            }),
-                            unSort: () => dispatch({type: ACTION_TYPES.UNSORT}),
+                            sortAsc: headerSortDir({header, direction: 'asc'}),
+                            sortDesc: headerSortDir({header, direction: 'desc'}),
+                            unSort,
                             direction: sortingDirection,
                             isSorting: header.key === sortingColumn,
                         };
@@ -70,36 +92,17 @@ export default () => {
 
                         footerProps.filter = {
                             value: theFilter?.value,
-                            setValue: debounce(value => dispatch({
-                                type: ACTION_TYPES.FILTER,
-                                payload: {
-                                    header: header.key,
-                                    value
-                                }
-                            }), filteringDebounceTime),
+                            setValue: setFilterValue({header}),
                             visibility: theFilter?.visibility,
-                            setVisibility: visibility => 
-                                dispatch({
-                                    type: ACTION_TYPES.FILTER,
-                                    payload: {
-                                        header: header.key,
-                                        visibility
-                                    }
-                                }),
-                            unFilter: debounce(() => dispatch({type: ACTION_TYPES.UNFILTER}), filteringDebounceTime),
+                            setVisibility: setFilterVisibility({header}),
+                            unFilter: unFilter(),
                             activeFiltersCount,
                             isFiltering
                         };
                     }
                     if (isFunction(header.visibilist)){
                         footerProps.visibility = {
-                            setVisibility: visibility => dispatch({
-                                type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
-                                payload: {
-                                    key: header.key,
-                                    isVisible: visibility
-                                }
-                            }),
+                            setVisibility: setVisibilistVisibility({header}),
                             isVisible: header.isVisible,
                             header,
                         };
@@ -112,11 +115,7 @@ export default () => {
                 content = header.isVisible ? header.key : '';
             }
             return content;
-        }, [
-            sortingDirection, sortingColumn, dispatch,
-            filters, filteringDebounceTime,
-            activeFiltersCount, isFiltering
-        ]);
+        }, [headerSortDir, unSort, sortingDirection, sortingColumn, filters, setFilterValue, setFilterVisibility, unFilter, activeFiltersCount, isFiltering, setVisibilistVisibility]);
         
 
     return (

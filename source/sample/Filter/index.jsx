@@ -16,7 +16,7 @@ export default ({filter}) => {
                 setVisibility(false);
             }}/>
             
-            {/* <i className={['bi', 'bi-filter-circle-fill', classes.Pointer].join(' ')} title={"unfilter all"} onClick={unFilter}/> */}
+            <i className={['bi', 'bi-filter-circle-fill', classes.Pointer].join(' ')} title={"unfilter all"} onClick={() => console.log('unfilter') || unFilter()}/>
         </div>
         : <i className={['bi', 'bi-filter', classes.Pointer].join(' ')} onClick={() => {
             setHuman(true);
