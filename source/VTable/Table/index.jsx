@@ -3,8 +3,13 @@ import NoData from './NoData';
 
 import TBody from './TBody';
 import THeader from './THeader';
-// import Ter from './Ter';
 import TFooter from './TFooter';
+/**
+ * THeader and TFooter are pretty the same thus I tried to distill one single element
+ * accepting a `typehf` parameter  in ['header', 'footer']
+ * but for some reason still not clear there are some problems filter focus related
+ */
+// import Ter from './Ter';
 import TableContext from './../Context';
 import { debounce } from './../utils';
 import useStyles from './style.js';
