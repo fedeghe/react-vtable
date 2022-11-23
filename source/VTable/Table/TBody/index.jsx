@@ -61,7 +61,7 @@ export default () => {
             },
             [activeColumn, activeRow, cellHightlightClass, classes.AlTop, columnHighlightClass, commonRemovedContent, crossHighlightClass, rhtID]
         ),
-        getLRmostClasses = useCallback(
+        getSideMostClasses = useCallback(
             ({row, dirClass}) => `${classes.TbodyThMost} ${dirClass} ${classes.AlTop} ${activeRow === row[rhtID] ? (crossHighlightClass || rowHighlightClass) : ''}`,
             [activeRow, classes.AlTop, classes.TbodyThMost, crossHighlightClass, rhtID, rowHighlightClass]
         ),
@@ -71,16 +71,16 @@ export default () => {
                 key={row[rhtID]}
             >
                 <LeftMost
-                    cls={getLRmostClasses({row, dirClass: classes.TbodyThLeftMost})}
+                    cls={getSideMostClasses({row, dirClass: classes.TbodyThLeftMost})}
                     opts={{ row, rowIndex: rowIndex + fromRow, type: 'body' }}
                 />
                 {headers.map(getTdContent({row, rowIndex}))}
                 <RightMost
-                cls={getLRmostClasses({row, dirClass: classes.TbodyThRightMost})}
+                cls={getSideMostClasses({row, dirClass: classes.TbodyThRightMost})}
                     opts={{ row, rowIndex: rowIndex + fromRow, type: 'body'}}
                 />
             </Tr>
-        ), [activeRow, classes.TbodyThLeftMost, classes.TbodyThRightMost, crossHighlightClass, fromRow, getLRmostClasses, getTdContent, headers, rhtID, rowHighlightClass]);
+        ), [activeRow, classes.TbodyThLeftMost, classes.TbodyThRightMost, crossHighlightClass, fromRow, getSideMostClasses, getTdContent, headers, rhtID, rowHighlightClass]);
 
     return (
         <tbody>
