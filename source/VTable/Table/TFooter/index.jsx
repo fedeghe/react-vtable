@@ -119,7 +119,17 @@ export default () => {
             headerSortDir, unSort, sortingDirection, sortingColumn,
             filters, setFilterValue, setFilterVisibility, unFilter,
             activeFiltersCount, isFiltering, setVisibilistVisibility
-        ]);
+        ]),
+        getHeaderContent = useCallback((header, headerIndex) => (
+            <Th
+                wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
+                key={`foot${headerIndex}`}
+                cls={`TableFooter ${classes.TfootTh} ${activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
+                header={header}
+                headerIndex={headerIndex}
+                pos="footer"
+            >{getColumnContent({header, headerIndex})}</Th>
+        ), [activeColumn, classes.TfootTh, columnHighlightClass, crossHighlightClass, getColumnContent]);
         
 
     return (
@@ -127,16 +137,7 @@ export default () => {
         <tfoot className={classes.Tfoot}>
             <Tr cls={classes.Tfoot}>
                 <LeftMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterLeft}`} opts={{type: 'footer'}}/>
-                {headers.map((header, headerIndex) => (
-                    <Th
-                        wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
-                        key={`foot${headerIndex}`}
-                        cls={`TableFooter ${classes.TfootTh} ${activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                        header={header}
-                        headerIndex={headerIndex}
-                        pos="footer"
-                    >{getColumnContent({header, headerIndex})}</Th>
-                ))}
+                {headers.map(getHeaderContent)}
                 <RightMost cls={`${classes.TfootTh} ${classes.TorigFooter} ${classes.TorigFooterRight}`} opts={{type: 'footer'}}/>
             </Tr>
         </tfoot>

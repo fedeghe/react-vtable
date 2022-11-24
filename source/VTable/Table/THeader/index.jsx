@@ -117,22 +117,23 @@ export default () => {
             headerSortDir, unSort, sortingDirection, sortingColumn,
             filters, setFilterValue, setFilterVisibility, unFilter,
             activeFiltersCount, isFiltering, setVisibilistVisibility
-        ]);
+        ]),
+        getHeaderContent = useCallback((header, headerIndex) => (
+            <Th
+                wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
+                key={`head${headerIndex}`}
+                cls={`TableHeader ${classes.TheadTh} ${activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
+                header={header}
+                headerIndex={headerIndex}
+                pos="header"
+            >{getColumnContent({header, headerIndex})}</Th>
+        ), [activeColumn, classes.TheadTh, columnHighlightClass, crossHighlightClass, getColumnContent]);
         
     return (Boolean(headerHeight) &&
         <thead className={classes.Thead}>
             <Tr cls={classes.Thead}>
                 <LeftMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderLeft}`} opts={{type:'header'}}/>
-                {headers.map((header, headerIndex) => (
-                    <Th
-                        wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
-                        key={`head${headerIndex}`}
-                        cls={`TableHeader ${classes.TheadTh} ${activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                        header={header}
-                        headerIndex={headerIndex}
-                        pos="header"
-                    >{getColumnContent({header, headerIndex})}</Th>
-                ))}
+                {headers.map(getHeaderContent)}
                 <RightMost cls={`${classes.TheadTh} ${classes.TorigHeader} ${classes.TorigHeaderRight}`} opts={{type: 'header'}}/>
             </Tr>
         </thead>
