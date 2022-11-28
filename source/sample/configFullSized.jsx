@@ -135,7 +135,7 @@ export default size => ({
     },
 
     footer: {
-        height: 60,
+        height: 40,
         caption: {
             Component: FooterCaption,
             height: 25
@@ -191,8 +191,8 @@ export default size => ({
     //     verticalCutoff: 0
     // }
 
-    // debounceTimes: {
-    //     filtering: 5,
-    //     scrolling: 10
-    // }
+    debounceTimes: {
+        // filtering: 5,
+        scrolling: 10
+    }
 });

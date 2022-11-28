@@ -34,101 +34,101 @@ export default () => {
 
         classes = useStyles({footerHeight}),
 
-        headerSortDir = useCallback(({header, direction}) => 
+        footerSortDir = useCallback(({footer, direction}) => 
             () => dispatch({
                 type: ACTION_TYPES.SORT,
                 payload: {
-                    header: header.key,
+                    header: footer.key,
                     direction,
-                    sorter: header.sort
+                    sorter: footer.sort
                 }
             }),
             [dispatch]
         ),
         unSort = useCallback(() => dispatch({type: ACTION_TYPES.UNSORT}), [dispatch]),
-        setFilterValue = useCallback(({header }) => debounce(value => dispatch({
+        setFilterValue = useCallback(({footer }) => debounce(value => dispatch({
             type: ACTION_TYPES.FILTER,
             payload: {
-                header: header.key,
+                header: footer.key,
                 value
             }
         }), filteringDebounceTime), [dispatch, filteringDebounceTime]),
-        setFilterVisibility = useCallback(({header}) => visibility => 
+        setFilterVisibility = useCallback(({footer}) => visibility => 
             dispatch({
                 type: ACTION_TYPES.FILTER,
                 payload: {
-                    header: header.key,
+                    header: footer.key,
                     visibility
                 }
             }), [dispatch]),
         unFilter = useCallback(() => debounce(() => dispatch({type: ACTION_TYPES.UNFILTER}), filteringDebounceTime), [dispatch, filteringDebounceTime]),
-        setVisibilistVisibility = useCallback(({header}) => visibility => dispatch({
+        setVisibilistVisibility = useCallback(({footer}) => visibility => dispatch({
             type: ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY,
             payload: {
-                key: header.key,
+                key: footer.key,
                 isVisible: visibility
             }
         }), [dispatch]),
 
-        getColumnContent = useCallback(({header, headerIndex}) => {
+        getColumnContent = useCallback(({footer, footerIndex}) => {
             let content;
-            if ('footer' in header) {
-                if (isFunction(header.footer)) {
+            if ('footer' in footer) {
+                if (isFunction(footer.footer)) {
                     const footerProps = {
-                        header,
-                        headerIndex,
+                        footer,
+                        footerIndex,
                     };
-                    if (isFunction(header.sort)) {
+                    if (isFunction(footer.sort)) {
                         footerProps.sort = {
-                            sortAsc: headerSortDir({header, direction: 'asc'}),
-                            sortDesc: headerSortDir({header, direction: 'desc'}),
+                            sortAsc: footerSortDir({footer, direction: 'asc'}),
+                            sortDesc: footerSortDir({footer, direction: 'desc'}),
                             unSort,
                             direction: sortingDirection,
-                            isSorting: header.key === sortingColumn,
+                            isSorting: footer.key === sortingColumn,
                         };
                     }
-                    if (isFunction(header.filter)) {
-                        const theFilter = filters?.[header.key];
+                    if (isFunction(footer.filter)) {
+                        const theFilter = filters?.[footer.key];
 
                         footerProps.filter = {
                             value: theFilter?.value,
-                            setValue: setFilterValue({header}),
+                            setValue: setFilterValue({footer}),
                             visibility: theFilter?.visibility,
-                            setVisibility: setFilterVisibility({header}),
+                            setVisibility: setFilterVisibility({footer}),
                             unFilter: unFilter(),
                             activeFiltersCount,
                             isFiltering
                         };
                     }
-                    if (isFunction(header.visibilist)){
+                    if (isFunction(footer.visibilist)){
                         footerProps.visibility = {
-                            setVisibility: setVisibilistVisibility({header}),
-                            isVisible: header.isVisible,
-                            header,
+                            setVisibility: setVisibilistVisibility({footer}),
+                            isVisible: footer.isVisible,
+                            footer,
                         };
                     }
-                    content = header.footer(footerProps);
+                    content = footer.footer(footerProps);
                 } else {
-                    content = header.isVisible ? header.footer : '';
+                    content = footer.isVisible ? footer.footer : null;
                 }
             } else {
-                content = header.isVisible ? header.key : '';
+                content = footer.isVisible ? footer.key : null;
             }
             return content;
         }, [
-            headerSortDir, unSort, sortingDirection, sortingColumn,
+            footerSortDir, unSort, sortingDirection, sortingColumn,
             filters, setFilterValue, setFilterVisibility, unFilter,
             activeFiltersCount, isFiltering, setVisibilistVisibility
         ]),
-        getHeaderContent = useCallback((header, headerIndex) => (
+        getHeaderContent = useCallback((footer, footerIndex) => (
             <Th
-                wrapperStyle={header.isVisible ? {width: `${header.width}px`} : {}}
-                key={`foot${headerIndex}`}
-                cls={`TableFooter ${classes.TfootTh} ${activeColumn === header.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
-                header={header}
-                headerIndex={headerIndex}
+                wrapperStyle={footer.isVisible ? {width: `${footer.width}px`} : {}}
+                key={`foot${footerIndex}`}
+                cls={`TableFooter ${classes.TfootTh} ${activeColumn === footer.key ? (crossHighlightClass || columnHighlightClass) : ''}`}
+                header={footer}
+                headerIndex={footerIndex}
                 pos="footer"
-            >{getColumnContent({header, headerIndex})}</Th>
+            >{getColumnContent({footer, footerIndex})}</Th>
         ), [activeColumn, classes.TfootTh, columnHighlightClass, crossHighlightClass, getColumnContent]);
         
 

@@ -107,10 +107,10 @@ export default () => {
                     }
                     content = header.header(headerProps);
                 } else {
-                    content = header.header;
+                    content = header.isVisible ? header.header : null;
                 }
             } else {
-                content = header.isVisible ? header.key : '';
+                content = header.isVisible ? header.key : null;
             }
             return content;
         }, [
