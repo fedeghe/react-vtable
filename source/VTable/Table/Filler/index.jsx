@@ -6,10 +6,10 @@ import useStyles from './style.js';
 export default ({
     height,
     colspan,
-    // leftMost,
-    // rightMost
+    // LeftMost,
+    // RightMost
 }) => {
-
+    // console.log({LeftMost, RightMost});
     /**
      * Here the leftMost and right most styles column could be rendered, it woud look a way better
      */

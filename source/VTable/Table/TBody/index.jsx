@@ -76,7 +76,7 @@ export default () => {
                 />
                 {headers.map(getTdContent({row, rowIndex}))}
                 <RightMost
-                cls={getSideMostClasses({row, dirClass: classes.TbodyThRightMost})}
+                    cls={getSideMostClasses({row, dirClass: classes.TbodyThRightMost})}
                     opts={{ row, rowIndex: rowIndex + fromRow, type: 'body'}}
                 />
             </Tr>
@@ -84,9 +84,9 @@ export default () => {
 
     return (
         <tbody>
-            <Filler {...{ height: headerFillerHeight, colspan, leftMost }} />
+            <Filler {...{ height: headerFillerHeight, colspan, LeftMost, RightMost }} />
             {rows.map(getTrContent)}
-            <Filler {...{ height: footerFillerHeight, colspan, rightMost }} />
+            <Filler {...{ height: footerFillerHeight, colspan, LeftMost, RightMost }} />
         </tbody>
     );
 };
