@@ -84,9 +84,9 @@ export default () => {
 
     return (
         <tbody>
-            <Filler {...{ height: headerFillerHeight, colspan, LeftMost, RightMost }} />
+            <Filler {...{ height: headerFillerHeight, colspan }} />
             {rows.map(getTrContent)}
-            <Filler {...{ height: footerFillerHeight, colspan, LeftMost, RightMost }} />
+            <Filler {...{ height: footerFillerHeight, colspan }} />
         </tbody>
     );
 };
