@@ -293,6 +293,7 @@ const actions = {
                     virtual
                 }),
             }[type] || emptyObjFuncf;
+        if (typeof type === 'undefined') throw new Error('Action type not given');
         if (type in actions){
             return {
                 ...oldState,
