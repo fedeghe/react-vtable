@@ -1,4 +1,4 @@
-import { isFunction } from './../../utils';
+import { isFunction } from './../utils';
 import {
     uniqueID, __getFillerHeights, __filter, __globalFilter,
     __cleanFilters, __sort, __updateVirtualization, __arrRep,
@@ -9,7 +9,7 @@ import {
     HEIGHT, WIDTH, ROW_HEIGHT, HEADER_CAPTION_HEIGHT, FOOTER_CAPTION_HEIGHT,
     RVT_ID, GAP, COLUMN_WIDTH, DEBOUNCE_SCROLLING, DEBOUNCE_FILTERING,
     VIRTUALIZATION_CUTOFF, NO_FILTER_DATA_MESSAGE, COMMON_REMOVED_CONTENT
-} from './../../constants';
+} from './../constants';
 
 
 // eslint-disable-next-line one-var

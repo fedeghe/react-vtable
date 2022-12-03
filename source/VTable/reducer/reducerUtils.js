@@ -1,4 +1,4 @@
-import {isFunction} from './../../utils';
+import {isFunction} from './../utils';
 let count = 0;
 const prefix = 'HYT_';
 // eslint-disable-next-line one-var

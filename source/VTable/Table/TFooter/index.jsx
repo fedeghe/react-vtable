@@ -1,10 +1,10 @@
 import React, {useContext, useCallback} from 'react';
-import TableContext from '../../Context';
-import { ACTION_TYPES } from '../reducer/actions';
-import RightMost from '../RightMost';
+import TableContext from './../../Context';
+import { ACTION_TYPES } from './../../reducer/actions';
+import RightMost from './../RightMost';
 import LeftMost from '../LeftMost';
-import Tr from '../Tr';
-import Th from '../Th';
+import Tr from './../Tr';
+import Th from './../Th';
 import {isFunction, debounce} from './../../utils';
 import useStyles from './style.js';
 export default () => {
