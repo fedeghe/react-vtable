@@ -13,7 +13,7 @@ import TFooter from './TFooter';
 import TableContext from './../Context';
 import { debounce } from './../utils';
 import useStyles from './style.js';
-import { ACTION_TYPES } from '../reducer';
+import { ACTION_TYPES } from './reducer/actions';
 
 export default () => {
     const ref = useRef(),

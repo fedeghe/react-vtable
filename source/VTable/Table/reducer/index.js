@@ -1,39 +1,16 @@
-import { isFunction } from './utils';
+import { isFunction } from './../../utils';
 import {
     uniqueID, __getFillerHeights, __filter, __globalFilter,
     __cleanFilters, __sort, __updateVirtualization, __arrRep,
     __getVirtual
 } from './reducerUtils';
+import { ACTION_TYPES } from './actions';
 import {
     HEIGHT, WIDTH, ROW_HEIGHT, HEADER_CAPTION_HEIGHT, FOOTER_CAPTION_HEIGHT,
     RVT_ID, GAP, COLUMN_WIDTH, DEBOUNCE_SCROLLING, DEBOUNCE_FILTERING,
     VIRTUALIZATION_CUTOFF, NO_FILTER_DATA_MESSAGE, COMMON_REMOVED_CONTENT
-} from './constants';
+} from './../../constants';
 
-const TOGGLE_COLUMN_VISIBILITY= Symbol(),
-    LOADING= Symbol(),
-    GLOBAL_FILTER= Symbol(),
-    FILTER= Symbol(),
-    UNFILTER= Symbol(),
-    SORT= Symbol(),
-    UNSORT= Symbol(),
-    CELL_ENTER= Symbol(),
-    CELL_LEAVE= Symbol(),
-    SCROLL= Symbol();
-
-// eslint-disable-next-line one-var
-export const ACTION_TYPES = {
-    TOGGLE_COLUMN_VISIBILITY,
-    LOADING,
-    GLOBAL_FILTER,
-    FILTER,
-    UNFILTER,
-    SORT,
-    UNSORT,
-    CELL_ENTER,
-    CELL_LEAVE,
-    SCROLL,
-};
 
 // eslint-disable-next-line one-var
 const actions = {
