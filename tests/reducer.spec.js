@@ -1,7 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import reducerFactory, {ACTION_TYPES} from './../source/VTable/reducer'
+import reducerFactory from './../source/VTable/reducer'
+import ACTION_TYPES from './../source/VTable/reducer/actions'
 import zeroConfig from './configs/zero'
 import emptyDefaultState  from './emptyDefaultState.json'
 

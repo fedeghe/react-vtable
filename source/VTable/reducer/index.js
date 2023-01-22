@@ -4,7 +4,7 @@ import {
     __cleanFilters, __sort, __updateVirtualization, __arrRep,
     __getVirtual
 } from './reducerUtils';
-import { ACTION_TYPES } from './actions';
+import ACTION_TYPES from './actions';
 import {
     HEIGHT, WIDTH, ROW_HEIGHT, HEADER_CAPTION_HEIGHT, FOOTER_CAPTION_HEIGHT,
     RVT_ID, GAP, COLUMN_WIDTH, DEBOUNCE_SCROLLING, DEBOUNCE_FILTERING,

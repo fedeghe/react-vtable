@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 
 import TableContext from './Context';
 import reducerFactory from './reducer';
-import { ACTION_TYPES } from './reducer/actions';
+import ACTION_TYPES from './reducer/actions';
 import Table from './Table';
 import Caption from './Table/Caption';
 

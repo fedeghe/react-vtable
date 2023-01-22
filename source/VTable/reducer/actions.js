@@ -11,7 +11,7 @@ const TOGGLE_COLUMN_VISIBILITY= Symbol('toggle a table column visibility'),
     INIT = Symbol('state initialization');
 
 // eslint-disable-next-line one-var
-export const ACTION_TYPES = {
+export default {
     TOGGLE_COLUMN_VISIBILITY,
     LOADING,
     GLOBAL_FILTER,

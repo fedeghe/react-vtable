@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 import TableContext from './../../Context';
-import { ACTION_TYPES } from './../../reducer/actions';
+import ACTION_TYPES from './../../reducer/actions';
 import useStyles from './style.js';
 
 export default ({ row, header, rowIndex, headerIndex, cls, children, pos, wrapperStyle }) => {

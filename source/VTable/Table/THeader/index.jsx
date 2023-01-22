@@ -1,6 +1,6 @@
 import React, {useContext, useCallback} from 'react';
 import TableContext from './../../Context';
-import { ACTION_TYPES } from './../../reducer/actions';
+import ACTION_TYPES from './../../reducer/actions';
 import RightMost from './../RightMost';
 import LeftMost from './../LeftMost';
 import Tr from './../Tr';
