@@ -15,10 +15,9 @@ import {
 // eslint-disable-next-line one-var
 const actions = {
         [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: ({
-            payload, headers, virtual, LeftMost, RightMost
+            payload: {key, isVisible}, oldState : {headers, virtual, LeftMost, RightMost}
         }) => {
-            const { key, isVisible } = payload,
-                cIndex = headers.findIndex(c => c.key === key);
+            const cIndex = headers.findIndex(c => c.key === key);
             if (cIndex === -1) return {};
 
             // eslint-disable-next-line one-var
@@ -33,7 +32,7 @@ const actions = {
             };
         },
 
-        [ACTION_TYPES.LOADING]: ({virtual}) => ({
+        [ACTION_TYPES.LOADING]: ({oldState: {virtual}}) => ({
             virtual: {
                 ...virtual,
                 loading: true
@@ -41,9 +40,18 @@ const actions = {
         }),
 
         [ACTION_TYPES.GLOBAL_FILTER]: ({
-            payload : value, filters, headers, originalData, sorter,
-            sortingColumn, sortingDirection, virtualization, virtual,
-            rowHeight, renderableElements, contentHeight, dataHeight
+            payload : value,
+            oldState: {
+                filters, headers, originalData, 
+                virtualization, virtual,
+                virtual : {renderableElements, contentHeight, dataHeight},
+                sorting: {
+                    sorter,
+                    header: sortingColumn,
+                    direction: sortingDirection,
+                },
+                dimensions: {rowHeight}
+            },
         }) => {
             const _filterNumbers = Object.values(filters).filter(f => f.value && f.visibility).length,
                 _filteredData = _filterNumbers
@@ -74,9 +82,26 @@ const actions = {
         },
 
         [ACTION_TYPES.FILTER]: ({
-            payload, filters, originalData, globalFilterValue, headers, sorter, sortingColumn, 
-            sortingDirection, virtualization, virtual,
-            rowHeight, renderableElements, contentHeight, dataHeight
+            payload,
+            oldState: {
+                filters,
+                originalData,
+                globalFilterValue,
+                headers,
+                virtualization,
+                virtual,
+                virtual: {
+                    renderableElements,
+                    contentHeight,
+                    dataHeight
+                },
+                dimensions: {rowHeight},
+                sorting: {
+                    sorter,
+                    header: sortingColumn,
+                    direction: sortingDirection,
+                },
+            }
         }) => {
             const updatedFields = {};
             ('value' in payload) && (updatedFields.value = payload.value);
@@ -119,8 +144,25 @@ const actions = {
         },
 
         [ACTION_TYPES.UNFILTER]: ({
-            originalData, sorter, sortingColumn, sortingDirection, virtualization, filters, virtual,
-            rowHeight, renderableElements, contentHeight, dataHeight
+            oldState: {
+                originalData,
+                sorting: {
+                    sorter,
+                    header: sortingColumn,
+                    direction: sortingDirection,
+                },
+                virtualization,
+                filters,
+                virtual,
+                virtual: {
+                    renderableElements,
+                    contentHeight,
+                    dataHeight
+                },
+                dimensions: {
+                    rowHeight
+                }
+            },
         }) => {
             const _currentData = __sort(originalData, sorter, sortingColumn, sortingDirection),
                 _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
@@ -147,7 +189,14 @@ const actions = {
         },
 
         [ACTION_TYPES.SORT]: ({
-            payload, currentData, fromRow, toRow
+            payload,
+            oldState: {
+                currentData,
+                virtual: {
+                    fromRow, 
+                    toRow,
+                },
+            }
         }) => {
             const _currentData = __sort(currentData, payload.sorter, payload.header, payload.direction);
             return {
@@ -158,7 +207,15 @@ const actions = {
             };
         },
 
-        [ACTION_TYPES.UNSORT]: ({ filteredData, fromRow, toRow }) => ({
+        [ACTION_TYPES.UNSORT]: ({
+            oldState: {
+                filteredData,
+                virtual: {
+                    fromRow, 
+                    toRow,
+                },
+            }    
+        }) => ({
             currentData: [...filteredData],
             rows: [...filteredData].slice(fromRow, toRow),
             isSorting: false,
@@ -169,7 +226,7 @@ const actions = {
             }
         }),
 
-        [ACTION_TYPES.CELL_ENTER]: ({payload, rhtID}) => ({
+        [ACTION_TYPES.CELL_ENTER]: ({payload, oldState:{rhtID}}) => ({
             activeColumn: payload?.header?.key,
             activeRow: payload?.row[rhtID],
             activeColumnIndex: payload?.headerIndex,
@@ -184,9 +241,24 @@ const actions = {
         }),
 
         [ACTION_TYPES.SCROLL]: ({
-            payload, moreSpaceThanContent, rowHeight, gap, renderableElements,
-            total, carpetHeight, contentHeight, dataHeight, virtualization, currentData,
-            virtual
+            payload,
+            oldState: {
+                virtualization,
+                currentData,
+                virtual,
+                virtual: {
+                    moreSpaceThanContent,
+                    renderableElements,
+                    carpetHeight,
+                    contentHeight,
+                    dataHeight,
+                },
+                dimensions: {
+                    rowHeight,
+                },
+                total,
+                gap,
+            },
         }) => {
             if (moreSpaceThanContent) return {};
             const _scrollTop = parseInt(payload, 10),
@@ -216,66 +288,15 @@ const actions = {
     },
 
     reducer = (oldState, action) => {
-        const { payload = {}, type } = action,
-            {
-                total,
-                filters,
-                globalFilterValue,
-                headers,
-                originalData, filteredData, currentData,
-                gap,
-                LeftMost, RightMost,
-                dimensions: {
-                    rowHeight
-                },
-                sorting: {
-                    header: sortingColumn,
-                    direction: sortingDirection,
-                    sorter
-                },
-                virtualization,
-                virtual,
-                virtual: {
-                    fromRow, toRow,
-                    dataHeight, contentHeight, carpetHeight,
-                    moreSpaceThanContent,
-                    renderableElements,
-                },
-                rhtID
-            } = oldState,
-            emptyObjFuncf = () => ({}),
-            params = {
-                [ACTION_TYPES.TOGGLE_COLUMN_VISIBILITY]: ()  =>({payload, headers, virtual, LeftMost, RightMost}),
-                [ACTION_TYPES.LOADING]: ()  =>({virtual}),
-                [ACTION_TYPES.GLOBAL_FILTER]: ()  =>({
-                    payload, filters, headers, originalData, sorter, sortingColumn, sortingDirection,
-                    virtualization, virtual,
-                    rowHeight, renderableElements, contentHeight, dataHeight
-                }),
-                [ACTION_TYPES.FILTER]: ()  =>({
-                    payload, filters, originalData, globalFilterValue, headers, sorter, sortingColumn, 
-                    sortingDirection, virtualization, virtual,
-                    rowHeight, renderableElements, contentHeight, dataHeight
-                }),
-                [ACTION_TYPES.UNFILTER]: ()  =>({
-                    originalData, sorter, sortingColumn, sortingDirection, virtualization, filters, virtual,
-                    rowHeight, renderableElements, contentHeight, dataHeight
-                }),
-                [ACTION_TYPES.SORT]: ()  =>({payload, currentData, fromRow, toRow}),
-                [ACTION_TYPES.UNSORT]: ()  =>({filteredData, fromRow, toRow}),
-                [ACTION_TYPES.CELL_ENTER]: ()  =>({payload, rhtID}),
-                [ACTION_TYPES.SCROLL]: ()  =>({
-                    payload, moreSpaceThanContent, rowHeight, gap, renderableElements,
-                    total, carpetHeight, contentHeight, dataHeight, virtualization, currentData,
-                    virtual
-                }),
-            }[type] || emptyObjFuncf;
+        const { payload = {}, type } = action;
         if (typeof type === 'undefined') throw new Error('Action type not given');
         if (type in actions){
             return {
                 ...oldState,
-                ...actions[type](params())
+                ...actions[type]({payload, oldState})
             };
+        } else {
+            console.warn(`Action ${type} not expected`);
         }
         return oldState;
     },
