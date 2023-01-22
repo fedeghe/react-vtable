@@ -7,7 +7,8 @@ const TOGGLE_COLUMN_VISIBILITY= Symbol('toggle a table column visibility'),
     UNSORT= Symbol('unsort'),
     CELL_ENTER= Symbol('cell entered'),
     CELL_LEAVE= Symbol('cell left'),
-    SCROLL= Symbol('scrolling');
+    SCROLL= Symbol('scrolling'),
+    INIT = Symbol('state initialization');
 
 // eslint-disable-next-line one-var
 export const ACTION_TYPES = {
@@ -21,4 +22,5 @@ export const ACTION_TYPES = {
     CELL_ENTER,
     CELL_LEAVE,
     SCROLL,
+    INIT,
 };

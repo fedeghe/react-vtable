@@ -284,6 +284,254 @@ const actions = {
                     toRow: _toRow - 1,
                 }
             };
+        },
+        [ACTION_TYPES.INIT]: ({payload: cnf}) => {
+            let activeFiltersCount = 0;
+            const {
+                data = [],
+                headers = [],
+                dimensions: {
+                    height = HEIGHT,
+                    width = WIDTH,
+                    rowHeight = ROW_HEIGHT,
+                } = {},
+                globalPreFilter = '',
+                header: {
+                    height: headerHeight = 0,
+                    caption: {
+                        Component: HeaderCaption = null,
+                        height: headerCaptionHeight = HEADER_CAPTION_HEIGHT
+                    } = {}
+                } = {},
+                footer: {
+                    height: footerHeight = 0,
+                    caption: {
+                        Component: FooterCaption = null,
+                        height: footerCaptionHeight = FOOTER_CAPTION_HEIGHT
+                    } = {}
+                } = {},
+                gap = GAP,
+                Loader = () => null,
+                defaultColumnWidth = COLUMN_WIDTH,
+                commonRemovedContent = COMMON_REMOVED_CONTENT,
+                cls: {
+                    highlight: {
+                        rowHighlightClass = '',
+                        columnHighlightClass = '',
+                        crossHighlightClass = '',
+                        cellHightlightClass = '',
+                    } = {},
+                    elements: {
+                        contentClass = '',
+                        cellClass = '',
+                        rowClass = '',
+                        wrapperClass = '',
+                    } = {},
+                } = {},
+    
+                NoFilterData = () => NO_FILTER_DATA_MESSAGE,
+    
+                LeftMost, RightMost,
+                events: {
+                    onCellClick = null,
+                    onCellEnter = null,
+                    onCellLeave = null,
+    
+                    onHeaderHighlight = false,
+                    onFooterHighlight = false,
+                    onLeftMostHighlight = false,
+                    onRightMostHighlight = false,
+                    shiftPageScroll = false,
+                } = {},
+                debounceTimes: {
+                    filtering = DEBOUNCE_FILTERING,
+                    scrolling = DEBOUNCE_SCROLLING
+                } = {},
+                rhtID = RVT_ID,
+                virtualization: {
+                    verticalCutoff = VIRTUALIZATION_CUTOFF,
+                } = {}
+            } = cnf;
+    
+            // eslint-disable-next-line one-var
+            const _headers = headers.map(
+                header => ({
+                    ...header,
+                    isVisible: 'isVisible' in header ? header.isVisible : true
+                })).map(
+                    header => header.width ? header : { ...header, width: defaultColumnWidth }
+                ),
+                filters = _headers.reduce((acc, header) => {
+                    if (isFunction(header.filter)) {
+                        const value = header.preFiltered || '';
+                        activeFiltersCount += !!value;
+                        acc[header.key] = {
+                            filter: header.filter,
+                            value,
+                            visibility: !!value
+                        };
+                    }
+                    return acc;
+                }, {}),
+                originalData = data.map(row => ({ [rhtID]: `${uniqueID}`, ...row })),
+                contentHeight = height
+                    - (HeaderCaption ? headerCaptionHeight : 0)
+                    - headerHeight - footerHeight
+                    - (FooterCaption ? footerCaptionHeight : 0),
+                renderableElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
+                dataHeight = renderableElements * rowHeight,
+    
+                // prefilter ? 
+                filteredData = __filter(filters,
+                    globalPreFilter
+                        ? __globalFilter(globalPreFilter, headers, originalData)
+                        : originalData
+                ),
+    
+                virtualization = {
+                    verticalCutoff,
+                    verticalEnabled: filteredData.length >= verticalCutoff
+                },
+    
+                carpetHeight = filteredData.length * rowHeight,
+                moreSpaceThanContent = carpetHeight < contentHeight,
+                visibleElements = Math.floor(contentHeight / rowHeight),
+                visibleElementsHeight = visibleElements * rowHeight,
+                fillerHeights = __getFillerHeights({
+                    fromRow: 0,
+                    moreSpaceThanContent,
+                    carpetHeight,
+                    rowHeight,
+                    contentHeight,
+                    dataHeight,
+                    virtualization
+                }),
+    
+    
+                // initial sorting ? 
+                presortIndex = headers.findIndex(c => 'preSorted' in c && ['asc', 'desc'].includes(c.preSorted));
+    
+            // eslint-disable-next-line one-var
+            let currentData = [...filteredData],
+                sorting = {
+                    header: null,
+                    direction: null,
+                    sorter: null,
+                },
+                isSorting = false;
+    
+    
+            if (presortIndex >= 0) {
+                // throw an exception in case the sort function is not in the header
+                if (!isFunction(headers[presortIndex].sort)) {
+                    throw new Error("a presorted header needs a sort function");
+                }
+                currentData = currentData.sort((a, b) => headers[presortIndex].sort({
+                    rowA: a,
+                    rowB: b,
+                    headerKey: headers[presortIndex].key,
+                    direction: headers[presortIndex].preSorted
+                }));
+                sorting = {
+                    header: headers[presortIndex].key,
+                    direction: headers[presortIndex].preSorted,
+                    sorter: headers[presortIndex].sort
+                };
+                isSorting = true;
+            }
+    
+            return {
+                ...cnf,
+                gap,
+                headers: _headers,
+                sorting,
+                isSorting,
+    
+                filters,
+                globalFilterValue: globalPreFilter,
+                activeFiltersCount,
+                isFiltering: activeFiltersCount > 0,
+    
+                dimensions: {
+                    width, height,
+                    rowHeight
+                },
+    
+                header: {
+                    height: headerHeight,
+                    caption: {
+                        Component: HeaderCaption,
+                        height: headerCaptionHeight
+                    }
+                },
+                footer: {
+                    height: footerHeight,
+                    caption: {
+                        Component: FooterCaption,
+                        height: footerCaptionHeight
+                    }
+                },
+                NoFilterData,
+                originalData,
+                currentData,
+                filteredData,
+                rows: currentData.slice(0, renderableElements),
+                filtered: currentData.length,
+                total: originalData.length,
+                activeRow: null,
+                activeColumn: null,
+                activeRowIndex: null,
+                activeColumnIndex: null,
+                commonRemovedContent,
+                rhtID,
+                events: {
+                    onCellClick,
+                    onCellEnter,
+                    onCellLeave,
+                    onHeaderHighlight,
+                    onFooterHighlight,
+                    onLeftMostHighlight,
+                    onRightMostHighlight,
+                    shiftPageScroll
+                },
+                cls: {
+                    highlight: {
+                        rowHighlightClass,
+                        columnHighlightClass,
+                        crossHighlightClass,
+                        cellHightlightClass,
+                    },
+                    elements: {
+                        contentClass,
+                        cellClass,
+                        rowClass,
+                        wrapperClass,
+                    },
+                },
+                virtual: {
+                    colspan: _headers.filter(c => c.isVisible).length + !!LeftMost + !!RightMost,
+                    moreSpaceThanContent,
+                    dataHeight,
+                    contentHeight,
+                    scrollTop: 0,
+                    fromRow: 0,
+                    toRow: renderableElements - 1,
+                    renderableElements,
+                    carpetHeight,
+                    visibleElements,
+                    visibleElementsHeight,
+                    loading: false,
+                    Loader,
+                    ...fillerHeights,
+                },
+    
+                debounceTimes: {
+                    filtering,
+                    scrolling
+                },
+    
+                virtualization
+            };
         }
     },
 
@@ -299,258 +547,9 @@ const actions = {
             console.warn(`Action ${type} not expected`);
         }
         return oldState;
-    },
-
-    init = (cnf = {}) => {
-        let activeFiltersCount = 0;
-        const {
-            data = [],
-            headers = [],
-            dimensions: {
-                height = HEIGHT,
-                width = WIDTH,
-                rowHeight = ROW_HEIGHT,
-            } = {},
-            globalPreFilter = '',
-            header: {
-                height: headerHeight = 0,
-                caption: {
-                    Component: HeaderCaption = null,
-                    height: headerCaptionHeight = HEADER_CAPTION_HEIGHT
-                } = {}
-            } = {},
-            footer: {
-                height: footerHeight = 0,
-                caption: {
-                    Component: FooterCaption = null,
-                    height: footerCaptionHeight = FOOTER_CAPTION_HEIGHT
-                } = {}
-            } = {},
-            gap = GAP,
-            Loader = () => null,
-            defaultColumnWidth = COLUMN_WIDTH,
-            commonRemovedContent = COMMON_REMOVED_CONTENT,
-            cls: {
-                highlight: {
-                    rowHighlightClass = '',
-                    columnHighlightClass = '',
-                    crossHighlightClass = '',
-                    cellHightlightClass = '',
-                } = {},
-                elements: {
-                    contentClass = '',
-                    cellClass = '',
-                    rowClass = '',
-                    wrapperClass = '',
-                } = {},
-            } = {},
-
-            NoFilterData = () => NO_FILTER_DATA_MESSAGE,
-
-            LeftMost, RightMost,
-            events: {
-                onCellClick = null,
-                onCellEnter = null,
-                onCellLeave = null,
-
-                onHeaderHighlight = false,
-                onFooterHighlight = false,
-                onLeftMostHighlight = false,
-                onRightMostHighlight = false,
-                shiftPageScroll = false,
-            } = {},
-            debounceTimes: {
-                filtering = DEBOUNCE_FILTERING,
-                scrolling = DEBOUNCE_SCROLLING
-            } = {},
-            rhtID = RVT_ID,
-            virtualization: {
-                verticalCutoff = VIRTUALIZATION_CUTOFF,
-            } = {}
-        } = cnf;
-
-        // eslint-disable-next-line one-var
-        const _headers = headers.map(
-            header => ({
-                ...header,
-                isVisible: 'isVisible' in header ? header.isVisible : true
-            })).map(
-                header => header.width ? header : { ...header, width: defaultColumnWidth }
-            ),
-            filters = _headers.reduce((acc, header) => {
-                if (isFunction(header.filter)) {
-                    const value = header.preFiltered || '';
-                    activeFiltersCount += !!value;
-                    acc[header.key] = {
-                        filter: header.filter,
-                        value,
-                        visibility: !!value
-                    };
-                }
-                return acc;
-            }, {}),
-            originalData = data.map(row => ({ [rhtID]: `${uniqueID}`, ...row })),
-            contentHeight = height
-                - (HeaderCaption ? headerCaptionHeight : 0)
-                - headerHeight - footerHeight
-                - (FooterCaption ? footerCaptionHeight : 0),
-            renderableElements = Math.ceil(contentHeight / rowHeight) + 2 * gap,
-            dataHeight = renderableElements * rowHeight,
-
-            // prefilter ? 
-            filteredData = __filter(filters,
-                globalPreFilter
-                    ? __globalFilter(globalPreFilter, headers, originalData)
-                    : originalData
-            ),
-
-            virtualization = {
-                verticalCutoff,
-                verticalEnabled: filteredData.length >= verticalCutoff
-            },
-
-            carpetHeight = filteredData.length * rowHeight,
-            moreSpaceThanContent = carpetHeight < contentHeight,
-            visibleElements = Math.floor(contentHeight / rowHeight),
-            visibleElementsHeight = visibleElements * rowHeight,
-            fillerHeights = __getFillerHeights({
-                fromRow: 0,
-                moreSpaceThanContent,
-                carpetHeight,
-                rowHeight,
-                contentHeight,
-                dataHeight,
-                virtualization
-            }),
-
-
-            // initial sorting ? 
-            presortIndex = headers.findIndex(c => 'preSorted' in c && ['asc', 'desc'].includes(c.preSorted));
-
-        // eslint-disable-next-line one-var
-        let currentData = [...filteredData],
-            sorting = {
-                header: null,
-                direction: null,
-                sorter: null,
-            },
-            isSorting = false;
-
-
-        if (presortIndex >= 0) {
-            // throw an exception in case the sort function is not in the header
-            if (!isFunction(headers[presortIndex].sort)) {
-                throw new Error("a presorted header needs a sort function");
-            }
-            currentData = currentData.sort((a, b) => headers[presortIndex].sort({
-                rowA: a,
-                rowB: b,
-                headerKey: headers[presortIndex].key,
-                direction: headers[presortIndex].preSorted
-            }));
-            sorting = {
-                header: headers[presortIndex].key,
-                direction: headers[presortIndex].preSorted,
-                sorter: headers[presortIndex].sort
-            };
-            isSorting = true;
-        }
-
-        return {
-            ...cnf,
-            gap,
-            headers: _headers,
-            sorting,
-            isSorting,
-
-            filters,
-            globalFilterValue: globalPreFilter,
-            activeFiltersCount,
-            isFiltering: activeFiltersCount > 0,
-
-            dimensions: {
-                width, height,
-                rowHeight
-            },
-
-            header: {
-                height: headerHeight,
-                caption: {
-                    Component: HeaderCaption,
-                    height: headerCaptionHeight
-                }
-            },
-            footer: {
-                height: footerHeight,
-                caption: {
-                    Component: FooterCaption,
-                    height: footerCaptionHeight
-                }
-            },
-            NoFilterData,
-            originalData,
-            currentData,
-            filteredData,
-            rows: currentData.slice(0, renderableElements),
-            filtered: currentData.length,
-            total: originalData.length,
-            activeRow: null,
-            activeColumn: null,
-            activeRowIndex: null,
-            activeColumnIndex: null,
-            commonRemovedContent,
-            rhtID,
-            events: {
-                onCellClick,
-                onCellEnter,
-                onCellLeave,
-                onHeaderHighlight,
-                onFooterHighlight,
-                onLeftMostHighlight,
-                onRightMostHighlight,
-                shiftPageScroll
-            },
-            cls: {
-                highlight: {
-                    rowHighlightClass,
-                    columnHighlightClass,
-                    crossHighlightClass,
-                    cellHightlightClass,
-                },
-                elements: {
-                    contentClass,
-                    cellClass,
-                    rowClass,
-                    wrapperClass,
-                },
-            },
-            virtual: {
-                colspan: _headers.filter(c => c.isVisible).length + !!LeftMost + !!RightMost,
-                moreSpaceThanContent,
-                dataHeight,
-                contentHeight,
-                scrollTop: 0,
-                fromRow: 0,
-                toRow: renderableElements - 1,
-                renderableElements,
-                carpetHeight,
-                visibleElements,
-                visibleElementsHeight,
-                loading: false,
-                Loader,
-                ...fillerHeights,
-            },
-
-            debounceTimes: {
-                filtering,
-                scrolling
-            },
-
-            virtualization
-        };
     };
 
 export default () => ({
     reducer,
-    init
+    init: (cnf = {}) => reducer({}, {type: ACTION_TYPES.INIT, payload: cnf})
 });
