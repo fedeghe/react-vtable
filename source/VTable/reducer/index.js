@@ -285,6 +285,7 @@ const actions = {
                 }
             };
         },
+        
         [ACTION_TYPES.INIT]: ({payload: cnf}) => {
             let activeFiltersCount = 0;
             const {
