@@ -14,7 +14,6 @@ export default ({
     downloadJson,
     downloadXsv,
 }) => {
-    console.log({activeFiltersCount})
     const classes = useStyles({isSorting,});
     return (
     <div className={classes.Container}>
