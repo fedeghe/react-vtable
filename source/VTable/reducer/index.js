@@ -42,7 +42,7 @@ const actions = {
         [ACTION_TYPES.GLOBAL_FILTER]: ({
             payload : value,
             oldState: {
-                filters, headers, originalData, 
+                filters, headers, originalData,
                 virtualization, virtual,
                 virtual : {renderableElements, contentHeight, dataHeight},
                 sorting: {
@@ -53,10 +53,12 @@ const actions = {
                 dimensions: {rowHeight}
             },
         }) => {
+            // debugger
+
             const _filterNumbers = Object.values(filters).filter(f => f.value && f.visibility).length,
-                _filteredData = _filterNumbers
-                    ? __filter(filters, _filteredData)
-                    : __globalFilter(value, headers, originalData),
+                fData = _filterNumbers
+                    ? __filter(filters, originalData) : originalData,
+                _filteredData =  __globalFilter(value, headers, fData),
                 _currentData = __sort(_filteredData, sorter, sortingColumn, sortingDirection),
                 _virtualization = __updateVirtualization({ currentData: _currentData, virtualization }),
                 _updatedVirtual = __getVirtual({
@@ -67,7 +69,7 @@ const actions = {
             return {
                 // filters: __cleanFilters(filters),
                 globalFilterValue: value,
-                isFiltering: !!value,
+                isFiltering: _filterNumbers > 0 || !!value,
                 virtual: {
                     ...virtual,
                     ..._updatedVirtual,
@@ -77,7 +79,7 @@ const actions = {
                 filtered: _currentData.length,
                 rows: [..._currentData].slice(_updatedVirtual.fromRow, _updatedVirtual.toRow),
                 virtualization: _virtualization,
-                activeFiltersCount: _filterNumbers + 1,
+                activeFiltersCount: _filterNumbers + ~~!!value.length,
             };
         },
 
@@ -126,7 +128,7 @@ const actions = {
                     _currentData, _virtualization,
                     rowHeight, renderableElements, contentHeight, dataHeight
                 });
-
+            
             return {
                 filters: _filters,
                 filtered: _currentData.length,
