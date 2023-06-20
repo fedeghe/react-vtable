@@ -28,7 +28,7 @@ export default size => ({
         
         sort: basicSort,
 
-        // preSorted: 'asc', // autosort at init ? 
+        preSorted: 'asc', // autosort at init ? 
         
         // preFiltered: '23',
         visibilist: Visibilist,
